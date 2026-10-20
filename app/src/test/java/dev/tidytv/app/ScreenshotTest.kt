@@ -32,6 +32,9 @@ import org.robolectric.annotation.GraphicsMode
 @GraphicsMode(GraphicsMode.Mode.NATIVE)
 @Config(sdk = [35])
 class ScreenshotTest {
+    // Activity times render in the default zone; pin it so screenshots match on any machine.
+    @org.junit.Before fun utc() { java.util.TimeZone.setDefault(java.util.TimeZone.getTimeZone("UTC")) }
+
     private data class Size(val name: String, val widthDp: Int, val font: Float)
     private val sizes = listOf(Size("360", 360, 1f), Size("412", 412, 1f), Size("360-large", 360, 1.6f))
 
