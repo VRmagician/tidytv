@@ -1,0 +1,404 @@
+<title>tidytv</title>
+<meta name="claude:viewport-fit-sides" content="cover">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="tidytv is a free, open-source phone app that turns off the ads, trackers and bloat on your Android TV. No computer, no AI. One tap puts it all back.">
+<style>
+/* Layout: a calm, white product page. One idea per screen, centred, with wide margins and
+   soft grey tiles. The working pieces of the app (switches, Restore, the TV search) are the
+   imagery; one quiet living-room photograph sets the scene. Motion is slow and small. */
+:root {
+  --bg: #FFFFFF;
+  --tile: #F5F5F7;
+  --tile-2: #EEF3FB;
+  --ink: #1D1D1F;
+  --soft: #6E6E73;
+  --line: #E3E3E8;
+  --accent: #0071E3;
+  --accent-hover: #0062C4;
+  --green: #17733A;
+  --green-switch: #34C759;
+  --green-soft: #E8F6EC;
+  --sans: -apple-system, BlinkMacSystemFont, "SF Pro Display", "SF Pro Text", "Helvetica Neue", "Segoe UI", Roboto, Arial, sans-serif;
+  --step-small: 0.9375rem;
+  --step-body: clamp(1.0625rem, 1rem + 0.2vw, 1.1875rem);
+  --step-lead: clamp(1.1875rem, 1.05rem + 0.6vw, 1.5rem);
+  --step-head: clamp(2.125rem, 1.4rem + 3vw, 4rem);
+  --step-hero: clamp(2.75rem, 1.5rem + 5vw, 5.5rem);
+  --ease: cubic-bezier(.22, .61, .36, 1);
+  color-scheme: light;
+}
+* { box-sizing: border-box; }
+html { scroll-behavior: smooth; }
+body { margin: 0; background: var(--bg); color: var(--ink); font-family: var(--sans); font-size: var(--step-body); line-height: 1.55; -webkit-font-smoothing: antialiased; }
+img { max-width: 100%; height: auto; display: block; }
+a { color: var(--accent); text-decoration: none; }
+a:hover { text-decoration: underline; }
+:focus-visible { outline: 3px solid var(--accent); outline-offset: 3px; border-radius: 10px; }
+.wrap { max-width: 1120px; margin: 0 auto; padding-left: max(24px, env(safe-area-inset-left, 0px)); padding-right: max(24px, env(safe-area-inset-right, 0px)); }
+h1, h2, h3 { margin: 0; font-weight: 700; letter-spacing: -0.028em; line-height: 1.06; text-wrap: balance; }
+p { margin: 0; }
+.center { text-align: center; }
+.lead { color: var(--soft); font-size: var(--step-lead); line-height: 1.4; }
+.pill { display: inline-flex; align-items: center; justify-content: center; gap: 10px; min-height: 50px; padding: 13px 26px; border-radius: 99px; background: var(--accent); color: #fff; font: 600 1.0625rem var(--sans); border: 0; cursor: pointer; transition: background .25s var(--ease), transform .25s var(--ease); }
+.pill:hover { background: var(--accent-hover); text-decoration: none; transform: translateY(-1px); }
+.pill:active { transform: scale(.97); }
+.pill svg { width: 18px; height: 18px; }
+.more { font-weight: 500; font-size: 1.0625rem; }
+.more::after { content: " ›"; }
+section { padding-block: clamp(96px, 12vw, 168px); }
+
+/* Nav */
+.bar { position: sticky; top: env(safe-area-inset-top, 0px); z-index: 10; background: var(--bg); transition: background .3s var(--ease); }
+.bar .wrap { display: flex; align-items: center; justify-content: space-between; gap: 16px; min-height: 60px; }
+.brand { display: inline-flex; align-items: center; gap: 10px; color: var(--ink); font-weight: 650; font-size: 1.1875rem; }
+.brand:hover { text-decoration: none; }
+.brand img { width: 30px; height: 30px; border-radius: 8px; }
+.bar ul { display: flex; gap: 30px; list-style: none; margin: 0; padding: 0; font-size: var(--step-small); }
+.bar ul a { color: var(--ink); opacity: .85; }
+.bar .pill { min-height: 36px; padding: 7px 18px; font-size: var(--step-small); }
+
+/* Hero */
+.hero { padding-block: clamp(56px, 7vw, 96px) 0; }
+.hero .icon { width: 92px; height: 92px; border-radius: 22px; margin: 0 auto 28px; }
+.hero h1 { font-size: var(--step-hero); }
+.hero .lead { max-width: 32ch; margin: 22px auto 0; }
+.hero .actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 30px; margin-top: 36px; }
+.hero .facts { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px 22px; margin-top: 22px; color: var(--soft); font-size: var(--step-small); }
+.stage { position: relative; margin: clamp(56px, 7vw, 88px) auto 0; max-width: 1280px; padding-inline: max(16px, env(safe-area-inset-left, 0px)); }
+.stage .photo { border-radius: 32px; overflow: hidden; aspect-ratio: 16 / 9; background: var(--tile); }
+.stage .photo img { width: 100%; height: 100%; object-fit: cover; }
+.stage .phone { position: absolute; left: 7%; bottom: -9%; width: clamp(150px, 19vw, 250px); border-radius: 30px; background: #111; padding: 7px; }
+.stage .phone img { border-radius: 24px; }
+
+/* Statement */
+.statement { padding-block: clamp(140px, 16vw, 220px) clamp(64px, 8vw, 110px); }
+.statement p { font-size: clamp(1.625rem, 1.1rem + 2vw, 2.5rem); font-weight: 650; letter-spacing: -0.022em; line-height: 1.22; max-width: 26ch; margin: 0 auto; text-align: center; }
+.statement p span { color: var(--soft); }
+
+/* Three steps */
+.steps h2 { font-size: var(--step-head); }
+.steps .lead { margin: 18px auto 0; max-width: 34ch; }
+.trio { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 20px; margin-top: 64px; }
+.step { background: var(--tile); border-radius: 30px; padding: 30px 30px 0; display: flex; flex-direction: column; gap: 10px; overflow: hidden; }
+.step h3 { font-size: 1.375rem; letter-spacing: -0.015em; }
+.step p { color: var(--soft); }
+.step .screen { margin: 22px auto 0; width: 82%; border-radius: 26px 26px 0 0; overflow: hidden; background: #111; padding: 6px 6px 0; }
+.step .screen img { border-radius: 20px 20px 0 0; aspect-ratio: 10 / 11; object-fit: cover; object-position: top; }
+
+/* Decide + compare */
+.decide { background: var(--tile); }
+.decide h2 { font-size: var(--step-head); }
+.decide .lead { margin: 18px auto 0; max-width: 36ch; }
+.pair { display: grid; grid-template-columns: minmax(0, 5fr) minmax(0, 7fr); gap: 24px; margin-top: 64px; align-items: start; }
+.card { background: var(--bg); border-radius: 30px; padding: 28px; }
+.card h3 { font-size: 1.375rem; margin-bottom: 6px; letter-spacing: -0.015em; }
+.card .note { color: var(--soft); font-size: var(--step-small); }
+.groups { list-style: none; margin: 20px 0 0; padding: 0; }
+.groups li { display: flex; align-items: center; justify-content: space-between; gap: 14px; min-height: 64px; }
+.groups li + li { border-top: 1px solid var(--line); }
+.groups .name { display: flex; align-items: center; gap: 14px; font-weight: 600; }
+.groups .name small { display: block; color: var(--soft); font-weight: 400; font-size: 0.875rem; }
+.dot { width: 36px; height: 36px; border-radius: 10px; display: grid; place-items: center; flex-shrink: 0; }
+.dot svg { width: 20px; height: 20px; }
+.switch { position: relative; width: 51px; height: 31px; border-radius: 99px; background: #E3E3E8; border: 0; cursor: pointer; flex-shrink: 0; transition: background .3s var(--ease); }
+.switch::after { content: ""; position: absolute; top: 2px; left: 2px; width: 27px; height: 27px; border-radius: 50%; background: #fff; box-shadow: 0 2px 5px rgba(0, 0, 0, .18); transition: transform .35s cubic-bezier(.3, 1.3, .5, 1); }
+.switch[aria-checked="true"] { background: var(--green-switch); }
+.switch[aria-checked="true"]::after { transform: translateX(20px); }
+.go { width: 100%; margin-top: 22px; background: var(--green); }
+.go:hover { background: #1A7533; }
+.kept { margin-top: 14px; color: var(--soft); font-size: 0.875rem; text-align: center; }
+.table-wrap { overflow-x: auto; }
+.compare { width: 100%; border-collapse: collapse; font-size: var(--step-small); margin-top: 18px; }
+.compare th, .compare td { text-align: left; padding: 15px 14px; border-bottom: 1px solid var(--line); vertical-align: top; }
+.compare thead th { font-weight: 600; color: var(--soft); font-size: 0.875rem; }
+.compare thead th:last-child { color: var(--accent); }
+.compare tbody th { font-weight: 600; width: 28%; }
+.compare td { color: var(--soft); }
+.compare td:last-child { color: var(--ink); font-weight: 600; background: var(--tile-2); }
+.compare tbody tr:last-child th, .compare tbody tr:last-child td { border-bottom: 0; }
+
+/* Restore */
+.restore .wrap { display: grid; grid-template-columns: minmax(0, 6fr) minmax(0, 5fr); gap: clamp(32px, 6vw, 96px); align-items: center; }
+.restore h2 { font-size: var(--step-head); }
+.restore .lead { margin-top: 20px; max-width: 30ch; }
+.facts-list { list-style: none; margin: 34px 0 0; padding: 0; display: grid; gap: 18px; }
+.facts-list li { display: grid; grid-template-columns: 28px minmax(0, 1fr); gap: 14px; }
+.facts-list li svg { width: 24px; height: 24px; margin-top: 2px; color: var(--green); }
+.facts-list b { display: block; font-weight: 600; }
+.facts-list span { color: var(--soft); }
+.demo { background: var(--tile); border-radius: 34px; padding: 34px; display: grid; gap: 18px; justify-items: center; text-align: center; }
+.demo .tv { width: 100%; aspect-ratio: 16 / 9; border-radius: 18px; background: #0E1B33; display: grid; place-items: center; padding: 18px; position: relative; overflow: hidden; }
+.tiles { display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; width: 100%; }
+.tiles span { aspect-ratio: 16 / 9; border-radius: 6px; background: #2A3D63; transition: opacity .4s var(--ease), transform .4s var(--ease); }
+.tiles span.ad { background: #E8A33D; }
+.tidy .tiles span.ad { opacity: 0; transform: scale(.85); }
+.demo .state { font-weight: 600; font-variant-numeric: tabular-nums; min-height: 1.6em; }
+.demo .row { display: flex; flex-wrap: wrap; gap: 12px; justify-content: center; }
+.ghost { background: var(--bg); color: var(--ink); }
+.ghost:hover { background: #E8E8ED; }
+
+/* Search */
+.find { background: var(--tile); }
+.find h2 { font-size: var(--step-head); }
+.find .lead { margin: 18px auto 44px; max-width: 34ch; }
+.search { max-width: 640px; margin: 0 auto; }
+.search .box { display: flex; align-items: center; gap: 12px; background: var(--bg); border-radius: 18px; padding: 6px 18px; }
+.search .box svg { width: 20px; height: 20px; color: var(--soft); flex-shrink: 0; }
+.search label { position: absolute; width: 1px; height: 1px; overflow: hidden; clip: rect(0 0 0 0); }
+.search input { flex: 1; min-width: 0; font: 500 1.1875rem var(--sans); color: var(--ink); background: transparent; border: 0; padding: 14px 0; outline: none; }
+.chips { display: flex; flex-wrap: wrap; justify-content: center; gap: 8px; margin-top: 16px; }
+.chips button { font: 500 var(--step-small) var(--sans); color: var(--ink); background: var(--bg); border: 0; border-radius: 99px; padding: 9px 16px; min-height: 40px; cursor: pointer; transition: background .2s var(--ease); }
+.chips button:hover, .chips button[aria-pressed="true"] { background: var(--ink); color: #fff; }
+.verdict { margin-top: 26px; font-weight: 600; text-align: center; }
+.verdict.yes { color: var(--green); }
+.hits { list-style: none; margin: 14px 0 0; padding: 6px; background: var(--bg); border-radius: 20px; max-height: 340px; overflow: auto; }
+.hits li { display: flex; justify-content: space-between; gap: 16px; padding: 13px 14px; border-radius: 12px; font-size: var(--step-small); }
+.hits li:nth-child(even) { background: var(--tile); }
+.hits li span:last-child { color: var(--soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
+
+/* Questions */
+.faq h2 { font-size: var(--step-head); margin-bottom: 52px; }
+.qgrid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 16px; }
+.q { background: var(--tile); border-radius: 24px; padding: 26px 28px; }
+.q h3 { font-size: 1.125rem; letter-spacing: -0.01em; margin-bottom: 8px; }
+.q p { color: var(--soft); }
+
+/* Close */
+.close { padding-top: 40px; }
+.close img { width: 120px; height: 120px; border-radius: 28px; margin: 0 auto 30px; }
+.close h2 { font-size: var(--step-hero); }
+.close .lead { margin: 18px auto 34px; max-width: 30ch; }
+.close .actions { display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 16px 30px; }
+footer { background: var(--tile); padding-block: 30px 44px; font-size: 0.8125rem; color: var(--soft); }
+footer .wrap { display: grid; gap: 10px; }
+footer a { color: var(--ink); }
+
+/* Gentle motion: everything is visible at rest; travel is added only when allowed. */
+@media (prefers-reduced-motion: no-preference) {
+  .js .fade { animation: fadeUp 1s var(--ease) both; animation-play-state: paused; }
+  .js .fade.in { animation-play-state: running; }
+  .js .fade.d1 { animation-delay: .1s; } .js .fade.d2 { animation-delay: .2s; } .js .fade.d3 { animation-delay: .3s; }
+  .stage .photo img { animation: drift 24s ease-in-out infinite alternate; }
+  .stage .phone { animation: float 8s ease-in-out infinite; }
+}
+@keyframes fadeUp { from { transform: translateY(22px); } to { transform: none; } }
+@keyframes drift { from { transform: scale(1); } to { transform: scale(1.05); } }
+@keyframes float { 50% { transform: translateY(-10px); } }
+
+@media (max-width: 900px) {
+  .bar ul { display: none; }
+  .trio, .pair, .restore .wrap, .qgrid { grid-template-columns: minmax(0, 1fr); }
+  .stage .phone { left: 6%; bottom: -12%; }
+}
+@media (max-width: 700px) {
+  .stage .phone { display: none; }
+  .stage .photo { border-radius: 22px; aspect-ratio: 4 / 3; }
+  .compare { font-size: 0.875rem; }
+}
+</style>
+
+<header class="bar">
+  <div class="wrap">
+    <a class="brand" href="#top"><img src="img/icons/b2-sparkle-soft.webp" width="30" height="30" alt="">tidytv</a>
+    <ul>
+      <li><a href="#how">How it works</a></li>
+      <li><a href="#decide">What goes</a></li>
+      <li><a href="#find">Supported TVs</a></li>
+      <li><a href="#faq">Questions</a></li>
+    </ul>
+    <a class="pill" href="https://github.com/tidytv/tidytv/releases/latest">Download</a>
+  </div>
+</header>
+
+<main id="top">
+  <section class="hero center" aria-labelledby="hero-h">
+    <div class="wrap">
+      <img class="icon fade" src="img/icons/b2-sparkle-soft.webp" width="92" height="92" alt="tidytv app icon: a soft glossy TV with a sparkle.">
+      <h1 class="fade d1" id="hero-h">Your TV, without the junk.</h1>
+      <p class="lead fade d2">A free app that turns off the ads, trackers and bloat on your Android TV, from your phone.</p>
+      <div class="actions fade d3">
+        <a class="pill" href="https://github.com/tidytv/tidytv/releases/latest"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 4v11m0 0l-4.5-4.5M12 15l4.5-4.5M5 20h14"/></svg>Download the free APK</a>
+        <a class="more" href="#how">See how it works</a>
+      </div>
+      <p class="facts fade d3"><span>Free and open source</span><span>No AI</span><span>No laptop</span><span>One-tap undo</span></p>
+    </div>
+    <div class="stage">
+      <div class="photo"><img src="img/hero-room.webp" width="2560" height="1440" alt="A bright, calm living room with a wall-mounted TV showing a clean home screen with only a row of apps."></div>
+      <div class="phone"><img src="img/4_review.webp" width="720" height="1440" alt="tidytv on a phone: backup saved, and groups of apps with switches."></div>
+    </div>
+  </section>
+
+  <section class="statement" id="how" aria-label="Why tidytv">
+    <div class="wrap"><p class="fade">You paid for the TV. <span>It still shows you ads.</span></p></div>
+  </section>
+
+  <section class="steps center" style="padding-top:0" aria-labelledby="steps-h">
+    <div class="wrap">
+      <h2 class="fade" id="steps-h">No AI. No laptop.</h2>
+      <p class="lead fade d1">Just your phone, your TV and three calm steps.</p>
+      <div class="trio">
+        <div class="step fade">
+          <h3>Turn on developer mode</h3>
+          <p>Settings, About, press Build seven times, then switch on Network debugging.</p>
+          <div class="screen"><img src="img/2_get_ready.webp" width="720" height="1440" loading="lazy" alt="tidytv's Get ready screen with three steps."></div>
+        </div>
+        <div class="step fade d1">
+          <h3>Tap your TV, press Allow</h3>
+          <p>tidytv finds the TV on your Wi-Fi. Most TVs just ask "Allow debugging?" once.</p>
+          <div class="screen"><img src="img/3b_press_allow.webp" width="720" height="1440" loading="lazy" alt="tidytv asking you to press Allow on the TV."></div>
+        </div>
+        <div class="step fade d2">
+          <h3>Review, then tidy</h3>
+          <p>A backup is saved first. Pick what goes; each app is turned off and checked.</p>
+          <div class="screen"><img src="img/4_review.webp" width="720" height="1440" loading="lazy" alt="tidytv's review screen with groups of apps."></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="decide" id="decide" aria-labelledby="decide-h">
+    <div class="wrap">
+      <div class="center">
+        <h2 class="fade" id="decide-h">You decide what goes.</h2>
+        <p class="lead fade d1">Safe groups start on. Anything you might use starts off. Try the switches.</p>
+      </div>
+      <div class="pair">
+        <div class="card fade" data-ui>
+          <h3>Your plan</h3>
+          <p class="note">Example: TCL Smart TV Pro</p>
+          <ul class="groups">
+            <li><span class="name"><span class="dot" style="background:#FFE5E5;color:#D93A3A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M4 10v4h3l5 4V6L7 10H4z"/><path d="M16 9.5a3.5 3.5 0 0 1 0 5"/></svg></span><span>Ads &amp; tracking<small>Sponsored rows, ACR trackers</small></span></span><button class="switch" type="button" role="switch" aria-checked="true" aria-label="Turn off ads and tracking" data-n="4"></button></li>
+            <li><span class="name"><span class="dot" style="background:#FFF1DE;color:#C26A00"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" aria-hidden="true"><rect x="4" y="4" width="7" height="7" rx="1.5"/><rect x="13" y="4" width="7" height="7" rx="1.5"/><rect x="4" y="13" width="7" height="7" rx="1.5"/><rect x="13" y="13" width="7" height="7" rx="1.5"/></svg></span><span>Preloaded apps<small>Demo mode, e-manual, games</small></span></span><button class="switch" type="button" role="switch" aria-checked="true" aria-label="Turn off preloaded apps" data-n="3"></button></li>
+            <li><span class="name"><span class="dot" style="background:#EFE7FF;color:#7A4CE0"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span>Voice assistant<small>The mic button stops working</small></span></span><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Turn off the voice assistant" data-n="2"></button></li>
+            <li><span class="name"><span class="dot" style="background:#E3F0FF;color:#0062C4"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" aria-hidden="true"><path d="M3 18a3 3 0 0 1 3 3M3 14a7 7 0 0 1 7 7M3 10a11 11 0 0 1 11 11"/><path d="M5 5h14a2 2 0 0 1 2 2v10a2 2 0 0 1-2 2h-3"/></svg></span><span>Casting<small>Chromecast built-in, AirPlay</small></span></span><button class="switch" type="button" role="switch" aria-checked="false" aria-label="Turn off casting" data-n="1"></button></li>
+          </ul>
+          <button class="pill go" type="button" id="goD">Turn off 7 apps</button>
+          <p class="kept">Always kept: Play Store, Play Services, HDMI inputs, remote, keyboard</p>
+        </div>
+        <div class="card fade d1">
+          <h3>No AI required.</h3>
+          <p class="note">The viral fix hands an AI on a laptop the keys to your TV. tidytv uses a tested list instead.</p>
+          <div class="table-wrap">
+            <table class="compare">
+              <thead><tr><th scope="col"><span style="position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0)">Compare</span></th><th scope="col">AI on a laptop</th><th scope="col">tidytv</th></tr></thead>
+              <tbody>
+                <tr><th scope="row">You need</th><td>A laptop, adb, a paid AI tool</td><td>Your Android phone</td></tr>
+                <tr><th scope="row">What runs</th><td>Commands written on the spot</td><td>A list tested on your model</td></tr>
+                <tr><th scope="row">Protected</th><td>Whatever the prompt mentions</td><td>Play Store, HDMI, remote, keyboard</td></tr>
+                <tr><th scope="row">Undo</th><td>Ask the AI to reverse it</td><td>One tap</td></tr>
+                <tr><th scope="row">Cost</th><td>A subscription</td><td>Free, open source</td></tr>
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="restore" aria-labelledby="restore-h">
+    <div class="wrap">
+      <div>
+        <h2 class="fade" id="restore-h">Everything comes back with one tap.</h2>
+        <p class="lead fade d1">Change your mind tomorrow or next year. Your TV is yours.</p>
+        <ul class="facts-list">
+          <li class="fade"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>Turned off, never uninstalled</b><span>Apps are switched off with Android's own setting.</span></div></li>
+          <li class="fade d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>Backup first, every time</b><span>Apps, settings and home screen, saved on your phone.</span></div></li>
+          <li class="fade d2"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>An undo list in two places</b><span>On your phone and on the TV, so Restore works even if Wi-Fi drops.</span></div></li>
+        </ul>
+      </div>
+      <div class="demo fade d1" data-ui>
+        <div class="tv" id="tvD" aria-hidden="true">
+          <div class="tiles"><span></span><span class="ad"></span><span></span><span class="ad"></span><span class="ad"></span><span></span><span class="ad"></span><span></span></div>
+        </div>
+        <p class="state" id="stateD" aria-live="polite">Before: sponsored tiles everywhere</p>
+        <div class="row">
+          <button class="pill go" style="width:auto;margin:0" type="button" id="tidyD">Tidy</button>
+          <button class="pill ghost" type="button" id="restoreD">Restore everything</button>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="find center" id="find" aria-labelledby="find-h">
+    <div class="wrap">
+      <h2 class="fade" id="find-h">Is your TV on the list?</h2>
+      <p class="lead fade d1">66 models from 25 brands, each tested on a real TV by the cleanyourtv community.</p>
+      <div class="search">
+        <div class="box"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><label for="qD">Search your TV brand or model</label><input id="qD" type="search" autocomplete="off" placeholder="Search your TV brand or model" value="TCL"></div>
+        <div class="chips" id="chipsD" aria-label="Popular brands"></div>
+        <div id="resD" aria-live="polite"></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="faq" id="faq" aria-labelledby="faq-h">
+    <div class="wrap">
+      <h2 class="center fade" id="faq-h">Good questions.</h2>
+      <div class="qgrid">
+        <div class="q fade"><h3>Will this break my TV?</h3><p>It never uninstalls anything and won't touch the apps a TV needs. A backup comes first, and Restore turns every app back on.</p></div>
+        <div class="q fade d1"><h3>Do I need a computer?</h3><p>No. Your phone and TV only need to be on the same Wi-Fi.</p></div>
+        <div class="q fade"><h3>Is it really free?</h3><p>Yes. Free and open source under the MIT licence. No ads, no account, no tracking.</p></div>
+        <div class="q fade d1"><h3>Which TVs work?</h3><p>Android TV and Google TV. Fire TV gets the clean-up but keeps Amazon's home screen. Samsung and LG don't run Android.</p></div>
+        <div class="q fade"><h3>Will it remove YouTube ads?</h3><p>No. It turns off the TV maker's ads and trackers. Ads inside apps are not affected.</p></div>
+        <div class="q fade d1"><h3>Should I turn debugging off after?</h3><p>Yes. tidytv shows you how, then checks the TV no longer accepts debugging connections.</p></div>
+      </div>
+    </div>
+  </section>
+
+  <section class="close center" aria-labelledby="close-h">
+    <div class="wrap">
+      <img class="fade" src="img/icons/b2-sparkle-soft.webp" width="120" height="120" alt="">
+      <h2 class="fade d1" id="close-h">A calmer TV starts here.</h2>
+      <p class="lead fade d2">Free for Android phones running Android 8 or newer. About five minutes.</p>
+      <div class="actions fade d3">
+        <a class="pill" href="https://github.com/tidytv/tidytv/releases/latest">Download the free APK</a>
+        <a class="more" href="https://github.com/tidytv/tidytv">View the source on GitHub</a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p>tidytv is free and open source (MIT). TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a>, home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. The living-room photo is an illustration.</p>
+    <p>Not affiliated with Google, Amazon, Apple or any TV maker. Brand names belong to their owners.</p>
+  </div>
+</footer>
+
+<script>
+document.documentElement.classList.add('js');
+const TVS = [["AiPro2K","Android TV 14",17],["Amazon Fire TV Stick 4K, 1st gen 2018","Fire OS 6.7.1.1 / Android 7.1",63],["BenQ E55-735","Google TV 14",11],["CHiQ AI PONT","Android TV 11",19],["CHiQ AI PONT","Google TV 14",13],["Chromecast with Google TV 4K","Google TV 14",15],["Hisense HiSmartTV A4, India","Android TV 9",22],["Hisense SmartTV 4K FFM","Android TV 10",18],["Hisense U75, Latin America","Google TV 12",22],["Hitachi 65QLEDSM20, Australia","Android TV 11",19],["Insignia 55 F30 4K Fire TV","Fire OS 7 / Android 9",100],["NVIDIA SHIELD TV Pro 2019","Android TV 11",11],["OnePlus TV","Google TV 14",10],["Panasonic 4KTV-JUP","Android TV 11",22],["Philips 50PUS8517/12, Europe","Android TV 11",41],["Philips 55PUS7503/12, Europe","Android TV 8.0",8],["Philips R8G Google TV, US","Google TV 14",15],["Philips Smart 4K TV, India","Google TV 14",17],["PRISM+ Q65 Ultra 2026 QLED 4K AI Google TV","Google TV 14",20],["RCA AI PONT SA","Android 14",25],["Redmi TV","Android 5.1.1 (not Android TV)",11],["SANYO ATV R2","Android TV 9",29],["Skyworth SWTV-21AE","Android TV 14",9],["Skyworth SWTV-24NA-4K NF, US","Google TV 14",18],["Sony BRAVIA 4K GB","Android TV 9",24],["Sony BRAVIA 4K UR2","Android TV 10",25],["Sony BRAVIA 4K VH2, EU","Google TV 12",15],["Sony BRAVIA 9 II","Google TV 14",14],["Sony BRAVIA 4K AE2, North America","Google TV 14",36],["Sony BRAVIA BF1","Google TV 12",11],["Sony BRAVIA KD-55X85J, South America","Google TV 12",27],["Sony BRAVIA KD-65X80J, India","Google TV 10",41],["Sony BRAVIA XBR-65X900E","Android TV 9",33],["Stellamore T950S projector","Android 13",15],["TCL 40S5400A","Android TV 11",22],["TCL 43C645","Google TV launcher on Android TV 11",20],["TCL 50EP680","Android TV 11",47],["TCL 65C725","Android TV 11",19],["TCL 65C735, France","Google TV 11",29],["TCL ak30a5","Android TV 9",16],["TCL BeyondTV","Android TV 9",12],["TCL BeyondTV, EU/Nordic","Android TV 9",27],["TCL BeyondTV2","Android TV 9",2],["TCL Smart TV Pro","Google TV 11",28],["TCL 55 4K Google TV, 2023; also TCL 55P6K, Spain","Google TV 12",18],["TCL 55Q10G Pro","Android TV 11",20],["TCL QM6K Pro, 2025","Google TV 14",25],["TCL UnionTV, Latin America","Android TV 9",27],["Thomson 32HE5800, Spain","Android TV 9",21],["Toshiba Fire TV","Fire OS 7 / Android 9",35],["Vu 4K, India","Google TV 12",12],["XGIMI Horizon S Pro projector","Android TV 11",22],["Xiaomi Mi Box S, streaming box","Android TV 9",22],["Xiaomi Mi Box S 2nd gen, streaming box","Google TV 11",16],["Xiaomi Mi TV 4A","Android TV 10",21],["Xiaomi MiTV-AESP0 stick","Android TV 9",15],["Xiaomi TV Box S 3rd gen, streaming box","Google TV 14",27],["Xiaomi MiTV-ASTP1, China firmware 2.40.641.0514.cn, 1 GB RAM, 720p","Android TV 9 (CN build)",18],["Xiaomi MiTV-AXFR1, India","Android TV 11",25],["Xiaomi MiTV-AXSO0","Android TV 9",33],["Xiaomi Mi TV","Android TV 10",29],["Xiaomi MiTV-MOOR2","Google TV 11",22],["Xiaomi MiTV-MOSR4","Google TV 11",24],["Xiaomi MiTV-MSSP3","Android TV 11",23],["Xiaomi MiTV-MSSP3, Android 9 firmware PI.7524","Android TV 9",18],["Xiaomi TV A Pro 75 2026","Google TV 14",20]];
+(function () {
+  const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
+  document.querySelectorAll('.fade').forEach(el => io ? io.observe(el) : el.classList.add('in'));
+  setTimeout(() => document.querySelectorAll('.fade').forEach(el => el.classList.add('in')), 2500);
+
+  // Plan switches
+  const sw = [...document.querySelectorAll('.groups .switch')], go = document.getElementById('goD');
+  const count = () => { const n = sw.filter(s => s.getAttribute('aria-checked') === 'true').reduce((a, s) => a + +s.dataset.n, 0); go.textContent = n ? 'Turn off ' + n + (n === 1 ? ' app' : ' apps') : 'Nothing selected'; go.disabled = !n; go.style.opacity = n ? 1 : .45; };
+  sw.forEach(s => s.addEventListener('click', () => { s.setAttribute('aria-checked', s.getAttribute('aria-checked') === 'true' ? 'false' : 'true'); count(); }));
+  go.addEventListener('click', () => { go.textContent = 'Preview only. Get the app to tidy your TV.'; });
+  count();
+
+  // Tidy and restore demo
+  const tv = document.getElementById('tvD'), st = document.getElementById('stateD');
+  document.getElementById('tidyD').addEventListener('click', () => { tv.classList.add('tidy'); st.textContent = 'After: just your apps'; });
+  document.getElementById('restoreD').addEventListener('click', () => { tv.classList.remove('tidy'); st.textContent = 'Restored: everything is back the way it was'; });
+
+  // TV search
+  const q = document.getElementById('qD'), res = document.getElementById('resD'), chips = document.getElementById('chipsD');
+  const norm = s => s.toLowerCase().replace(/[^a-z0-9]+/g, ' ').trim();
+  function render() {
+    const term = norm(q.value);
+    chips.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', norm(b.textContent) === term));
+    if (!term) { res.innerHTML = ''; return; }
+    const hits = TVS.filter(t => norm(t[0] + ' ' + t[1]).includes(term));
+    if (!hits.length) { res.innerHTML = '<p class="verdict">Not on the list yet. tidytv will tell you before changing anything.</p>'; return; }
+    res.innerHTML = '<p class="verdict yes">' + hits.length + (hits.length === 1 ? ' tested model' : ' tested models') + '</p><ul class="hits"></ul>';
+    const ul = res.querySelector('ul');
+    hits.forEach(t => { const li = document.createElement('li'); const a = document.createElement('span'); a.textContent = t[0] + (t[1] ? ' · ' + t[1] : ''); const b = document.createElement('span'); b.textContent = t[2] + ' apps'; li.append(a, b); ul.append(li); });
+  }
+  ['TCL', 'Sony', 'Xiaomi', 'Philips', 'Hisense', 'Chromecast'].forEach(b => { const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = b; btn.addEventListener('click', () => { q.value = b; render(); }); chips.append(btn); });
+  q.addEventListener('input', render); render();
+})();
+</script>

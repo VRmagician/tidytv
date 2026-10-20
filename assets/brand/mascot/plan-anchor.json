@@ -1,0 +1,5 @@
+{"out_dir": "assets/brand/mascot", "workers": 1, "size": "1254x1254", "size_retries": 1,
+ "preamble": "Character illustration for the tidytv brand on a genuinely TRANSPARENT background (real alpha, no checkerboard, no floor, no ground shadow, nothing behind the character, generous padding on all sides). The character is the tidytv mascot: a friendly TV with a rounded rectangular screen in bright blue #2F6BFF with a soft glossy highlight, a thick deep-ink #1B1B3A outline, two big white oval eyes with ink pupils, a small happy smile, two short stubby blue legs with ink outlines. Flat illustration with gentle soft shading, crisp edges. Match exactly the mascot in the attached comp and app icon.",
+ "jobs": [
+  {"id": "mascot-stand", "prompt": "The mascot standing in a slight 3/4 view, cheerful, with four short sunny-yellow #FFD54A motion lines around its top corners.", "refs": ["/Users/joe/Documents/Coding/mobile-apps/tidytv/assets/brand/mascot/ref-comp-hero.png", "/Users/joe/Documents/Coding/mobile-apps/tidytv/assets/brand/icons/a1-mascot-flat.png"]}
+ ]}

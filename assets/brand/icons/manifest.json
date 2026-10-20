@@ -1,0 +1,62 @@
+[
+ {
+  "id": "a1-mascot-flat",
+  "status": "ok",
+  "secs": 63,
+  "size": [
+   1254,
+   1254
+  ],
+  "error": ""
+ },
+ {
+  "id": "a2-mascot-3d",
+  "status": "ok",
+  "secs": 68,
+  "size": [
+   1254,
+   1254
+  ],
+  "error": ""
+ },
+ {
+  "id": "b1-sparkle-flat",
+  "status": "ok",
+  "secs": 164,
+  "size": [
+   1254,
+   1254
+  ],
+  "error": ""
+ },
+ {
+  "id": "b2-sparkle-soft",
+  "status": "ok",
+  "secs": 143,
+  "size": [
+   1254,
+   1254
+  ],
+  "error": ""
+ },
+ {
+  "id": "c1-wipe-flat",
+  "status": "ok",
+  "secs": 104,
+  "size": [
+   1254,
+   1254
+  ],
+  "error": ""
+ },
+ {
+  "id": "c2-check-soft",
+  "status": "ok",
+  "secs": 155,
+  "size": [
+   1254,
+   1254
+  ],
+  "error": ""
+ }
+]

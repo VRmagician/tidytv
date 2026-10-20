@@ -1,0 +1,332 @@
+[
+{
+"id": "aipro2k",
+"title": "AiPro2K (Expressluck, device dongnae), Android TV 14, firmware UKN6.260116.085",
+"apps": 17
+},
+{
+"id": "amazon-fire-tv-stick-4k-2018",
+"title": "Amazon Fire TV Stick 4K, 1st gen 2018 (AFTMM, codename mantis), Fire OS 6.7.1.1 (NS6711/5908), Android 7.1.2 (SDK 25)",
+"apps": 63
+},
+{
+"id": "benq-e55-735",
+"title": "BenQ E55-735 (55\" 4K, Taiwan), Google TV 14, firmware UKNV.260506.001",
+"apps": 11
+},
+{
+"id": "chiq-ai-pont",
+"title": "CHiQ \"AI PONT\" (DVB93CQ, built by Changhong, codename samseong), Android TV 11 (API 30),",
+"apps": 19
+},
+{
+"id": "chiq-gtvu65",
+"title": "CHiQ \"AI PONT\" (Changhong, product GTVU65, device dangni), Google TV 14 (API 34),",
+"apps": 13
+},
+{
+"id": "google-chromecast-gtv-4k",
+"title": "Chromecast with Google TV 4K (2020, device sabrina, product sabrina_prod_stable), 2 GB RAM",
+"apps": 15
+},
+{
+"id": "hisense-hismarttv-a4",
+"title": "Hisense HiSmartTV A4 (device xiaoyushan, product xiaoyushan-em, MStar/MediaTek m7322), Android TV 9,",
+"apps": 22
+},
+{
+"id": "hisense-smarttv-4k-ffm",
+"title": "Hisense SmartTV 4K FFM (device huangshan, MediaTek), Android TV 10, firmware QTG3.200902.001",
+"apps": 18
+},
+{
+"id": "hisense-u75-hengshan",
+"title": "Hisense U75 (device hengshan, MediaTek), Google TV / Android 12, build STT2.230310.002.",
+"apps": 22
+},
+{
+"id": "hitachi-65qledsm20",
+"title": "Hitachi 65QLEDSM20 (built by MTC, codename bangbae, MediaTek m7322), Android TV 11 (API 30),",
+"apps": 19
+},
+{
+"id": "insignia-ns55f301na25",
+"title": "Insignia 55\" Class F30 4K Fire TV (NS-55F301NA25, model AFTDCT31, codename duckie), Fire OS 7 / Android 9 (SDK 28),",
+"apps": 100
+},
+{
+"id": "nvidia-shield-tv-pro-2019",
+"title": "NVIDIA SHIELD TV Pro (2019, model P2897, codename mdarcy, Tegra X1+, 3 GB RAM), Android TV 11 (API 30)",
+"apps": 11
+},
+{
+"id": "oneplus-tv-dubai",
+"title": "OnePlus TV (model D00, codename Dubai), Google TV / Android 14, firmware UTT1.240928.001",
+"apps": 10
+},
+{
+"id": "panasonic-4ktv-jup",
+"title": "Panasonic 4KTV-JUP (Jupiter_PA, MediaTek), Android TV 11 (API 30), firmware 4.501 / RTM2.210929.137",
+"apps": 22
+},
+{
+"id": "philips-50pus8517",
+"title": "Philips 50PUS8517/12 (50\" 4K UHD LED, 3-sided Ambilight, P5 Picture Engine, 2022 model)",
+"apps": 41
+},
+{
+"id": "philips-55pus7503",
+"title": "Philips 55PUS7503/12 (TP Vision TPM171E, device PH7M_EU_5596), Europe, 2018 model",
+"apps": 8
+},
+{
+"id": "philips-r8g-google-tv",
+"title": "Philips R8G Google TV (built by MOKA/TPV, device whitefield, Realtek RTD2851F), US",
+"apps": 15
+},
+{
+"id": "philips-smart-4k-google-tv",
+"title": "Philips Smart 4K TV (India), Google TV 14, firmware UKN5.251016.083",
+"apps": 17
+},
+{
+"id": "prismplus-q65-ultra-r10g",
+"title": "PRISM+ Q65 Ultra 2026 QLED 4K AI Google TV (device R10G, product PRISMPLUS_FFM, made by MOKA)",
+"apps": 20
+},
+{
+"id": "rca-ai-pont",
+"title": "RCA AI PONT SA (Changhong, device redwood, product ISDB92RC)",
+"apps": 25
+},
+{
+"id": "redmi-mitv-antl0",
+"title": "Redmi TV (MiTV-ANTL0, codename starwars), Android 5.1.1 (SDK 22), firmware 22.8.17.1977, Amlogic.",
+"apps": 11
+},
+{
+"id": "sanyo-atv-r2",
+"title": "SANYO ATV R2 (manufacturer SCBC, device R2, Realtek RTD285O), Android TV 9 (API 28),",
+"apps": 29
+},
+{
+"id": "skyworth-swtv-21ae",
+"title": "Skyworth SWTV-21AE (\"Living Room TV\"), Android TV 14, firmware UKNV.260824.001",
+"apps": 9
+},
+{
+"id": "skyworth-swtv-24na-4k-nf",
+"title": "Skyworth SWTV-24NA-4K NF (device eleonas, product SW10_NA_NF, MediaTek mt5896 / merak), US",
+"apps": 18
+},
+{
+"id": "sony-bravia-4k-gb",
+"title": "Sony BRAVIA 4K GB (EU: device BRAVIA_ATV2_EU, product BRAVIA_ATV2). Android TV 9 (API 28).",
+"apps": 24
+},
+{
+"id": "sony-bravia-4k-ur2",
+"title": "Sony BRAVIA 4K UR2 (device BRAVIA_UR2_4K, MediaTek)",
+"apps": 25
+},
+{
+"id": "sony-bravia-4k-vh2",
+"title": "Sony BRAVIA 4K VH2 (device BRAVIA_VH2, KD-55X80J, MediaTek), EU firmware",
+"apps": 15
+},
+{
+"id": "sony-bravia-9-ii",
+"title": "Sony BRAVIA 9 II, K-65XR90M2 (2026, device BRAVIA_AE3, product BRAVIA_AE3_PA, MediaTek MT5838 / mt5897)",
+"apps": 14
+},
+{
+"id": "sony-bravia-ae2",
+"title": "Sony BRAVIA 4K AE2 (BRAVIA_AE2, MediaTek MT5897 \"merak\"), North American firmware",
+"apps": 36
+},
+{
+"id": "sony-bravia-bf1",
+"title": "Sony BRAVIA BF1 (BRAVIA 2 II class, device BRAVIA_BF1_4K_A, MediaTek, 2.4 GB RAM, armeabi-v7a)",
+"apps": 11
+},
+{
+"id": "sony-kd-55x85j",
+"title": "Sony BRAVIA KD-55X85J (2021, device BRAVIA_VH2, MediaTek MT5895), South American firmware",
+"apps": 27
+},
+{
+"id": "sony-kd-65x80j",
+"title": "Sony BRAVIA KD-65X80J (2021, platform BRAVIA_VH2, MediaTek MT5895), Google TV / Android 10 (SDK 29),",
+"apps": 41
+},
+{
+"id": "sony-xbr-x900e",
+"title": "Sony BRAVIA XBR-65X900E (2017, BRAVIA_ATV2, MediaTek), US/Canada firmware",
+"apps": 33
+},
+{
+"id": "stellamore-t950s",
+"title": "Stellamore T950S projector (Droidlogic be30a3, ro.product.devicetype=T950S, Amlogic txhd2)",
+"apps": 15
+},
+{
+"id": "tcl-40s5400a",
+"title": "TCL 40S5400A (40\" FHD, S5400 series), EU unit: device C06, product C06_2K_GB, model \"Smart TV\".",
+"apps": 22
+},
+{
+"id": "tcl-43c645",
+"title": "TCL 43C645 (reports as \"Smart TV Pro\"), Android TV 11 (SDK 30), Realtek RTD2851 / R51MT05,",
+"apps": 20
+},
+{
+"id": "tcl-50ep680",
+"title": "TCL 50EP680 (Europe), `ro.product.model` BeyondTV, brand TCL, board `rtd285o` (Realtek),",
+"apps": 47
+},
+{
+"id": "tcl-65c725",
+"title": "TCL 65C725 (reports as \"Smart TV Pro\", device BeyondTV4), Android TV 11 (SDK 30),",
+"apps": 19
+},
+{
+"id": "tcl-65c735",
+"title": "TCL 65C735 (reports as \"Smart TV Pro\", device G05, product G05_4K_GB), Google TV 11 (SDK 30),",
+"apps": 29
+},
+{
+"id": "tcl-ak30a5",
+"title": "TCL ak30a5 \u2014 Chinese-market TCL Android TV 9, Amlogic SoC, 1.5 GB RAM",
+"apps": 16
+},
+{
+"id": "tcl-beyondtv",
+"title": "TCL BeyondTV (ro.product.model BeyondTV, TCL), Android TV 9 (API 28), build PPR1.180610.011,",
+"apps": 12
+},
+{
+"id": "tcl-beyondtv-rt2851",
+"title": "TCL BeyondTV, EU/Nordic unit (ro.product.model BeyondTV, board RTD2851, client type TCL-EU-RT2851-S1,",
+"apps": 27
+},
+{
+"id": "tcl-beyondtv2-latin-america",
+"title": "TCL BeyondTV2, Latin America / Brazil market (ro.product.model BeyondTV2, brand TCL), Android TV 9",
+"apps": 2
+},
+{
+"id": "tcl-g05-google-tv",
+"title": "TCL Smart TV Pro, US (device G05, product G05_4K_US, board C05, MediaTek MT5889 / MT9615)",
+"apps": 28
+},
+{
+"id": "tcl-g10-google-tv",
+"title": "TCL 55\" 4K Google TV, 2023 model year, US (device G10, product G10_4K_US_NF, Realtek RTD2875P)",
+"apps": 18
+},
+{
+"id": "tcl-q10g-pro",
+"title": "TCL 55Q10G Pro (China), device tcl_mt5879_cn / product tcl_mt5879_cn_db, MediaTek MT9952,",
+"apps": 20
+},
+{
+"id": "tcl-qm6k-google-tv",
+"title": "TCL QM6K Pro Google TV, 2025, US (device G08, model \"Smart TV Pro\", MediaTek tcl9618)",
+"apps": 25
+},
+{
+"id": "tcl-uniontv-latin-america",
+"title": "TCL UnionTV, Latin America (ro.product.model UnionTV, TCL; persist.tcl.client_type SEM-LA-RT41KB-S1),",
+"apps": 27
+},
+{
+"id": "thomson-32he5800",
+"title": "Thomson 32HE5800 (TCL-built: ro.product.model UnionTV, persist.tcl.client_type THOM-EU-RT2841-S1),",
+"apps": 21
+},
+{
+"id": "toshiba-fire-tv-aftha004",
+"title": "Toshiba Fire TV (AFTHA004, codename hazel), Fire OS 7 / Android 9 (SDK 28), build PS7717.5741N.0036408028416",
+"apps": 35
+},
+{
+"id": "vu-4k-lushan",
+"title": "Vu 4K (ro.product.model \"VU 4K\", device lushan, manufacturer HVCL, MediaTek), Google TV / Android 12",
+"apps": 12
+},
+{
+"id": "xgimi-horizon-s-pro",
+"title": "XGIMI Horizon S Pro projector (model XK03H, device xgimigalileo, MediaTek), Android TV 11 (SDK 30),",
+"apps": 22
+},
+{
+"id": "xiaomi-mi-box-s",
+"title": "Xiaomi Mi Box S (model MIBOX4, MDZ-22-AB, codename oneday, Amlogic gxl), Android TV 9 (SDK 28),",
+"apps": 22
+},
+{
+"id": "xiaomi-mi-box-s-2nd-gen",
+"title": "Xiaomi Mi Box S 2nd gen (model MiTV-AFKR0, codename jaws, Amlogic), Google TV / Android 11 (SDK 30),",
+"apps": 16
+},
+{
+"id": "xiaomi-mi-tv-4a",
+"title": "Xiaomi Mi TV 4A (MiTV-MOOQ1, codename tarzan), Android TV 10, firmware QTG3.200305.006.2591",
+"apps": 21
+},
+{
+"id": "xiaomi-mitv-aesp0",
+"title": "Xiaomi MiTV-AESP0 (codename aquaman), Android TV 9 (SDK 28), firmware PI.2055.",
+"apps": 15
+},
+{
+"id": "xiaomi-mitv-afmu0",
+"title": "Xiaomi TV Box S 3rd gen (MiTV-AFMU0, codename twilight, Amlogic), Google TV on Android 14 (SDK 34),",
+"apps": 27
+},
+{
+"id": "xiaomi-mitv-astp1",
+"title": "Xiaomi MiTV-ASTP1 (codename maverick; China-market firmware), Android 9 (SDK 28),",
+"apps": 18
+},
+{
+"id": "xiaomi-mitv-axfr1",
+"title": "Xiaomi MiTV-AXFR1 (codename rango, product dune; Amlogic/droidlogic, 1 GB RAM, India), Android TV 11 (SDK 30),",
+"apps": 25
+},
+{
+"id": "xiaomi-mitv-axso0",
+"title": "Xiaomi MiTV-AXSO0 (codename dangal; sold as Mi TV 4C Pro 2019 and Mi TV 4A Pro), Android TV 9 (SDK 28),",
+"apps": 33
+},
+{
+"id": "xiaomi-mitv-mooq0",
+"title": "Xiaomi Mi TV (MiTV-MOOQ0, codename croods), Android TV 10, firmware QTG3.200305.006.3270",
+"apps": 29
+},
+{
+"id": "xiaomi-mitv-moor2",
+"title": "Xiaomi MiTV-MOOR2 (codename venom), Google TV / Android 11, firmware RTM5.220609.003.2674",
+"apps": 22
+},
+{
+"id": "xiaomi-mitv-mosr4",
+"title": "Xiaomi MiTV-MOSR4 (codename irobot), Google TV / Android 11 (SDK 30), firmware RTM5.220609.003.1585",
+"apps": 24
+},
+{
+"id": "xiaomi-mitv-mssp3",
+"title": "Xiaomi MiTV-MSSP3 (codename machuca), Android TV 11 (SDK 30), firmware RTT2.211214.001.1065, MediaTek.",
+"apps": 23
+},
+{
+"id": "xiaomi-mitv-mssp3-android9",
+"title": "Xiaomi MiTV-MSSP3 (codename machuca), Android TV 9 (SDK 28), firmware PI.7524, MediaTek, 1.8 GB RAM.",
+"apps": 18
+},
+{
+"id": "xiaomi-tv-a-pro-2026",
+"title": "Xiaomi TV A Pro 75\" 2026 (MiTV-MZTU0, codename river, MediaTek), Google TV / Android 14 (SDK 34),",
+"apps": 20
+}
+]

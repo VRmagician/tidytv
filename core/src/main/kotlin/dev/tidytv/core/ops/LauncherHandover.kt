@@ -1,0 +1,180 @@
+package dev.tidytv.core.ops
+
+import dev.tidytv.core.lists.Launchers
+
+sealed interface HandoverOutcome {
+    data class Done(val disabledStock: String?) : HandoverOutcome
+    /** Home is Android's chooser and it is unclear which launcher is the stock one. */
+    data class NeedsChoice(val claimants: Set<String>) : HandoverOutcome
+    /** Home belongs to something tidytv doesn't recognise; nothing was changed. */
+    data class UnknownHome(val owner: String?) : HandoverOutcome
+    /** A copy of the home screen signed with another key is installed (e.g. from tv-detox's own release). */
+    data object SignatureConflict : HandoverOutcome
+    /** This TV refuses sideloaded launchers (some China-market sets). Clean-up still works. */
+    data class InstallBlocked(val output: String) : HandoverOutcome
+    data class InstallFailed(val output: String) : HandoverOutcome
+    data class StartFailed(val output: String) : HandoverOutcome
+    /** Home landed on Google TV's setup app once the stock launcher was off. Rolled back; ask the user. */
+    data class SetupWraithTookHome(val rolledBack: Boolean) : HandoverOutcome
+    data class RolledBack(val homeNow: String?) : HandoverOutcome
+    /** Rollback did not stick either. [rescue] are the commands that finish it once ADB answers. */
+    data class RollbackFailed(val homeNow: String?, val rescue: List<String>) : HandoverOutcome
+    data object Disconnected : HandoverOutcome
+}
+
+/**
+ * Installs tidytv's home screen (the tv-detox launcher) and hands Home over to it. Order from
+ * upstream launcher/build-and-install.sh: install alone, start the new launcher and confirm it came
+ * up, only then turn the stock launcher off, set Home after (Android drops the preference when the
+ * set of HOME apps changes), then check where Home landed and roll back if it isn't ours.
+ */
+class LauncherHandover(
+    private val tv: TvShell,
+    private val log: ActionLog,
+    private val clock: () -> Long = System::currentTimeMillis,
+    private val sleep: suspend (Long) -> Unit = { kotlinx.coroutines.delay(it) },
+) {
+    private val ours = Launchers.TIDY_HOME_COMPONENT
+    private val ourPkg = Launchers.TIDY_HOME_PACKAGE
+
+    suspend fun run(apk: ByteArray, dockApps: List<String>, sdk: Int): HandoverOutcome = try {
+        handover(apk, dockApps, sdk)
+    } catch (e: TvConnectionLost) {
+        HandoverOutcome.Disconnected
+    }
+
+    /** After [HandoverOutcome.SignatureConflict] and the user's OK: remove the other copy, then retry. */
+    suspend fun removeConflictingCopy(): Boolean = try {
+        log.append(ActionRecord(clock(), Op.UNINSTALL, ourPkg, Phase.INTENT, detail = "signature conflict"))
+        val out = tv.run(Commands.uninstall(ourPkg))
+        val ok = out.contains("Success")
+        log.append(ActionRecord(clock(), Op.UNINSTALL, ourPkg, if (ok) Phase.DONE else Phase.FAILED, detail = out.take(200)))
+        ok
+    } catch (e: TvConnectionLost) {
+        false
+    }
+
+    /**
+     * After [HandoverOutcome.SetupWraithTookHome] and the user's OK: turn Google TV's setup app off
+     * (guarded), so the next [run] can hand Home over. Returns the guard's verdict; Ok means it is off.
+     */
+    suspend fun disableSetupWraith(onEthernet: Boolean): WraithCheck {
+        val check = SetupWraithGuard.check(tv, onEthernet)
+        if (check != WraithCheck.Ok) return check
+        return try {
+            val pkg = Launchers.SETUPWRAITH
+            if (!Parse.lines(tv.run(Commands.mirror(listOf(pkg)))).contains("ok")) {
+                return WraithCheck.Unknown("couldn't save the undo list on the TV")
+            }
+            log.append(ActionRecord(clock(), Op.DISABLE, pkg, Phase.INTENT))
+            tv.run(Commands.disable(pkg))
+            val off = pkg in Parse.packages(tv.run(Commands.LIST_DISABLED))
+            log.append(ActionRecord(clock(), Op.DISABLE, pkg, if (off) Phase.DONE else Phase.FAILED))
+            if (off) WraithCheck.Ok else WraithCheck.Unknown("it didn't stay off")
+        } catch (e: TvConnectionLost) {
+            WraithCheck.Unknown("the TV stopped answering")
+        }
+    }
+
+    private suspend fun handover(apk: ByteArray, dockApps: List<String>, sdk: Int): HandoverOutcome {
+        val homeBefore = Parse.component(tv.run(Commands.RESOLVE_HOME))
+        val homePkg = homeBefore?.substringBefore('/')
+        val stock: String? = when {
+            homePkg == ourPkg -> null
+            homePkg in Launchers.KNOWN_STOCK -> homePkg
+            homePkg == "android" -> {
+                val claimants = Parse.componentsIn(tv.run(Commands.QUERY_HOME))
+                val known = claimants.filter { it in Launchers.KNOWN_STOCK }
+                if (known.size != 1) return HandoverOutcome.NeedsChoice(claimants)
+                known.single()
+            }
+            else -> return HandoverOutcome.UnknownHome(homePkg)
+        }
+
+        // 1. Install on its own: a failed install must not reach the steps that touch Home.
+        tv.push(apk, Commands.APK_TMP)
+        log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.INTENT))
+        val install = tv.run(Commands.INSTALL_TMP)
+        tv.run(Commands.REMOVE_TMP)
+        when {
+            install.contains("Success") ->
+                log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.DONE))
+            else -> {
+                log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.FAILED, detail = install.take(300)))
+                return when {
+                    install.contains("UPDATE_INCOMPATIBLE") -> HandoverOutcome.SignatureConflict
+                    install.contains("VERIFICATION_FAILURE") || install.contains("INSTALL_FAILED_ABORTED") ->
+                        HandoverOutcome.InstallBlocked(install.trim())
+                    else -> HandoverOutcome.InstallFailed(install.trim())
+                }
+            }
+        }
+
+        // 2. Start it before anything else changes; "Status: ok" and no "Error" line, both required.
+        val start = tv.run(Commands.startLauncher(ours, dockApps, clock() / 1000))
+        if (!start.contains("Status: ok") || Parse.lines(start).any { it.startsWith("Error") }) {
+            return HandoverOutcome.StartFailed(start.trim())
+        }
+
+        // 3. Make it Home, then turn the stock launcher off, then set Home again.
+        log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.INTENT, before = homeBefore))
+        setOurs(sdk)
+        if (stock != null && !isPersistent(stock)) {
+            if (!Parse.lines(tv.run(Commands.mirror(listOf(stock)))).contains("ok")) {
+                return rollback(stock, sdk)
+            }
+            log.append(ActionRecord(clock(), Op.DISABLE, stock, Phase.INTENT))
+            tv.run(Commands.disable(stock))
+            val off = stock in Parse.packages(tv.run(Commands.LIST_DISABLED))
+            log.append(ActionRecord(clock(), Op.DISABLE, stock, if (off) Phase.DONE else Phase.FAILED))
+            sleep(Debloater.SAVE_WAIT_MS)
+            setOurs(sdk)
+        }
+
+        // 4. Check where Home landed.
+        val homeNow = Parse.component(tv.run(Commands.RESOLVE_HOME))
+        if (homeNow == ours || homeNow?.substringBefore('/') == ourPkg) {
+            log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.DONE, before = homeBefore))
+            tv.run(Commands.KEY_HOME)
+            return HandoverOutcome.Done(stock)
+        }
+        log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.FAILED, before = homeBefore, detail = "home is $homeNow"))
+        val result = rollback(stock, sdk)
+        return if (homeNow?.substringBefore('/') == Launchers.SETUPWRAITH) {
+            HandoverOutcome.SetupWraithTookHome(rolledBack = result is HandoverOutcome.RolledBack)
+        } else result
+    }
+
+    private suspend fun setOurs(sdk: Int) {
+        if (sdk >= 29) tv.run(Commands.addHomeRole(ourPkg))
+        tv.run(Commands.setHome(ours))
+    }
+
+    private suspend fun isPersistent(pkg: String): Boolean {
+        val flags = Parse.flags(tv.run(Commands.flags(listOf(pkg))))[pkg].orEmpty()
+        // Can't read the flags: treat as always-running and leave it on (tv-detox).
+        return flags.isEmpty() || flags.contains("PERSISTENT")
+    }
+
+    private suspend fun rollback(stock: String?, sdk: Int): HandoverOutcome {
+        if (stock == null) return HandoverOutcome.RolledBack(Parse.component(tv.run(Commands.RESOLVE_HOME)))
+        tv.run(Commands.enable(stock))
+        val component = Parse.component(tv.run(Commands.resolveHomeOf(stock)))
+        if (stock !in Parse.packages(tv.run(Commands.LIST_DISABLED))) {
+            log.append(ActionRecord(clock(), Op.ENABLE, stock, Phase.DONE, detail = "rollback"))
+        }
+        if (component != null) {
+            if (sdk >= 29) tv.run(Commands.addHomeRole(stock))
+            tv.run(Commands.setHome(component))
+        }
+        val homeNow = Parse.component(tv.run(Commands.RESOLVE_HOME))
+        if (homeNow?.substringBefore('/') == stock) {
+            log.append(ActionRecord(clock(), Op.SET_HOME, homeNow, Phase.DONE, detail = "rollback"))
+            return HandoverOutcome.RolledBack(homeNow)
+        }
+        return HandoverOutcome.RollbackFailed(
+            homeNow,
+            listOf(Commands.enable(stock), "${Commands.RESOLVE_HOME} $stock", "cmd package set-home-activity --user 0 <component printed above>"),
+        )
+    }
+}
