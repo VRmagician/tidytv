@@ -35,6 +35,13 @@ home screen, and puts everything back with one button.
 Apps in the review list show their real icons, read on the phone from each app's APK on the TV
 (apps over 12 MB fall back to a brand mark or initials).
 
+## Privacy
+
+TidyTV talks only to your TV, over your own Wi-Fi. It has no account, no analytics and no ads. It
+sends something over the internet only when you choose to: tapping **Send** in the feedback form
+(your message, phone model, Android and app version, and the log or screenshot if you tick them), or
+sharing your result card or logs through Android's share sheet.
+
 ## Building
 
 ```sh
