@@ -9,3 +9,4 @@ app/build/
 dist/
 .taste-skill/
 assets/concepts/
+site/*.apk

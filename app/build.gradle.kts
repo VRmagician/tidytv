@@ -17,10 +17,22 @@ android {
         versionName = "0.1.0"
     }
 
+    // Release signing comes from ~/.gradle/gradle.properties (TIDYTV_*), never from the repo.
+    // Without it (CI, contributors) release builds fall back to the debug key.
+    val storePath = providers.gradleProperty("TIDYTV_STORE_FILE").orNull
+    signingConfigs {
+        if (storePath != null) create("release") {
+            storeFile = file(storePath)
+            storePassword = providers.gradleProperty("TIDYTV_STORE_PASSWORD").get()
+            keyAlias = providers.gradleProperty("TIDYTV_KEY_ALIAS").get()
+            keyPassword = providers.gradleProperty("TIDYTV_KEY_PASSWORD").get()
+        }
+    }
+
     buildTypes {
         release {
             isMinifyEnabled = false
-            signingConfig = signingConfigs.getByName("debug")
+            signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
         }
     }
     compileOptions {

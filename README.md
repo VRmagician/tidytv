@@ -1,5 +1,7 @@
 # tidytv
 
+**Download:** [tidytv.winkle.dev](https://tidytv.winkle.dev) · [GitHub releases](https://github.com/jolan94/tidytv/releases/latest)
+
 A free, open-source Android **phone** app that cleans up an Android TV or Google TV over Wi-Fi.
 No computer and no commands to type. You tap through a few screens; the phone connects to the TV
 over ADB, saves a backup, turns bloat off (it never uninstalls anything), can add a small clean
@@ -32,7 +34,7 @@ home screen, and puts everything back with one button.
 ## Building
 
 ```sh
-git clone --recurse-submodules https://github.com/<you>/tidytv
+git clone --recurse-submodules https://github.com/jolan94/tidytv
 ./gradlew test                         # all logic tests, no TV needed
 ./gradlew :app:verifyRoborazziDebug    # screenshot tests
 ./gradlew :app:assembleDebug           # app/build/outputs/apk/debug/app-debug.apk

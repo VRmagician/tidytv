@@ -1,0 +1,13 @@
+{
+  // The landing page at tidytv.winkle.dev: static files from site/, served by Workers static assets.
+  // Deploy: tools/deploy-site.sh (copies the release APK in as site/tidytv.apk, then runs wrangler deploy).
+  "name": "tidytv-site",
+  "compatibility_date": "2026-10-01",
+  "assets": {
+    "directory": "site",
+    "html_handling": "auto-trailing-slash",
+    "not_found_handling": "404-page"
+  },
+  "routes": [{ "pattern": "tidytv.winkle.dev", "custom_domain": true }],
+  "workers_dev": false
+}
