@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>cleanyourtv and tv-detox explained, plus alternatives | TidyTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="What cleanyourtv (once tv-vibehack) and tv-detox are, where their per-TV debloat lists come from, how reliable they are, and what TidyTV adds on top.">
+<link rel="canonical" href="https://tidytv.winkle.dev/guides/cleanyourtv-tv-detox/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="/img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/guides/cleanyourtv-tv-detox/">
+<meta property="og:title" content="cleanyourtv and tv-detox explained, plus alternatives | TidyTV">
+<meta property="og:description" content="What cleanyourtv (once tv-vibehack) and tv-detox are, where their per-TV debloat lists come from, how reliable they are, and what TidyTV adds on top.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds", "description": "What cleanyourtv (once tv-vibehack) and tv-detox are, where their per-TV debloat lists come from, how reliable they are, and what TidyTV adds on top.", "datePublished": "2026-10-20", "dateModified": "2026-10-20", "author": {"@type": "Organization", "name": "TidyTV"}, "publisher": {"@type": "Organization", "name": "TidyTV"}, "image": "https://tidytv.winkle.dev/img/og.png", "mainEntityOfPage": "https://tidytv.winkle.dev/guides/cleanyourtv-tv-detox/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://tidytv.winkle.dev/guides/"}, {"@type": "ListItem", "position": 3, "name": "Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds"}]}]</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<header class="top"><div class="wrap bar">
+  <a class="wordmark" href="/"><img src="/img/icons/a1-mascot-flat.webp" width="40" height="40" alt="">TidyTV</a>
+  <nav aria-label="Main"><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">TidyTV</a> › <a href="/guides/">Guides</a> › Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds</p>
+
+<article class="card guide">
+  <h1>Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds</h1>
+  <p class="meta">Two open-source projects sit behind most &quot;Claude cleaned my TV&quot; stories. Here is what each does and how far to trust the lists.</p>
+  <div class="prose"><p>cleanyourtv and tv-detox are two free, open-source projects that give an AI agent, or a person, a ready-made way to clean up an Android TV. cleanyourtv, which was first called tv-vibehack, adds per-model lists of apps that are safe to turn off. tv-detox is a prompt plus a simple, ad-free home screen. TidyTV builds on both and adds a phone app, a backup and a one-tap undo.</p>
+<p>A "debloat" list is just a text file naming preloaded apps (ads, trackers, demos) that can be switched off on a given TV. A "launcher" is the home screen app.</p>
+<h2>Who started this, and when?</h2>
+<p>The story has two waves.</p>
+<ul><li><strong>Wave one, late August 2026.</strong> Mert Cobanov told Claude to clean up his four-year-old Android TV over ADB, the tool that lets another device send commands to a TV. He also had it install FLauncher. <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/developer-uses-claude-code-to-debloat-android-smart-tv-for-unbelievable-performance-upgrade-tv-now-smoother-than-it-was-new-as-autonomous-agent-deactivates-apps-shortens-animations-all-without-root-access">Tom's Hardware covered it</a> on September 2. His <a href="https://tv.cobanov.dev/">prompt page</a> says the method needs no root and is reversible.</li><li><strong>Wave two, from October 17.</strong> Gathin's <a href="https://x.com/gathint/status/2111379569030939102">tweet</a> said Claude Code removed 25 packages from his parents' Xiaomi TV and built a launcher. It drew 31,098 likes. <a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/">TechCrunch</a> and <a href="https://mashable.com/tech/smart-tv-ads-claude-code-ai-cleanup">Mashable</a> wrote it up within days.</li></ul>
+<p>Ryan Doyle's viral "Can you hack this?" post, per TechCrunch, was part of the mix too. TidyTV came after all of them.</p>
+<h2>What is cleanyourtv (formerly tv-vibehack)?</h2>
+<p><a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> is Gathin's repository. It was created on October 17, and <a href="https://saascity.io/blog/debloat-android-tv-claude-code">saascity</a> says it was renamed from tv-vibehack on October 19. Search for either name and you will find it. As of October 20, 2026, GitHub showed over 9,000 stars, over 1,000 forks and about 60 open issues.</p>
+<p>It contains a <a href="https://github.com/Gathin23/cleanyourtv/blob/main/PROMPT.md">prompt</a> for an AI agent, ADB tools, a launcher and the per-model lists. The companion site, <a href="https://cleanyour.tv/">cleanyour.tv</a>, claims 93 TVs from 31 brands within the first 48 hours and lists the press coverage.</p>
+<h2>How many lists are there?</h2>
+<p>Counting the model folders in the repository's <code>examples</code> directory on October 20, 2026 gives 93. Each folder holds a <code>debloat.txt</code> for one TV model. Early write-ups gave slightly different figures, so treat the number as a snapshot that will grow.</p>
+<p>The project describes these lists as starting points. Packages are grouped and commented, and you are meant to comment out anything you use. The notes show how model-specific TVs are. Typical entries mention ad and tracking services, retail demo modes and store or hotel modes. Several say one setup app must be turned off together with the stock launcher, or Home falls back to a recovery screen. Others say a particular service must stay, or the Input key stops working. Those are the kind of details a generic list would miss.</p>
+<h2>What is tv-detox?</h2>
+<p><a href="https://github.com/Ansub/tv-detox">tv-detox</a> is by Ansub. It was created October 18 and had 773 stars and 83 forks as of October 20, 2026. It is a prompt for Claude Code or Codex plus an ad-free launcher, and apps are turned off, never deleted. The opening request is simply "Help me clean up my Android TV and make it faster." Ansub also made a popular <a href="https://www.youtube.com/watch?v=fP2SGGVsaB0">YouTube video</a> on the idea, with over 430,000 views at the time of writing.</p>
+<p>A third project, <a href="https://github.com/humblemuzzu/dumbtv">dumbtv</a>, appeared the same day and promises no ads from the TV itself and no watch tracking. It says it was tested on a Fire TV Edition and on Android and Google TV.</p>
+<h2>How reliable are the lists?</h2>
+<p>Community-tested, and still being fixed. The issue trackers are open for anyone to read.</p>
+<ul><li>A Sony TV hung on the Google TV boot screen and needed a factory reset (<a href="https://github.com/Gathin23/cleanyourtv/issues/62">#62</a>).</li><li>On a Xiaomi set, turning off the stock launcher crash-looped the system (<a href="https://github.com/Gathin23/cleanyourtv/issues/90">#90</a>).</li><li>A OnePlus TV showed "No Signal" on HDMI (<a href="https://github.com/Gathin23/cleanyourtv/issues/321">#321</a>).</li><li>Casting broke with an "Untrusted device" message on a Chromecast with Google TV (<a href="https://github.com/Gathin23/cleanyourtv/issues/361">#361</a>).</li><li>One issue asks for safer handling of firmware updates (<a href="https://github.com/Gathin23/cleanyourtv/issues/359">#359</a>).</li></ul>
+<p>None of that is a criticism of volunteers sharing what worked on their own TV. It is a reminder to treat a list as a recipe for the TV it names, and to keep a way back.</p>
+<h2>What does TidyTV add?</h2>
+<p>TidyTV is a free Android phone app that reads these two projects' work rather than replacing it. It bundles the cleanyourtv lists and offers two home screens: a <strong>Simple</strong> one from tv-detox and an <strong>Apple TV style</strong> one from cleanyourtv. Credit for both lies with the original authors.</p>
+<p>What TidyTV adds is the wrapper:</p>
+<ul><li>No laptop and no AI. The phone talks to the TV over Wi-Fi.</li><li>A backup before any change, which can't be skipped.</li><li>A short list of apps that are never touched, whatever a list says.</li><li>Apps turned off, never uninstalled, one at a time with a check, and a stop if anything unexpected happens.</li><li>"Restore everything" to undo it all.</li><li>A page for each TV that has a list, on the <a href="/tv/">per-model pages</a>.</li></ul>
+<p>It also has limits. It runs from an Android phone, targets Android TV and Google TV, and does not touch ads inside apps like YouTube. And its lists are only as good as the upstream ones, so the open issues above apply to it too.</p>
+<h2>Should you use the repositories or the app?</h2>
+<p>If you like command lines or want to hand the job to an agent, go to the repositories. They are the source, and they are moving fast. If you want the same lists without a laptop, a subscription or a prompt, try <a href="/">TidyTV</a>.</p></div>
+  <h2>More guides</h2>
+  <ul class="related"><li><a href="/guides/claude-code-google-tv/">Can Claude Code really clean up your Google TV?</a></li><li><a href="/guides/ai-tv-debloat-risks/">The risks of letting an AI agent loose on your TV</a></li><li><a href="/guides/claude-vs-phone-app/">Claude Code vs a phone app: two ways to debloat a Google TV</a></li><li><a href="/guides/prompt-ai-tv-cleanup/">Hack my TV&quot; got refused: how to ask an AI for a TV cleanup</a></li><li><a href="/guides/remove-google-tv-home-ads/">How to remove ads from the Google TV home screen (what works and what doesn&#x27;t)</a></li><li><a href="/guides/safe-to-disable-android-tv-apps/">Which Android TV apps are safe to disable, and which you should never touch</a></li><li><a href="/guides/debloat-by-brand/">Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV</a></li><li><a href="/guides/fire-tv-samsung-lg/">What about Fire TV, Samsung and LG? Honest answers</a></li></ul>
+</article>
+<section class="card cta">
+  <div>
+    <h2>Tidy your TV from your phone</h2>
+    <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
+    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <p class="ask">A star on GitHub is how other people find TidyTV.</p>
+  </div>
+  <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">
+</section>
+</main>
+<footer class="wrap">
+  <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
+</footer>
+<script src="/assets/stars.js" defer></script>

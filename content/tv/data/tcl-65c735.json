@@ -1,0 +1,166 @@
+{
+ "id": "tcl-65c735",
+ "title": "TCL 65C735 (reports as \"Smart TV Pro\", device G05, product G05_4K_GB), Google TV 11 (SDK 30),",
+ "header": "TCL 65C735 (reports as \"Smart TV Pro\", device G05, product G05_4K_GB), Google TV 11 (SDK 30),\nfirmware AR2101, 2.7 GB RAM. France, wired through a USB Ethernet adapter (eth1).\nSame platform as examples/tcl-g05-google-tv; this list is a little more conservative.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-65c735/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-65c735/debloat.txt com.google.android.apps.tv.launcherx\nWindows: tools\\disable.ps1 / tools\\restore.ps1 -TvHost <tv ip> <list> -Stock com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV / HDMI: com.tcl.tv + com.tcl.tvinput.\nUSB debugging and USB devices: a USB Ethernet adapter kept working when debugging was switched on,\nbut after a reboot with debugging on the port came up in gadget mode (sys.usb.config=adb,\nMstar-udc) and the adapter never appeared as a network interface (LED blinking, no eth1).\nSwitch USB debugging off once you are done to get the port back.\nDisabling setupwraith (batch 5) survived a reboot on this unit, unlike the G05 report.\nRemote app buttons: TclPhoneWindowManager turns Netflix (keycode 4062), YouTube (4065) and Prime\nVideo (4099) into broadcasts that only work while launcherx is enabled (re-enabling\npartnercustomizer does not help). With launcherx disabled these buttons do nothing; an\naccessibility service that catches those keycodes and starts the app fixes it (verified with the\nreal remote).\nDisabling the debloat batches alone (launcherx still enabled) left Wi-Fi/Ethernet, HDMI, Live TV,\nthe Input key and app playback working.\n\nDO NOT DISABLE (load-bearing): com.tcl.tv, com.tcl.tvinput, com.tcl.settings, com.tcl.system.server,\ncom.tcl.providers.config, com.tcl.initsetup, com.tcl.factory.view, com.tcl.autopair,\ncom.tcl.tcl_bt_rcu_service, com.tcl.keyhelp, com.tcl.inputmethod.international,\ncom.google.android.inputmethod.latin, com.google.android.gms, com.google.android.gsf, Play Store,\ncom.tcl.eva (RemoterService accessibility helper), com.tcl.suspension (source/Quick panel, Input key).\nKept by choice: com.tcl.gamebar (game mode, Moonlight is used), com.tcl.UpdatePeripheral (remote fw),\ncom.tcl.t_solo (Bluetooth \"listen alone\"), com.tcl.android.webview.",
+ "sections": [
+  {
+   "title": "Batch 1 - telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "TCL BI/awareness/identifier services"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard: device-use tracking, \"health info\", memory cleaner"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "\"send feedback\""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2 - TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL content recommendations"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL rows on the Google TV home"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "pushed messages and promos"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account"
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "\"TCL Home\" panel, gift box and promos"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content at boot"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "au.com.stan.and",
+     "note": "Stan (AU): disabled by the firmware on arrival, shell may not touch it"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Batch 3 - preloaded apps and services not used",
+   "apps": [
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies storefront"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media player (VLC is installed) - re-enable for USB drives"
+    },
+    {
+     "pkg": "com.tcl.notereminder",
+     "note": "notes/reminders"
+    },
+    {
+     "pkg": "com.tcl.hearaid",
+     "note": "hearing test / volume adaptation"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "screen reader"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 4 - voice and casting (owner keeps Chromecast and Miracast)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search (mic button)"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "assistant LED service"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL voice service"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa"
+    },
+    {
+     "pkg": "com.tcl.airplay2",
+     "note": "AirPlay"
+    },
+    {
+     "pkg": "com.mediatek.AirplayAPK",
+     "note": "AirPlay"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 5 - with the launcher in this repo installed (launcher/build-and-install.sh disables launcherx)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "first-run wizard; its RecoveryActivity claims HOME. Re-enable"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 29
+}

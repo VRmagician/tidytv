@@ -1,0 +1,89 @@
+{
+ "id": "benq-e55-735",
+ "title": "BenQ E55-735 (55\" 4K, Taiwan), Google TV 14, firmware UKNV.260506.001",
+ "header": "BenQ E55-735 (55\" 4K, Taiwan), Google TV 14, firmware UKNV.260506.001\nBuilt by Changhong (ro.product.manufacturer=Changhong, ro.product.model=\"AI PONT\", product DVB96BQ),\nMediaTek SoC, about 1.8 GB RAM. Changhong's own packages use the com.homwee prefix; the same\n\"AI PONT\" platform is sold as CHiQ (see the CHiQ DVB93CQ example in PR #10).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/benq-e55-735/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/benq-e55-735/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it as STOCK_LAUNCHER).\nAlready disabled from the factory: com.mediatek.wwtv.tvcenter, com.google.android.marvin.talkback.\n\nQuirks on this firmware, all checked on the TV:\n- USB debugging alone does NOT open port 5555 until the first reboot. Pair once with Wireless\ndebugging instead: `adb mdns services` shows the random pairing and connect ports, then\n`adb pair <ip>:<pairing port> <code>` and `adb connect <ip>:<connect port>`. After a reboot,\nwith USB debugging still on, plain port 5555 answers.\n- Home keeps going to com.google.android.tungsten.setupwraith/.RecoveryActivity after the stock\nlauncher is disabled: setupwraith must be disabled too (listed below).\n- Standby is MediaTek suspend-to-RAM: once the CPU suspends (seconds after the screen goes off,\nwhen no wakelock is held), Bluetooth and Wi-Fi stop. A Chromecast voice remote (Bluetooth only)\nthen cannot turn the TV on; the BenQ IR remote and the power button can. Holding a wakelock\nto prevent it confuses the vendor standby (panel off, system awake, ARC broken). Wake-on-LAN\ndoes work from deep standby: a magic packet to the Wi-Fi MAC brings the TV up in about 5 s.\n- The Chromecast remote's Input button sends KEYCODE_TV, which the stock launcher handled. Its\nYouTube and Netflix buttons have no key layout on this TV (HID usages 0x0c0077 / 0x0c0078\nboth arrive as KEYCODE_UNKNOWN), so they do nothing once the stock launcher is gone.",
+ "sections": [
+  {
+   "title": "Changhong / Homwee store and help",
+   "apps": [
+    {
+     "pkg": "com.homwee.store",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.help",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Automatic content recognition (reports what is on screen)",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.anokiacroptin",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV recommendations and screensaver (set another screensaver first)",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV app, the home screen's recommendation source"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode; mixes recommendations into the screensaver"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps not used in this home (by choice; keep the ones you use)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.taiwanmobile.myVideotv",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "its RecoveryActivity otherwise takes over Home"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disable only after the new launcher is installed and set as home."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 11
+}

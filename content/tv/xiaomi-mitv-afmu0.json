@@ -1,0 +1,32 @@
+{
+  "name": "Xiaomi TV Box S (3rd gen)",
+  "brand": "Xiaomi",
+  "os": "Google TV 14",
+  "summary": "Turn off the quality uploader, PatchWall promos and preloaded apps on the Xiaomi TV Box S (3rd gen) with TidyTV, a free phone app with a backup and undo.",
+  "intro": [
+    "The Xiaomi TV Box S 3rd gen runs Google TV on Android 14. It ships with a quality-stats uploader, PatchWall content rows and promos, and preloaded apps such as Netflix, YouTube and Prime Video. Some of those are optional, and personal choice apps like the voice assistant and phone remote are in the list too.",
+    "Tested for one evening: the home screen, app grid, D-pad and dock apps all worked, and they survived one restart. It has not been used for days yet. TidyTV turns these off from your phone over Wi-Fi. It saves a backup first, switches each app off in Android's own settings and never uninstalls anything."
+  ],
+  "keep": [
+    "The Xiaomi setup partner helper, which the list leaves alone.",
+    "Xiaomi's core TV service (mitv.service), which the list leaves alone.",
+    "Amlogic chip services (droidlogic), which the list leaves alone."
+  ],
+  "notes": [
+    "With the stock home screen off, apps that have no spot on the dock appear in the grid."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Xiaomi TV Box S?",
+      "a": "Only if you keep voice on. The voice assistant is a personal choice in the list, and the mic button stops working when it is off. Leave its switch on in the app if you use it."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Mi Cast and sharing are personal choices in the list. Keep their switches on in the app and casting keeps working."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

@@ -1,0 +1,86 @@
+{
+ "id": "vu-4k-lushan",
+ "title": "Vu 4K (ro.product.model \"VU 4K\", device lushan, manufacturer HVCL, MediaTek), Google TV / Android 12",
+ "header": "Vu 4K (ro.product.model \"VU 4K\", device lushan, manufacturer HVCL, MediaTek), Google TV / Android 12\n(SDK 31), firmware STT2.230929.001.080. Sold in India. About 1.8 GB RAM.\nVu's own packages use the com.vt prefix (the same VIDAA/Hisense stack as examples/hisense-smarttv-4k-ffm,\nwith many com.hisense class names inside).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/vu-4k-lushan/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/vu-4k-lushan/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (build-and-install.sh finds and disables it; do not\nlist it here, it must go only after the new launcher is running). Live TV app: com.vt.tv.tvcenter (set it\nas live_tv_package and hide it in launcher config.xml). HDMI 1-3 and AV come from com.vt.source.external.\nAlready disabled at the factory, so not listed: com.mediatek.tis, com.mediatek.dtv.tvinput.isdbtuner,\ncom.vt.source.tuner.\n\nUSB debugging alone opens port 5555 (no wireless-debugging pairing needed). With the new launcher, the\nremote's Input key still opens Vu's own input panel (com.vt.tv.input), so INPUT_KEY_SERVICE is not needed.\nTested on the day of the debloat (2026-10-19), not yet lived with for days: two reboots, both normal;\nHDMI switching from the launcher's Inputs menu (opens com.vt.tv.tvcenter); apps launch from the dock.\n\nDo NOT disable com.vt.tv.smartsense, com.vt.tv.smartsense.ui or com.vt.tv.aiot: on the Hisense with the\nsame stack, disabling them sent the TV to Android Recovery on the next boot.\nKept on purpose: com.vt.tvservice, com.vt.avmiddleware, com.vt.edv.drmp, com.vt.tv.commonui,\ncom.vt.tv.input, com.vt.tv.videocolor (picture settings), com.vt.eula (consent state other apps read),\ncom.vt.tv.protector, com.vt.tv.customerlauncher, com.vt.udpserver, com.vt.fte, tv.mopa.ginga,\ncom.vt.tv.mediacenter (USB media player), com.vt.tv.dlna, the factory apps (com.vt.factory,\ncom.factory.tv.at, com.at.factory.androidtvaidlservice), com.mediatek.*.\nFirmware updates left ON: com.vt.tv.ota, com.vt.remoteupgrade, com.vt.tv.usbota.\nCasting left ON by choice: Chromecast (com.google.android.apps.mediashell), AirPlay (com.mediatek.AirplayAPK,\nairplaydaemon, partner.airplay_sys, com.vt.tv.airplaykeycheck), Miracast (com.vt.tv.mobiledeviceconnectiontips).\nGoogle Assistant (com.google.android.katniss) left ON by choice.",
+ "sections": [
+  {
+   "title": "Vu telemetry",
+   "apps": [
+    {
+     "pkg": "com.vt.tv.evservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "ACR (\"Enhanced Viewing\" content recognition, consent and promotion screens)"
+  },
+  {
+   "title": "Ads, auto-installs, retail demo",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.vt.storemode",
+     "note": "shop demo mode"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps not used (by choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV app (rent/buy movies)"
+    },
+    {
+     "pkg": "com.hisense.odinbrowser",
+     "note": "preloaded web browser"
+    },
+    {
+     "pkg": "com.vt.hishow",
+     "note": "Vu \"Family Moment\" photo sharing, with its own screensaver"
+    },
+    {
+     "pkg": "com.vt.tv.singlelisten",
+     "note": "Vu \"My Music\""
+    },
+    {
+     "pkg": "com.mxtech.videoplayer.television",
+     "note": "MX Player"
+    },
+    {
+     "pkg": "com.vt.alexa",
+     "note": "Alexa built-in (Google Assistant kept)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "its RecoveryActivity claims Home at priority 1 and can crash-loop system_server once launcherx is gone. Disable before build-and-install.sh; only used for first-time setup."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 12
+}

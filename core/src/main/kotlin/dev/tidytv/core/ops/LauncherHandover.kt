@@ -1,12 +1,13 @@
 package dev.tidytv.core.ops
 
+import dev.tidytv.core.lists.HomeApp
 import dev.tidytv.core.lists.Launchers
 
 sealed interface HandoverOutcome {
     data class Done(val disabledStock: String?) : HandoverOutcome
     /** Home is Android's chooser and it is unclear which launcher is the stock one. */
     data class NeedsChoice(val claimants: Set<String>) : HandoverOutcome
-    /** Home belongs to something tidytv doesn't recognise; nothing was changed. */
+    /** Home belongs to something TidyTV doesn't recognise; nothing was changed. */
     data class UnknownHome(val owner: String?) : HandoverOutcome
     /** A copy of the home screen signed with another key is installed (e.g. from tv-detox's own release). */
     data object SignatureConflict : HandoverOutcome
@@ -23,7 +24,7 @@ sealed interface HandoverOutcome {
 }
 
 /**
- * Installs tidytv's home screen (the tv-detox launcher) and hands Home over to it. Order from
+ * Installs one of TidyTV's home screens ([HomeApp]) and hands Home over to it. Order from
  * upstream launcher/build-and-install.sh: install alone, start the new launcher and confirm it came
  * up, only then turn the stock launcher off, set Home after (Android drops the preference when the
  * set of HOME apps changes), then check where Home landed and roll back if it isn't ours.
@@ -33,9 +34,10 @@ class LauncherHandover(
     private val log: ActionLog,
     private val clock: () -> Long = System::currentTimeMillis,
     private val sleep: suspend (Long) -> Unit = { kotlinx.coroutines.delay(it) },
+    private val app: HomeApp = HomeApp.SIMPLE,
 ) {
-    private val ours = Launchers.TIDY_HOME_COMPONENT
-    private val ourPkg = Launchers.TIDY_HOME_PACKAGE
+    private val ours = app.component
+    private val ourPkg = app.pkg
 
     suspend fun run(apk: ByteArray, dockApps: List<String>, sdk: Int): HandoverOutcome = try {
         handover(apk, dockApps, sdk)
@@ -80,7 +82,8 @@ class LauncherHandover(
         val homeBefore = Parse.component(tv.run(Commands.RESOLVE_HOME))
         val homePkg = homeBefore?.substringBefore('/')
         val stock: String? = when {
-            homePkg == ourPkg -> null
+            // Already one of TidyTV's home screens: switch between them without touching stock.
+            HomeApp.of(homePkg) != null -> null
             homePkg in Launchers.KNOWN_STOCK -> homePkg
             homePkg == "android" -> {
                 val claimants = Parse.componentsIn(tv.run(Commands.QUERY_HOME))
@@ -110,13 +113,24 @@ class LauncherHandover(
             }
         }
 
-        // 2. Start it before anything else changes; "Status: ok" and no "Error" line, both required.
-        val start = tv.run(Commands.startLauncher(ours, dockApps, clock() / 1000))
+        // 2. Give it the dock apps. cleanyourtv reads config.json at start (tools/theme.sh);
+        // tv-detox takes them as start extras below.
+        if (app.dockByConfig) {
+            if (dockApps.isNotEmpty() && Parse.lines(tv.run(Commands.makeConfigDir(ourPkg))).contains("ok")) {
+                tv.push(Commands.dockConfig(dockApps).toByteArray(), Commands.configDir(ourPkg) + "/config.json")
+                tv.run(Commands.writeRevision(ourPkg, clock()))
+            }
+            tv.run(Commands.grantLocation(ourPkg)) // shows the Wi-Fi name; harmless if refused
+        }
+
+        // 3. Start it before anything else changes; "Status: ok" and no "Error" line, both required.
+        val extras = if (app.dockByConfig) emptyList() else dockApps
+        val start = tv.run(Commands.startLauncher(ours, extras, clock() / 1000))
         if (!start.contains("Status: ok") || Parse.lines(start).any { it.startsWith("Error") }) {
             return HandoverOutcome.StartFailed(start.trim())
         }
 
-        // 3. Make it Home, then turn the stock launcher off, then set Home again.
+        // 4. Make it Home, then turn the stock launcher off, then set Home again.
         log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.INTENT, before = homeBefore))
         setOurs(sdk)
         if (stock != null && !isPersistent(stock)) {
@@ -131,7 +145,7 @@ class LauncherHandover(
             setOurs(sdk)
         }
 
-        // 4. Check where Home landed.
+        // 5. Check where Home landed.
         val homeNow = Parse.component(tv.run(Commands.RESOLVE_HOME))
         if (homeNow == ours || homeNow?.substringBefore('/') == ourPkg) {
             log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.DONE, before = homeBefore))

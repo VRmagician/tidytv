@@ -1,0 +1,35 @@
+{
+  "name": "NVIDIA SHIELD TV Pro (2019)",
+  "brand": "NVIDIA",
+  "os": "Android TV 11",
+  "summary": "Turns off NVIDIA usage stats, sponsored home rows, GameStream leftovers and extra apps on the SHIELD TV Pro (2019). Free phone app, backup and one-tap undo.",
+  "intro": [
+    "The NVIDIA SHIELD TV Pro (2019) ships with NVIDIA usage statistics, a feedback form and a log collector, and sponsored or Top picks rows on the home screen. It also has leftovers from NVIDIA's GameStream service, which closed in 2023, a legacy photo viewer and a print spooler. Partner apps are auto-installed by Play after setup, and the list can stop that too.",
+    "This list was tested on SHIELD Experience 9.2.4, and its package names were also checked on 9.2.2. The stock home screen change stayed in place across a reboot. The remote, controllers, Bluetooth, Watch Next and Live Channels are left alone. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup, and deletes nothing."
+  ],
+  "keep": [
+    "The remote, controllers and Bluetooth services, including pairing, the accessory screens and the controller mapper.",
+    "Display, audio and AI upscaling: NVIDIA's display and audio services, and the Dolby audio service.",
+    "Settings, the SHIELD service, updates, and Watch Next with Live Channels.",
+    "Play Services, the keychain and the secure element service stay on. Some guides remove them, and some units were left soft-bricked afterwards."
+  ],
+  "notes": [
+    "Backdrop is the default screensaver. Pick another screensaver first, or the TV is left with none.",
+    "A SHIELD Experience update can turn some of these apps back on. Run the list again after an update.",
+    "Reserve an IP address for the Shield on your router. Ethernet and Wi-Fi get different addresses, and the Shield can come back on either one after a reboot."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes, if you leave Google Assistant on. It is an optional item on this list, and turning it off stops the mic button. Google's speech service is also optional, and turning it off breaks in-app mic buttons."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast built-in is an optional item on this list. Leave its switch on if you cast to the Shield, because turning it off stops that."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the sponsored and Top picks rows from Google's recommendations service, and the partner app auto-installs. Those are the home screen promos the list covers."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Xiaomi Mi Box S (2nd gen)",
+  "brand": "Xiaomi",
+  "os": "Google TV 11",
+  "summary": "Turn off Mi analytics, Xiaomi ad rows and auto-installed partner apps on the Mi Box S (2nd gen). TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "The Mi Box S ships with Mi analytics, a Xiaomi usage uploader and Google's attribution pings. It also has Xiaomi ad rows, Mi content rows, Mi TV+ ad-funded channels, PatchWall, Xiaomi web promos and a partner-app auto-installer. Prime Video and the Google TV movies app are preloaded too, and both are off by choice in the list.",
+    "The list was applied in batches with screenshots between them, and it was checked again on a second set. Wi-Fi, USB playback, Google Home, the phone remote, Chromecast from a Pixel and Google Assistant all still worked after living with it. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "Google Assistant.",
+    "Chromecast.",
+    "The phone remote.",
+    "YouTube Music.",
+    "Xiaomi's USB media apps and Miracast screen sharing.",
+    "The quick settings panel.",
+    "Bluetooth and the Amlogic system services."
+  ],
+  "notes": [
+    "Turning off the setup wizard can drop Wi-Fi for about 20 seconds, and the Wi-Fi password may need to be typed in again once.",
+    "The remote's Netflix, YouTube and Apps shortcut buttons stop working once the stock home screen is off.",
+    "This box has no TV inputs or tuner, so the Inputs menu does not appear.",
+    "The change is still provisional until it has had a few days of use."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Xiaomi Mi Box S (2nd gen)?", "a": "Yes. Google Assistant is kept on, so voice search keeps working."},
+    {"q": "Does casting still work?", "a": "Yes. Chromecast, Miracast screen sharing and the phone remote are kept on."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the Xiaomi ad row, the Mi content and Mi TV+ rows, PatchWall and the Xiaomi web promos. Restore everything turns them back on in one tap."}
+  ]
+}

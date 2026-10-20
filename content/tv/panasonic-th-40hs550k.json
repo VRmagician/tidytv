@@ -1,0 +1,26 @@
+{
+  "name": "Panasonic TH-40HS550K",
+  "brand": "Panasonic",
+  "os": "Android TV 11",
+  "summary": "Turn off Skyworth demo apps, trackers and unused preloads on the Panasonic TH-40HS550K. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This Panasonic is built by Skyworth and ships with shop-demo apps and setup leftovers, a Google background data service, and a MediaTek picture-quality test tool that starts at boot. It also has recommendation rows, a partner setup that feeds the home screen, and preloaded apps you may not use, such as Play Movies, Play Games, Prime Video and Google Assistant.",
+    "The list was applied in four batches on one TV, with a screenshot and remote-key checks after each batch. Home, Live TV, the input panel and HDMI detection all worked afterwards. The list had about a day of real use when it was written up. TidyTV turns these items off from your phone over Wi-Fi, makes a backup first and deletes nothing."
+  ],
+  "keep": [
+    "Live TV and the input panel, through the MediaTek Live TV app.",
+    "The tuner, input and HDMI stack, which is all MediaTek packages and is never switched off.",
+    "Remote-key checks of Home, Live TV, the input panel and HDMI detection, which passed after the change."
+  ],
+  "notes": [
+    "The TV starts on the last source, such as Live TV or an HDMI port. The firmware has no setting to change this.",
+    "HDMI devices appear as their own inputs, so the input list can show a name like 'HDMI 1 PlayStation 5'.",
+    "The stock home screen keeps a Play Movies tile after the Play Movies app is off, because the tile is a built-in shortcut.",
+    "With about 0.9 GB of RAM, background apps such as Netflix can be closed quickly when memory runs low."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Panasonic TH-40HS550K?", "a": "Not while Google Assistant and voice search are off. The list turns them off by choice, and Restore everything turns them back on in one tap."},
+    {"q": "Can I get the old home screen back?", "a": "Yes. Restore everything turns the apps back on and puts the stock home screen back in one tap."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the recommendation rows and the partner setup that adds rows to the home screen. Restore everything turns them back on in one tap."}
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Sony KD-65X9300D",
+  "brand": "Sony",
+  "os": "Android TV 8",
+  "summary": "Turn off Sony recommendation rows, device agents, telemetry and unused apps on the Sony KD-65X9300D. Free phone app, with a backup first and one-tap undo.",
+  "intro": [
+    "The Sony KD-65X9300D from 2016 ships with Sony content rows, including Sony Select, Sony Discover and a recommendation feed. It has device agents that run in the background, a service that broadcasts the TV's details for home-control systems, and preloaded apps such as Google Play Music, which closed in 2020.",
+    "The list was checked on the TV. It restarted straight into the new home screen with no crashes logged after the restart, and Inputs showed HDMI 1 to 4 with device names, Video 1 and 2, and Live TV. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled, and one tap brings them back."
+  ],
+  "keep": [
+    "HDMI control, the remote pairing and remote settings, and the keyboard",
+    "Live TV and every HDMI input, through Sony's TV app",
+    "The Netflix button, system updates and Sony's network control",
+    "Sony's hotel and pro mode plumbing, which is left alone"
+  ],
+  "notes": [
+    "This set has no Samba TV, so there is no viewing tracker to turn off.",
+    "DLNA, the USB music, photo and video players and the Japanese keyboard are turned off by this list. Switch them on in TidyTV if you use them."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony KD-65X9300D?",
+      "a": "The list does not turn off Google's voice search app. The notes do not record a voice test on this TV, so try it after the change."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is not in this list, so it is not turned off. The DLNA renderer is turned off here, so switch it on in TidyTV if you send media from other devices."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

@@ -1,0 +1,36 @@
+{
+  "name": "Philips 50PUS8517",
+  "brand": "Philips",
+  "os": "Android TV 11",
+  "summary": "Philips 50PUS8517 ships with viewing analytics and Philips promo rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Philips set ships with TP Vision analytics that report channels watched, HDMI devices, viewing times and Ambilight settings, and that estimate your region from your internet address. The home screen also carries Philips promo rows and a storefront of extra apps such as MEGOGO and Deezer. Google's voice assistant, Play Games, YouTube Music and the stock YouTube app are on the list too.",
+    "This list is for one board and one firmware, so check that your set matches before you use it. The app names were read from each app's own label, and the list was checked by watching the TV's log while it sat idle. Two services that keep the sources menu and the TV engine working are left enabled. TidyTV turns the rest off from your phone over Wi-Fi, with a backup first and nothing deleted."
+  ],
+  "keep": [
+    "The sources menu, the HDMI inputs and the TV engine behind them",
+    "The Live TV app",
+    "Chromecast built-in, which this firmware keeps running",
+    "The TV control port on 1925 and 1926, used by TV control tools"
+  ],
+  "notes": [
+    "The notification panel goes with the Google recommendation service, so it is gone on the whole TV, not just the home screen. This is a deliberate trade.",
+    "Two background services in the TV engine must stay on. Turning off one makes the sources menu vanish, and turning off the other makes the engine retry in a loop.",
+    "Chromecast built-in cannot be switched off on this firmware. It turns back on about half a minute after each restart.",
+    "Some Philips remotes have a dedicated YouTube key. Once the stock YouTube app is switched off, that key stops doing anything, so check your remote first."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Philips 50PUS8517?",
+      "a": "Not with the default list. It turns off Google Assistant and voice search, which the remote's mic button uses."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in stays on, because this firmware will not keep it switched off."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "For the most part. It turns off the Philips Top Picks row and its backend, the Smart TV Collection storefront, and the Google recommendation service behind the stock home screen."
+    }
+  ]
+}

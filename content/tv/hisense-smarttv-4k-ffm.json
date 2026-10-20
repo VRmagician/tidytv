@@ -1,0 +1,26 @@
+{
+  "name": "Hisense SmartTV 4K FFM",
+  "brand": "Hisense",
+  "os": "Android TV 10",
+  "summary": "Turn off Hisense viewing tracking, VIDAA preloads and store demos on the Hisense SmartTV 4K FFM. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This Hisense ships with an ACR viewing tracker (automatic content recognition, which watches what is on screen), a VIDAA app preload and Hisense push-message services. It also has retail, store and hotel demo modes, over-the-air update services, Google home-screen movie and music rows, and voice assistant apps.",
+    "The list was applied on one set in seven groups, with a restart after each. The TV booted normally, and HDMI-CEC, the inputs and Live TV kept working. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if something looks wrong."
+  ],
+  "keep": [
+    "MediaTek packages, including the Live TV and HDMI app.",
+    "Hisense input and smart-service packages.",
+    "The VIDAA persistent service.",
+    "HDMI-CEC and the inputs, which keep working with this list."
+  ],
+  "notes": [
+    "While Google Assistant and voice search are off, the remote's microphone button stops working.",
+    "Some Hisense system apps were left on, because a test that turned off three of them sent one TV into Android Recovery. If that screen appears, choose 'Try again', not 'Factory data reset'.",
+    "Firmware updates are turned off with the update apps. Turn them back on with their switches to receive an update."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Hisense SmartTV 4K FFM?", "a": "Not while Google Assistant and voice search are off. The list turns them off, and the remote's microphone button stops working until you turn them back on."},
+    {"q": "Will I still get firmware updates?", "a": "Not while the update apps are off. Turn them back on with their switches to receive an update."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the viewing tracker, the VIDAA app preload, the Hisense push messages and the Google home-screen movie and music rows. Restore everything turns them back on in one tap."}
+  ]
+}

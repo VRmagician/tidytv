@@ -1,0 +1,36 @@
+{
+  "name": "Amazon Fire TV Stick 4K (2018)",
+  "brand": "Amazon",
+  "os": "Fire OS 6",
+  "summary": "Amazon Fire TV Stick 4K (2018) ships with ad rows and unused apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This stick ships with more than most owners need. Amazon's metrics and crash reporting run in the background, and the home screen carries sponsored previews, a shopping app and a Live tab with free ad-supported channels. There are also preloaded apps most owners never open, such as Amazon Music, Amazon Photos, the Silk browser and IMDb, plus Alexa extras like timers and reminders.",
+    "This list was lived with on one stick from 18 October 2026, and nothing had to be turned back on. Netflix, Prime Video, Disney+ and YouTube are not on the list. Some Amazon reporting services are locked by Fire OS and cannot be switched off without rooting the stick, so they stay. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first, never uninstalls anything, and can undo it in one tap."
+  ],
+  "keep": [
+    "The Appstore and the screens that show installed apps, so you can still add apps",
+    "The home screen, settings, firmware updates and the remote's Bluetooth services",
+    "The keyboard and Alexa voice search for the remote's microphone",
+    "Prime Video, screen mirroring and casting from a phone",
+    "The screensaver, profile picker, accessibility features and text to speech"
+  ],
+  "notes": [
+    "The sponsored banner and the sponsored app row are loaded by the home screen itself, so turning off the services does not remove them. An ad-blocking address in the Wi-Fi settings, which is the address your Wi-Fi uses to look up websites, or a block set on the router can help.",
+    "Also turn off Featured Content autoplay under Preferences and the three Privacy Settings switches. TidyTV does not change those.",
+    "A restart puts the favourites bar back to Amazon's defaults. A firmware update from Amazon can switch some apps back on, so run TidyTV again after one."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Fire TV Stick 4K?",
+      "a": "Yes. The Alexa voice search for the remote's microphone is kept. Only the Alexa extras for alarms, timers and reminders are turned off."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Screen mirroring and casting from a phone are kept on purpose."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Some of them. The list turns off the sponsored previews and the ad services, but the sponsored banner and sponsored app row are loaded by the home screen itself."
+    }
+  ]
+}

@@ -126,7 +126,7 @@ class TvConnector(
         if (digits.length != 6) return ConnectResult.Failed("The pairing code has 6 digits.")
         return try {
             trace("pair $host:$pairPort")
-            Kadb.pair(host, pairPort, digits, name = "tidytv")
+            Kadb.pair(host, pairPort, digits, name = "TidyTV")
             connect(host, connectPort)
         } catch (e: Exception) {
             if (e is CancellationException) throw e

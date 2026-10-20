@@ -1,0 +1,34 @@
+{
+  "name": "Sony BRAVIA XBR-65X900E",
+  "brand": "Sony",
+  "os": "Android TV 9",
+  "summary": "Tidy a Sony BRAVIA XBR-65X900E by turning off its Samba TV tracker, promos, demo modes and preloaded apps. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA XBR-65X900E comes with Samba TV, a viewing tracker that recognises what is on screen, plus Sony and Google promo tiles and recommendation rows, retail demo modes, remote support and feedback services, and preloaded apps such as the i-Manual. A home TV has no use for most of it.",
+    "This list was checked on a 2017 set running Android TV 9. The Inputs menu still lists HDMI 1 to 4 and Video 1 and 2, and the Live TV app plays every HDMI input. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first, and never uninstalls anything. Restore everything brings them back in one tap."
+  ],
+  "keep": [
+    "Live TV and every HDMI input, through Sony's TV input app",
+    "Bravia Sync, which links the TV to HDMI devices",
+    "The sleep timer, and the remote's power and key services",
+    "Sony's network control services, left alone because other devices may use them"
+  ],
+  "notes": [
+    "Chromecast, screen mirroring and DLNA are in the list as off by choice. Turn them back on in the app if you use them.",
+    "The Media Player and music app are in the list too. Turn them back on in the app to play files from a USB drive."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "Not with this list as it stands. Chromecast, screen mirroring and DLNA are turned off by choice, so turn them back on in the app if you cast."
+    },
+    {
+      "q": "Will Live TV and HDMI still work?",
+      "a": "Yes. The Live TV app plays every HDMI input, and HDMI 1 to 4 and Video 1 and 2 are still listed."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off Sony Select, Sony's promo tiles, the Discover content bar and the Google recommendation rows on the home screen. The stock home screen itself is not replaced by this list."
+    }
+  ]
+}

@@ -1,0 +1,30 @@
+{
+  "name": "Sony BRAVIA 4K UR2",
+  "brand": "Sony",
+  "os": "Android TV 10",
+  "summary": "Turn off Samba TV, shop and demo apps and recommendation rows on the Sony BRAVIA 4K UR2 with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA 4K UR2 ships with Samba TV, a viewing tracker that fingerprints what is on screen. It also has recommendation rows, shop and demo apps, a voice assistant group and Chromecast. A set of preloaded apps that most owners skip are on it too.",
+    "The list was applied across one afternoon with the dock set to Netflix, YouTube, Disney+ and ZEE5. It has not been used for weeks yet, so check the streaming apps again after a day or two. TidyTV turns these off from your phone over Wi-Fi, with a backup first and nothing uninstalled. Restore everything switches them back on in one tap."
+  ],
+  "keep": [
+    "Live TV and the tuner app, which also plays the HDMI inputs.",
+    "The HDMI input and remote services, including Bravia Sync.",
+    "Sony's Settings apps and system service, which run the TV's settings and the remote."
+  ],
+  "notes": [],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony BRAVIA 4K UR2?",
+      "a": "Not with that group off. The voice group removes the remote's mic search, so leave its three apps on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes, if you keep Chromecast built-in on. It is its own group in the list, so its switch can stay on while the rest are turned off."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off Samba TV, the recommendation rows and the shop and demo apps. Those are the tracking and promo parts of the list."
+    }
+  ]
+}

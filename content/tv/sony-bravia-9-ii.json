@@ -1,0 +1,37 @@
+{
+  "name": "Sony BRAVIA 9 II",
+  "brand": "Sony",
+  "os": "Google TV 14",
+  "summary": "Sony BRAVIA 9 II ships with Samba TV viewing tracking and promo tabs. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Sony set ships with Samba TV, which fingerprints what is on screen, and several device agents that report usage data. It also has Sony promo apps and a Sony tab on the home screen, plus retail demo apps that shops use. Google's feedback uploader is on the list too.",
+    "The list was applied in small batches on 19 October 2026, with a crash-log check after each step. The new home screen was then installed, and Home, the inputs, the Input key and voice were checked the same evening. It has not been lived with for days yet. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "HDMI inputs, the analog input and the Live TV app",
+    "The IR blaster and its setup service",
+    "The voice assistant and Gemini, which keep working without the stock home screen",
+    "AirPlay, Sony firmware updates and all streaming apps",
+    "The BRAVIA CAM sensing service"
+  ],
+  "notes": [
+    "The Input key on the remote opens Sony's own bottom panel. It still works with the new home screen.",
+    "USB debugging alone does not open a network connection on this set, so turn on Wireless debugging for the first connection.",
+    "The TV has a hardware microphone switch. If it says the microphone is blocked, that switch is the cause, not this list.",
+    "If Wi-Fi was set up in the first-run wizard, switching the setup wizard off makes the TV forget that network. Join the network again in Settings first, or use Ethernet."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony BRAVIA 9 II?",
+      "a": "Yes. Voice and Gemini are kept on purpose and keep working. The Gemini tab on the stock home screen goes away with that home screen."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "AirPlay is kept, so iPhones and iPads can still send to the TV. Chromecast built-in is one of the optional apps the list switches off, and you can switch it back on in the app."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

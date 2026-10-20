@@ -1,0 +1,34 @@
+{
+  "name": "Sony BRAVIA 4K GB",
+  "brand": "Sony",
+  "os": "Android TV 9",
+  "summary": "Turn off Samba TV viewing tracking, Sony promo rows and retail demo modes on the Sony BRAVIA 4K GB. Free phone app, with a backup first and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA 4K GB ships with Samba TV, a viewing tracker that recognises what is on screen. It also has Sony Select, My BRAVIA promos and a Discover content bar, retail demo modes, and device agents that run in the background. Google recommendation rows and some preloaded apps are on as well.",
+    "The new home screen was set and held after a reboot. Chromecast, screen mirroring, the DLNA renderer, the phone remote and the USB media and music players are left on by choice. TidyTV turns the other apps off from a phone on the same Wi-Fi, after saving a backup, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Chromecast built-in and screen mirroring",
+    "The DLNA renderer and the Android TV phone remote",
+    "The USB media player and music player",
+    "Live TV and every HDMI input, which run through Sony's TV app"
+  ],
+  "notes": [
+    "A Sony service broadcasts the TV's model, MAC address and IP address on the home network. This list turns it off.",
+    "The notes say this list has not been used for weeks yet. If an app breaks, switch it back on in TidyTV."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony BRAVIA 4K GB?",
+      "a": "The list does not turn off Google Assistant or voice search, so the voice button should still work."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in and screen mirroring are left on by choice."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

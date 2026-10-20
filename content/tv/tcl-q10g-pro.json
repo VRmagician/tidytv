@@ -1,0 +1,35 @@
+{
+  "name": "TCL 55Q10G Pro",
+  "brand": "TCL",
+  "os": "Android 11",
+  "summary": "Turn off TCL's ad, analytics and telemetry services and promo feeds on the TCL 55Q10G Pro with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The TCL 55Q10G Pro is a China-market set with no Google services. It ships with a full-screen ad before the home screen, audience and analytics reporting, and a push connection that stays open. It also has a whole-net search whose results carry video-on-demand promotions, a repair guide, and an OTA updater that the list turns off too.",
+    "The list was applied on a real unit and checked after a full restart. Home, the source panel with HDMI 1 to 4, Media Center, the app store, TCL's guard app and Settings all still worked, with no crash entries. Available memory went from 1.97 GB to 2.24 GB. TidyTV turns these off from your phone over Wi-Fi, with a backup first and nothing uninstalled."
+  ],
+  "keep": [
+    "Sogou TV, the only keyboard. Without it there is no keyboard at all.",
+    "TCL's app store and its guard app, which are the only ways to add apps.",
+    "Media Center, for playing files from USB.",
+    "Live TV and the source key, plus Settings and the system services."
+  ],
+  "notes": [
+    "Debugging is hidden on this firmware. Open Settings, About this device, Device info, then press up, down, left and right on the remote until the ADB switch appears. It can take two or three goes.",
+    "Apps cannot be installed with other tools. Add them from TCL's app store or from a USB stick.",
+    "A third-party home screen cannot be installed here, so the TCL home screen stays in place."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55Q10G Pro?",
+      "a": "The voice button stops working once the voice engine is off. It is in the off by choice group, so leave it on in the app if you use the voice button."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is not on the list, so casting is not turned off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "There is nothing to put back. TCL's home screen is never swapped, because a third-party home screen cannot be installed on this set."
+    }
+  ]
+}

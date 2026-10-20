@@ -1,0 +1,35 @@
+{
+  "name": "Hisense HiSmartTV A4",
+  "brand": "Hisense",
+  "os": "Android TV 9",
+  "summary": "Tidy a Hisense HiSmartTV A4 by turning off its logging, recommendation rows, store demo and preloaded apps. A free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Hisense HiSmartTV A4 comes with log reporting and feedback services, recommendation rows, a store display mode, a retail demo loop and silent preload installs. It also ships with a browser, Play Music, a Hisense remote app, a USB media player and a screensaver app that most owners never use.",
+    "This list was tested on one TV. It started normally after every group was turned off, and the HDMI 1 to 3, AV and tuner inputs stayed in the Inputs menu. Chromecast, Google Assistant, the screen mirroring receiver and YouTube are kept by choice. TidyTV turns the apps off from your phone over Wi-Fi with a backup first, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV, HDMI and the remote's hotkeys, which run on MediaTek services",
+    "The HDMI, AV and tuner inputs, through Hisense's input service",
+    "The remote's menu key and its Netflix key",
+    "Chromecast, Google Assistant, screen mirroring and YouTube, kept by choice",
+    "Hisense's customer launcher and audio update service"
+  ],
+  "notes": [
+    "The sponsored banner and sponsored row on the stock home screen are not removed by this list. Only a different home screen does that, and the app can set up a clean one as an option.",
+    "This list turns off both Hisense firmware update services. Turn them back on in the app if you want the TV to check for a new update."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Not by itself. The full-width sponsored banner and sponsored row on the stock home screen stay until a different home screen is in use. The app can set up a clean home screen as an option."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept by choice, and the screen mirroring receiver is kept too."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

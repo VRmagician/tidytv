@@ -1,0 +1,129 @@
+{
+ "id": "xiaomi-mi-tv-4a",
+ "title": "Xiaomi Mi TV 4A (MiTV-MOOQ1, codename tarzan), Android TV 10, firmware QTG3.200305.006.2591",
+ "header": "Xiaomi Mi TV 4A (MiTV-MOOQ1, codename tarzan), Android TV 10, firmware QTG3.200305.006.2591\nAlso a good starting point for other Xiaomi/Redmi Android TVs with PatchWall.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mi-tv-4a/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mi-tv-4a/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nKnown quirk on this firmware: default_input_method points at com.baidu.input, which is not\ninstalled, so no keyboard appears in search fields. Set Gboard as the IME (see README gotchas).",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall and Mi content rows / promos",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.floatingframe",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner app"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.milinkservice",
+     "note": "Mi cast, Chromecast still works"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "re-enable to check for firmware updates"
+    },
+    {
+     "pkg": "com.xiaomi.amazon.alexa",
+     "note": "Alexa bridge"
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps nobody asked for",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tachyon",
+     "note": "Google Duo"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock Google TV launcher and its recommendation services, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 21
+}

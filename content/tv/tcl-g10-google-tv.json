@@ -1,0 +1,34 @@
+{
+  "name": "TCL 55-inch 4K Google TV",
+  "brand": "TCL",
+  "os": "Google TV 12",
+  "summary": "Turn off TCL TV+, TCL Live channels, home-screen push content and retail demo items on the 2023 TCL 55-inch 4K Google TV. Free phone app, backup and undo.",
+  "intro": [
+    "This 2023 TCL 55-inch 4K Google TV ships with TCL TV+ and TCL Live FAST channels, a service that pushes TCL content to the home screen at boot, and TCL tweaks to the home rows. It also has a silent app installer bundled in a TCL service, retail demo apps, an e-manual and a repair guide.",
+    "The list was confirmed on two units of the same TV platform, with the same firmware build. Netflix, YouTube, Prime Video and AirPlay are optional in the list, so they stay on unless you turn them off. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled, and one tap restores them."
+  ],
+  "keep": [
+    "Live TV, the antenna and HDMI playback, through TCL's TV app",
+    "TCL's tuner and input services, dashboard, Quick Panel, Bluetooth pairing and system service",
+    "Netflix, YouTube, Prime Video and AirPlay, which are optional in the list"
+  ],
+  "notes": [
+    "The red TV tile can disappear from the Google TV home row after the change. TV stays in the Apps row and behind the Inputs tile.",
+    "The ambient screensaver is turned off, but the screensaver setting can still point at it. Choose another screensaver in Settings.",
+    "The Google TV promo banner is drawn by the stock home itself, so it stays until the home screen is replaced."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55-inch 4K Google TV?",
+      "a": "The list does not turn off Google Assistant or voice search, so the voice button should still work. The notes do not record a voice test on this TV."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is not in this list, so it stays on. The Google TV phone-app remote is turned off here, so switch it on in TidyTV if you use it."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

@@ -120,7 +120,7 @@ class Debloater(
         } catch (e: TvConnectionLost) {
             return DebloatOutcome.Disconnected(results)
         } catch (e: UnexpectedOutput) {
-            return DebloatOutcome.Stopped(results, "The TV gave an answer tidytv didn't expect, so it stopped. (${e.command})")
+            return DebloatOutcome.Stopped(results, "The TV gave an answer TidyTV didn't expect, so it stopped. (${e.command})")
         }
     }
 }

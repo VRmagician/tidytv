@@ -1,0 +1,153 @@
+{
+ "id": "tcl-uniontv-latin-america",
+ "title": "TCL UnionTV, Latin America (ro.product.model UnionTV, TCL; persist.tcl.client_type SEM-LA-RT41KB-S1),",
+ "header": "TCL UnionTV, Latin America (ro.product.model UnionTV, TCL; persist.tcl.client_type SEM-LA-RT41KB-S1),\nRealtek RTD284x (RT2841), Android TV 9 (API 28), build PPR2.180905.006.A1 (2020-11-15), 1.4 GB RAM with\nro.config.low_ram=true, wired Ethernet. Sold in Brazil.\nFingerprint: TCL/UnionTV/UnionTV:9/PPR2.180905.006.A1/builder.20201115.105034:user/release-keys\nSame platform and build as examples/thomson-32he5800 (THOM-EU-RT2841-S1); this is the TCL-branded\nLatin America variant. The differences are noted below.\n\nTested: applied 2026-10-19 in batches with screenshots between them; launcher/ installed with the default\nbuild-and-install script, Home, Inputs menu (HDMI 1/2, AV, Live TV), HDMI switching, Settings,\nNetflix/Prime/YouTube launch and the Clock screensaver checked on the device. Not yet lived with for days.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-uniontv-latin-america/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-uniontv-latin-america/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (restore.sh / build-and-install defaults work). Other HOME\nclaimants are only the two FallbackHome activities (com.tcl.keycustomfunctionservice,\ncom.android.tv.settings); setupwraith does not claim HOME here. com.google.android.leanbacklauncher is\nalso installed and stays enabled as a fallback.\nLive TV app: com.tcl.tv (keep it, it owns tuner/HDMI playback; its TVActivity has a leanback entry, so\nlauncher/ needs only live_tv_package com.tcl.tv). Keep com.tcl.tvinput, com.tcl.tvpassthrough (the HDMI\nTvInputServices) and com.tcl.sourcemananger (source key / input panel). Inputs come from the standard\nTvInputManager, so the launcher's Inputs menu works with the default config.\nStandby: Quick start (\"Iniciar rapido\", STR, sys.tcl.str.switch) suspends to RAM and takes Ethernet down\nwith it, so ADB, Cast and Wake-on-LAN cannot wake the TV; there is no network-standby option on this\nfirmware. TCL's picture/system panel opens with `am start -a com.tcl.settings.action.NETWORKSETTINGS`.\n\nDifferences from the Thomson list, which keeps these three: com.tcl.partnercustomizer,\ncom.tcl.copydatatotv and com.tcl.common.terminalmanagerplus were disabled here with the remote, HDMI\nswitching, Settings and the launcher all still working. The remote's T key (partnercustomizer's TKey\nactivity) was not tested; re-enable partnercustomizer if your remote has one and it stops working.\nKept here but disabled in the Thomson list: the TCL media players (com.tcl.ui_mediaCenter,\naudioplayer, imageplayer, videoplayer) for USB playback, and com.google.android.partnersetup.\n\nDeliberately NOT disabled (system-relevant or unclear): com.tcl.framework.custom, com.tcl.keyhelp,\ncom.tcl.keycustomfunctionservice (remote keys), com.tcl.autopair, com.tcl.tcl_bt_rcu_service (remote\npairing), com.tcl.settings, com.tcl.initsetup, com.tcl.appstatecontroller,\ncom.tcl.xian.StartandroidService, com.tcl.ui_mediaCenter (USB playback), com.realtek.netflix.setting\n(Netflix ESN/config), Chromecast (mediashell), firmware updates (versionUpdateApp, rc.ota).",
+ "sections": [
+  {
+   "title": "Telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL analytics / telemetry service"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content rows, promos and auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL promo rows / T-key content"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "Play auto-installs of partner apps"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers"
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store (Google Play Store stays)"
+    },
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "\"cleaner\" widget service"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    },
+    {
+     "pkg": "com.tcl.copydatatotv",
+     "note": "phone-to-TV copy helper, starts at boot"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.music",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this unit (voice, and two third-party apps installed on this unit); re-enable if wanted",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.nousguide.android.rbtv",
+     "note": "Red Bull TV"
+    },
+    {
+     "pkg": "tv.twitch.android.app",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Second pass, applied the same day",
+   "apps": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient Mode screensaver (Google content)"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "Google text-to-speech, ~18 MB resident; only accessibility uses it"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "screen reader; re-enable if someone needs it"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "offline hotword, unused once katniss is off"
+    },
+    {
+     "pkg": "com.android.gallery3d",
+     "note": "old AOSP gallery; TCL Media Center opens photos"
+    },
+    {
+     "pkg": "com.android.wallpaper.livepicker",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dreams.basic",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.common.terminalmanagerplus",
+     "note": "TCL device-management service, starts at boot and watches"
+    }
+   ],
+   "optional": [],
+   "note": "The launcher's Clock screensaver replaces Ambient Mode: tools/tv.py 'settings put secure screensaver_components com.gathin.tvhome/.ClockDream'"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 27
+}

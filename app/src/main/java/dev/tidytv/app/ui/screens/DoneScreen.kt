@@ -22,10 +22,15 @@ import dev.tidytv.app.DebugCheck
 import dev.tidytv.app.DoneState
 import dev.tidytv.app.RestoreUi
 import dev.tidytv.app.TvSummary
+import androidx.compose.ui.graphics.Color
+import dev.tidytv.app.data.FeedbackKind
 import dev.tidytv.app.ui.BigButton
+import dev.tidytv.app.ui.FeedbackRequest
+import dev.tidytv.app.ui.LocalAppActions
 import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Check
 import dev.tidytv.app.ui.HeroMascot
+import dev.tidytv.app.ui.Mood
 import dev.tidytv.app.ui.Note
 import dev.tidytv.app.ui.NumberedStep
 import dev.tidytv.app.ui.Outline
@@ -36,7 +41,6 @@ import dev.tidytv.app.ui.TextLink
 import dev.tidytv.app.ui.Tidy
 import dev.tidytv.app.ui.TvCard
 import dev.tidytv.core.lists.AppLabels
-import dev.tidytv.core.lists.Launchers
 import dev.tidytv.core.ops.ActionRecord
 import dev.tidytv.core.ops.Finisher
 import dev.tidytv.core.ops.Op
@@ -60,7 +64,12 @@ fun DoneScreen(
 ) {
     val restoring = s.restore is RestoreUi.Running
     ScreenFrame(bottom = { TextLink("Start over", onStartOver) }) {
-        HeroMascot(worried = (s.restore as? RestoreUi.Finished)?.ok == false)
+        val fin = s.restore as? RestoreUi.Finished
+        HeroMascot(mood = when {
+            fin?.ok == false -> Mood.WORRIED
+            fin?.ok == true || (!restoreMode && disabledCount > 0) -> Mood.CHEER
+            else -> Mood.STAND
+        })
         if (tv != null) TvCard(tv.title, listOf(tv.model.takeIf { it != tv.title }, tv.host).filterNotNull().joinToString("\n"))
         val restored = (s.restore as? RestoreUi.Finished)?.ok == true
         if (!restoreMode && !restored && disabledCount > 0) {
@@ -69,6 +78,7 @@ fun DoneScreen(
                 if (s.newHome) append(" · new home screen")
             })
             s.freedMb?.takeIf { it > 0 }?.let { Body("Freed about $it MB of memory.", color = Tidy.GreenInk) }
+            HowDidItGo()
         }
         when (val r = s.restore) {
             is RestoreUi.Running -> Row(verticalAlignment = Alignment.CenterVertically) {
@@ -76,13 +86,31 @@ fun DoneScreen(
             }
             is RestoreUi.Finished -> if (r.ok) SafetyBanner(r.message) else Note(r.message)
             RestoreUi.Idle -> if (restoreMode && s.records.none { it.op == Op.DISABLE }) {
-                Body("tidytv has no changes saved on this phone for this TV. Restore still checks the list kept on the TV itself.")
+                Body("TidyTV has no changes saved on this phone for this TV. Restore still checks the list kept on the TV itself.")
             }
         }
         BigButton(if (restoring) "Restoring…" else "↻  Restore everything", onRestore, color = Tidy.Green, enabled = !restoring)
         if (!restoreMode) DebuggingCard(s.debugging, onCheckDebugging)
         Activity(s.records, labels)
-        TextLink("Share logs", onShareLogs)
+        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+            TextLink("Share logs", onShareLogs)
+            val actions = LocalAppActions.current
+            TextLink("Send feedback", { actions.feedback(FeedbackRequest(FeedbackKind.FEATURE, "done")) })
+        }
+    }
+}
+
+/** The ask, right after a good run: share a card if it went well, tell us if it didn't. */
+@Composable
+private fun HowDidItGo() {
+    val actions = LocalAppActions.current
+    Outline {
+        Text("How did it go?", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+        Spacer(Modifier.heightIn(min = 10.dp))
+        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
+            BigButton("It went great", actions.shareCard, Modifier.weight(1f), color = Tidy.Green)
+            BigButton("Not quite", { actions.feedback(FeedbackRequest(FeedbackKind.BUG, "done")) }, Modifier.weight(1f), color = Color.White, textColor = Tidy.Ink)
+        }
     }
 }
 
@@ -144,7 +172,7 @@ private fun describe(r: ActionRecord, labels: Map<String, String>): String? {
         Op.ENABLE -> "Turned on ${name()}"
         Op.INSTALL -> "Installed the clean home screen"
         Op.UNINSTALL -> "Removed the clean home screen"
-        Op.SET_HOME -> if (r.target.startsWith(Launchers.TIDY_HOME_PACKAGE)) "Set new home screen" else "Put the old home screen back"
+        Op.SET_HOME -> if (dev.tidytv.core.lists.HomeApp.of(r.target.substringBefore('/')) != null) "Set new home screen" else "Put the old home screen back"
         Op.SETTING -> "Restored a setting"
     }
 }

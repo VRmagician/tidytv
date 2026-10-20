@@ -1,0 +1,203 @@
+{
+ "id": "tcl-65c725",
+ "title": "TCL 65C725 (reports as \"Smart TV Pro\", device BeyondTV4), Android TV 11 (SDK 30),",
+ "header": "TCL 65C725 (reports as \"Smart TV Pro\", device BeyondTV4), Android TV 11 (SDK 30),\nbuild RP1A.200622.001 release-keys. Turkey/EU retail unit.\nLikely a good starting point for other TCL Android TV 11 sets of the same C-series era.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-65c725/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-65c725/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher — the launcher/ in this repo replaces it, and the\nrestore.sh / build-and-install.sh defaults are already correct for this TV (no arg needed).\nLive TV app: com.tcl.tvinput — kept (it also owns HDMI/antenna playback). Hide its tile in the\nlauncher config if you like; the Inputs menu covers it.\n\nApplied and re-verified on a real unit on 2026-10-18: Wi-Fi stayed up and Home, the Inputs\ndropdown and app launches all worked after the full list.\n\nKnown quirks on this firmware:\n- Android 11 package visibility: the launcher in this repo needs a <queries> block for\nMAIN+LEANBACK_LAUNCHER intents or its app grid comes up empty (verified with that patch).\n- screencap writes an empty file while Live TV/HDMI is on screen. Press Home first.\n- com.tcl.tv is deliberately NOT disabled here: it also hosts HbbTV and the Eva voice plumbing.\n\nDO NOT DISABLE on TCL (load-bearing):\ncom.tcl.providers.config             # disabling this is reported to drop the Wi-Fi connection\ncom.tcl.initsetup                    # setup/provisioning, same Wi-Fi role\ncom.tcl.factory.view                 # factory wizard, same role\ncom.tcl.system.server                # remote-key plumbing\ncom.tcl.tcl_bt_rcu_service           # Bluetooth remote pairing\ncom.tcl.autopair                     # Bluetooth remote auto-pairing\ncom.tcl.tvinput                      # Live TV tuner + HDMI inputs\ncom.tcl.settings                     # settings app\ncom.tcl.inputmethod.international    # keyboard",
+ "sections": [
+  {
+   "title": "TCL telemetry, promos and preload plumbing",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL analytics (BI service, deviceinfo, ParamProvider)"
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "TCL dashboard/promo backend (G10 example keeps it)"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "sticker/emoji overlay"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "partner/customization channel, promo rows"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "end-user agreement screen, done with it after setup"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL message/promo box"
+    },
+    {
+     "pkg": "com.tcl.overseasappshow",
+     "note": "\"recommended apps\" showcase"
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": "falls back to com.google.android.webview anyway"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "partner-app auto installer config"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google recommendation/attribution plumbing",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "home-screen recommendation rows (pointless under a custom launcher)"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "\"send feedback\" app"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "one-time setup leftovers"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Extras — verified fine here, but the least noticeable ones",
+   "apps": [
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TCL online support"
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": "remote-key help overlays"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the TCL home at boot"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "Google first-run wizard, setup already done"
+    }
+   ],
+   "optional": [],
+   "note": "Skip if uneasy."
+  },
+  {
+   "title": "Off by choice on this unit",
+   "apps": [
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL voice assistant — comment out if you use the mic button"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "TCL OTA updater — uncomment to freeze firmware updates"
+    },
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "stock launcher, replaced by launcher/ in this repo"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google search/voice — keep if you use the mic button"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Cast receiver — keep if you cast from a phone"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL FAST channels"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "screen mirroring — keep if you use it"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.notereminder",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "multi-screen casting framework"
+    },
+    {
+     "pkg": "org.chromium.webview_shell",
+     "note": ""
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV"
+    },
+    {
+     "pkg": "com.graymatrix.did",
+     "note": "ZEE5"
+    },
+    {
+     "pkg": "com.kick.mobile",
+     "note": ""
+    },
+    {
+     "pkg": "au.com.stan.and",
+     "note": "Stan (AU)"
+    },
+    {
+     "pkg": "com.rma.speedtesttv",
+     "note": ""
+    },
+    {
+     "pkg": "com.recisio.kfandroid",
+     "note": "KaraFun karaoke"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 19
+}

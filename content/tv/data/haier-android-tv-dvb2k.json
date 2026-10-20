@@ -1,0 +1,87 @@
+{
+ "id": "haier-android-tv-dvb2k",
+ "title": "Haier Android TV DVB2K (ro.product.model, device broadway, product HaierATVT56DVB),",
+ "header": "Haier Android TV DVB2K (ro.product.model, device broadway, product HaierATVT56DVB),\nAndroid TV 11 (API 30), firmware RTMA.250416.179, armeabi-v7a, 1280x720 at 213 dpi, about 934 MB RAM.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/haier-android-tv-dvb2k/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/haier-android-tv-dvb2k/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (.MainActivity). The install script disables it\nafter the new launcher is running; it is not in this list.\nLive TV: com.mediatek.wwtv.tvcenter (.nav.TurnkeyUiMainActivity).\nSaved Wi-Fi networks on the test set were owned by android.uid.system, not setupwraith.\nsetupwraith is installed and its RecoveryActivity claims HOME, but it was not an active Home\ncandidate. Disabling only com.google.android.tvlauncher was enough for Home to land on the new launcher.\nSame-day test, not a multi-day soak.\n\nAlready disabled before this list, so they are not repeated here:\ncom.google.android.marvin.talkback, com.cltv.fast, com.google.android.youtube.tvmusic,\ncom.haier.apps.evoSmart, ru.haier.evo (also claims HOME), com.google.android.play.games.\n\nKEEP, even though the names look like bloat (components checked with dumpsys package):\n- com.haier.tv.hmagicboard, com.cvte.tv.hkcfac: GlobalKeyReceiver, remote hot keys.\n- com.example.bt_pair_tips, com.mediatek.autopair: Bluetooth remote pairing.\n- com.telink.lt.ota: remote (Telink BLE) firmware.\n- com.at.factory.*, com.cvte.tv.at, com.cvte.tv.fac.menu, com.cvte.tv.fac.aging, mediatek.factorymenu.ui: factory.\n- com.mediatek.wwtv.tvcenter, com.mediatek.tvinput, com.mediatek.tv.service, com.mediatek.wwtv.setupwizard,\ncom.mediatek.wwtv.mediaplayer (USB media), com.mediatek.androidbox (HaiCast / Miracast).\n- com.google.android.katniss (Assistant), com.google.android.apps.mediashell (Chromecast).\n- Streaming apps left installed: Netflix, Prime Video, YouTube, Hotstar, Sun NXT, Zee5 (com.graymatrix.did).",
+ "sections": [
+  {
+   "title": "Content recognition and retail demo",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.controller",
+     "note": "Anoki ACR"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "retail demo, HRetailDisplay_2K"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Haier telemetry, share, and content apps",
+   "apps": [
+    {
+     "pkg": "com.haierubic.usmartdevice",
+     "note": "Haier smart-device service"
+    },
+    {
+     "pkg": "com.haier.yudee.tv",
+     "note": "Haier share service"
+    },
+    {
+     "pkg": "com.haier.sharetv.webview",
+     "note": "webview used by the share service"
+    },
+    {
+     "pkg": "com.haier.apps",
+     "note": "HaierApps_evoSmart promo"
+    },
+    {
+     "pkg": "com.haier.launcher.haiermatrix",
+     "note": "Zeasn content launcher, not the system Home"
+    },
+    {
+     "pkg": "com.haier.tvhousekeeper",
+     "note": "TV housekeeper / cleaner"
+    },
+    {
+     "pkg": "com.cvte.haier.tv.appmanager",
+     "note": "boot receiver that manages Haier apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock-home recommendation rows and partner auto-install",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation and ad rows"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.android.leanbacklauncher.partnercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.haier.hanyang",
+     "note": "Haier auto-install stub"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 14
+}

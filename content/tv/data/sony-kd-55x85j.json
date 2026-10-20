@@ -1,0 +1,172 @@
+{
+ "id": "sony-kd-55x85j",
+ "title": "Sony BRAVIA KD-55X85J (2021, device BRAVIA_VH2, MediaTek MT5895), South American firmware",
+ "header": "Sony BRAVIA KD-55X85J (2021, device BRAVIA_VH2, MediaTek MT5895), South American firmware\nAndroid 12 (Google TV, API 31), build BRAVIA_VH2_SA-user 12 STT2.230505.001.S136 682241\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-kd-55x85j/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-kd-55x85j/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nSame device and build number as examples/sony-bravia-4k-vh2 (KD-55X80J, EU firmware), but the SA\nfirmware ships com.sony.dtv.promos and Apple TV enabled, and none of the EU broadcaster apps.\nexamples/sony-kd-65x80j is the same platform on older Android 10 firmware (India).\nStock launcher: com.google.android.apps.tv.launcherx (Google TV). Pass it to restore.sh as above.\nLive TV / tuner app: com.sony.dtv.tvx (set it as live_tv_package in the launcher's config.xml and hide it).\nKeep the com.sony.dtv.tvinput.* services, com.sony.dtv.tvapi, com.sony.dtv.sonysystemservice, the Sony\nsettings apps and all com.mediatek.*: they drive HDMI, the tuner, updates and the remote.\nKept by owner's choice: Netflix, YouTube, Prime Video, Disney+, Apple TV, voice assistant, Chromecast\nbuilt-in (mediashell), AirPlay and firmware updates.\nAlready disabled at the factory: com.sony.dtv.homekit, com.sony.dtv.seeds.iot, com.sony.dtv.livingfit,\ncom.sonypicturescore, com.sony.dtv.b2b.vendorprotocol, com.sony.dtv.b2b.softap.\nNot in this list, so restore.sh leaves them as they are.\n\nChecked on the TV (wired Ethernet):\n- The remote's Input button opens the input switcher everywhere (systemui handles it), so the launcher\nwas installed without the Input-button service (no INPUT_KEY_SERVICE).\n- setupwraith disabled with no side effects on Ethernet (Wi-Fi saved during setup not tested).\n- launcherx and dreamx disabled only after the new launcher was installed, with the launcher's clock as\nscreensaver: settings put secure screensaver_components com.gathin.tvhome/.ClockDream\n- Everything stays disabled and Home stays on the new launcher after `svc power reboot`.\n- Screenshots come out empty while Netflix is on screen; press Home first.\n- Launcher config: live_tv_package com.sony.dtv.tvx, hidden apps com.sony.dtv.tvx and the Vewd browser\n(com.vewd.core.integration.dia).\nApplied and reboot-checked on 19 October 2026, not yet lived with for days. If something breaks,\nre-enable it with `pm enable <package>` and please report it.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    },
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "telemetry and remote support",
+   "apps": [
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": "Sony usage data"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": "bug report uploader"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.usercontext",
+     "note": "viewing context for recommendations"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony content and ads",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonytab",
+     "note": "Sony tab on the Google TV home"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "partner app auto-installs"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop mode and help",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "preloaded apps, disabled by choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "extras, disabled by choice",
+   "apps": [
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.gestureapp",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Home: only after the new launcher is installed",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "its RecoveryActivity claims HOME"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "Ambient screensaver; point screensaver_components at ClockDream first"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "launcher/build-and-install.sh disables the stock launcher itself, after Home has moved"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 27
+}

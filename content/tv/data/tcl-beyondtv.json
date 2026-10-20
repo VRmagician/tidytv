@@ -1,0 +1,72 @@
+{
+ "id": "tcl-beyondtv",
+ "title": "TCL BeyondTV (ro.product.model BeyondTV, TCL), Android TV 9 (API 28), build PPR1.180610.011,",
+ "header": "TCL BeyondTV (ro.product.model BeyondTV, TCL), Android TV 9 (API 28), build PPR1.180610.011,\nsecurity patch 2021-01-05, 512 MB Dalvik heap. India-market set (Jio, Airtel, Hotstar apps preloaded).\nTested: applied once and checked on the device with screenshots (launcher, dock, Inputs menu, Netflix\nlaunch). Not yet lived with for days; this list is deliberately conservative (telemetry, ads, promo only).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-beyondtv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-beyondtv/debloat.txt\nStock launcher: com.google.android.tvlauncher (restore.sh default). Disable it only after the new launcher is installed.\nLive TV app: com.tcl.tv (keep it, it owns HDMI/tuner playback). Also keep com.tcl.tvinput.\nAlready disabled at the factory: com.tcl.bootadservice, com.tcl.tv.tclhome_master, com.tcl.cyberui,\nand the uk.co.freeview.* UK catch-up apps.\n\nDeliberately NOT disabled (ambiguous or system-relevant): com.tcl.showmode (sound modes, not just\ndemo), com.tcl.messagebox, com.tcl.usercenter, com.tcl.framework.custom (key handling),\ncom.tcl.xian.StartandroidService, com.tcl.browser, voice assistant (katniss, tcl.assistant, smartalexa),\ncasting (mediashell, tcl.miracast, MultiScreenInteraction_TV), firmware updates (versionUpdateApp, rc.ota).",
+ "sections": [
+  {
+   "title": "TCL analytics, content and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "analytics / telemetry service"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL web content feed"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers"
+    },
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "\"cleaner\" widget service"
+    },
+    {
+     "pkg": "com.tcl.notereminder",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store (Google Play Store stays)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google extras and recommendation rows (only useful with the stock launcher)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 12
+}

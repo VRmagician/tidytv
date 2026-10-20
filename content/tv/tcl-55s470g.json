@@ -1,0 +1,35 @@
+{
+  "name": "TCL 55S470G",
+  "brand": "TCL",
+  "os": "Google TV 12",
+  "summary": "Tidy a TCL 55S470G by turning off its Samba TV tracker, TCL ads and promos, demo modes and preloaded apps. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The TCL 55S470G comes with a Samba TV viewing tracker, TCL usage logging and account sign-in prompts, content and promos pushed to the home screen, a silent app installer, retail demo and hotel mode apps, and preloaded apps such as Alexa. Much of it is for tracking or promotion rather than for watching TV.",
+    "The notes come from one TCL 55S470G, which shipped with its tracking services switched on. Netflix, YouTube, Prime Video, Disney+, Apple TV, Paramount+, Tubi, TCL TV+ and TCL Live are kept, as are AirPlay and firmware updates. TidyTV turns these apps off from your phone over Wi-Fi with a backup first, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Netflix, YouTube, Prime Video, Disney+, Apple TV, Paramount+ and Tubi",
+    "TCL TV+ and TCL Live channels",
+    "TCL's Live TV and HDMI inputs",
+    "AirPlay",
+    "Firmware updates, which run through a TCL service that also does Samba TV work"
+  ],
+  "notes": [
+    "Samba TV also has to be switched off in the TV's own settings. Open Settings, Privacy, Samba Interactive TV, and untick every provider, since the main switch leaves them on.",
+    "The TCL service that runs Samba TV is kept, because it also handles firmware updates. Turn it off only if you are happy to skip those updates."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "AirPlay is kept, but Chromecast built-in is off by choice in this list. Turn it back on in the app if you cast often."
+    },
+    {
+      "q": "Will the voice button still work?",
+      "a": "Not as this list stands. Google Assistant and Alexa are turned off by choice, so turn them back on in the app if you use voice."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off TCL's pushed home screen content, its partner tweaks to the home rows and its message box promos. Google's own recommendation rows are not on this list."
+    }
+  ]
+}

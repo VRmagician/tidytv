@@ -1,0 +1,36 @@
+{
+  "name": "TCL 65C735",
+  "brand": "TCL",
+  "os": "Google TV 11",
+  "summary": "TCL 65C735 ships with TCL analytics, content rows and pushed promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL set ships with TCL analytics services that track device use, plus a cleaner that also reports health information. The home screen carries TCL content rows and a TCL Home panel with a gift box and promos, and TCL pushes messages to the TV. The list also covers the TCL account, a hearing test, a notes app, and several Google apps this owner does not use.",
+    "The debloat batches were checked on a French set wired through a USB Ethernet adapter. Wi-Fi and Ethernet, HDMI, Live TV, the Input key and app playback kept working. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each app can be switched back on in the app."
+  ],
+  "keep": [
+    "Live TV, HDMI and the TCL input service",
+    "The Input key and the Quick panel for choosing sources",
+    "Remote pairing and remote keys",
+    "Picture, sound and TCL settings",
+    "Game mode, Bluetooth listen-alone and the web view component"
+  ],
+  "notes": [
+    "With the stock home screen switched off, the remote's Netflix, YouTube and Prime Video buttons do nothing. A background accessibility helper can catch those keys and open the apps. That fix was tested with the real remote.",
+    "After a restart with USB debugging on, the USB Ethernet adapter may not appear. Switch USB debugging off when you are done.",
+    "The list switches off the USB media player. Turn it back on if you play videos or photos from a USB drive."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 65C735?",
+      "a": "Not with the default list. It switches off Google Assistant and voice search, which the remote's mic button uses. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes for Chromecast and Miracast, which the owner keeps. AirPlay is on the list and is switched off."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off the TCL content rows and the TCL Home panel, the pushed messages, and the Google partner tracking service. Once the new home screen is installed, the stock Google TV home screen is no longer shown."
+    }
+  ]
+}

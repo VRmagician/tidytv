@@ -1,0 +1,34 @@
+{
+  "name": "Hisense HiSmartTV A4",
+  "brand": "Hisense",
+  "os": "Android TV 11",
+  "summary": "Turn off the viewing tracker, ad rows and Hisense Channels on the Hisense HiSmartTV A4 with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The HiSmartTV A4 ships with a viewing tracker, Hisense push messages and a partner referral tracker. It also has recommendation rows, a hotel and store mode, and a Hisense Channels area with free ad-supported channels. A few preloaded streaming apps come along too, such as Prime Video and Pandora, but you can keep the ones you use.",
+    "The list was applied in three batches with a restart after each. The TV started normally every time, and all seven inputs, HDMI 1 to 4, composite and two tuners, were still there. Switching to HDMI 1 from the Inputs menu worked. TidyTV turns these off from your phone over Wi-Fi, with a backup first, and restore everything switches them back on in one tap."
+  ],
+  "keep": [
+    "Live TV, HDMI and the tuner inputs, which MediaTek and Hisense services handle.",
+    "The remote's keys and pairing, including the Netflix key service.",
+    "Hisense's own TV services, such as the smart service and the customer launcher.",
+    "Firmware updates, YouTube, Chromecast, Assistant, screen sharing and the USB player. These stay on, and you can switch any of them off in the app."
+  ],
+  "notes": [
+    "The Input button on the remote only works with the stock home screen, because its Inputs panel lives there.",
+    "The Netflix key on the remote stops working if the Netflix app is turned off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Hisense HiSmartTV A4?",
+      "a": "Yes. Google Assistant is one of the kept services, and you can switch it off in the app if you never use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast and screen sharing (Miracast) are kept, and you can switch either one off in the app."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off the tracking, the recommendation rows and Hisense Channels. The sponsored banner on the stock home screen only goes when the home screen is replaced."
+    }
+  ]
+}

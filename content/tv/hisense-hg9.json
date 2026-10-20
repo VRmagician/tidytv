@@ -1,0 +1,36 @@
+{
+  "name": "Hisense HG9",
+  "brand": "Hisense",
+  "os": "Android TV 9",
+  "summary": "Turn off Hisense viewing collection, Smartsense analytics, promo apps and Google recommendation rows on the Hisense HG9. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The Hisense HG9 ships with several viewing-data services. A content recognition collector watches what is on screen, including HDMI inputs, and Smartsense analytics and a Netflix measurement service report back. It also has retail store and hotel demo modes, Google recommendation rows and preloaded apps such as Pandora, Peacock and Max.",
+    "The quirks below were checked on a real HG9 used as a display for an Apple TV over HDMI. The TV was restarted with the full list applied and used for an evening: streaming, the Play Store and the home screen all worked. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled, and one tap restores them."
+  ],
+  "keep": [
+    "HDMI inputs and the tuner services, so HDMI and Live TV keep working",
+    "The remote, Bluetooth, the keyboard and the phone-remote service, which is the fallback if the remote is lost",
+    "Play Store, Play Services, and the Netflix, Prime Video, YouTube, Apple TV, Pluto, Vudu and Hulu apps",
+    "Chromecast, Alexa, DLNA and the firmware updater",
+    "The first-boot legal text screens"
+  ],
+  "notes": [
+    "Network debugging needs its own switch. USB debugging alone does not open it, so turn on Network or Wireless debugging too, then restart the TV.",
+    "Blocking the TV in the router can drop it off the network completely. Keep the TV on its normal Wi-Fi during the change.",
+    "If the Play Store shows 'Something went wrong' after the change, sign in to Google again. On the test set, clearing Google Services Framework data and restarting fixed it."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Hisense HG9?",
+      "a": "Not with this list as written. It turns off Google's speech service, which the list notes say stops voice search. Switch that app back on in TidyTV if you use the voice button."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast and the phone-remote service are kept on this list."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. The stock home is replaced on this set by another launcher app. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

@@ -1,0 +1,144 @@
+{
+ "id": "wanbo-x5-pro",
+ "title": "Wanbo X5 Pro projector, built-in Google TV stick: ro.product.model=\"4K Google TV Stick\",",
+ "header": "Wanbo X5 Pro projector, built-in Google TV stick: ro.product.model=\"4K Google TV Stick\",\nmanufacturer SkyworthDigital, device YYT, Amlogic (ro.board.platform HP46B), about 1.9 GB RAM.\nGoogle TV 14 (API 34), build UKG3.260128.001.C3.3.5_20260723. Tested in Australia.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/wanbo-x5-pro/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/wanbo-x5-pro/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nApplied on 2026-10-19, then the reference launcher (v2.3) installed and Home, D-pad navigation and\nlaunching Netflix and YouTube from the dock checked with screenshots. Not yet lived with for days;\nif something breaks, re-enable it with `pm enable <package>` and please report it.\n\nStock launcher: com.google.android.apps.tv.launcherx. setupwraith .RecoveryActivity also claims HOME\n(priority 1): with only launcherx disabled, Home went to it and it restarted itself every ~60 ms.\nDisabling just that component is refused (SecurityException), so the whole package is in this list.\nNo tuner and no HDMI inputs on the stick, so no live_tv_package; the launcher hides its Inputs pill.\nDisabled from the factory, so not listed: com.google.android.tv.axel.\n\nQuirks on this firmware, all checked on the device:\n- USB debugging opened port 5555 without pairing. After a reboot it was closed again until\ndebugging was toggled back on (Wireless debugging also offers a random port with pairing).\n- The Wi-Fi network had been saved during first setup, so disabling setupwraith deleted it and the\nprojector dropped off the network mid-command. Rejoining from the projector's own Wi-Fi settings\nfixed it, and the network then belonged to android.uid.system. Check first:\n`dumpsys wifi | grep -o 'cname=[^ ]*'`.\n- `adb install` over Wi-Fi hung; most likely Play Protect's prompt was waiting behind the screensaver.\nPushing the APK as base64 chunks and running `pm install` worked. Wake the screen before installing.\n- com.android.devicelockcontroller is protected: `pm disable-user` is refused.\n\nKept on purpose: com.sdt.projector.observer (projector accessibility service), com.mft.rcupair\n(remote pairing), com.sdt.globalkey (remote hot keys), com.mft.frontpanelledsservice,\ncom.google.android.tv.dfuservice (remote firmware and backlight), com.droidlogic.* (Amlogic settings\nand connected devices), com.dolby.android.audio.service, com.sdt.customization, the keyboard,\nPlay Store, Play Services. Kept by choice here (safe to add if you don't use them):\ncom.google.android.apps.mediashell (Chromecast), com.sdt.ota and com.sdt.upgrade (firmware updates),\ncom.google.android.apps.tv.dreamx (Ambient screensaver).",
+ "sections": [
+  {
+   "title": "Telemetry and remote management",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback reporter"
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": "feedback consent screen"
+    },
+    {
+     "pkg": "com.oemservice",
+     "note": "xCPE remote-management agent (boot receiver only)"
+    },
+    {
+     "pkg": "com.sdt.deviceinfo",
+     "note": "Skyworth device-info reporter (boot receiver only)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads and personalization",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Privacy Sandbox ad services"
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory test apps",
+   "apps": [
+    {
+     "pkg": "com.oem.qa",
+     "note": "BoxFactoryTest"
+    },
+    {
+     "pkg": "com.sdt.producttest",
+     "note": "Skyworth product test, key check, USB command handler"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused on a projector stick",
+   "apps": [
+    {
+     "pkg": "com.amlogic.voicesubtitle",
+     "note": "Amlogic voice subtitle overlay"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.cameraextensions",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dynsystem",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.hotspot2.osulogin",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice (comment out if you use them)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack screen reader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home, only for a replacement launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "first-run wizard; owns Wi-Fi saved at setup, see above"
+    }
+   ],
+   "optional": [],
+   "note": "Re-enable setupwraith before a factory reset."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 23
+}

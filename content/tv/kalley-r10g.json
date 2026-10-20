@@ -1,0 +1,25 @@
+{
+  "name": "Kalley R10G",
+  "brand": "Kalley",
+  "os": "Google TV 14",
+  "summary": "Turn off Google partner services, unused streaming apps and karaoke on the Kalley R10G. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "The R10G ships with Google partner setup and store plumbing, a Seraphic interactive app, and a Realtek karaoke app with its user guide. It also has preloaded apps this set does not use, including Apple TV, Claro TV, Kick, JioTV, CBS, Prime Video, Bombsquad and Crossy Road, plus YouTube Music.",
+    "This list was tested on one set on 19 and 20 October 2026, with its new home screen installed. Netflix, Disney+, Max, Spotify, YouTube, Twitch, GeForce NOW and Stremio still opened, and HDMI input, Home and the Input button all worked. TidyTV turns these items off from your phone over Wi-Fi, saves a backup first and deletes nothing."
+  ],
+  "keep": [
+    "Live TV and the other TV inputs, including HDMI.",
+    "TV firmware updates.",
+    "Remote firmware updates, which also update the remote.",
+    "Netflix, Disney+, Max, Spotify, YouTube, Twitch, GeForce NOW and Stremio, which still opened in testing."
+  ],
+  "notes": [
+    "The remote's Input button sends a different key code from most remotes. Check that it still works after the change.",
+    "This list is fresh and has not been lived with for days. If something breaks, turn that app back on with its switch."
+  ],
+  "faq": [
+    {"q": "Will the Input button still work on my Kalley R10G?", "a": "In testing, the Input button and HDMI input both still worked after the change. Check it on your own set, because this remote sends a different key code."},
+    {"q": "Do my streaming apps still work?", "a": "In testing, Netflix, Disney+, Max, Spotify, YouTube, Twitch, GeForce NOW and Stremio all still opened. Only the apps marked as unused are turned off."},
+    {"q": "Will I still get firmware updates?", "a": "Yes. The TV's update service and the remote's update service are both kept on."}
+  ]
+}

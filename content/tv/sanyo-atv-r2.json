@@ -1,0 +1,34 @@
+{
+  "name": "SANYO ATV R2",
+  "brand": "SANYO",
+  "os": "Android TV 9",
+  "summary": "Tidy a SANYO ATV R2 by turning off its content rows, promo app, data services and preloaded apps. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The SANYO ATV R2 comes with an S-Channels content app and recommendation rows, an in-store promo app, SANYO and Realtek data-consent and feedback services, and preloaded weather, map, clock, radio and streaming apps. It also has a TV cleaner and a Wi-Fi hotspot feature that most owners never use.",
+    "The notes come from one real SANYO ATV R2. Chromecast, Google Assistant, FastCast screen mirroring, Audio Link and PureSound stay on, and the HDMI and AV inputs and Live TV are left alone. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never uninstalls anything. Restore everything brings them back."
+  ],
+  "keep": [
+    "Chromecast and Google Assistant, both in use",
+    "FastCast screen mirroring",
+    "Audio Link and PureSound",
+    "HDMI, AV and Live TV, through the Realtek TV services",
+    "The remote key services and the factory menus"
+  ],
+  "notes": [
+    "SANYO's firmware update service and its companion service are turned off in this list. Turn them back on in the app to check for updates."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Google Assistant is kept in use on this TV, so voice search keeps working."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast and FastCast screen mirroring are kept in use."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the S-Channels content app, the E-SHOW promo app, and the recommendation and partner rows on the home screen. The home screen layout itself only changes if you choose a clean home screen in the app."
+    }
+  ]
+}

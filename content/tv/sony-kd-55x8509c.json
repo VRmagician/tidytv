@@ -1,0 +1,26 @@
+{
+  "name": "Sony BRAVIA KD-55X8509C",
+  "brand": "Sony",
+  "os": "Android TV 7.0",
+  "summary": "Turn off Sony's Discover bar, recommendation rows and device agents on the BRAVIA KD-55X8509C. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This 2015 Sony BRAVIA ships with a Discover bar, the Sony Select tile and several Sony recommendation services, plus an auto-installer for partner apps. It also has device agents for remote support and bug reports, a retail demo mode, Sony's i-Manual, Sony Video Unlimited, a Japanese keyboard and a YouView service, along with a voice search app.",
+    "The list was applied for one afternoon of use and has not yet been tested for weeks. Used memory went from about 1,144 MB to 991 MB after the list and a restart. The Sony TV app that plays every HDMI input, HDMI control, the remote's pairing and the default keyboard all stay on. TidyTV turns these items off from your phone over Wi-Fi, saves a backup first and deletes nothing."
+  ],
+  "keep": [
+    "The Sony TV app that plays every HDMI input, and HDMI control (BRAVIA Sync).",
+    "The remote's pairing service and the default keyboard.",
+    "Sony's built-in browser.",
+    "Firmware updates (system update).",
+    "Chromecast and Prime Video, kept in the tested setup."
+  ],
+  "notes": [
+    "Used memory fell from about 1,144 MB to 991 MB after the list and a restart.",
+    "The list was applied for one afternoon. If something breaks, turn the app back on with its switch."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Sony BRAVIA KD-55X8509C?", "a": "No. Google voice search is off by the owner's choice in this list, which removes the remote's microphone search."},
+    {"q": "Does casting still work?", "a": "Yes. Chromecast was kept on in the tested setup."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the Discover bar, the Sony Select tile and the recommendation services that feed the home screen. Restore everything turns them back on in one tap."}
+  ]
+}

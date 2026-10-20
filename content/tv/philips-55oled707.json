@@ -1,0 +1,35 @@
+{
+  "name": "Philips 55OLED707",
+  "brand": "Philips",
+  "os": "Android TV 11",
+  "summary": "Turns off TP Vision analytics, Top Picks rows, the app gallery and unused apps on the Philips 55OLED707. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Philips 55OLED707 ships with TP Vision telemetry, a Top Picks content row and an app gallery that preloads small apps such as ARTE and MEGOGO. It also has an Alexa bridge, a retail demo mode, the Play-Fi audio service, and preinstalled streaming apps such as CHILI, Pluto TV and Rakuten TV.",
+    "The list was tested on a UK unit connected over Ethernet, after a full restart. ITVX played, channel changes and the TV guide worked, the source list showed HDMI 1 to 4, and the red button opened HbbTV. Free memory stayed between 814 and 939 MB in a 30 minute Netflix session. TidyTV turns these apps off from your phone over the same Wi-Fi, after a backup."
+  ],
+  "keep": [
+    "The Philips browser engine (org.droidtv.nettvbrowser) stays on, because ITVX hung without it on a UK set.",
+    "Chromecast, Ambilight and Hue, DLNA, IP control and firmware updates stay on.",
+    "Netflix, Prime Video, Disney+, YouTube, Apple TV and the Freeview Play apps stay on, because this household uses them.",
+    "Play-Fi multi-room audio (com.phorus.playfi.tv) comes back on its own after every restart, so the list does not try to keep it off.",
+    "The Live TV app, the TV guide services and the browser engine stay on."
+  ],
+  "notes": [
+    "The Freeview Play metadata app restarts in the background several times in a few minutes, even with nothing turned off. The error in the log looks alarming, but the TV is fine.",
+    "Keep the setup wizard if your TV uses Wi-Fi. On other sets it owned the Wi-Fi saved at setup, and turning it off deleted that network. This unit was on Ethernet."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "This list turns off Google Assistant and voice search, because the test remote had no mic button. If your remote has one, leave Google Assistant on."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast built-in is kept on this list, so casting from a phone is left alone. Play-Fi is the one audio service that turns itself back on after a restart."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Top Picks row and its backend, the app gallery that preloads apps, and the Google recommendations service on the home screen. Those are the home screen promos on this list."
+    }
+  ]
+}

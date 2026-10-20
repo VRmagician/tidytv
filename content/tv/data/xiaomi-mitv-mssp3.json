@@ -1,0 +1,151 @@
+{
+ "id": "xiaomi-mitv-mssp3",
+ "title": "Xiaomi MiTV-MSSP3 (codename machuca), Android TV 11 (SDK 30), firmware RTT2.211214.001.1065, MediaTek.",
+ "header": "Xiaomi MiTV-MSSP3 (codename machuca), Android TV 11 (SDK 30), firmware RTT2.211214.001.1065, MediaTek.\nLive TV app: com.mediatek.wwtv.tvcenter (already the live_tv_package in launcher config.xml).\nStock launcher: com.google.android.tvlauncher (the default, disabled by build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mssp3/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mssp3/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Default IME is already Gboard, so the Mi TV 4A missing-keyboard quirk doesn't apply.\n- Left alone on purpose: com.mediatek.wwtv.tvcenter / tvinput* (HDMI + tuner), mitv.service,\ncom.mi.bluetooth, com.mediatek.hotkey.dispatcher, com.google.android.tv.remote.service.\n- Netflix and Prime Video come back at every reboot even when disabled. The cause is\ncom.mstar.netflixobserver: it is a PERSISTENT app with the system uid, so Android starts it at boot even\nwhen it is disabled, and it re-enables both (it even re-installed them after pm uninstall --user 0).\nDisabling it is not enough. This list only disables it, like everything else in this repo.\nBeyond what this repo does, and your own call: removing it for user 0 worked here across a reboot\npm uninstall --user 0 com.mstar.netflixobserver\nand is undone with\ncmd package install-existing com.mstar.netflixobserver   (the remote's Netflix button needs it)\n- Device admin is not supported on this firmware (no android.software.device_admin).",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, sponsored rows",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": "PatchWall channels on the Google TV home"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.floatingframe",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware updates: re-enable to check for one"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice: casting",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice: Ambient and Mi WallPaper screensavers",
+   "apps": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.dream",
+     "note": "\"WallPaper\" tile, Xiaomi screensaver"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV (already disabled on this firmware; shell may refuse)"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Mi Gallery; Media Player still opens USB photos"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice: preloaded streaming apps not used",
+   "apps": [
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "comes back at boot, see header"
+    },
+    {
+     "pkg": "com.mstar.netflixobserver",
+     "note": "remote's Netflix button; see header"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video; comes back like Netflix, see header"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "Xiaomi TV+"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 23
+}

@@ -1,0 +1,185 @@
+{
+ "id": "sony-bravia-4k-gb-us",
+ "title": "Sony BRAVIA 4K GB (BRAVIA_ATV2_UC, MediaTek mt5891), US/Canada firmware",
+ "header": "Sony BRAVIA 4K GB (BRAVIA_ATV2_UC, MediaTek mt5891), US/Canada firmware\nAndroid TV 9, build PTT1.190515.001.S54 672201, security patch 2022-01-05\nSame platform and build as examples/sony-xbr-x900e; this list confirms it on a second model.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-gb-us/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-gb-us/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (restore.sh's default).\nLive TV / input app: com.sony.dtv.tvx. Keep it: it also plays every HDMI input.\nKeep: com.sony.dtv.tvinput.*, braviasync* (HDMI-CEC), remotepairing, rcpowerkey, uinputservice,\nimeproxy, sonysystemservice, settingsprovider, all com.mediatek.* and mtktvapi.agent.\nAlready disabled at the factory: com.sony.dtv.actionmenu.plugin.harmony. Not in this list.\n\nNotes from this firmware:\n- ADB: the Developer options switch is labelled \"ADB debugging\", not \"USB debugging\". Port 5555\nstays closed until it is on.\n- com.google.android.tungsten.setupwraith is installed but did not take Home: build-and-install.ps1\nlanded Home on com.gathin.tvhome first time with only com.google.android.tvlauncher disabled.\nHide com.sony.dtv.tvx and com.sony.dtv.tvxlauncher.programguide in config.xml and leave\nlive_tv_package empty if you have no antenna; Inputs lists HDMI 1-4 (with CEC names) and Video 1/2.\n- The stock launcher's \"Free Live TV\" / \"Top Selling\" rows and the top banner come from\ntvlauncher itself and stay until it is replaced.\n- Tested the same day it was applied: Home, the Input menu, HDMI inputs and the new launcher all\nwork. Not yet lived with for several days, and not yet tested across a reboot.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony and Google content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app store/promo tile"
+    },
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": "My BRAVIA promos"
+    },
+    {
+     "pkg": "com.sony.dtv.discovery",
+     "note": "Sony Discover content bar"
+    },
+    {
+     "pkg": "com.sony.dtv.bivlinfo",
+     "note": "BIVL content service list (feeds Discover)"
+    },
+    {
+     "pkg": "com.sony.dtv.tvlaunchercustomizer",
+     "note": "Sony tweaks to the stock home rows"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demomode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry, remote support and feedback",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony device agent / remote support"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.imanual",
+     "note": "i-Manual"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "re-enable to play music from USB"
+    },
+    {
+     "pkg": "com.sony.dtv.smartmediaapp",
+     "note": "Media Player, re-enable to play USB files"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Optional features, off by owner's choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "screnmirroring.com",
+     "note": "Screen mirroring (Miracast)"
+    },
+    {
+     "pkg": "com.sony.dtv.networkapp.wifidirect",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Android TV phone-app remote"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": "DLNA renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "Node.js SDDP broadcaster for Control4-style home automation"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 28
+}

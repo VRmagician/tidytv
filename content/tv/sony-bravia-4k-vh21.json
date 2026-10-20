@@ -1,0 +1,28 @@
+{
+  "name": "Sony BRAVIA KD-65X85K",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Turn off the Samba TV tracker, Sony promo rows and streaming preloads on the BRAVIA KD-65X85K. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This Sony ships with the Samba TV viewing tracker, Sony usage-data and remote-support services, Sony promo and recommendation rows, and demo and shop-mode apps. It also has preloaded streaming apps such as 9Now, ABC iview and Apple TV, a Vewd browser service, Google TV movies, and a few always-on services that use memory.",
+    "The list was applied on 19 and 20 October 2026 and has not yet been lived with for weeks. Memory was the limit on this set, so the list frees about 120 MB by turning off several services that always run. HDMI inputs, Bravia Sync, updates and the remote are kept. TidyTV turns these items off from your phone over Wi-Fi with a backup first, and deletes nothing."
+  ],
+  "keep": [
+    "The TV inputs and HDMI, plus the MediaTek packages that run the tuner and the remote.",
+    "Bravia Sync, which handles HDMI control.",
+    "Chromecast built-in, AirPlay and HomeKit, kept by choice.",
+    "Firmware updates, HbbTV and Freeview Plus.",
+    "DLNA and Sony IP control.",
+    "Sony's settings apps and the system update service."
+  ],
+  "notes": [
+    "Memory was the limit on this set. The last group of always-running services frees about 120 MB, from about 480 MB free before.",
+    "The PS5 can show up twice in the Inputs list, once for its HDMI port and once for its CEC device.",
+    "Turning off Google TV movies means losing access to purchases made in that app."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Sony BRAVIA KD-65X85K?", "a": "No. Google Assistant and the Sony voice search apps are off by choice, and the remote's microphone button stops working while they are off."},
+    {"q": "Does casting still work?", "a": "Yes. Chromecast built-in, AirPlay and HomeKit are kept on."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the Samba TV viewing tracker, Sony's promo and recommendation rows and the Sony Select recommendations. Restore everything turns them back on in one tap."}
+  ]
+}

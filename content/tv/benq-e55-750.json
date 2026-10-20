@@ -1,0 +1,34 @@
+{
+  "name": "BenQ E55-750",
+  "brand": "BenQ",
+  "os": "Google TV 11",
+  "summary": "Turn off the BenQ E55-750's Homwee store, Google TV recommendation rows, ambient screensaver and unused apps. A free phone app with a backup and undo.",
+  "intro": [
+    "The BenQ E55-750 ships with a Changhong store and help app, Google TV recommendation rows, and an ambient screensaver that mixes those recommendations into the idle screen. It also has a few streaming apps that many owners never open, including Amazon Prime Video and YouTube Music.",
+    "The quirks below were checked on a real TV. The notes do not say what else was tested, so check your remote, HDMI inputs and streaming apps after the change. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled."
+  ],
+  "keep": [
+    "Play Store and Play Services, which TidyTV always keeps",
+    "Keyboards, the remote and Bluetooth pairing",
+    "TV inputs, Settings and the setup apps"
+  ],
+  "notes": [
+    "This model has no separate Wireless debugging switch. Turning on USB debugging is enough to open network debugging.",
+    "The ambient screensaver is a separate setting. Change it to the clock before the ambient screensaver app is turned off. The screensaver setting is not one of the app switches, so set it yourself if you want the ambient screen back.",
+    "Home can open a factory screen if the stock home is turned off before a new one is set as the default. Set the new home first."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my BenQ E55-750?",
+      "a": "This list does not turn off Google's voice search app, so the voice button should be left alone. The notes do not record a voice test, so try it after the change."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "The list does not turn off the Chromecast receiver, so casting is not touched by it. The notes do not record a casting test on this set."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

@@ -1,0 +1,174 @@
+{
+ "id": "tcl-beyondtv-rt2851",
+ "title": "TCL BeyondTV, EU/Nordic unit (ro.product.model BeyondTV, board RTD2851, client type TCL-EU-RT2851-S1,",
+ "header": "TCL BeyondTV, EU/Nordic unit (ro.product.model BeyondTV, board RTD2851, client type TCL-EU-RT2851-S1,\nsoftware V8-R851T02-LF1V606), Android TV 9 (API 28), build PPR1.180610.011 AP06, security patch 2020-09-05,\n2 GB RAM. Freeview UK apps preloaded (factory-disabled). Different firmware from the India BeyondTV in\nexamples/tcl-beyondtv/, which is a separate list.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-beyondtv-rt2851/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-beyondtv-rt2851/debloat.txt\nStock launcher: com.google.android.tvlauncher (restore.sh default). Other HOME claimants are only\nfallbacks: com.tcl.keycustomfunctionservice/.FallbackHome and com.android.tv.settings FallbackHome.\nLive TV app: com.tcl.tv. HDMI inputs: com.tcl.tvpassthrough. Tuner: com.tcl.tvinput.\n\nInstall the launcher BEFORE group 5: com.tcl.tvweishi and com.tcl.appmarket2 both carry a\nPackageInstallerService, and persist.tcl.whitelistpath points into appmarket2's data.\n\nTested 2026-10-19 on a real unit, applied in the six groups below with a screenshot after each:\nWi-Fi stayed up, D-pad, TCL's source menu, the launcher's Inputs menu (HDMI via TvInputManager works,\nno source_panel fallback needed), Netflix, Settings and Home from HDMI all worked, also after a reboot.\nQuirks on this firmware:\n- `input keyevent KEYCODE_TV_INPUT` is an \"Unhandled key\"; the remote's Source button goes through\nTCL's own path. TCL's source menu opens with\nam startservice -n com.tcl.sourcemananger/com.tcl.insrc.ShowWindowService -a com.tcl.insrc.SHOW_WINDOW\n- TvInputManager reports AV as connected (state 0) with nothing plugged in.\n- screencap is blank over HDMI and Netflix (secure surface). Press Home first.\n- TV 2 Play 6.74.0 (no.tv2.sumo) deadlocks in TV2Application.onCreate and ANRs, from the stock\nlauncher too (an ANR before any change). App bug; update it from the Play Store.\n- The voice processes (voice_ap, katniss:interactor) used ~45% of one core all the time. Group 6\nstops katniss (~22%); voice_ap is a native firmware daemon and keeps running without root.\n- The clock ran 6 h fast with automatic time on (last NTP success months earlier). Toggling\n`settings put global auto_time 0` then `1` forced a fresh sync.\n\nAlready disabled at the factory, left alone: the 14 uk.co.freeview.* apps, com.tcl.bootadservice,\ncom.tcl.common.terminalmanagerplus, com.tcl.usercenter, com.tcl.smartalexa, com.tcl.notereminder,\ncom.tcl.gallery, Prime Video, Stan, ZEE5, LINE TV, Rakuten TV, Play Music, Play Games.\n\nDO NOT DISABLE (load-bearing on this firmware):\ncom.tcl.tv com.tcl.tvinput com.tcl.tvpassthrough  # Live TV, tuner, HDMI\ncom.tcl.sourcemananger                            # source/input menu (TIF_SourceMenu)\ncom.tcl.keycustomfunctionservice                  # remote key handling, fallback home\ncom.tcl.framework.custom                          # TCL key receiver\ncom.tcl.tcl_bt_rcu_service com.tcl.autopair       # Bluetooth remote\ncom.google.android.tv.remote.service              # remote control service\ncom.tcl.inputmethod.international                 # default keyboard (T_IME)\ncom.tcl.settings com.tcl.initsetup com.tcl.factory.view\ncom.tcl.showmode                                  # sound modes (Dolby/DTS/night), not just demo\ncom.tcl.xian.StartandroidService                  # device authentication\ncom.tcl.appstatecontroller                        # boot/network/package receivers, purpose unclear\ncom.realtek.netflix.setting com.android.WifiCountryService",
+ "sections": [
+  {
+   "title": "1. Telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL BI analytics (Firebase, Crashlytics, net monitor)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "\"send feedback\""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": "bug report uploader"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "one-time setup leftovers"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "partner-app auto installer"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "2. Content, recommendation rows and promos",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "home-screen recommendation rows"
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL promo rows, T-key page"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL message/promo box (ttvs)"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers"
+    },
+    {
+     "pkg": "com.tcl.cyberui",
+     "note": "TCL's own launcher/content service, unused"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3. Preloads and background extras",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media centre; nothing on USB here (players kept)"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "end-user agreement screens"
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": "unused, Google WebView is the active provider"
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": "remote-key help overlays"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.eros.now",
+     "note": "Eros Now: refused (\"Shell cannot change component state\"), no tile anyway"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "4. Off by choice on this unit",
+   "apps": [
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "Miracast screen mirroring"
+    },
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "TCL T-Cast phone app link"
+    },
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "TCL firmware updater: firmware stays on AP06"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.rc.ota",
+     "note": "remote-control firmware OTA, kept"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast, kept"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "5. After the launcher is installed",
+   "apps": [
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "TCL \"TV Guard\" cleaner"
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store (Play Store stays)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "6",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google voice search and the mic button"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "offline speech recognition"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL's Google Assistant bridge (TV/media/settings control by voice)"
+    },
+    {
+     "pkg": "com.tcl.micmanager",
+     "note": "remote microphone manager"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "Assistant LED service"
+    }
+   ],
+   "optional": [],
+   "note": "Voice, off by choice. voice_ap and katniss:interactor used ~45% of one core all day."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 27
+}

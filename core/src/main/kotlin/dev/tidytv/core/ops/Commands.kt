@@ -3,7 +3,7 @@ package dev.tidytv.core.ops
 import dev.tidytv.core.lists.PackageName
 
 /**
- * Every shell command tidytv sends, in one place. Anything variable that goes into a command is a
+ * Every shell command TidyTV sends, in one place. Anything variable that goes into a command is a
  * validated package name or a component built from one; nothing else is ever interpolated.
  */
 object Commands {
@@ -55,6 +55,18 @@ object Commands {
     fun setHome(component: String) = "cmd package set-home-activity --user 0 ${component(component)}"
     fun addHomeRole(pkg: String) =
         "cmd role add-role-holder --user 0 android.app.role.HOME ${PackageName.require(pkg)}"
+
+    /** Where the cleanyourtv home screen reads config.json and theme_revision (tools/theme.sh). */
+    fun configDir(pkg: String) = "/sdcard/Android/data/${PackageName.require(pkg)}/files"
+    fun makeConfigDir(pkg: String) = "mkdir -p ${configDir(pkg)} && echo ok"
+    fun writeRevision(pkg: String, revision: Long) = "printf '%s' '$revision' > ${configDir(pkg)}/theme_revision && echo ok"
+    fun grantLocation(pkg: String) = "pm grant ${PackageName.require(pkg)} android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo granted"
+
+    /** config.json for the cleanyourtv home screen: the dock apps in order, everything else default. */
+    fun dockConfig(dockApps: List<String>): String {
+        dockApps.forEach { PackageName.require(it) }
+        return "{\"dock_apps\": [" + dockApps.joinToString(", ") { "\"$it\"" } + "]}\n"
+    }
 
     fun startLauncher(component: String, dockApps: List<String>, stamp: Long): String {
         val base = "am start -W -n ${component(component)}"

@@ -1,3 +1,5 @@
+import java.util.Properties
+
 plugins {
     alias(libs.plugins.android.application)
     alias(libs.plugins.kotlin.compose)
@@ -10,22 +12,24 @@ android {
     compileSdk = 37
 
     defaultConfig {
-        applicationId = "dev.tidytv.app"
+        applicationId = "com.appfactory.tidytv"
         minSdk = 26
         targetSdk = 35
-        versionCode = 1
-        versionName = "0.1.0"
+        versionCode = 2
+        versionName = "0.2.0"
     }
 
-    // Release signing comes from ~/.gradle/gradle.properties (TIDYTV_*), never from the repo.
+    // Release signing comes from keys/signing.properties, a git-ignored folder in the repo.
     // Without it (CI, contributors) release builds fall back to the debug key.
-    val storePath = providers.gradleProperty("TIDYTV_STORE_FILE").orNull
+    val signing = rootProject.file("keys/signing.properties").takeIf { it.exists() }?.let { f ->
+        Properties().apply { f.inputStream().use { load(it) } }
+    }
     signingConfigs {
-        if (storePath != null) create("release") {
-            storeFile = file(storePath)
-            storePassword = providers.gradleProperty("TIDYTV_STORE_PASSWORD").get()
-            keyAlias = providers.gradleProperty("TIDYTV_KEY_ALIAS").get()
-            keyPassword = providers.gradleProperty("TIDYTV_KEY_PASSWORD").get()
+        if (signing != null) create("release") {
+            storeFile = rootProject.file("keys/" + signing.getProperty("storeFile"))
+            storePassword = signing.getProperty("storePassword")
+            keyAlias = signing.getProperty("keyAlias")
+            keyPassword = signing.getProperty("keyPassword")
         }
     }
 

@@ -94,9 +94,14 @@ class ScreenshotTest {
         tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
         home = HomeState.Offer(
         listOf(DockApp("com.netflix.ninja", "Netflix"), DockApp("com.google.android.youtube.tv", "YouTube"), DockApp("com.spotify.tv.android", "Spotify")),
-        listOf("com.netflix.ninja", "com.google.android.youtube.tv"))))
+        listOf("com.netflix.ninja", "com.google.android.youtube.tv"), available = dev.tidytv.core.lists.HomeApp.entries)))
+    @Test fun homeOfferStyled() = shoot("5c2_home_offer_styled", Step.HOME_SCREEN, UiState(
+        tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
+        home = HomeState.Offer(listOf(DockApp("com.netflix.ninja", "Netflix")), listOf("com.netflix.ninja"),
+            app = dev.tidytv.core.lists.HomeApp.STYLED, available = dev.tidytv.core.lists.HomeApp.entries)))
+    @Test fun homeInstalledStyled() = shoot("5e_home_installed_styled", Step.HOME_SCREEN, UiState(home = HomeState.Installed(dev.tidytv.core.lists.HomeApp.STYLED)))
     @Test fun homeSetupApp() = shoot("5d_home_setup_app", Step.HOME_SCREEN, UiState(home = HomeState.Problem(
-        "Google TV's setup app grabbed Home, so tidytv put your old home screen back. It can turn the setup app off and try again.",
+        "Google TV's setup app grabbed Home, so TidyTV put your old home screen back. It can turn the setup app off and try again.",
         worried = false, action = HomeAction.TURN_OFF_SETUP_APP)))
 
     private val records = listOf(
@@ -108,4 +113,15 @@ class ScreenshotTest {
         labels = mapOf("com.tcl.tv.tclchannel" to "TCL Channel")))
     @Test fun doneRestored() = shoot("6b_restored", Step.DONE, UiState(tv = summary, wizard = Wizard(Step.DONE, mode = Mode.RESTORE),
         done = DoneState(records = records, restore = RestoreUi.Finished("Everything is back the way it was: 4 apps on, old home screen back.", ok = true))))
+
+    @Test fun shareCard() {
+        val ctx = RuntimeEnvironment.getApplication()
+        val stats = dev.tidytv.app.ui.shareStats(UiState(
+            tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
+            done = DoneState(freedMb = 140, newHome = true),
+        ))
+        val bmp = dev.tidytv.app.data.ShareCard(ctx, emptyMap()).render(stats)
+        java.io.File("src/test/screenshots/7_share_card.png").outputStream().use { bmp.compress(android.graphics.Bitmap.CompressFormat.PNG, 100, it) }
+        org.junit.Assert.assertEquals(1080 to 1350, bmp.width to bmp.height)
+    }
 }

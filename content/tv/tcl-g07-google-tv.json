@@ -1,0 +1,35 @@
+{
+  "name": "TCL G07",
+  "brand": "TCL",
+  "os": "Google TV 11",
+  "summary": "Turns off TCL telemetry, Waterfall recommendations, TCL home promos and extra apps on the TCL G07. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The TCL G07 is a Google TV set on Android 11 that reports itself as a Smart TV. It ships with TCL analytics and telemetry, a waterfall of recommendations, TCL Live free channels, a TCL home panel with promo messages, and a hotel mode portal. It also has screen mirroring, a TCL voice service, a T-Solo listen-alone Bluetooth feature, and a few preloaded streaming apps.",
+    "The list was tested on a real unit in six batches, with screenshots between them. Wi-Fi, Home, the Input key's source panel, Netflix, YouTube, and Live TV and HDMI from the Inputs menu all kept working. The apps stayed off after a reboot, and the Wi-Fi saved at setup was kept. TidyTV turns these apps off from your phone over the same Wi-Fi, after a backup, and deletes nothing."
+  ],
+  "keep": [
+    "Live TV, the tuner and HDMI inputs: com.tcl.tv and com.tcl.tvinput stay on.",
+    "The source panel and Quick Panel: com.tcl.suspension stays on, and it also opens from the Input key.",
+    "Remote keys and Bluetooth pairing: com.tcl.keyhelp and com.tcl.autopair stay on.",
+    "Netflix, YouTube and Chromecast are kept by choice, so they stay on.",
+    "The keyboard and TCL settings services are never turned off by this list."
+  ],
+  "notes": [
+    "Once the stock home is off, the Gear, Netflix and YouTube buttons on the remote do nothing. Those buttons only work with the stock home.",
+    "The TCL analytics package also contains the firmware updater. Leave it on if you want TCL firmware updates."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Not as the list is written. Google Assistant is in the off-by-choice section, and it is what the mic button uses. Keep it on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes for Chromecast, which is kept on. Miracast and MagiConnect screen mirroring are off, so those two will not work."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the waterfall recommendations, the TCL home panel and promo messages, and the TCL tweaks to the home rows. Those are the content and promo parts of this list."
+    }
+  ]
+}

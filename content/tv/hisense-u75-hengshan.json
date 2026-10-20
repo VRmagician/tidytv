@@ -1,0 +1,36 @@
+{
+  "name": "Hisense U75",
+  "brand": "Hisense",
+  "os": "Google TV 12",
+  "summary": "Hisense U75 ships with a viewing tracker, VIDAA promos and demo modes. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Hisense set, sold in Latin America and Brazil, ships with a viewing tracker that uses content recognition to see what is on screen. It also has VIDAA free channels and a VIDAA content tab, a photo and camera app, a hotel and retail demo mode, a Brazilian broadcast software stack called Ginga, and an Alexa assistant named HiAlexa.",
+    "This list was checked on a set running Google TV 12. The services on its keep list were checked as ones the TV needs, so Live TV, the HDMI and tuner inputs, remote keys and casting stay working. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first, never uninstalls anything, and undoes everything in one tap."
+  ],
+  "keep": [
+    "Live TV, the Inputs menu and the HDMI and tuner inputs",
+    "The remote's pairing, its keys and the Google TV remote service",
+    "The keyboard, Google Play and Play Services",
+    "Casting and the phone remote, through the TV's network discovery service",
+    "Picture and sound processing services, and the TV's own settings"
+  ],
+  "notes": [
+    "Do not switch off the Hisense smart and AIoT services. On a related Hisense set, switching them off sent the TV into Android Recovery at startup. If you see a message that the system cannot load, choose Try again, never Factory data reset.",
+    "Google's setup wizard claims the Home button once the stock home screen is switched off, so a replacement home screen cannot take over until the wizard is switched off too.",
+    "The setup wizard can hold Wi-Fi details saved during first setup. If the TV forgets its network after a change, join it again with the remote."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Hisense U75?",
+      "a": "The list does not turn off Google's voice assistant. It turns off HiAlexa, the Alexa assistant, which is off by choice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. The network service that casting and the phone remote use is kept on purpose."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Partly. It turns off the VIDAA free channels and the VIDAA content tab feed, plus the Google TV auto-install and partner tracking services."
+    }
+  ]
+}

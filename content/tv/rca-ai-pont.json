@@ -1,0 +1,35 @@
+{
+  "name": "RCA AI PONT SA",
+  "brand": "RCA",
+  "os": "Android TV 14",
+  "summary": "Turn off the Homwee store, a content recognition tracker, FAST channels and Google promo rows on the RCA AI PONT SA. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The RCA AI PONT SA is built by Changhong and ships with a Homwee store, a brand portal, a silent app installer and an e-manual. It also has an automatic content recognition tracker, a FAST channel app and Google TV promo rows. Several streaming apps are preloaded too.",
+    "The list was tested the same day on one set. Home opened, the Netflix, Flow, Max and YouTube apps were still in place, Chromecast came back after it was turned on again, and HDMI stayed in the Inputs menu. The notes say this was not a multi-day test. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV and HDMI, through the tuner and TV service apps that the Inputs menu uses",
+    "The factory menu, the channel-scan wizard and the key sync service, which stay on",
+    "The physical remote and its HDMI path",
+    "Chromecast, which is an optional entry in the list and stays on"
+  ],
+  "notes": [
+    "USB debugging alone turns on network debugging on port 5555. There is no separate wireless debugging switch.",
+    "After a restart the TV may get a new IP address. Reserve one in your router so your phone can find the TV.",
+    "Turn off the stock home only after the new home screen is the default. Otherwise Home can open a factory screen."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my RCA AI PONT SA?",
+      "a": "Not by default. The voice assistant app is turned off by this list, and the notes say it must be switched back on for the microphone button. Switch it on in TidyTV if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is an optional entry, so it stays on unless you turn it off. The notes say iPhones cast YouTube to it."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

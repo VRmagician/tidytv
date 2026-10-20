@@ -1,0 +1,192 @@
+{
+ "id": "toshiba-fire-tv-aftha004",
+ "title": "Toshiba Fire TV (AFTHA004, codename hazel), Fire OS 7 / Android 9 (SDK 28), build PS7717.5741N.0036408028416",
+ "header": "Toshiba Fire TV (AFTHA004, codename hazel), Fire OS 7 / Android 9 (SDK 28), build PS7717.5741N.0036408028416\nContributed by umang350 (PR #4). Also a fair start for other Toshiba / Insignia Fire TV Edition sets on Fire OS 7.\n\nFIRE OS: DEBLOAT ONLY. Fire OS will not let a third-party launcher take over Home: com.amazon.tv.launcher and\ncom.amazon.firehomestarter are protected packages (pm disable-user is refused), their HOME filter has priority 950,\nand `cmd package set-home-activity` prints Success but is ignored. launcher/build-and-install.sh does not apply\nhere; this list removes Amazon's ads, telemetry and preloads around the stock home screen.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/toshiba-fire-tv-aftha004/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/toshiba-fire-tv-aftha004/debloat.txt com.amazon.tv.launcher\n(restore.sh re-enables the stock launcher as a matter of routine; on Fire OS it was never disabled, which is harmless.)\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nKept on purpose: Alexa, OTA updates, AirPlay, DIAL/whisperplay (Netflix and YouTube casting), the streaming apps\nthis owner uses (Netflix, YouTube, Spotify, Plex, VLC, MX Player) and the stock launcher.\nTwo packages tried on this set would not disable (protected): com.amazon.device.metrics and\ncom.amazon.ftvads.deeplinking. They are left out; the Insignia list mentions the same two.",
+ "sections": [
+  {
+   "title": "Ads, shopping, content recognition",
+   "apps": [
+    {
+     "pkg": "com.amazon.shoptv.client",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.shoptv.firetv.client",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.acr",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.democontent.provider",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and metrics",
+   "apps": [
+    {
+     "pkg": "com.amazon.tv.fw.metrics",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva.logcat",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wirelessmetrics.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfcollection",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfc",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Tutorials and promos",
+   "apps": [
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.gamehub",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Amazon content apps",
+   "apps": [
+    {
+     "pkg": "com.amazon.bueller.music",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.naatyam",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Cast-to-Fire-TV receiver (Miracast), personal choice",
+   "apps": [
+    {
+     "pkg": "com.amazon.cast.sink",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps not used (personal choice",
+   "apps": [
+    {
+     "pkg": "com.disney.disneyplus",
+     "note": ""
+    },
+    {
+     "pkg": "in.startv.hotstar",
+     "note": ""
+    },
+    {
+     "pkg": "com.hbo.hbonow",
+     "note": ""
+    },
+    {
+     "pkg": "com.hulu.plus",
+     "note": ""
+    },
+    {
+     "pkg": "com.peacock.peacockfiretv",
+     "note": ""
+    },
+    {
+     "pkg": "com.tubitv.ott",
+     "note": ""
+    },
+    {
+     "pkg": "tv.pluto.android",
+     "note": ""
+    },
+    {
+     "pkg": "com.onemainstream.sonyliv.android",
+     "note": ""
+    },
+    {
+     "pkg": "com.zee5.amazon",
+     "note": ""
+    },
+    {
+     "pkg": "com.suntv.sunnxt",
+     "note": ""
+    },
+    {
+     "pkg": "com.yupptv.firetv",
+     "note": ""
+    },
+    {
+     "pkg": "com.jio.media.stb.ondemand",
+     "note": ""
+    },
+    {
+     "pkg": "com.hungama.movies",
+     "note": ""
+    },
+    {
+     "pkg": "com.aajtak.firetv",
+     "note": ""
+    },
+    {
+     "pkg": "com.july.ndtv",
+     "note": ""
+    },
+    {
+     "pkg": "com.nexgtv.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "comment out the ones you watch)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 35
+}

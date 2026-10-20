@@ -1,0 +1,180 @@
+{
+ "id": "xiaomi-mitv-axso2",
+ "title": "Xiaomi MiTV-AXSO2 (codename dangalUHD, Amlogic/droidlogic, 2 GB RAM), Android TV 9 (SDK 28), firmware PI.6432.",
+ "header": "Xiaomi MiTV-AXSO2 (codename dangalUHD, Amlogic/droidlogic, 2 GB RAM), Android TV 9 (SDK 28), firmware PI.6432.\nSame \"dangal\" board family as examples/xiaomi-mitv-axso0. India unit.\nLive TV app: com.android.tv (set it as live_tv_package and hide it in launcher config.xml).\nStock launcher: com.google.android.tvlauncher (the default, disabled by build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-axso2/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-axso2/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- USB debugging alone opens network ADB on port 5555; the stock adb binary worked from macOS here.\n- Default IME is already Gboard, so the Mi TV 4A missing-keyboard quirk doesn't apply.\n- Everything below stays disabled after `adb reboot`.\n- The remote's PatchWall button does nothing once com.mitv.tvhome.atv is disabled.\n- Google sign-in: tvlauncher's notification panel gets its list from com.google.android.tvrecommendations.\nWith both disabled, Play Services' \"Sign-in required\" notice has nowhere to show, and Play Store only says\n\"Authentication is required\". To sign in again: `pm enable` both, open\ncom.google.android.tvlauncher/.notifications.NotificationsSidePanelActivity, select the notice, enter the\npassword, then disable both again. If the password page comes back after OK, press Back: the sign-in has\nusually worked already.\n- Storage is tight: 4.4 GB /data with about 600 MB free. A Play Services update took about 300 MB right after\nsign-in and Play installs then failed with error 1008; `pm trim-caches 64G` freed about 400 MB.\n- com.xiaomitv.sonyliv and com.zee5.xiaomiTV are old partner copies (2021-2023) with no launcher entry;\nthe Play Store apps com.sonyliv and com.graymatrix.did stay.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, sponsored rows, partner auto-installs",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.floatingframe",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "also feeds the notification panel, see the sign-in note"
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "android.autoinstalls.config.xioami.dangal",
+     "note": "Play auto-install of partner apps (sic, \"xioami\")"
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "Mi TV+ sponsored live channels"
+    },
+    {
+     "pkg": "co.sensara.tv.mitv",
+     "note": "Sensara partner TV guide (sponsored show recommendations)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.handbook",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware updates: re-enable to check for one"
+    },
+    {
+     "pkg": "com.xiaomo.tv.milegal",
+     "note": "static legal / privacy text screens"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Mi Gallery; Media Player still opens USB photos"
+    },
+    {
+     "pkg": "com.google.android.music",
+     "note": "Google Play Music, service shut down"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.xiaomitv.sonyliv",
+     "note": ""
+    },
+    {
+     "pkg": "com.zee5.xiaomiTV",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "old partner copies of streaming apps (see notes)"
+  },
+  {
+   "title": "Android extras a TV without camera, printer or SIM doesn't use",
+   "apps": [
+    {
+     "pkg": "com.android.camera2",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.gallery3d",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "screen reader: keep it if anyone in the house uses it"
+    },
+    {
+     "pkg": "com.android.smspush",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dreams.basic",
+     "note": "basic screensaver; Ambient mode (backdrop) stays"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 32
+}

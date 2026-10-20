@@ -1,0 +1,101 @@
+{
+ "id": "sony-bravia-bf1",
+ "title": "Sony BRAVIA BF1 (BRAVIA 2 II class, device BRAVIA_BF1_4K_A, MediaTek, 2.4 GB RAM, armeabi-v7a)",
+ "header": "Sony BRAVIA BF1 (BRAVIA 2 II class, device BRAVIA_BF1_4K_A, MediaTek, 2.4 GB RAM, armeabi-v7a)\nAndroid 12 (Google TV, API 31), firmware STT2.230811.001, security patch 2026-02-05\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-bf1/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-bf1/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep. A factory reset\nre-enables every package, so nothing needs undoing before one.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh, as above).\nKeep: Play Store and Play Services, Sony's update centre, the TV inputs and tuners\n(com.mediatek.dtv.tvinput.*, com.sony.dtv.tvinput.dvbtuner), com.sony.dtv.sonysystemservice,\ncom.sony.dtv.smartui (the Input menu), Sony and Android settings, Dolby audio, AirPlay, Chromecast, Gboard.\n\nQuirks on this firmware:\n- A plain `reboot` can lose a disable: pm disable-user is saved a few seconds later. Wait ~30 s,\nthen restart with `svc power reboot`. Check Home, Netflix, YouTube, Input and AirPlay after each group.\n- com.sony.dtv.applicationdisabler re-enables some packages at every boot (the IoT ones below,\nairplayapp, m2.devicecontrolservice). Leave them; disabling the disabler is not worth it.\n- Remote: Home sends KEYCODE_HOME. Input sends KEYCODE_TV_INPUT, which smartui opens system-wide,\nso INPUT_KEY_SERVICE isn't needed. OK never repeats while held, so long presses don't work.\n- `dumpsys meminfo` without `-t 90` times out on this set. The IP changed after most restarts:\nreserve one in the router.\n\nApplied group by group on 2026-10-19 (voice search kept). Stock vs after, ~15 min after boot:\nHome p90 frame time 31 -> 15 ms, janky frames 2.41% -> 0.07%, Home memory ~96 MB (with its helper)\n-> ~46 MB, MemAvailable 1.09 -> 1.14 GB.",
+ "sections": [
+  {
+   "title": "tracking / ads / promos",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV: recognises what's on screen for ad targeting (10 MB, always running)"
+    },
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": "Sony promotions"
+    },
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select: promoted-app picks"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback reporter"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "shop demo mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.sony.dtv.m2.seeds.iot",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.m2.seeds.iot.remotestart",
+     "note": ""
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "preloaded apps (reinstall or re-enable any time)",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "com.sonypicturescore",
+     "note": "Sony Pictures Core"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "setup wizard; its RecoveryActivity also claims Home"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode + smart-home panel (59 MB, always running)"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search, always running"
+    },
+    {
+     "pkg": "com.sony.dtv.voicesearch",
+     "note": "Sony's voice search bridge"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 11
+}

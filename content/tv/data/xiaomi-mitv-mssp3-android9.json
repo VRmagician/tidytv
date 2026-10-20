@@ -1,0 +1,124 @@
+{
+ "id": "xiaomi-mitv-mssp3-android9",
+ "title": "Xiaomi MiTV-MSSP3 (codename machuca), Android TV 9 (SDK 28), firmware PI.7524, MediaTek, 1.8 GB RAM.",
+ "header": "Xiaomi MiTV-MSSP3 (codename machuca), Android TV 9 (SDK 28), firmware PI.7524, MediaTek, 1.8 GB RAM.\nSame model as examples/xiaomi-mitv-mssp3 on its older Android 9 firmware, before the Android 11 update.\nLive TV app: com.mediatek.wwtv.tvcenter (already the live_tv_package in launcher config.xml).\nStock launcher: com.google.android.tvlauncher (the default, disabled by build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mssp3-android9/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mssp3-android9/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Before: swap full (200 of 200 MB) and over 200% iowait a few minutes after boot, so the UI froze.\nAfter this list and the launcher: about 900 MB available instead of 570, swap nearly empty, no iowait.\nThe load average stays near 100 either way: MediaTek kernel threads (VMon_Task, DMX_Filt_Task,\nhdcp22_hdmi_rx_) sit in D state permanently and count towards it while the CPU is idle.\n- USB debugging alone opens port 5555; there is no network debugging toggle.\n- Default IME is already Gboard and every package below exists on this build.\n- The stock screensaver is com.mitv.dream/com.mitv.dream.MiDream, disabled below; point it elsewhere:\nsettings put secure screensaver_components com.gathin.tvhome/.ClockDream\n- The voice assistant (katniss) does not stay disabled: at every boot the package manager rescans it\nas an updated system app (\"Expecting better updated system app for com.google.android.katniss\"\nin logcat -b events) and it comes back enabled, bound as voice_interaction_service. Disabling it is\nall this list does. Beyond what this repo does, and your own call: removing it for user 0 and\nclearing the voice services held across reboots here\nsettings put secure voice_interaction_service ''\nsettings put secure voice_recognition_service ''\npm uninstall --user 0 com.google.android.katniss\nand is undone with\ncmd package install-existing com.google.android.katniss\nsettings put secure voice_interaction_service com.google.android.katniss/.search.serviceapi.KatnissVoiceInteractionService\nsettings put secure voice_recognition_service com.google.android.katniss/com.google.android.apps.tvsearch.voice.recognition.KatnissRecognitionService\n- Left alone on purpose: com.mediatek.wwtv.tvcenter / tvinput* (HDMI + tuner), mitv.service,\ncom.xiaomi.mitv.mediaexplorer (Media Player), com.google.android.tv.remote.service.\n- Netflix, Prime Video, Pluto TV, YouTube Music and Chromecast kept by choice; com.mstar.netflixobserver\nstarts Netflix at boot (about 130 MB) and needs the same treatment as in examples/xiaomi-mitv-mssp3.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, sponsored rows",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": "PatchWall channels on the Android TV home"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.floatingframe",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware updates: re-enable to check for one"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice: voice assistant",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "comes back at boot, see header"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice: Ambient and Mi WallPaper screensavers",
+   "apps": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.dream",
+     "note": "stock screensaver, see header"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Mi Gallery; Media Player still opens USB photos"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 18
+}

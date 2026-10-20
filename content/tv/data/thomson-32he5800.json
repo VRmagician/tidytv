@@ -1,0 +1,146 @@
+{
+ "id": "thomson-32he5800",
+ "title": "Thomson 32HE5800 (TCL-built: ro.product.model UnionTV, persist.tcl.client_type THOM-EU-RT2841-S1),",
+ "header": "Thomson 32HE5800 (TCL-built: ro.product.model UnionTV, persist.tcl.client_type THOM-EU-RT2841-S1),\nRealtek RTD284x (RT2841), Android TV 9 (API 28), build PPR2.180905.006.A1 (2020-11-15),\n1.4 GB RAM with ro.config.low_ram=true, 1280x720 panel. Spain (Orange TV preloaded).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/thomson-32he5800/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/thomson-32he5800/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (restore.sh / build-and-install.sh defaults work).\nOther HOME claimants: com.orange.es.androidtv (Orange TV, priority 0) and two FallbackHome\nactivities (com.tcl.keycustomfunctionservice, com.android.tv.settings). setupwraith is installed\nbut does not claim HOME on this Android TV 9 firmware.\nLive TV app: com.tcl.tv, inputs via com.tcl.tvinput / com.tcl.tvpassthrough. Keyboard: TCL T_IME.\nlauncher/ config: live_tv_package com.tcl.tv (its TVActivity has a leanback entry, no live_tv_action\nneeded); hide com.tcl.tv from the tiles. HDMI 1/2, AV and Live TV all show up in the Inputs menu.\n\nApplied and verified on a real unit on 2026-10-19: Wi-Fi stayed up, launcher/ installed with the\ndefault build-and-install.sh, Home and the Inputs menu worked after the full list.\n\nDO NOT DISABLE here (load-bearing or unclear, run as android.uid.system):\ncom.tcl.tv com.tcl.tvinput com.tcl.tvpassthrough com.tcl.sourcemananger   # Live TV, HDMI, tuner, Source menu\ncom.tcl.autopair com.tcl.tcl_bt_rcu_service com.tcl.keycustomfunctionservice  # remote, BT pairing\ncom.tcl.framework.custom com.tcl.keyhelp com.tcl.partnercustomizer  # key handling (TKey activity)\ncom.tcl.inputmethod.international com.tcl.settings com.tcl.initsetup com.tcl.factory.view\ncom.tcl.common.terminalmanagerplus com.tcl.xian.StartandroidService com.tcl.appstatecontroller\ncom.tcl.copydatatotv com.android.ListenNetStateService       # unclear roles; boot/package/network hooks\ncom.realtek.netflix.setting                                  # Netflix ESN/config",
+ "sections": [
+  {
+   "title": "Telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL analytics (BI)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "Play auto-installs of partner apps"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store (Play Store stays)"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account / phone binding web pages"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail energy-label sticker"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "TCL agreement screen, done after setup"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services",
+   "apps": [
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "\"TV Guard\" cleaner with its own installer"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.music",
+     "note": "Play Music, service discontinued"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this unit",
+   "apps": [
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media center"
+    },
+    {
+     "pkg": "com.tcl.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.audioplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.imageplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "hotword"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast - kept"
+    },
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "TCL firmware updates - kept"
+    },
+    {
+     "pkg": "com.tcl.rc.ota",
+     "note": "remote-control firmware updates - kept"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient screensaver - kept"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 21
+}

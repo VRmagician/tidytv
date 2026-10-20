@@ -1,0 +1,34 @@
+{
+  "name": "TCL BeyondTV",
+  "brand": "TCL",
+  "os": "Android TV 9",
+  "summary": "Turn off TCL analytics, demo stickers and recommendation rows on the TCL BeyondTV with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The TCL BeyondTV is an India set with Jio, Airtel and Hotstar apps preloaded. The list turns off TCL's analytics and content services, retail demo stickers, a cleaner widget and TCL's own app store. Google's recommendation rows and Play Movies are included as well.",
+    "The list was applied once and checked on the TV with screenshots: the launcher, the dock, the Inputs menu and a Netflix launch all worked. The list is deliberately light, covering telemetry, ads and promos only, and it has not been used for days yet. TidyTV turns these off from your phone over Wi-Fi, with a backup first and one-tap undo."
+  ],
+  "keep": [
+    "Live TV and HDMI, through TCL's Live TV app and its input service.",
+    "The voice assistants, Google's, TCL's and Alexa's, which the list deliberately leaves on.",
+    "Casting: Chromecast, Miracast and TCL's multi-screen app.",
+    "Firmware updates and the remote's key handling."
+  ],
+  "notes": [
+    "The boot-up ad service is already off from the factory on this set.",
+    "Jio, Airtel and Hotstar apps are preloaded and stay on, because the list only covers telemetry, ads and promos."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL BeyondTV?",
+      "a": "Yes. The voice assistants are deliberately left on, so the mic button keeps working."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, Miracast and TCL's multi-screen app are kept on purpose."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off TCL's content feeds, the demo stickers and the recommendation rows. The Jio, Airtel and Hotstar apps stay on."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Haier H32S80EFX",
+  "brand": "Haier",
+  "os": "Google TV 14",
+  "summary": "Turns off Haier's hOn IoT service, its home tab, a TV cleaner and retail demo mode on the Haier H32S80EFX. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Haier H32S80EFX ships with Haier's hOn smart home service and a smart device service, a Haier tab on the Google TV home, a Haier cleaner app and a retail demo mode. It also has Google Play Games, a movies store and a YouTube Music app that were picked for removal. Several Haier and MediaTek packages look like bloat but run the remote, so the list keeps them.",
+    "This list was tested on one set with the real remote, in a single day. Netflix and YouTube launched, HDMI 1 and Live TV switched from the Inputs menu, and the voice button worked. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup. Nothing is deleted, and Restore everything brings every app back."
+  ],
+  "keep": [
+    "The Haier hot-key and global key services, which handle the remote's hot keys.",
+    "Bluetooth remote pairing and the Telink remote firmware update service.",
+    "The USB media player and the tuner and HDMI inputs, which play USB files and TV.",
+    "Factory, backlight and picture services, which the list leaves alone.",
+    "Live TV and the TV tuner inputs stay on, because the list does not name them."
+  ],
+  "notes": [
+    "When the stock home is turned off, Home goes to the setup wizard unless that is turned off too. The list turns the setup wizard off for that reason.",
+    "If the TV is on Wi-Fi, check it before applying. The setup wizard owns the Wi-Fi network saved during setup, and turning it off deletes that network. The test set was on Ethernet."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Haier H32S80EFX?",
+      "a": "On the test set, yes. The voice button still worked after the list was applied, and the Haier remote services stay on."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Haier tab on the Google TV home, the Kinopoisk promo activity and the partner customizer that adds rows to the home screen. Those are the home screen promos the list names."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

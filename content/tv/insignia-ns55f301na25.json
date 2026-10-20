@@ -1,0 +1,33 @@
+{
+  "name": "Insignia F30 4K Fire TV",
+  "brand": "Insignia",
+  "os": "Fire OS 7",
+  "summary": "Turn off Amazon telemetry, sponsored ads and shopping rows on the Insignia F30 4K Fire TV with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Insignia F30 runs Fire OS 7, which comes with a lot of Amazon telemetry. That includes viewing habit tracking, an advertising ID service and crash and metrics reporting. Sponsored ads, Amazon Shopping and home screen recommendations are included too, along with background sync services and a few kids and cloud apps.",
+    "Fire TV keeps Amazon's home screen, so the list only trims what sits around it. Live TV, the quick settings and the Picture, Sound and System pages stay on. TidyTV does this from your phone over Wi-Fi. It saves a backup first, turns apps off in Android's own settings and never uninstalls them. Restore everything switches them back on in one tap."
+  ],
+  "keep": [
+    "Live TV, which handles the HDMI and tuner inputs.",
+    "Quick settings and the Settings app, so Picture, Sound and System still open.",
+    "AirPlay and HomeKit, if you use them.",
+    "Amazon's own home screen. Fire OS does not let another home screen take over."
+  ],
+  "notes": [
+    "On some Fire TVs, two telemetry apps are protected by Fire OS and cannot be turned off. If TidyTV reports them, that is why."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Insignia F30?",
+      "a": "Alexa is a personal choice in the list, so the voice button depends on that switch. Leave Alexa on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Casting is a personal choice in the list, so it stays on unless you switch its app off. AirPlay and HomeKit are kept if you use them."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "This TV's home screen was never replaced. Fire OS keeps Amazon's home screen, so there is nothing to put back. Restore everything still turns every app back on."
+    }
+  ]
+}

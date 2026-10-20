@@ -1,0 +1,79 @@
+{
+ "id": "skyworth-swtv-21ae",
+ "title": "Skyworth SWTV-21AE (\"Living Room TV\"), Android TV 14, firmware UKNV.260824.001",
+ "header": "Skyworth SWTV-21AE (\"Living Room TV\"), Android TV 14, firmware UKNV.260824.001\nro.product.manufacturer=skyworth, device sunnyvale, MediaTek, about 0.9 GB RAM.\nStock launcher: com.google.android.tvlauncher (classic Android TV home, not Google TV launcherx).\nLive TV and inputs: com.mediatek.wwtv.tvcenter.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/skyworth-swtv-21ae/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/skyworth-swtv-21ae/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nDisabled before this debloat, so not listed (restore.sh would turn them ON):\ncom.smartdevice.recommendation, com.google.android.play.games, com.google.android.youtube.tvmusic,\ncom.google.android.marvin.talkback, com.amazon.amazonvideo.livingroom, org.liskovsoft.androidtv.rukeyboard.\n\nQuirks on this firmware, all checked on the TV:\n- Port 5555 opened with USB debugging alone; no wireless-debugging pairing (unlike the Philips set).\n- Live TV screenshots come back blank (protected video layer); check dumpsys topResumedActivity instead.\n- Tested on the day of the debloat, not yet lived with for days.",
+ "sections": [
+  {
+   "title": "Skyworth content, ads and preloads",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": "partner config that injects rows into the home screen"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "shop demo player (Skyworth ePop)"
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Not used (by choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "official YouTube; SmartTube is used instead"
+    },
+    {
+     "pkg": "com.cltv.fast",
+     "note": "iWedia free channels with ads; starts at boot"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver; screensaver_components still names it, so"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "launcher/build-and-install.sh disables the stock launcher itself, after Home has moved"
+    }
+   ],
+   "note": "Disable only after the new launcher is installed and set as home."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 9
+}

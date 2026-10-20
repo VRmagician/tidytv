@@ -1,0 +1,8 @@
+User-agent: *
+Allow: /
+Disallow: /a-app.html
+Disallow: /a2-app.html
+Disallow: /b-clean.html
+Disallow: /c-poster.html
+Disallow: /d-white.html
+Sitemap: https://tidytv.winkle.dev/sitemap.xml

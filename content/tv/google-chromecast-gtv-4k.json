@@ -1,0 +1,28 @@
+{
+  "name": "Chromecast with Google TV 4K",
+  "brand": "Google",
+  "os": "Google TV 14",
+  "summary": "Turn off Google ad services, remote logging and extra apps on the Chromecast with Google TV 4K. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "The Chromecast ships with feedback and remote-usage logging, network diagnostics reporting and Google's Privacy Sandbox ad services. It also carries preloaded apps such as Google TV and Play Movies, a print spooler, and a Google ambient screensaver. Each one has its own switch in the app.",
+    "The list was applied to one unit. Everything kept on purpose still worked afterwards, including Google Assistant, Cast, the phone remote, the Play Store and Bluetooth. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "Google Assistant and voice search.",
+    "Chromecast (the Cast receiver), so phone casting works.",
+    "The phone remote service.",
+    "The Play Store and Play Services.",
+    "Gboard, the on-screen keyboard.",
+    "Bluetooth.",
+    "Remote firmware updates."
+  ],
+  "notes": [
+    "The remote's YouTube button does nothing once the stock home screen is off. Fixing it needs a free key-remapping app and some one-time setup that this page does not cover.",
+    "Google's Privacy Sandbox ad services are off in the tested set. If the Play Store or Assistant misbehave, turn them back on with their switch."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Chromecast with Google TV 4K?", "a": "Yes. Google Assistant and voice search are kept on, so the voice button keeps working."},
+    {"q": "Does casting still work?", "a": "Yes. The Cast receiver is kept on, so phone casting works."},
+    {"q": "Can I get the old home screen back?", "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."}
+  ]
+}

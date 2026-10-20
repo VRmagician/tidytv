@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi MiTV-MOOR2",
+  "brand": "Xiaomi",
+  "os": "Google TV 11",
+  "summary": "Turn off Xiaomi telemetry, the home ad row, Mi content rows and preloads on the Xiaomi MiTV-MOOR2 with TidyTV, a free phone app with a backup and undo.",
+  "intro": [
+    "The Xiaomi MiTV-MOOR2 runs Google TV on Android 11. It ships with Xiaomi telemetry, including Firebase analytics, and an ad row on the home screen that uses the advertising ID. Mi content rows, Mi TV+ ad-funded channels and a retail demo loop are included too, along with a TV manager cleaner and a few preloaded apps.",
+    "All 22 packages on the list were disabled on the TV and checked there, with a replacement home screen owning Home. Nothing crashed during the session, and nothing had to be turned back on. That was a first-day check, not days of use. TidyTV turns these off from your phone over Wi-Fi, with a backup first and nothing uninstalled."
+  ],
+  "keep": [
+    "Live TV and HDMI switching, which the Live TV app runs.",
+    "The remote, Bluetooth and phone-remote pairing.",
+    "The Netflix key on the remote, which a Xiaomi service handles.",
+    "The core TV and input services that run the remote and HDMI inputs."
+  ],
+  "notes": [
+    "Turn the setup app back on before a factory reset, since the list turns it off."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Yes for the ad row. The list turns off the ad row, Mi TV+ ad-funded channels, Mi content rows and the promo web view on the home screen."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast still works without Mi Cast and Miracast, which are the apps the list turns off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

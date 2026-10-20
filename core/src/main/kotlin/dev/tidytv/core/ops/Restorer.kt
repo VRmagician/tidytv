@@ -1,17 +1,17 @@
 package dev.tidytv.core.ops
 
-import dev.tidytv.core.lists.Launchers
+import dev.tidytv.core.lists.HomeApp
 
 sealed interface RestoreOutcome {
-    /** Everything tidytv changed is back. */
+    /** Everything TidyTV changed is back. */
     data class Done(val enabled: List<String>, val homeRestored: Boolean) : RestoreOutcome
-    /** Some packages stayed off; tidytv's home screen was kept so the TV still has one. Run again. */
+    /** Some packages stayed off; TidyTV's home screen was kept so the TV still has one. Run again. */
     data class Partial(val enabled: List<String>, val stillOff: List<String>) : RestoreOutcome
     data class Disconnected(val enabled: List<String>) : RestoreOutcome
 }
 
 /**
- * Puts back what tidytv changed (upstream tools/restore.sh + tv-detox undo.sh). The targets are
+ * Puts back what TidyTV changed (upstream tools/restore.sh + tv-detox undo.sh). The targets are
  * the phone's action log joined with the undo list on the TV, so either one alone is enough.
  * Home only moves back once every package is on again; until then the current Home stays.
  */
@@ -77,11 +77,11 @@ class Restorer(
         val now = Parse.component(tv.run(Commands.RESOLVE_HOME))
         if (now?.substringBefore('/') != pkg) return false
 
-        if (records.launcherInstalledByUs(Launchers.TIDY_HOME_PACKAGE)) {
-            log.append(ActionRecord(clock(), Op.UNINSTALL, Launchers.TIDY_HOME_PACKAGE, Phase.INTENT))
-            val out = tv.run(Commands.uninstall(Launchers.TIDY_HOME_PACKAGE))
+        for (app in HomeApp.entries) if (records.launcherInstalledByUs(app.pkg)) {
+            log.append(ActionRecord(clock(), Op.UNINSTALL, app.pkg, Phase.INTENT))
+            val out = tv.run(Commands.uninstall(app.pkg))
             val phase = if (out.contains("Success")) Phase.DONE else Phase.FAILED
-            log.append(ActionRecord(clock(), Op.UNINSTALL, Launchers.TIDY_HOME_PACKAGE, phase, detail = out.take(200)))
+            log.append(ActionRecord(clock(), Op.UNINSTALL, app.pkg, phase, detail = out.take(200)))
         }
         tv.run(Commands.KEY_HOME)
         return true

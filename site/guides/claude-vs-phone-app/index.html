@@ -1,0 +1,78 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Debloat Google TV: Claude Code vs a phone app, no PC | TidyTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Debloat a Google TV or Android TV with Claude Code on a laptop, or with a phone app and no PC. What each needs, what can go wrong, and who should pick which.">
+<link rel="canonical" href="https://tidytv.winkle.dev/guides/claude-vs-phone-app/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="/img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/guides/claude-vs-phone-app/">
+<meta property="og:title" content="Debloat Google TV: Claude Code vs a phone app, no PC | TidyTV">
+<meta property="og:description" content="Debloat a Google TV or Android TV with Claude Code on a laptop, or with a phone app and no PC. What each needs, what can go wrong, and who should pick which.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Claude Code vs a phone app: two ways to debloat a Google TV", "description": "Debloat a Google TV or Android TV with Claude Code on a laptop, or with a phone app and no PC. What each needs, what can go wrong, and who should pick which.", "datePublished": "2026-10-20", "dateModified": "2026-10-20", "author": {"@type": "Organization", "name": "TidyTV"}, "publisher": {"@type": "Organization", "name": "TidyTV"}, "image": "https://tidytv.winkle.dev/img/og.png", "mainEntityOfPage": "https://tidytv.winkle.dev/guides/claude-vs-phone-app/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://tidytv.winkle.dev/guides/"}, {"@type": "ListItem", "position": 3, "name": "Claude Code vs a phone app: two ways to debloat a Google TV"}]}]</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<header class="top"><div class="wrap bar">
+  <a class="wordmark" href="/"><img src="/img/icons/a1-mascot-flat.webp" width="40" height="40" alt="">TidyTV</a>
+  <nav aria-label="Main"><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">TidyTV</a> › <a href="/guides/">Guides</a> › Claude Code vs a phone app: two ways to debloat a Google TV</p>
+
+<article class="card guide">
+  <h1>Claude Code vs a phone app: two ways to debloat a Google TV</h1>
+  <p class="meta">Both routes turn off the same kind of apps. They differ in what you need, how much you trust, and how you undo it.</p>
+  <div class="prose"><p>You can debloat a Google TV two ways: ask an AI coding agent such as Claude Code to do it from a laptop, or use a phone app that does the same job with no computer and no AI. The agent route is more flexible. The phone route needs less gear and is easier to undo. Here is how to choose.</p>
+<p>"Debloat" means turning off the apps a TV maker preloaded: ads, trackers, demo modes and extras you never asked for. Both routes use the same underlying tool, <strong>ADB</strong> (Android Debug Bridge). It is a way for another device to send commands to your TV over Wi-Fi once you switch on debugging in the TV's settings.</p>
+<h2>How did "Claude debloated my TV" become a thing?</h2>
+<p>Developer Mert Cobanov kicked it off on August 27, 2026. <a href="https://www.tomshardware.com/tech-industry/artificial-intelligence/developer-uses-claude-code-to-debloat-android-smart-tv-for-unbelievable-performance-upgrade-tv-now-smoother-than-it-was-new-as-autonomous-agent-deactivates-apps-shortens-animations-all-without-root-access">According to Tom's Hardware</a>, he told Claude to clean up his four-year-old Android TV over ADB and install a replacement launcher called FLauncher. His <a href="https://tv.cobanov.dev/">prompt page</a> stresses "No root, 100% reversible."</p>
+<p>A second wave began on October 17, when Gathin posted that he had given Claude Code his parents' Xiaomi TV model. His <a href="https://x.com/gathint/status/2111379569030939102">tweet</a> says it removed 25 packages and built a launcher. His project, <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> (first called tv-vibehack), had over 9,000 stars as of October 20, 2026. Ansub's <a href="https://github.com/Ansub/tv-detox">tv-detox</a> offers a similar prompt and a simple ad-free launcher. TidyTV did not start any of this.</p>
+<h2>What does the Claude Code route involve?</h2>
+<p><a href="https://saascity.io/blog/debloat-android-tv-claude-code">Saascity's guide</a> describes three stages: back up the list of apps, turn off apps with <code>pm disable-user</code>, then install a replacement home screen (a "launcher"). <code>pm disable-user</code> switches an app off without deleting it.</p>
+<p>What you need:</p>
+<ul><li>A laptop on the same Wi-Fi as the TV.</li><li>An agent that can run commands. <a href="https://mashable.com/tech/smart-tv-ads-claude-code-ai-cleanup">Mashable</a> says pasting the prompt into a regular chatbot won't work.</li><li>A paid plan. <a href="https://techpp.com/2026/10/18/speed-up-android-tv-claude-code/">TechPP</a> says Claude Pro starts at $20 a month. It also published a guide that needs no subscription.</li><li>Developer options and debugging switched on at the TV.</li></ul>
+<h2>What are the strengths of the AI route?</h2>
+<p>Give it its due. It is the most adaptable option.</p>
+<ul><li><strong>It handles odd TVs.</strong> An agent can read what is installed on your set and reason about it, rather than following a fixed list.</li><li><strong>It can do extras.</strong> The TechPP walkthrough, from a Sony Bravia owner, also installed the Projectivy launcher and set up private DNS to block ads.</li><li><strong>It is free to experiment with</strong> if you already pay for the tool.</li><li><strong>You can ask it to explain.</strong> You can question each step before it runs.</li></ul>
+<h2>What can go wrong with the AI route?</h2>
+<p>Quite a bit, and reports are public.</p>
+<ul><li><strong>Boot problems.</strong> One Sony owner was stuck on the Google TV boot screen after a reboot and needed a factory reset (<a href="https://github.com/Gathin23/cleanyourtv/issues/62">issue #62</a>). On a Xiaomi, disabling the stock launcher crash-looped the system (<a href="https://github.com/Gathin23/cleanyourtv/issues/90">#90</a>). <a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/">TechCrunch</a> notes one person said they bricked an Android TV with Claude.</li><li><strong>Collateral damage.</strong> A OnePlus TV lost its HDMI signal (<a href="https://github.com/Gathin23/cleanyourtv/issues/321">#321</a>). Disabling one setup app broke casting on a Chromecast with Google TV (<a href="https://github.com/Gathin23/cleanyourtv/issues/361">#361</a>).</li><li><strong>Judgment calls.</strong> <a href="https://www.engadget.com/2267074/why-claude-cleaning-tv-bloatware-not-best-idea/">Engadget</a> warns of an unstable TV, blocked updates and prompt hacking.</li><li><strong>Wording.</strong> TechCrunch and <a href="https://itsfoss.com/news/debloat-smart-tv/">It's FOSS</a> report that Claude refuses a request phrased as "hack my TV" and needs a fuller prompt.</li><li><strong>An open door.</strong> It's FOSS advises turning debugging off afterwards.</li></ul>
+<p>Most of the better prompts add safety rails: a backup first, small batches and a never-disable list. Those help, but you are still trusting a model to apply them to your particular TV.</p>
+<h2>What does the phone-app route involve?</h2>
+<p>The phone-app route replaces the laptop and the agent with an app. <a href="/">TidyTV</a> is one. It is a free, open-source Android phone app. You turn on debugging at the TV, your phone finds the TV on Wi-Fi, and you tap through the steps.</p>
+<ul><li>It saves a backup first, and you can't skip it.</li><li>It shows apps in groups, such as ads and tracking, preloaded apps, voice assistant, casting and updates. The safe groups start switched on.</li><li>It turns off one app at a time, checks it, and stops if anything looks wrong.</li><li>Some apps are never touched, whatever a list says: Play Store, Play Services, keyboards, TV inputs and remote pairing among them.</li><li>"Restore everything" turns everything back on, including your old home screen.</li></ul>
+<p>It is not a magic fix. It only runs on an Android phone, and it targets Android TV and Google TV. It turns off the TV maker's ads and trackers but not ads inside apps such as YouTube. How much faster the TV feels depends on the TV.</p>
+<h2>Are there other no-agent options?</h2>
+<p>Yes. <a href="https://tvslim.app/">TV Slim</a> runs from a Windows PC or an Android phone. Its site describes risk levels for each package, a restore option, and a claim that changes survive system updates. ADB TV is another option, running on the TV itself. If you want to compare, try each one's restore before you trust it.</p>
+<h2>So which should you choose?</h2>
+<p>Choose the agent route if:</p>
+<ul><li>you are comfortable with a terminal and a paid AI tool,</li><li>you want a custom launcher or DNS-level ad blocking,</li><li>you have an unusual TV and enjoy tinkering.</li></ul>
+<p>Choose a phone app if:</p>
+<ul><li>you don't have a laptop handy, or don't want to pay for an agent,</li><li>you want a backup and a one-tap undo built in,</li><li>you'd rather follow a per-model list than rely on a model's judgment.</li></ul>
+<p>Whichever you pick, keep the same habits: turn off rather than uninstall, change a few apps at a time, and switch debugging off when you finish.</p>
+<p>If the phone route sounds right, <a href="/">TidyTV</a> is free. You can check whether your set has its own list on the <a href="/tv/">per-model pages</a>.</p></div>
+  <h2>More guides</h2>
+  <ul class="related"><li><a href="/guides/claude-code-google-tv/">Can Claude Code really clean up your Google TV?</a></li><li><a href="/guides/ai-tv-debloat-risks/">The risks of letting an AI agent loose on your TV</a></li><li><a href="/guides/cleanyourtv-tv-detox/">Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds</a></li><li><a href="/guides/prompt-ai-tv-cleanup/">Hack my TV&quot; got refused: how to ask an AI for a TV cleanup</a></li><li><a href="/guides/remove-google-tv-home-ads/">How to remove ads from the Google TV home screen (what works and what doesn&#x27;t)</a></li><li><a href="/guides/safe-to-disable-android-tv-apps/">Which Android TV apps are safe to disable, and which you should never touch</a></li><li><a href="/guides/debloat-by-brand/">Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV</a></li><li><a href="/guides/fire-tv-samsung-lg/">What about Fire TV, Samsung and LG? Honest answers</a></li></ul>
+</article>
+<section class="card cta">
+  <div>
+    <h2>Tidy your TV from your phone</h2>
+    <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
+    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <p class="ask">A star on GitHub is how other people find TidyTV.</p>
+  </div>
+  <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">
+</section>
+</main>
+<footer class="wrap">
+  <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
+</footer>
+<script src="/assets/stars.js" defer></script>

@@ -11,3 +11,5 @@ dist/
 assets/concepts/
 site/*.apk
 .wrangler/
+keys/
+*.idsig

@@ -1,0 +1,101 @@
+{
+ "id": "redmi-mitv-antl0",
+ "title": "Redmi TV (MiTV-ANTL0, codename starwars), Android 5.1.1 (SDK 22), firmware 22.8.17.1977, Amlogic.",
+ "header": "Redmi TV (MiTV-ANTL0, codename starwars), Android 5.1.1 (SDK 22), firmware 22.8.17.1977, Amlogic.\nDiscovered on-device 2026-10-19; every package verified with dumpsys before being listed.\nChinese-market firmware: no Google services at all, Sogou TV is the ONLY input method.\n\nFIRMWARE QUIRK: `pm disable-user` / `pm disable` are refused for the shell user with a\nSecurityException on this build. The equivalent here is `pm hide` / `pm unhide` - just as\nreversible, and `tools/restore.sh`'s `pm enable` must be swapped for `pm unhide`.\nApply (one pm command per shell call):\ngrep -vE '^\\s*(#|$)' examples/redmi-mitv-antl0/debloat.txt | sed -E 's/\\s+#.*$//' \\\n| awk '{print \"pm hide \" $1}' | TV_HOST=<tv ip> tools/venv/bin/python -I tools/tv.py --batch\nUndo: same, but `pm unhide`.\n\nBoot-video ad is a property, not a package (reversible, survives reboots):\ntools/tv.py 'setprop persist.bootvideo.bootanim false'      # true restores it",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry / analytics / quality uploads",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tvqs",
+     "note": "quality system: uploads crash/perf/dropbox entries"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ad delivery",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvpush.tvpushservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "webview/RN container for promos; fetches screensaver ads too"
+    },
+    {
+     "pkg": "com.mitv.cloudcontrol",
+     "note": "cloud control: starts on connectivity, remotely pushes apps"
+    }
+   ],
+   "optional": [],
+   "note": "push service, promo web-content renderer, cloud app-push"
+  },
+  {
+   "title": "Shopping plugin (Alibaba Baichuan / TV Taobao SDK)",
+   "apps": [
+    {
+     "pkg": "com.mitv.shoplugin",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock screensaver, replaced by the launcher's ClockDream",
+   "apps": [
+    {
+     "pkg": "com.mitv.screensaver",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "settings put secure screensaver_components com.gathin.tvhome/.ClockDream"
+  },
+  {
+   "title": "OTA updater",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.upgrade",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "stops firmware updates re-enabling everything above. Trade-off: no security updates either; re-enable it for a while when you want an OTA."
+  },
+  {
+   "title": "Cleaner app and game SDK; both have a /system base, hiding the package is enough",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.gamecenter.sdk.service.mibox",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.mitv.tvhome",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 11
+}

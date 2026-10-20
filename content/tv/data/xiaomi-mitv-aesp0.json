@@ -1,0 +1,91 @@
+{
+ "id": "xiaomi-mitv-aesp0",
+ "title": "Xiaomi MiTV-AESP0 (codename aquaman), Android TV 9 (SDK 28), firmware PI.2055.",
+ "header": "Xiaomi MiTV-AESP0 (codename aquaman), Android TV 9 (SDK 28), firmware PI.2055.\nStock launcher: com.google.android.tvlauncher (disabled by launcher/build-and-install.sh).\nLive TV app: none (no tuner/HDMI inputs); com.google.android.tv is Live Channels.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-aesp0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-aesp0/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Default IME is already Gboard, so the Mi TV 4A missing-keyboard quirk doesn't apply.\n- The remote's Home button sends KEYCODE_ALL_APPS (284), not HOME. Android 9 sends that key only\nto the system launcher, so with tvlauncher disabled Home does nothing. Fix: install with\nHOME_KEY_SERVICE=1 TV_HOST=<tv ip> launcher/build-and-install.sh\nwhich enables the launcher's HomeKeyService. Android switches it off on every reinstall,\nso always pass HOME_KEY_SERVICE=1.\n`input keyevent 284` over adb skips the accessibility filter; test with the real remote.\n- No HDMI/AV inputs: the launcher hides its Inputs pill by itself on this stick.\n- Kept on this set: voice assistant (katniss/pumpkin), Chromecast (mediashell),\nMi Cast (com.mitv.milinkservice) and firmware updates (com.xiaomi.mitv.updateservice).",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "tv.alphonso.alphonso_eula",
+     "note": "Alphonso automatic content recognition (viewing tracking)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, sponsored rows",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.mibox3",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "android.autoinstalls.config.xioami.mibox3",
+     "note": "same, misspelled duplicate (sic, \"xioami\")"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.dazn",
+     "note": ""
+    },
+    {
+     "pkg": "com.nousguide.android.rbtv",
+     "note": "Red Bull TV"
+    },
+    {
+     "pkg": "com.google.android.apps.tachyon",
+     "note": "Google Duo"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 15
+}

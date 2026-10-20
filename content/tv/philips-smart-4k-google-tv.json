@@ -1,0 +1,23 @@
+{
+  "name": "Philips Smart 4K TV",
+  "brand": "Philips",
+  "os": "Google TV 14",
+  "summary": "Turn off Skyworth trackers, recommendation rows and extra apps on the Philips Smart 4K TV. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This Philips is built by Skyworth and ships with Skyworth recommendation rows, an after-sale tracker that runs at boot and watches network changes and location, a background management service, and a My Apps screen. It also has an on-screen manual, a casting service that bundles analytics, and preloaded Google extras.",
+    "This list was tested on the day it was applied, so it has not had days of use yet. The Live TV app (CanaliTV) stays on, and so does the speech recognition service, Google text-to-speech. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "The Live TV app, CanaliTV from iWedia, which stays on.",
+    "Speech recognition through Google text-to-speech, which stays on so in-app speech still works."
+  ],
+  "notes": [
+    "SonyLIV and ZEE5 come as stubs that reinstall from the Play Store the first time you open them.",
+    "With Google Assistant off, the remote's microphone button does nothing."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Philips Smart 4K TV?", "a": "Not while Google Assistant is off. This list turns it off by choice, and the microphone button does nothing until you turn it back on."},
+    {"q": "Does casting still work?", "a": "Casting is off by choice in this list. The Chromecast, DIAL, and Skyworth AirPlay and Miracast services are the ones to keep if you cast from a phone or mirror a screen."},
+    {"q": "Can I get the old home screen back?", "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."}
+  ]
+}

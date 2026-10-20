@@ -1,0 +1,148 @@
+{
+ "id": "xiaomi-tv-a-pro-2026",
+ "title": "Xiaomi TV A Pro 75\" 2026 (MiTV-MZTU0, codename river, MediaTek), Google TV / Android 14 (SDK 34),",
+ "header": "Xiaomi TV A Pro 75\" 2026 (MiTV-MZTU0, codename river, MediaTek), Google TV / Android 14 (SDK 34),\nfirmware UKN1.240806.017.V816.0.25.3.10.URTMIXM. Likely a good start for other 2024+ Xiaomi Google TVs.\nLive TV app: com.mitv.livetv (set it as live_tv_package and hide it in launcher config.xml).\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh and build-and-install.sh:\nSTOCK_LAUNCHER=com.google.android.apps.tv.launcherx launcher/build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-tv-a-pro-2026/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-tv-a-pro-2026/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nKeep (TV needs them): mitv.service and com.mitv.overseaservice (remote keys, Netflix button, BT remote),\ncom.mediatek.* (extservice, tv.agent, tis, tuners, airplay), com.mitv.livetv, com.mi.bluetooth,\ncom.mitv.setup, com.xiaomi.android.tvsetup.partnercustomizer, com.xiaomi.mitv.scenemode (game mode).\nAlready disabled at the factory: com.xiaomi.floatingframe, com.iwedia.tvinput, atsc/isdb tuners.\nDefault IME is Gboard, no keyboard quirk. 1.8 GB RAM.\n\nGoogle TV 14 quirk (the important one): HOME is resolved by intent priority here and the saved\n\"default home\" is ignored. launcherx has priority 2, the setup wizard's RecoveryActivity priority 1,\na sideloaded launcher 0. Disable launcherx alone and Home lands on RecoveryActivity, which\ncrash-loops system_server (soft reboots every ~60 s, Wi-Fi drops). Shell may not disable that one\nactivity, so the whole setup wizard package is disabled below; it is only used for first-time setup.\nRe-enable it (and launcherx) before a factory reset or to get the Google home back: restore.sh does.\nThe firmware re-enables com.netflix.ninja by itself (Netflix button), so don't bother disabling it.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tvqs.overseas.y24",
+     "note": "Xiaomi quality-stats uploader (DROPBOX_ENTRY_ADDED, upload log)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall / \"Mi Home\" tab, content rows, promos",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "Mi TV+ FAST channels"
+    },
+    {
+     "pkg": "com.mitv.tvhome.oemtab",
+     "note": "the \"Mi Home\" tab injected into Google TV home"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner / booster"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware updates: re-enable these three to check for one"
+    },
+    {
+     "pkg": "com.mitv.upgrader",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.tv.systemupdater",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "only its RecoveryActivity matters after setup, see the quirk above. Disable it before build-and-install.sh, or Home may crash-loop when launcherx goes away."
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Chromecast built-in (AirPlay, Miracast and Mi Cast kept)"
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies app"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "Google ambient screensaver (switch to the Clock dream first)"
+    }
+   ],
+   "note": "preloaded streaming apps not used (YouTube and Netflix kept)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 20
+}

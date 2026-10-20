@@ -1,0 +1,221 @@
+{
+ "id": "tcl-c755-google-tv",
+ "title": "TCL 75\" C755 QD-Mini LED Google TV, 2024, Australia (device G08, model \"Smart TV Pro\", MediaTek tcl9618 / mt5896)",
+ "header": "TCL 75\" C755 QD-Mini LED Google TV, 2024, Australia (device G08, model \"Smart TV Pro\", MediaTek tcl9618 / mt5896)\nAndroid 14 (Google TV), firmware UTT2.250416.001 AU02, product G08_4K_GB. About 2.4 GB RAM.\nSame G08 board as examples/tcl-qm6k-google-tv; that list was the starting point.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-c755-google-tv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-c755-google-tv/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV / HDMI app: com.tcl.tv.\nKeep: com.tcl.tv, com.tcl.tvinput, com.tcl.dashboard, com.tcl.suspension, com.tcl.autopair,\ncom.tcl.systemserver, com.tcl.providers.config, com.tcl.initsetup, com.tcl.useragreement,\ncom.tcl.globalkeyoverlay, com.tcl.systemui.plugin, com.tcl.factory.view, com.tcl.inputmethod.international\n(the keyboard), com.tcl.eva, com.tcl.hearaid (sound/accessibility + TCL wireless speakers),\ncom.tcl.t_solo, tv.mopa.ginga (broadcast middleware) and all com.mediatek.* except AirPlay.\nFirmware updates arrive through Google Play Services (no separate TCL updater on this set).\nAlso keep com.google.android.tv.remote.service: despite the name (\"phone-app remote\") it holds\nAtvSearchAssistantService, which carries the Bluetooth remote's mic button. Disabled, the mic did nothing.\nKeep com.tcl.suspension too: it IS the source panel the remote's Input button opens.\n\nApplied and verified on a real unit on 2026-10-20: Wi-Fi, HDMI switching (Inputs menu), Assistant,\nDisney+/Netflix playback with AdGuard Private DNS, and the launcher's clock screensaver all worked.\n\nKnown quirks on this firmware:\n- The remote (BT_RC833_A1) sends KEYCODE_TV_INPUT for Input, and TCL's input policy hands it to\ncom.tcl.suspension before accessibility services see it, so INPUT_KEY_SERVICE=1 can't redirect it.\nThe Input button keeps opening TCL's source panel; the launcher's Inputs pill opens the glass menu.\n- With com.tcl.interactive disabled, com.tcl.tv logs \"tias_sdk getService failure\" ~10x/s for a few\nseconds when the TV player starts, then stops. CPU on HDMI measured the same (~23%) with it on or off.\n- Disabling dreamx: set screensaver_components to com.gathin.tvhome/.ClockDream first.",
+ "sections": [
+  {
+   "title": "TCL tracking and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "Samba TV ACR viewing tracking, TCL \"BI\" analytics, Alexa core, T-Cast"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log capture and upload"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.interactive",
+     "note": "TCL TIAS background service"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL push messages and promos"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL movie/show recommendation browser"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo / hotel mode",
+   "apps": [
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services",
+   "apps": [
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TCL \"cleaner\" / app manager"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "silently installs partner apps"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner attribution"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "au.com.stan.and",
+     "note": "Stan"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this unit (casting, mirroring and extras not used here)",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast"
+    },
+    {
+     "pkg": "com.tcl.airplay2",
+     "note": "AirPlay, together with the next two lines"
+    },
+    {
+     "pkg": "com.mediatek.AirplayAPK",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.airplaydaemon",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "Miracast screen mirroring"
+    },
+    {
+     "pkg": "com.tcl.magiconnectfree",
+     "note": "TCL T-Cast / Magiconnect phone mirroring"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "game mode / VRR overlay for consoles"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media player"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": "USB photo gallery + TCL screensaver"
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "TCL soundbar firmware updates"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Needed for the custom launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient screensaver (promos); switch screensaver_components first"
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.spocky.projengmenu",
+     "note": "Projectivy Launcher: installed by the owner, not a preload; left out of the shared list"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "phone-app remote AND the BT remote's mic button (see above)"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant voice (mic button)"
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "Netflix, together with the next line"
+    },
+    {
+     "pkg": "com.netflix.tokenmanager",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": ""
+    }
+   ],
+   "note": "Disable only AFTER launcher/ is installed and set as Home: with launcherx gone, setupwraith's RecoveryActivity claims HOME at priority 1 (blank screen)."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 35
+}

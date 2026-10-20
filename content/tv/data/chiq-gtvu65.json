@@ -1,0 +1,104 @@
+{
+ "id": "chiq-gtvu65",
+ "title": "CHiQ \"AI PONT\" (Changhong, product GTVU65, device dangni), Google TV 14 (API 34),",
+ "header": "CHiQ \"AI PONT\" (Changhong, product GTVU65, device dangni), Google TV 14 (API 34),\nfirmware UKN2.241219.138.A1, security patch 2025-03-01, MediaTek mt5867.\n1 GB RAM (MemTotal about 930 MB). 1920x1080 panel, UI rendered at 1280x720 (wm size override), 213 dpi.\nNot the same firmware as examples/chiq-ai-pont (DVB93CQ, Android TV 11): this is the Google TV 14 build,\ncloser to examples/benq-e55-735 and examples/rca-ai-pont.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/chiq-gtvu65/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/chiq-gtvu65/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it as STOCK_LAUNCHER).\nLive TV: com.mediatek.wwtv.tvcenter.plus (has the LEANBACK_LAUNCHER entry; com.mediatek.wwtv.tvcenter has none).\nAlready disabled from the factory: com.cltv.hybrid (iWedia TV app).\n\nTested the same day on one set: Home opens, Netflix / YouTube / Prime Video / Apple TV launch,\nthe Inputs menu still lists Antenna, Cable, Satellite, ATV, AV and HDMI 1-3, HDMI 1 switches.\nThe home screen on the test set was a small custom launcher built from PROMPT.md, not launcher/ from\nthis repo; the package list does not depend on which launcher replaces Home.\nAfter a reboot with this whole list disabled: com.mediatek.tv.service, tvinput and autopair start and\nstay up, the crash buffer is empty, the Input key opens the input switcher, Home opens the new launcher.\nNot a multi-day soak.\n\nKEEP, even though the names look like bloat:\n- com.mediatek.autopair: Bluetooth remote pairing (Airoha BLE service) and the volume receiver.\n- com.homwee.factory: handles input key broadcasts besides the factory menu.\n- com.homwee.dynamicbacklight (picture), com.mediatek.tv.service, com.mediatek.tvinput,\ncom.mediatek.wwtv.tvcenter(.plus), com.gdch.android.tv.inputplayer, the globalkeyoverlay packages.\n- com.homwee.upgrade and com.homwee.dmt.upgrade: firmware updates.\n\nQuirks on this firmware, all checked on the TV:\n- With USB debugging on, network ADB answered on port 5555 straight away.\n- Home goes to com.google.android.tungsten.setupwraith/.RecoveryActivity (priority 1) once launcherx is\ndisabled. It logs \"Reenabling disabled home activity\", fails, and only then falls through to the new\nhome, adding a delay on every Home press. A third-party HOME filter is capped at priority 0, and\n`pm disable-user` on the RecoveryActivity component alone is refused for the shell\n(SecurityException), so the whole setupwraith package has to be disabled (listed below).\n- Inputs switch through com.google.android.tv.inputplayer/.player.PassthroughPlayerActivity\n(ACTION_VIEW on TvContract.buildChannelUriForPassthroughInput). Input IDs look like\ncom.mediatek.tvinput/.hdmi.HDMIInputService/HW5 (HDMI 1-3 = HW5-HW7, AV = composite HW2).\n- HDMI and Live TV screenshots come out black (protected video layer).\n- The Wi-Fi pill shows the network name once ACCESS_FINE_LOCATION is granted; Location is on by default.",
+ "sections": [
+  {
+   "title": "Telemetry and ad services",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "Play partner auto-installs"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Changhong / Homwee store and help",
+   "apps": [
+    {
+     "pkg": "com.homwee.store",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.help",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "re-enable if you use the screen reader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps not used in this home (by choice; keep the ones you use)",
+   "apps": [
+    {
+     "pkg": "com.iqiyi.i18n.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "its RecoveryActivity otherwise takes over Home"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disable only after the new launcher is installed and set as home."
+  },
+  {
+   "title": "Launcher partner customization (rows and branding for the stock home)",
+   "apps": [
+    {
+     "pkg": "com.mediatek.android.leanbacklauncher.partnercustomizer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Unlike the Google variant on the Android 11 CHiQ, this MediaTek one only provides tvlauncher.config, not tvlauncher.widget; checked across a reboot, com.mediatek.tv.service does not crash and the Input key still works."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 13
+}

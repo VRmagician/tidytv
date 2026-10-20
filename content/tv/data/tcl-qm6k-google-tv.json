@@ -1,0 +1,222 @@
+{
+ "id": "tcl-qm6k-google-tv",
+ "title": "TCL QM6K Pro Google TV, 2025, US (device G08, model \"Smart TV Pro\", MediaTek tcl9618)",
+ "header": "TCL QM6K Pro Google TV, 2025, US (device G08, model \"Smart TV Pro\", MediaTek tcl9618)\nAndroid 14 (Google TV), firmware UTT2.250416.001 AU16\nAlso seen on the same G08 board with AU14 firmware, a \"Smart TV Pro\" sold outside the US (prasta1, PR #23);\nthat set needed Wireless-debugging pairing (README, Troubleshooting).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-qm6k-google-tv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-qm6k-google-tv/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV / HDMI app: com.tcl.tv.\nKeep: com.tcl.tv, com.tcl.tvinput, com.tcl.dashboard, com.tcl.suspension, com.tcl.autopair,\ncom.tcl.systemserver, com.tcl.providers.config, com.tcl.initsetup, com.tcl.useragreement,\ncom.tcl.globalkeyoverlay, com.tcl.systemui.plugin, com.tcl.factory.view and all com.mediatek.*.\nUnlike the 2023 G10 sets, com.tcl.ttvs and com.tcl.logkit ship ENABLED here.\nDo NOT disable com.tcl.providers.config, com.tcl.initsetup or com.tcl.factory.view: together they dropped\nthe Wi-Fi connection outright on the AU14 set and it took a re-pair over ADB to get back in (#23).\n\nKnown quirks on this firmware:\n- Play Protect blocks the launcher (\"built for an older version of Android\") unless targetSdk >= 34.\n- With launcherx disabled, setupwraith's RecoveryActivity claims HOME at priority 1 and shows a blank\nscreen. Shell can't disable that one component, so the whole package is disabled below (it only\nruns first-time setup). While Home was blank the TV fell back to HDMI 1 and woke a console over CEC.\n- Soundbar on optical (S/PDIF) can't be powered or volume-controlled by the TV. Use HDMI 4 (eARC) and\n`cmd hdmi_control cec_setting set system_audio_control 1` (it ships 0 here).",
+ "sections": [
+  {
+   "title": "TCL tracking and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "Samba TV ACR viewing tracking, TCL \"BI\" analytics, Alexa core, T-Cast"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log capture and upload"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.tv.plus",
+     "note": "TCL TV+ content app"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.interactive",
+     "note": "TCL TIAS background service"
+    },
+    {
+     "pkg": "com.tcl.smartlink.core",
+     "note": "bundles a silent app installer"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL push messages and promos"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo / hotel mode",
+   "apps": [
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services",
+   "apps": [
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": "TCL web browser"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "re-enable to play media from USB drives"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "silently installs partner apps"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode screensaver (shows promos)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Needed for the custom launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "Netflix, together with the next line"
+    },
+    {
+     "pkg": "com.netflix.tokenmanager",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Google TV phone-app remote"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "screen reader"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "game mode / VRR overlay for consoles"
+    },
+    {
+     "pkg": "com.tcl.airplay2",
+     "note": "AirPlay, together with the next two lines"
+    },
+    {
+     "pkg": "com.mediatek.AirplayAPK",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.airplaydaemon",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "TCL soundbar firmware updates"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant voice"
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "\"listen alone\" Bluetooth pairing helper"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.speakerservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.backgrounddetection",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.support.webview",
+     "note": ""
+    }
+   ],
+   "note": "see quirks above. Disable only AFTER launcher/ is installed."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 25
+}

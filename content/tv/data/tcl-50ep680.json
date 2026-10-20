@@ -1,0 +1,240 @@
+{
+ "id": "tcl-50ep680",
+ "title": "TCL 50EP680 (Europe), `ro.product.model` BeyondTV, brand TCL, board `rtd285o` (Realtek),",
+ "header": "TCL 50EP680 (Europe), `ro.product.model` BeyondTV, brand TCL, board `rtd285o` (Realtek),\nAndroid TV 11 (API 30), build `PPR1.180610.011` / incremental `AR05`, dated 2022-05-26,\nsecurity patch 2021-12-05, 32-bit (`armeabi-v7a`), locale `en-GB`.\nFingerprint: TCL/BeyondTV/BeyondTV:11/PPR1.180610.011/AR05:user/release-keys\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-50ep680/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-50ep680/debloat.txt\nStock launcher: com.google.android.tvlauncher (this is Android TV 11, not Google TV, so no\ncom.google.android.apps.tv.launcherx and no setupwraith here). Both tools' defaults fit unchanged.\nLive TV app: com.tcl.tv (owns tuner/HDMI playback; the launcher offers it at the end of the Inputs\nmenu). Keep it and com.tcl.tvinput.\n\nAlready disabled at the factory on this firmware, so no action is needed and none of them are\nlisted below: every uk.co.freeview.* UK catch-up app (14 of them), com.tcl.smartalexa,\ncom.graymatrix.did, tv.wuaki.apptv, com.tcl.gallery, com.google.android.apps.nbu.smartconnect.tv,\ncom.eros.now. (Same pattern as the BeyondTV2 Latin America profile: the UK catch-up apps are\npre-disabled on TCL sets sold outside the UK.)\n\nDeliberately NOT disabled (ambiguous or system-relevant): com.tcl.autopair (Bluetooth remote\npairing), com.tcl.guard, com.tcl.messagebox, com.tcl.usercenter, com.tcl.useragreement,\ncom.tcl.xian.StartandroidService, com.tcl.browser, casting (com.google.android.apps.mediashell,\ncom.tcl.miracast, com.tcl.MultiScreenInteraction_TV, com.google.android.tv.remote.service),\nfirmware updates (com.tcl.versionUpdateApp), the streaming apps (Netflix, YouTube, YouTube Kids,\nDisney+, com.wbd.stream = HBO Max, Spotify, VLC, Firefox, Czech Television iVysilani, SledovaniTV,\nStream.cz, FilmBox), file managers (Total Commander, X-plore, FX, WiFi File Explorer), the sideload\nlauncher, Zoom, and the Play Store (com.android.vending).\n\nVoice assistant is off by choice on this set (one user's pick, grouped so others can comment it\nout): com.google.android.katniss, com.google.android.tv.assistant, com.tcl.assistant. That turns\nthe remote's voice button into a no-op.\n\nTesting: applied on a real unit on 2026-10-19, every package disabled through tools/disable.sh and\nthen re-checked one by one (`pm list packages -e`: 47/47 disabled, 0 failures). Home, the app grid,\nthe Inputs menu (HDMI 1-3, AV, Live TV), the Wi-Fi pill and Settings all kept working afterwards,\nand a dock app was launched and closed to confirm tiles start apps. The set was not rebooted\nafterwards and this list has NOT been lived with for days yet.",
+ "sections": [
+  {
+   "title": "TCL telemetry, promos and content feeds",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "analytics / telemetry service"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL web content feed"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers. Worth re-checking here: the BeyondTV2"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "profile (PR #179, same rtd285o board) saw this one come back enabled overnight",
+   "apps": [
+    {
+     "pkg": "com.tcl.notereminder",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.overseasappshow",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.copydatatotv",
+     "note": "\"copy your phone's data to the TV\" setup helper"
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "TCL dashboard; carries a /giftbox promo activity"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "installs partner/preload apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice assistant (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant voice search"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "Google Assistant for TV"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL's assistant surface"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google extras, recommendation rows and Play Movies",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.music",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver. Once it is gone the screensaver has to"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded games (user-space apps",
+   "apps": [
+    {
+     "pkg": "com.king.candycrushsaga",
+     "note": ""
+    },
+    {
+     "pkg": "com.asanteegames.magicrampage",
+     "note": ""
+    },
+    {
+     "pkg": "com.mautilus.tvgames.portal.androidtv",
+     "note": ""
+    },
+    {
+     "pkg": "com.popoko.tictactoe",
+     "note": ""
+    },
+    {
+     "pkg": "com.secretexit.turbodismount",
+     "note": ""
+    },
+    {
+     "pkg": "com.vectorunit.purple.googleplay",
+     "note": ""
+    },
+    {
+     "pkg": "com.wrcplus.release",
+     "note": ""
+    },
+    {
+     "pkg": "paskov.biz.happyfruits",
+     "note": ""
+    },
+    {
+     "pkg": "rocks.funkykarts",
+     "note": ""
+    },
+    {
+     "pkg": "ro.pontes.forinaline",
+     "note": ""
+    },
+    {
+     "pkg": "net.hexage.ritual",
+     "note": ""
+    },
+    {
+     "pkg": "com.joxdev.orbia",
+     "note": ""
+    },
+    {
+     "pkg": "com.bruyere.android.solitaire",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "disable-user is enough, and reversible)"
+  },
+  {
+   "title": "Preloaded news, video and remote-support apps",
+   "apps": [
+    {
+     "pkg": "ca.cbc.mobile.android.cbcnewsandroidwebview",
+     "note": ""
+    },
+    {
+     "pkg": "com.abc.abcnews",
+     "note": ""
+    },
+    {
+     "pkg": "com.bloomberg.btva",
+     "note": ""
+    },
+    {
+     "pkg": "com.cnn.mobile.android.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.nousguide.android.rbtv",
+     "note": ""
+    },
+    {
+     "pkg": "com.ted.android.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.vimeo.android.videoapp",
+     "note": ""
+    },
+    {
+     "pkg": "dw.com.androidtv.live",
+     "note": ""
+    },
+    {
+     "pkg": "net.aljazeera.english",
+     "note": ""
+    },
+    {
+     "pkg": "jp.co.rarity.tvweb",
+     "note": ""
+    },
+    {
+     "pkg": "com.cloudmosa.puffinTV",
+     "note": ""
+    },
+    {
+     "pkg": "cm.aptoidetv.pt",
+     "note": ""
+    },
+    {
+     "pkg": "com.curiosity.curiositystream.androidtv",
+     "note": ""
+    },
+    {
+     "pkg": "com.teamviewer.quicksupport.market",
+     "note": ""
+    },
+    {
+     "pkg": "io.tiv.dvtv.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 47
+}

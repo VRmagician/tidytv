@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi Mi TV 4C Pro 2019",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Xiaomi Mi TV 4C Pro 2019 ships with PatchWall, Glance ads and tracking. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Mi TV ships with PatchWall and its content rows, sponsored Mi TV+ channels, and a partner TV guide that promotes shows. It also has Glance, which puts news and ads on the lock and standby screen, plus Xiaomi and Google usage analytics. Preloaded apps for music, gallery and games, and a few regional streaming and news apps the owner may not use, are on the list too.",
+    "Notes from this firmware say the screensaver is clean once Glance is off. Netflix, Prime Video and YouTube are preinstalled system apps that start at each boot, and the list leaves them alone. TidyTV turns the list off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Gboard, which is already the default keyboard",
+    "Netflix, Prime Video and YouTube, which the list does not switch off",
+    "The Google Leanback launcher, which the firmware turns back on at every restart"
+  ],
+  "notes": [
+    "Glance is the lock and standby screen with news and ads. Once it is switched off, the screensaver is clean.",
+    "Some Mi TV 4A sets had no keyboard. This model already has Gboard, so that problem does not apply."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Xiaomi Mi TV 4C Pro 2019?",
+      "a": "No, not with the default list. Google Assistant and the speech service are switched off, so the mic button stops working. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Not by default. Chromecast built-in, Mi Cast, Miracast and the Xiaomi smart share service are on the list. Switch them back on in the app if you cast."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off PatchWall and its channels, the sponsored Mi TV+ channels, the Sensara TV guide, Glance and the Xiaomi web promos."
+    }
+  ]
+}

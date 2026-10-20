@@ -1,0 +1,70 @@
+{
+ "id": "benq-e55-750",
+ "title": "BenQ E55-750 (55\" 4K, Taiwan), Google TV on Android 11 (SDK 30), firmware RTM8.240401.136",
+ "header": "BenQ E55-750 (55\" 4K, Taiwan), Google TV on Android 11 (SDK 30), firmware RTM8.240401.136\nBuilt by Changhong (ro.product.model=\"AI PONT\", product DVB96BQ, board m7632), MediaTek, about 1.8 GB\nRAM. Same product name as the E55-735 example but an older, Android 11 based firmware.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/benq-e55-750/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/benq-e55-750/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Already disabled from the factory:\ncom.google.android.marvin.talkback. No ACR package (tv.anoki.*) on this firmware.\n\nQuirks on this firmware, checked on the TV:\n- USB debugging alone opens port 5555; there is no Wireless debugging toggle.\n- HOME candidates: launcherx (priority 2), setupwraith/.RecoveryActivity (priority 1), so disable\nsetupwraith first, then run launcher/build-and-install.sh.\n- The default screensaver is dreamx's Backdrop (ambient mode). Point it at the launcher's clock\nbefore disabling dreamx:\nsettings put secure screensaver_components com.gathin.tvhome/.ClockDream\nsettings put secure screensaver_default_component com.gathin.tvhome/.ClockDream\nrestore.sh does not undo either; the stock value of both is com.google.android.apps.tv.dreamx/.service.Backdrop",
+ "sections": [
+  {
+   "title": "Changhong / Homwee store and help",
+   "apps": [
+    {
+     "pkg": "com.homwee.store",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.help",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV recommendations and screensaver (set another screensaver first)",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV app, the home screen's recommendation source"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode; mixes recommendations into the screensaver"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps not used in this home (by choice; keep the ones you use)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "its RecoveryActivity otherwise takes over Home"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disable only after the new launcher is installed and set as home."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 8
+}

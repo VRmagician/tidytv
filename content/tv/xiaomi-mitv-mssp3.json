@@ -1,0 +1,34 @@
+{
+  "name": "Xiaomi MiTV-MSSP3",
+  "brand": "Xiaomi",
+  "os": "Android TV 11",
+  "summary": "Xiaomi MiTV-MSSP3 ships with PatchWall channels, analytics and extra apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Xiaomi TV ships with PatchWall and its channels on the home screen, sponsored content rows, and a partner app auto-install. It also has Xiaomi analytics, a TV Manager cleaner, a Mi WallPaper screensaver and Google's Ambient screensaver. Preloaded apps include a Xiaomi music app, a gallery, and streaming apps such as Netflix, Prime Video and YouTube Music.",
+    "The list was run on firmware RTT2.211214.001.1065, which is Android TV 11. Netflix and Prime Video come back at every restart even when they are switched off. The list switches off the Xiaomi helper that turns them back on, but that is not enough on its own. Live TV, HDMI and the tuner, and the Xiaomi TV service, are kept on purpose. TidyTV turns the list off from your phone over Wi-Fi, with a backup first and nothing deleted."
+  ],
+  "keep": [
+    "Live TV, HDMI and the tuner inputs",
+    "The Xiaomi TV service, which runs in the background",
+    "Bluetooth and the remote's hot keys",
+    "The Google TV remote phone service"
+  ],
+  "notes": [
+    "Netflix and Prime Video come back at each restart even when switched off, because a Xiaomi helper turns them on again. Switching the helper off is not enough on its own.",
+    "The remote's Netflix button depends on that same Xiaomi helper, so it may stop working when the helper is switched off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Xiaomi MiTV-MSSP3?",
+      "a": "Yes, as far as the list goes. It does not switch off Google Assistant or the speech service, so the mic button should keep working."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Not by default. The list switches off Chromecast built-in, so turn it back on in the app if you cast from a phone."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off PatchWall and its channels, the Xiaomi web promos, the Xiaomi TV+ app and Google's recommendation rows."
+    }
+  ]
+}

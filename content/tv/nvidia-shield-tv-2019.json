@@ -1,0 +1,36 @@
+{
+  "name": "NVIDIA SHIELD TV 2019",
+  "brand": "NVIDIA",
+  "os": "Android TV 11",
+  "summary": "NVIDIA SHIELD TV 2019 ships with usage tracking and sponsored rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This SHIELD ships with NVIDIA usage statistics, crash reports and a feedback form, plus sponsored rows and partner app installs on the home screen. It also has the NVIDIA Games app, a network storage and file sharing service, a Google data-saver service, and several factory test and beta tools that a home owner does not need.",
+    "The list was run on a 2019 SHIELD TV on SHIELD Experience 9.2.4, and the owner chose to leave firmware updates off. A user who ran it posted a screenshot of the working setup, but it has not been checked on other units. TidyTV needs Network debugging turned on once. After that it turns the list off from your phone over Wi-Fi, with a backup first and nothing deleted."
+  ],
+  "keep": [
+    "Netflix, YouTube and Prime Video, which stay installed",
+    "Google Assistant, its hotword and the on-device speech service behind the mic button",
+    "Alexa and Google Home control, and the SHIELD phone remote app",
+    "Chromecast built-in",
+    "Bluetooth pairing, controller mapping and the infrared remote services"
+  ],
+  "notes": [
+    "Firmware updates are switched off by this list, along with NVIDIA's update helpers. NVIDIA still sends security patches, so switch the updates back on before you contact NVIDIA support or if you want those fixes.",
+    "A SHIELD Experience update can switch some of these apps back on. Run TidyTV again after one.",
+    "Ambient mode (Backdrop) and Live Channels are switched off. If your screensaver is set to Backdrop, choose another one first, or the screensaver will stop showing."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my NVIDIA SHIELD TV 2019?",
+      "a": "Yes. Google Assistant, its hotword and the speech service behind the mic button are kept, and Alexa and Google Home control stay on."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in and the SHIELD phone remote app are kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

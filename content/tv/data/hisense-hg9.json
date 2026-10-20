@@ -1,0 +1,161 @@
+{
+ "id": "hisense-hg9",
+ "title": "Hisense HG9 (HiSmart 4K A4FFM, device laohushan, MediaTek), Android TV 9 (API 28),",
+ "header": "Hisense HG9 (HiSmart 4K A4FFM, device laohushan, MediaTek), Android TV 9 (API 28),\nbuild PTMR.190127.037, security patch 2021-02-05, kernel 4.9.118. 2 GB RAM class.\nTested on a set used as an Apple TV display over HDMI.\n\nStock launcher: com.google.android.tvlauncher (pass it to restore.sh; replaced\nhere by FLauncher from the Play Store, not launcher/, set as default with\n`cmd package set-home-activity me.efesser.flauncher/.MainActivity`).\nLive TV app: stock Live TV was left alone; HDMI input is com.hisense.tv.hitvinput.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/hisense-hg9/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/hisense-hg9/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nReboot-tested: the TV boots normally with this full list applied, including\ncom.hisense.tv.smartsense, com.vt.tv.smartsense.ui and\ncom.hisense.tv.smartservice all disabled (verified after a settings-reset\nreboot, followed by a full evening of use: streaming, Store, launcher).\nThis differs from the #45 SmartTV 4K FFM (Android TV 10) report where the\nsmartsense pair sent that set to Recovery — model/firmware difference, HG9\non Android TV 9 is unaffected.\n\nNotes from this firmware:\n- USB debugging alone does NOT open network ADB; the TV needs its explicit\nNetwork/Wireless debugging toggle too, plus a reboot before port 5555 opens.\n- The Beryl/GL.iNet \"block client\" toggle deauths the TV entirely (no join at\nall), it is not a WAN-only block. Debloat over an isolated offline LAN instead.\n- com.google.android.tungsten.setupwraith re-enables the stock launcher, so it\nis listed (per the FLauncher README method).\n- Play Store showed \"Something went wrong\" with AuthFailureError even after\nre-signing in; `pm clear com.google.android.gsf` + reboot + fresh sign-in\nfixed it. The tvrecommendations prefetch errors in Finsky logs are a red\nherring (they persist with the services enabled and are non-fatal).\n- Kept deliberately: hitvinput + mtktvapi_agent + tvcenter (HDMI/tuner),\ntv.settings/providers.tv, Play Store + Play Services, remote keys (kpad,\nhotkey dispatcher, autopair), Bluetooth, latin IME, system UI, Alexa,\nChromecast, DLNA service, OTA updater, phone-remote service (lost-remote\nfallback), and the MStar disclaimer customizer (first-boot legal text).\n- Netflix, Prime Video, YouTube, Apple TV, Pluto, Vudu, Hulu apps kept and\nupdated through the Play Store. Pandora, Peacock, Kids, Play Games, Max,\nParamount+, MediaCenter removed by owner choice (Apple TV is the streamer).",
+ "sections": [
+  {
+   "title": "Hisense telemetry and viewing-data collection",
+   "apps": [
+    {
+     "pkg": "com.hisense.app.logreport",
+     "note": "LogReportManagerService, persistent system reporter"
+    },
+    {
+     "pkg": "com.hisense.evservice",
+     "note": "ACR collector (/system/priv-app/acr), watches HDMI too"
+    },
+    {
+     "pkg": "com.hisense.tv.smartsense",
+     "note": "Smartsense analytics"
+    },
+    {
+     "pkg": "com.hisense.tv.smartservice",
+     "note": "SmartsenseService background service"
+    },
+    {
+     "pkg": "com.vt.tv.smartsense.ui",
+     "note": "Smartsense companion UI"
+    },
+    {
+     "pkg": "com.mstar.netflixobserver",
+     "note": "MNetflixObserver measurement service (Netflix app untouched)"
+    },
+    {
+     "pkg": "com.hisense.service.message",
+     "note": "HiMsgService push messaging"
+    },
+    {
+     "pkg": "com.hisense.hitv.hicloud.account",
+     "note": "HiCloud account manager"
+    },
+    {
+     "pkg": "android.autoinstalls.config.hisense.laohushan",
+     "note": "partner silent app auto-installs"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Hisense promos, cleaners, demo, business mode",
+   "apps": [
+    {
+     "pkg": "com.hisense.tv.customerlauncher",
+     "note": "CustomerLauncher home-screen tweaks"
+    },
+    {
+     "pkg": "com.hisense.tv.protector",
+     "note": "TvProtector \"speedup\" cleaner"
+    },
+    {
+     "pkg": "com.hisense.storemode",
+     "note": "retail store demo mode"
+    },
+    {
+     "pkg": "com.hisense.tv.b2b",
+     "note": "HisenseB2B hotel/business mode"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "fusion demo app"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google recommendation rows and reporters",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Backdrop Daydream idle/cast screensaver (owner choice)"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "Speech recognition & synthesis (owner choice; kills voice search)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Owner-confirmed streaming preload removals",
+   "apps": [
+    {
+     "pkg": "com.pandora.android.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.peacocktv.peacockandroid",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvkids",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.wbd.stream",
+     "note": "Max"
+    },
+    {
+     "pkg": "com.cbs.ott",
+     "note": "Paramount+"
+    },
+    {
+     "pkg": "com.jamdeo.tv.mediacenter",
+     "note": "Hisense MediaCenter DLNA/USB player"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Launchers (stock replaced by FLauncher)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 29
+}

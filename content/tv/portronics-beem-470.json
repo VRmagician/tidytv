@@ -1,0 +1,34 @@
+{
+  "name": "Portronics Beem 470",
+  "brand": "Portronics",
+  "os": "Android 11",
+  "summary": "Portronics Beem 470 ships with an HTC home screen and vendor apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This projector ships with a stock home screen from HTC, along with HTC update and usage uploaders and a factory test app. It also has vendor apps for a TV tuner it does not have, a stock file manager, an image viewer and a video player, and a preloaded office suite. A long list of Android services that a projector never uses, such as printing and music, is on the list too.",
+    "The list was tested on a retail unit. Wi-Fi, HDMI input switching, Netflix, JioHotstar, Prime Video, VLC, SmartTube and Apple TV kept working, and so did the custom home screen. The casting apps are left on on purpose. TidyTV turns the list off from your phone over Wi-Fi, saves a backup first and never deletes anything, and each app has a switch you can turn back on."
+  ],
+  "keep": [
+    "Wi-Fi and HDMI input switching",
+    "EShare and similar casting apps",
+    "Netflix, JioHotstar, Prime Video, Apple TV, VLC and SmartTube"
+  ],
+  "notes": [
+    "The remote's Home key is ignored until two setup flags are set. Until then the TV keeps reporting that setup is still in progress.",
+    "Two provisioning apps are switched off. Turn them back on before a factory reset.",
+    "The firmware update services are switched off, so turn them back on before you check for new firmware."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Portronics Beem 470?",
+      "a": "It may not. The list switches off a vendor projector control and voice helper, and voice was not part of the tests. Switch that app back on in the app if you use voice features."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. The EShare and similar casting apps are left on deliberately."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

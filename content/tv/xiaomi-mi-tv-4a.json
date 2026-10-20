@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi Mi TV 4A",
+  "brand": "Xiaomi",
+  "os": "Android TV 10",
+  "summary": "Turn off Xiaomi analytics, PatchWall rows, Mi TV promos and background services on the Xiaomi Mi TV 4A. A free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Xiaomi Mi TV 4A runs Android TV 10 with the PatchWall home screen. It ships with Xiaomi analytics and statistics services, PatchWall and Mi content rows and promos, and background services such as a TV manager cleaner, a screen share service and an Alexa bridge. It also has preloaded apps such as a Xiaomi music app and a video calling app.",
+    "This list is a starting point for this model and for other Xiaomi and Redmi sets with PatchWall, so check the home screen and keyboard after each change. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup. Nothing is deleted, and Restore everything brings every app back in one tap."
+  ],
+  "keep": [
+    "Chromecast: the Mi cast service is turned off, but Chromecast still works.",
+    "Play Store, Play services, keyboards, TV inputs, the remote and Bluetooth pairing are always kept by TidyTV.",
+    "Settings and setup apps are always kept too."
+  ],
+  "notes": [
+    "The default keyboard points at an app that is not installed, so no keyboard appears in search boxes. Set Gboard as the keyboard in the TV's settings.",
+    "The firmware update service is turned off by this list. Turn it on in the app to check for firmware updates."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast still works, even though the Mi cast service is turned off."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the PatchWall and Mi content rows, the Mi TV+ channels and promos, and Xiaomi's analytics. Those are the home screen promos this list covers."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

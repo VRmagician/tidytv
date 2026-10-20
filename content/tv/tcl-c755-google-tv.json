@@ -1,0 +1,27 @@
+{
+  "name": "TCL 75C755 QD-Mini LED",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "Turn off TCL tracking, promo rows and retail demo apps on the TCL 75C755 QD-Mini LED. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This 2024 TCL Google TV ships with Samba TV viewing tracking, TCL analytics and a log uploader. It also has TCL Live channels, promo rows, a message box and a movie browser, plus retail demo and hotel mode apps, an e-manual, the Alexa app, a cleaner app, and casting and mirroring services that are off by choice.",
+    "This was applied and checked on a real 75-inch unit on 20 October 2026. Wi-Fi, HDMI switching through the Inputs menu, Assistant, and Netflix and Disney+ playback all worked afterwards. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "Live TV and HDMI, through TCL's TV app and input service.",
+    "The remote's microphone button, through the remote service that carries its voice search.",
+    "The Input button panel, which is TCL's source panel.",
+    "The on-screen keyboard.",
+    "Firmware updates, delivered through Google Play services.",
+    "Wi-Fi setup services, and the sound service that also works with TCL speakers."
+  ],
+  "notes": [
+    "The remote's Input button always opens TCL's own source panel, and it cannot be redirected to another menu.",
+    "Firmware updates come through Google Play services, so there is no separate TCL updater on this set."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my TCL 75C755?", "a": "Yes. The remote service that carries the microphone button is kept on, and Google Assistant worked in testing."},
+    {"q": "Does casting still work?", "a": "Chromecast is off by choice in this list, and AirPlay and Miracast are off too. Restore everything turns them back on in one tap."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the TCL channel app, the promo and message services, and the TCL partner rows on the home screen. Restore everything turns them back on in one tap."}
+  ]
+}

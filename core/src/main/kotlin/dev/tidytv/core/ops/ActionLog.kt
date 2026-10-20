@@ -21,7 +21,7 @@ data class ActionRecord(
     val detail: String? = null,
 )
 
-/** Append-only record of every change tidytv makes to one TV. Restore is driven from this. */
+/** Append-only record of every change TidyTV makes to one TV. Restore is driven from this. */
 interface ActionLog {
     fun append(record: ActionRecord)
     fun records(): List<ActionRecord>
@@ -64,7 +64,7 @@ class FileActionLog(private val file: File) : ActionLog {
 }
 
 /**
- * Packages tidytv turned off and has not turned back on. A DISABLE intent counts even without a
+ * Packages TidyTV turned off and has not turned back on. A DISABLE intent counts even without a
  * result: the command may have reached the TV before the connection dropped, and enabling a
  * package that was never disabled is harmless.
  */
@@ -91,11 +91,11 @@ fun List<ActionRecord>.pendingDisables(): Set<String> {
     return pending
 }
 
-/** The Home component before tidytv first changed it, or null if Home was never touched. */
+/** The Home component before TidyTV first changed it, or null if Home was never touched. */
 fun List<ActionRecord>.originalHome(): String? =
     firstOrNull { it.op == Op.SET_HOME && it.phase != Phase.FAILED && it.before != null }?.before
 
-/** True when tidytv installed its launcher and has not uninstalled it since. */
+/** True when TidyTV installed its launcher and has not uninstalled it since. */
 fun List<ActionRecord>.launcherInstalledByUs(pkg: String): Boolean {
     var installed = false
     for (r in this) if (r.target == pkg) when {
@@ -105,7 +105,7 @@ fun List<ActionRecord>.launcherInstalledByUs(pkg: String): Boolean {
     return installed
 }
 
-/** Settings changed by tidytv: key "namespace/name" -> value before the first change. */
+/** Settings changed by TidyTV: key "namespace/name" -> value before the first change. */
 fun List<ActionRecord>.changedSettings(): Map<String, String?> {
     val result = linkedMapOf<String, String?>()
     for (r in this) if (r.op == Op.SETTING && r.phase != Phase.FAILED && r.target !in result) result[r.target] = r.before

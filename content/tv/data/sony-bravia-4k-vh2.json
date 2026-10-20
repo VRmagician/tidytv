@@ -1,0 +1,105 @@
+{
+ "id": "sony-bravia-4k-vh2",
+ "title": "Sony BRAVIA 4K VH2 (device BRAVIA_VH2, KD-55X80J, MediaTek), EU firmware",
+ "header": "Sony BRAVIA 4K VH2 (device BRAVIA_VH2, KD-55X80J, MediaTek), EU firmware\nAndroid 12 (Google TV, API 31), build BRAVIA_VH2_EU-user 12 STT2.230505.001.S136 682241\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-vh2/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-vh2/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (Google TV). Pass it to restore.sh as above.\nLive TV / tuner app: com.sony.dtv.tvx (set it as live_tv_package in the launcher's config.xml and hide it).\nKeep the com.sony.dtv.tvinput.* services, com.sony.dtv.braviasync*, com.sony.dtv.tvapi,\ncom.sony.dtv.sonysystemservice, imeproxy, settingsprovider, systemupdate/update (firmware), the Sony\nsettings apps and all com.mediatek.*: they drive HDMI, the tuner, Bravia Sync, updates and the remote.\nKept by owner's choice: voice assistant (katniss, voicesearch, assistantadapter), Chromecast built-in\n(mediashell) and firmware updates.\nAlready disabled at the factory: com.sony.dtv.promos, com.sony.dtv.b2b.vendorprotocol,\ncom.sony.dtv.b2b.softap, com.apple.atve.sony.appletv, the my5/itv/ard/all4/iplayer/sounds launchers,\ncom.youview.poa, de.hdplus.tvapp.androidtv, com.sony.dtv.seeds.iot, com.sonypicturescore.\nNot in this list, so restore.sh leaves them as they are.\n\nLive TV in the launcher: set live_tv_package to com.sony.dtv.tvx and hide it; Inputs lists HDMI 1-4 and\nAV from the TV input framework. Launcher installed with the Input-button service (INPUT_KEY_SERVICE=1).\nApplied one afternoon on a KD-55X80J with the dock set to Stremio, Netflix, SmartTube, OTT Navigator.\nNot yet lived with for weeks; if something breaks, re-enable it with `pm enable <package>` and please\nreport it. launcherx was left enabled, since Home already resolved to the new launcher once the setup\nwizard was disabled.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    },
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "telemetry and remote support",
+   "apps": [
+    {
+     "pkg": "com.qterics.da.product",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "claims HOME and takes over once the stock launcher is disabled"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 15
+}

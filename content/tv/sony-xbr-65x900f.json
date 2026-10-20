@@ -1,0 +1,33 @@
+{
+  "name": "Sony BRAVIA XBR-65X900F",
+  "brand": "Sony",
+  "os": "Android TV 9",
+  "summary": "Turn off Samba TV, Sony promo apps and remote support agents on the Sony BRAVIA XBR-65X900F with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA XBR-65X900F, a 2018 set on Android TV 9, ships with Samba TV, a viewing tracker that fingerprints what is on screen. It also has Sony and Google promo tiles, a content bar, retail demo apps, and remote support and telemetry agents. A group of apps most owners don't use, such as Works with Alexa and the USB media apps, is on the list too.",
+    "The list was applied and checked across a reboot. It stayed off, the stock home screen stayed in place, and HDMI and Live TV still worked. It has not been used for weeks yet. TidyTV turns these off from your phone over Wi-Fi, with a backup first and nothing uninstalled. Restore everything switches them back on in one tap."
+  ],
+  "keep": [
+    "Live TV and HDMI, through Sony's input app and its input services.",
+    "The remote: pairing, the power key and the input service.",
+    "Bravia Sync, which handles HDMI device control.",
+    "The MediaTek services, which drive the tuner, Live TV and the timers."
+  ],
+  "notes": [
+    "The sponsored banner at the top of the stock home screen, with Hulu and Apple TV+ promos, comes from Google's launcher. Turning off the recommendation rows does not remove it, only replacing the home screen does."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony BRAVIA XBR-65X900F?",
+      "a": "Only if Google Assistant stays on. It is in the off by choice group, so leave its switch on in the app if you use the mic."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes, if you keep Chromecast on. It is one of the optional apps, so its switch can stay on while the rest are turned off."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Partly. It turns off Samba TV, the recommendation rows and Sony's promo apps. The sponsored banner at the top of the home screen stays until the home screen is replaced."
+    }
+  ]
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Philips 65PUS8102",
+  "brand": "Philips",
+  "os": "Android TV 8.0",
+  "summary": "Turn off the Inscape viewing tracker, analytics and NetTV web apps on the Philips 65PUS8102 with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Philips 65PUS8102 ships with a viewing tracker called Inscape, which identifies what is on screen, HDMI included. It also has analytics uploaders, a usage logger and a retail demo app. Philips's own NetTV app store and 13 preloaded NetTV web apps come on it too, along with two voice assistants.",
+    "On the real TV, the list was checked with a replacement home screen. Netflix, Disney+, HBO Max, Apple TV, Spotify and YouTube all opened and returned to it, and Live TV and HDMI from the Inputs menu still worked. A longer test over standby and restarts was still running when this was written. TidyTV turns these off from your phone over Wi-Fi, with a backup first and nothing uninstalled."
+  ],
+  "keep": [
+    "The HbbTV handler, so the red button on broadcast channels keeps working.",
+    "Live TV, sources, the remote and the tuner, which are the TV's own services.",
+    "Chromecast, firmware updates, Ambilight and Hue, and the Play Store."
+  ],
+  "notes": [
+    "The Inscape viewing tracker runs as a system service that the list cannot remove. With its app off and content recognition not accepted, it collects nothing.",
+    "If the TV does not show the Allow debugging prompt, turn USB debugging off and on, then cut the power at the wall, not standby."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Philips 65PUS8102?",
+      "a": "Only if the voice apps stay on. Google Assistant and Alexa are in the off by choice group, so leave their switches on in the app if you use the mic button."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept on purpose, so casting from a phone keeps working."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

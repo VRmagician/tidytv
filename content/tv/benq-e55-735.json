@@ -1,0 +1,35 @@
+{
+  "name": "BenQ E55-735",
+  "brand": "BenQ",
+  "os": "Google TV 14",
+  "summary": "Turn off Changhong's store, a viewing tracker and Google TV recommendation rows on the BenQ E55-735. A free phone app, with a backup first and one-tap undo.",
+  "intro": [
+    "The BenQ E55-735 is built by Changhong on the same platform as CHiQ sets. Out of the box it ships with Changhong's own store and help apps, a content recognition tracker that reports what is on screen, and Google TV recommendation rows. The screensaver mixes those recommendations in too, and a few streaming apps are preloaded.",
+    "The quirks below were all checked on a real set of this model. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup. Nothing is deleted, and Restore everything brings every app and the old home screen back in one tap. On the TV, you turn on developer options and debugging once."
+  ],
+  "keep": [
+    "Play Store and Play services are always kept, so apps can still install and update.",
+    "TV inputs, keyboards, the remote and Bluetooth pairing are always kept, so the remote still pairs.",
+    "Settings and setup apps are always kept.",
+    "The list names three streaming apps (Prime Video, YouTube Music and one Taiwan Mobile app). Each has a switch in the app if you use it."
+  ],
+  "notes": [
+    "Standby: once the TV sleeps, Bluetooth and Wi-Fi switch off. A Chromecast voice remote, which uses Bluetooth only, cannot turn the TV on. The BenQ IR remote and the power button can.",
+    "The Chromecast remote's YouTube and Netflix buttons do nothing once the stock home is turned off. Its Input button was also handled by the stock home, so test it after the change.",
+    "USB debugging alone does not open the network port until the first reboot. Pairing once with Wireless debugging works straight away."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "The list turns off Changhong's store and help apps, the content recognition tracker, and the recommendation rows that feed the home screen. Each one has a switch in the app, so you can switch any of them back on."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap. Nothing was uninstalled, so the apps are still on the TV."
+    },
+    {
+      "q": "Will the Chromecast remote's buttons still work?",
+      "a": "The YouTube and Netflix buttons do nothing once the stock home is off, because this TV has no key layout for them. The Input button also depended on the stock home, so test it after the change."
+    }
+  ]
+}

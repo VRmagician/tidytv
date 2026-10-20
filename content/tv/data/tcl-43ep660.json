@@ -1,0 +1,173 @@
+{
+ "id": "tcl-43ep660",
+ "title": "TCL 43EP660, Europe (Croatia) (ro.product.model BeyondTV, board rtd285o, software V8-R851T02-LF1V378 / AP04),",
+ "header": "TCL 43EP660, Europe (Croatia) (ro.product.model BeyondTV, board rtd285o, software V8-R851T02-LF1V378 / AP04),\nAndroid TV 9 (API 28), build PPR1.180610.011, security patch 2020-06-05, 2 GB RAM.\nSame platform family as examples/tcl-beyondtv-rt2851/ (older AP04 software); that list's notes apply too.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-43ep660/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-43ep660/debloat.txt\nStock launcher: com.google.android.tvlauncher (restore.sh default). It declares HOME with priority 2,\nso a sideloaded launcher only becomes Home once it is disabled. Other HOME claimants are fallbacks:\ncom.tcl.keycustomfunctionservice/.FallbackHome and com.android.tv.settings FallbackHome.\nsetupwraith does not claim HOME here, but it owns one saved Wi-Fi network: leave it enabled.\nLive TV app: com.tcl.tv. HDMI/AV inputs: com.tcl.tvpassthrough. Tuner: com.tcl.tvinput.\n\nTested 2026-10-20 on a real unit, in the groups below with a screenshot after each, then two reboots:\nWi-Fi stayed up, TCL's source menu, the launcher's Inputs menu (HDMI1, HDMI2 and Live TV switch via\nTvInputManager), Netflix, YouTube playback with AdGuard Private DNS, Settings and Home all worked.\nNot yet lived with for days.\nQuirks on this firmware:\n- Sideloading works with `pm install`; Play Protect rejects a reinstall of a split APK copied as\nbase.apk only (\"missing splits\"), which looks like INSTALL_FAILED_VERIFICATION_FAILURE but is not\nthe China-firmware signature check.\n- `input keyevent KEYCODE_TV_INPUT` does nothing; TCL's source menu opens with\nam start -n com.tcl.sourcemananger/com.tcl.sourcemanager.MainActivity\n- screencap is 0 bytes over HDMI and Netflix (secure surface).\n- The remote is IR (rtk_keypad); nothing on USB.\n\nAlready disabled at the factory, left alone: the 14 uk.co.freeview.* apps, com.tcl.bootadservice,\ncom.tcl.common.terminalmanagerplus, com.tcl.smartalexa, com.tcl.notereminder, com.tcl.gallery,\nPrime Video, Stan, ZEE5, Eros Now, LINE TV, Rakuten TV, Play Music, Play Movies.\n\nDO NOT DISABLE (load-bearing on this firmware):\ncom.tcl.tv com.tcl.tvinput com.tcl.tvpassthrough  # Live TV, tuner, HDMI\ncom.tcl.sourcemananger                            # source/input menu\ncom.tcl.keycustomfunctionservice com.tcl.keyhelp com.tcl.framework.custom  # remote keys\ncom.tcl.tcl_bt_rcu_service com.tcl.autopair       # Bluetooth remote\ncom.tcl.inputmethod.international                 # default keyboard (T_IME)\ncom.tcl.showmode                                  # sound modes\ncom.tcl.xian.StartandroidService                  # device authentication (per tcl-beyondtv-rt2851)\ncom.google.android.tungsten.setupwraith           # owns the Wi-Fi saved during first setup",
+ "sections": [
+  {
+   "title": "1. Telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL BI analytics (Firebase, net monitor)"
+    },
+    {
+     "pkg": "com.tcl.appstatecontroller",
+     "note": "boot/network/package-change receivers; nothing broke without it"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account"
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": "bug report uploader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "2. Content, recommendation rows and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.cyberui",
+     "note": "TCL Channel / content service"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL message and promo box"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "on-screen sticker overlays"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "home-screen recommendation rows"
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3. Background extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "\"TV Guard\" cleaner"
+    },
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "T-Cast / MagiConnect phone link (Chromecast kept)"
+    },
+    {
+     "pkg": "com.tcl.copydatatotv",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "4. Preloads",
+   "apps": [
+    {
+     "pkg": "com.tcl.imageplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.audioplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media centre (\"Medijski centar\" in the source menu)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store (Play Store stays)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "5. Off by choice on this unit",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "voice search and the mic button"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL's Assistant bridge"
+    },
+    {
+     "pkg": "com.tcl.micmanager",
+     "note": "remote microphone manager"
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "Miracast screen mirroring"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "firmware updater, kept"
+    },
+    {
+     "pkg": "com.tcl.rc.ota",
+     "note": "remote-control firmware OTA, kept"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast, kept"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "6. After the launcher is installed",
+   "apps": [
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL rows in the stock launcher, T-key page"
+    },
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "stock launcher, replaced by launcher/"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 27
+}

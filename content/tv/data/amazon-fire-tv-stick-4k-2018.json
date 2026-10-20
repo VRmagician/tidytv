@@ -1,0 +1,344 @@
+{
+ "id": "amazon-fire-tv-stick-4k-2018",
+ "title": "Amazon Fire TV Stick 4K, 1st gen 2018 (AFTMM, codename mantis), Fire OS 6.7.1.1 (NS6711/5908), Android 7.1.2 (SDK 25)",
+ "header": "Amazon Fire TV Stick 4K, 1st gen 2018 (AFTMM, codename mantis), Fire OS 6.7.1.1 (NS6711/5908), Android 7.1.2 (SDK 25)\nAlso a fair start for other Fire OS 6 sticks and boxes (Fire TV Stick 4K / Cube 1st gen). Fire OS 7 sets differ:\nsee insignia-ns55f301na25/ and toshiba-fire-tv-aftha004/.\n\nFIRE OS: DEBLOAT ONLY. com.amazon.tv.launcher is a protected package and keeps Home; launcher/ does not apply.\nA custom home is still possible on top of the stock one: the community route is \"Launcher Manager Mini\" (XDA,\nSweenWolf), which watches the Home press in the system log and brings a sideloaded launcher such as Projectivy to the\nfront. Both are third-party sideloads, and Amazon has broken earlier versions with OTA updates, so it is not part of\nthis list.\n\nApply:   TV_HOST=<stick ip> tools/disable.sh examples/amazon-fire-tv-stick-4k-2018/debloat.txt\nUndo:    TV_HOST=<stick ip> tools/restore.sh examples/amazon-fire-tv-stick-4k-2018/debloat.txt com.amazon.tv.launcher\n(restore.sh re-enables the stock launcher as a matter of routine; on Fire OS it was never disabled, which is harmless.)\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\nADB on Fire OS 6: Settings > My Fire TV > Developer options > ADB debugging. If Developer options is hidden,\nSettings > My Fire TV > About > highlight the first entry and press select 7 times. Port 5555, no pairing.\n\nLived with since 2026-10-18 on one stick (the group dated 2026-10-19 for one day less). Nothing had to be re-enabled.\nProtected by Fire OS 6 (pm disable-user is refused without root), so commented out below: com.amazon.client.metrics,\ncom.amazon.device.metrics, com.amazon.minerva.client.api, com.amazon.device.logmanager, com.amazon.device.crashmanager,\ncom.amazon.diode, com.fireos.usagestats.proxy, com.amazon.ftvads.deeplinking, com.amazon.tv.csapp, com.amazon.tv.oobe.\nNo com.amazon.tv.acr on a stick (ACR is a TV-set thing).\n\nKept on purpose: com.amazon.tv.launcher, com.amazon.tv.settings.*, com.amazon.venezia (Appstore),\ncom.amazon.tigris (Appstore UI), OTA updates, remote/Bluetooth services, com.amazon.tv.ime (keyboard),\ncom.amazon.vizzini (Alexa voice search for the remote mic) with com.amazon.aria/cardinal (its screens),\nPrime Video (com.amazon.firebat, com.amazon.tv.support), display mirroring and DIAL casting\n(com.amazon.cast.sink, dialservice, ssdpservice, whisperlink/whisperplay, awvflingreceiver),\nscreensaver, profile picker, accessibility (com.amazon.logan) and TTS. The streaming apps this owner uses\n(Netflix, Prime Video, Disney+, Apple TV, DirecTV, Crunchyroll, YouTube) are not listed; the rest are, by choice.\n\nWhat the list cannot remove: the \"Sponsored\" hero banner and sponsored app row are fetched by the launcher itself\nfrom amazon-adsystem.com. Private DNS needs Android 9, so on Fire OS 6 set an ad-blocking DNS (AdGuard 94.140.14.14 /\n94.140.15.15) through a static IP in the Wi-Fi advanced settings, or block *.amazon-adsystem.com on the router.\nAlso turn off Settings > Preferences > Featured Content autoplay and the three Privacy Settings toggles.\nGotchas: a reboot resets the favourites bar to Amazon's defaults; OTA updates may re-enable packages, re-run\ndisable.sh afterwards; Netflix is DRM-black in screenshots.",
+ "sections": [
+  {
+   "title": "Amazon telemetry, metrics, logs, crash and usage reporting com.amazon.client.metrics                 # protected by Fire OS, cannot be disabled without root",
+   "apps": [
+    {
+     "pkg": "com.amazon.client.metrics.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.metrics.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.fw.metrics",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wirelessmetrics.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfcollection",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ceviche",
+     "note": "data collection pipelines"
+    },
+    {
+     "pkg": "com.amazon.tv.developer.dataservice",
+     "note": "\"Alberto\": content personalization data for third-party apps"
+    },
+    {
+     "pkg": "com.amazon.wifilocker",
+     "note": "uploads Wi-Fi passwords to Amazon"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.device.metrics",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.amazon.minerva.client.api",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.amazon.device.logmanager",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.amazon.device.crashmanager",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.amazon.diode",
+     "note": "on-device analysis / diagnostics uploader (protected by Fire OS)"
+    },
+    {
+     "pkg": "com.fireos.usagestats.proxy",
+     "note": "reports app usage to Amazon (protected by Fire OS)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Ads, sponsored rows, recommendations, promos",
+   "apps": [
+    {
+     "pkg": "com.amazon.kso.blackbird",
+     "note": "launcher ad sync / bidding (sponsored banner and rows)"
+    },
+    {
+     "pkg": "com.amazon.sneakpeek",
+     "note": "sponsored \"Sneak Peek\" previews"
+    },
+    {
+     "pkg": "com.amazon.hybridadidservice",
+     "note": "advertising ID service"
+    },
+    {
+     "pkg": "com.amazon.hedwig",
+     "note": "Fire TV Channels (free ad-supported channels row and Live input)"
+    },
+    {
+     "pkg": "com.amazon.tv.easyupgrade",
+     "note": "\"upgrade your Fire TV\" promos"
+    },
+    {
+     "pkg": "com.amazon.device.sale.service",
+     "note": "sale / deal campaign service"
+    },
+    {
+     "pkg": "com.amazon.shoptv.client",
+     "note": "Amazon Shopping on TV"
+    },
+    {
+     "pkg": "com.amazon.shoptv.firetv.client",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.livetv",
+     "note": "Live tab and guide"
+    },
+    {
+     "pkg": "com.amazon.franktvinput",
+     "note": "live TV input feeding the Live tab"
+    },
+    {
+     "pkg": "com.amazon.livedeviceservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.gamehub",
+     "note": "games hub / Luna cards"
+    },
+    {
+     "pkg": "com.amazon.imdb.tv.android.app",
+     "note": "Freevee stub"
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": "miniTV stub"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.ftvads.deeplinking",
+     "note": "ad deep links (protected by Fire OS)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Preloaded Amazon apps and services not used",
+   "apps": [
+    {
+     "pkg": "com.amazon.tahoe",
+     "note": "Amazon Kids (FreeTime)"
+    },
+    {
+     "pkg": "com.amazon.bueller.music",
+     "note": "Amazon Music"
+    },
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": "Amazon Photos"
+    },
+    {
+     "pkg": "com.amazon.cloud9",
+     "note": "Silk browser"
+    },
+    {
+     "pkg": "com.amazon.tv.website_launcher",
+     "note": "opens websites in Silk"
+    },
+    {
+     "pkg": "com.imdb.livingroom.firetv",
+     "note": "IMDb app"
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": "remote tutorial"
+    },
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": "remote app tutorial"
+    },
+    {
+     "pkg": "com.amazon.whad",
+     "note": "whole-home audio (multi-room music)"
+    },
+    {
+     "pkg": "com.amazon.whasettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wha.mediabrowserservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.whisperjoin.middleware.np",
+     "note": "frustration-free setup of other Amazon devices"
+    },
+    {
+     "pkg": "com.amazon.whisperjoin.wss.wifiprovisioner",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.ffsprovisioneeclient",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ods.kindleconnect",
+     "note": "\"show on Fire TV\" from Echo / Fire tablet (Tarazed)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Alexa extras (voice search itself stays on)",
+   "apps": [
+    {
+     "pkg": "com.amazon.tv.alexaalerts",
+     "note": "alarms, timers, reminders"
+    },
+    {
+     "pkg": "com.amazon.tv.alexanotifications",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.alexa.externalmediaplayer.fireos",
+     "note": "Alexa music playback"
+    },
+    {
+     "pkg": "com.amazon.alexamediaplayer.runtime.ftv",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.aiondec",
+     "note": "Alexa skill connections"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps not used (kept",
+   "apps": [
+    {
+     "pkg": "com.adultswim.firetv",
+     "note": ""
+    },
+    {
+     "pkg": "com.cbs.ott",
+     "note": "Paramount+"
+    },
+    {
+     "pkg": "com.espn.gtv",
+     "note": ""
+    },
+    {
+     "pkg": "com.fox.fts.android",
+     "note": "FOX"
+    },
+    {
+     "pkg": "com.foxsports.videogo",
+     "note": ""
+    },
+    {
+     "pkg": "com.fubo.firetv.screen",
+     "note": ""
+    },
+    {
+     "pkg": "com.hbo.hbonow",
+     "note": "Max"
+    },
+    {
+     "pkg": "com.hulu.plus",
+     "note": ""
+    },
+    {
+     "pkg": "com.nbcuni.telemundostation.houston.firetv",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.webapps.nbc.telemundo",
+     "note": ""
+    },
+    {
+     "pkg": "com.peacock.peacockfiretv",
+     "note": ""
+    },
+    {
+     "pkg": "com.tubitv.ott",
+     "note": ""
+    },
+    {
+     "pkg": "com.univision.android",
+     "note": ""
+    },
+    {
+     "pkg": "tv.pluto.android",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.rialto.cordova.webapp.webapp855cc15add08457a8a1fe62312eab585",
+     "note": "Fox News web app"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.tv.csapp",
+     "note": "customer service / help app (protected by Fire OS, cannot be disabled)"
+    }
+   ],
+   "note": "Netflix, Prime Video, Disney+, Apple TV, DirecTV, Crunchyroll, YouTube)"
+  },
+  {
+   "title": "Added 2026-10-19 from the Insignia and Toshiba Fire OS 7 lists in this repo",
+   "apps": [
+    {
+     "pkg": "com.amazon.privacypassservice",
+     "note": "privacy pass token service"
+    },
+    {
+     "pkg": "com.amazon.providers.contentsupport",
+     "note": "content support provider"
+    },
+    {
+     "pkg": "com.amazon.systemnotices",
+     "note": "system notices"
+    },
+    {
+     "pkg": "com.amazon.tv.releasenotes",
+     "note": "\"what's new\" release notes"
+    },
+    {
+     "pkg": "com.amazon.uxnotification",
+     "note": "UX notification popups"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.tv.oobe",
+     "note": "out-of-box setup wizard (protected by Fire OS, cannot be disabled). If it ever is disabled it must be re-enabled before a factory reset"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 63
+}

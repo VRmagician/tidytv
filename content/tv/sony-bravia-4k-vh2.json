@@ -1,0 +1,35 @@
+{
+  "name": "Sony BRAVIA KD-55X80J",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Tidy a Sony BRAVIA KD-55X80J by turning off its Samba TV tracker, Sony data services and demo modes. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA KD-55X80J comes with Samba TV, a viewing tracker that recognises what is on screen, Sony data and remote support services, demo and shop mode apps, and preloaded help and music apps. Most owners will never open any of them.",
+    "This list was tested on one set, where the dock apps Stremio, Netflix, SmartTube and OTT Navigator were in use. Voice search, Chromecast and firmware updates are kept by choice. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never uninstalls anything, and Restore everything brings them back in one tap."
+  ],
+  "keep": [
+    "Live TV and the HDMI inputs, which run on Sony's TV input services",
+    "Bravia Sync, which links the TV to HDMI devices",
+    "Voice search and the Google Assistant parts, kept by choice",
+    "Chromecast built-in and firmware updates, kept by choice",
+    "Sony's settings, keyboard and remote services"
+  ],
+  "notes": [
+    "This list is new and was tested on one set in a single afternoon. If an app you use stops working, turn it back on in the app.",
+    "The Google setup wizard is in this list, and it can take over the Home button if the stock home screen is turned off later."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in is kept by choice, so casting from a phone keeps working."
+    },
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Voice search and the Google Assistant parts are kept by choice."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Samba TV tracker and the preloaded help and music apps. The list has no entries for the home screen's own rows, so those may still show."
+    }
+  ]
+}

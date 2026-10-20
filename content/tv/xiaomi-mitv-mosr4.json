@@ -1,0 +1,36 @@
+{
+  "name": "Xiaomi MiTV-MOSR4",
+  "brand": "Xiaomi",
+  "os": "Google TV 11",
+  "summary": "Tidy a Xiaomi MiTV-MOSR4 by turning off its tracking, home screen ad rows, demo mode, promos and extra apps. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Xiaomi MiTV-MOSR4 comes with Xiaomi analytics and attribution services, ad rows and promo content on the home screen, a retail demo loop, a TV cleaner, Mi Music, Play Games and a firmware update service. The home screen ad row has access to an advertising ID, and none of this is needed to watch TV or use the inputs.",
+    "This list was tested on one TV, batch by batch, with a screenshot after each batch. HDMI 1, HDMI 2, AV and Live TV still read correctly afterwards, and the Netflix and SmartTube tiles both launched. Chromecast and Google Assistant were kept on request. TidyTV turns these apps off from your phone over Wi-Fi, with a backup first, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV and the HDMI and AV inputs, including the source switcher",
+    "Netflix, SmartTube and BitTV, the dock apps in use",
+    "Chromecast built-in and Google Assistant, kept on request",
+    "Remote and Bluetooth pairing, and the phone remote service",
+    "The TV's core service and network monitor"
+  ],
+  "notes": [
+    "The last group turns off the Google setup wizard. It also answers the Home button, so turn that group off only once a clean home screen is set, or the Home button may have nowhere to go.",
+    "Firmware updates are off in this list. Turn the Xiaomi update service back on in the app to get updates again.",
+    "This list is provisional. It was checked for one day, so turn back on any app you use."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Google Assistant is kept on request, so the voice button keeps working."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast built-in is kept on request. Mi Cast and the screen mirroring receiver are turned off in this list, so turn them back on in the app if you use them."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the home screen ad row, the Mi content rows, the Mi TV+ tile and the web promo view. Use the last group, which turns off the setup wizard, only with a clean home screen set."
+    }
+  ]
+}

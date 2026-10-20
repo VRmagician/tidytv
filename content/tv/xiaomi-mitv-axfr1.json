@@ -1,0 +1,26 @@
+{
+  "name": "Xiaomi MiTV-AXFR1",
+  "brand": "Xiaomi",
+  "os": "Android TV 11",
+  "summary": "Turn off PatchWall, sponsored rows and Xiaomi telemetry on the Xiaomi MiTV-AXFR1. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This Xiaomi MiTV ships with Xiaomi and Google telemetry, PatchWall and its content channels, sponsored rows on the stock home screen, and an auto-installer for partner apps. It also has Mi TV+ sponsored live channels, background services such as the TV Manager cleaner, and streaming apps such as JioCinema, Sony LIV, ZEE5, MX Player and F1 TV.",
+    "This list was applied on one unit, with a check after each batch. Settings, the Inputs panel with HDMI 1, HDMI 2, AV and TV, and HDMI switching were all checked. The disabled apps and the home screen setting both survived a restart. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "Chromecast built-in, kept by choice.",
+    "Live TV and the Inputs panel, through the TV app that owns them.",
+    "Settings and HDMI switching.",
+    "Google's Ambient mode screensaver.",
+    "Gboard as the default keyboard."
+  ],
+  "notes": [
+    "The TV can get a new network address after a restart, so check the address if the phone stops finding it.",
+    "If Live TV is opened with no channels tuned, it goes straight to a channel scan, as the stock TV does."
+  ],
+  "faq": [
+    {"q": "Does casting still work?", "a": "Yes. Chromecast built-in is kept on. The Miracast and Mi Cast screen-mirroring services are off by choice, so turn them back on with their switches if you use them."},
+    {"q": "Can I get the old home screen back?", "a": "Yes. Restore everything turns apps back on, and the stock home screen is the default again."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off PatchWall, the sponsored rows and the Mi TV+ sponsored live channels. Restore everything turns them back on in one tap."}
+  ]
+}

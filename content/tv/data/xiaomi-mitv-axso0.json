@@ -1,0 +1,191 @@
+{
+ "id": "xiaomi-mitv-axso0",
+ "title": "Xiaomi MiTV-AXSO0 (codename dangal; sold as Mi TV 4C Pro 2019 and Mi TV 4A Pro), Android TV 9 (SDK 28),",
+ "header": "Xiaomi MiTV-AXSO0 (codename dangal; sold as Mi TV 4C Pro 2019 and Mi TV 4A Pro), Android TV 9 (SDK 28),\nfirmware PI.6036, Amlogic/droidlogic.\nLive TV app: com.android.tv (set it as live_tv_package and hide it in launcher config.xml).\nStock launcher: com.google.android.tvlauncher (the default, disabled by build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-axso0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-axso0/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Default IME is already Gboard, so the Mi TV 4A missing-keyboard quirk doesn't apply.\n- `svc power reboot` gets killed; reboot through adb's own reboot service instead.\n- com.google.android.leanbacklauncher is re-enabled by the firmware at every boot, so it's not listed.\n- Glance (com.glance.tv) puts news and ads on the lock/standby screen; with it off the screensaver is clean.\n- Netflix, Prime Video and YouTube are preinstalled system apps, so they always get BOOT_COMPLETED.\nOther apps stay out of the boot-time rush after `am force-stop`, until someone opens them again.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, sponsored rows",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.floatingframe",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xioami.dangal",
+     "note": "Play auto-install of partner apps (sic, \"xioami\")"
+    },
+    {
+     "pkg": "com.glance.tv",
+     "note": "Glance lock-screen news and ads"
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "Mi TV+ sponsored live channels"
+    },
+    {
+     "pkg": "co.sensara.tv.mitv",
+     "note": "Sensara partner TV guide (sponsored show recommendations)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.handbook",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware updates: re-enable to check for one"
+    },
+    {
+     "pkg": "com.xiaomo.tv.milegal",
+     "note": "static legal / privacy text screens"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "voice assistant (the mic button stops working)"
+  },
+  {
+   "title": "Personal choice: casting / mirroring",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.mitv.milinkservice",
+     "note": "Mi Cast"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.wfdsinkhelperservice",
+     "note": "Miracast sink"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Mi Gallery; Media Player still opens USB photos"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice: preloaded streaming apps not used",
+   "apps": [
+    {
+     "pkg": "com.fancode.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.suntv.sunnxt.mitv",
+     "note": ""
+    },
+    {
+     "pkg": "com.eros.mitv",
+     "note": ""
+    },
+    {
+     "pkg": "com.discoveryplus.mitv",
+     "note": ""
+    },
+    {
+     "pkg": "com.ddnational.prasarbharati",
+     "note": ""
+    },
+    {
+     "pkg": "net.aljazeera.english",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 33
+}

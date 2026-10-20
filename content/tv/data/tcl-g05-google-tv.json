@@ -1,0 +1,173 @@
+{
+ "id": "tcl-g05-google-tv",
+ "title": "TCL Smart TV Pro, US (device G05, product G05_4K_US, board C05, MediaTek MT5889 / MT9615)",
+ "header": "TCL Smart TV Pro, US (device G05, product G05_4K_US, board C05, MediaTek MT5889 / MT9615)\nAndroid 11 (Google TV), firmware AR2101, software AR68 (built March 2024), 2.7 GB RAM\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-g05-google-tv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-g05-google-tv/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh, the default is wrong here).\nLive TV app: com.tcl.tv (keep it, it also owns HDMI/antenna playback). Keep com.tcl.tvinput,\ncom.tcl.settings, com.tcl.system.server,\ncom.tcl.keyhelp, com.tcl.autopair, com.tcl.tcl_bt_rcu_service (remote) and com.tcl.providers.config.\nUnlike the G10, com.tcl.ttvs ships enabled here; it carries TCL's BI analytics service.\n\nKnown quirk, read before replacing the launcher (the one report so far where disabling setupwraith\ndid NOT stick):\n- With launcherx disabled, com.google.android.tungsten.setupwraith/.RecoveryActivity claims HOME at\npriority 1 and Home lands on a black, looping recovery screen. Shell cannot disable that component.\nDisabling the whole setupwraith package worked until a reboot, after which this TV had it back in\ncharge, unlike the MOOR2, QM6K and Chromecast reports where the disable survives.\nRecover with: pm enable com.google.android.apps.tv.launcherx; pm enable com.google.android.tungsten.setupwraith\n- The launcher half is therefore unverified on the G05: launcher/build-and-install.sh will refuse and\nroll back while Home resolves to setupwraith (README, Troubleshooting). This list is the debloat half.\nContributed by damonearl (PR #73).",
+ "sections": [
+  {
+   "title": "TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.tv.plus",
+     "note": "TCL TV+ content app"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels"
+    },
+    {
+     "pkg": "com.tcl.tv.tclchannel",
+     "note": "TCL Channel, bundles Google Mobile Ads"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL content \"waterfall\" recommendations"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL pushed messages and promos"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in"
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "\"TCL Home\" panel, gift box and promos; no remote key uses it"
+    },
+    {
+     "pkg": "com.tcl.suspension",
+     "note": "Quick Panel; the remote's Input key stops working, use the"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and background services",
+   "apps": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "TCL BI/awareness/identifier services"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard: \"health info\", device-use tracking, memory cleaner"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo / store mode",
+   "apps": [
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services",
+   "apps": [
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "re-enable for the console game-mode overlay"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "re-enable to play media from USB drives"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode screensaver, see the clock screensaver instead"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused Google apps (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies storefront"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice, casting and assistants (owner's choice; comment out what you use)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL voice service"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "assistant LED service"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.airplay2",
+     "note": "AirPlay, together with the next line"
+    },
+    {
+     "pkg": "com.mediatek.AirplayAPK",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 28
+}

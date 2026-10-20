@@ -26,7 +26,11 @@ import dev.tidytv.core.flow.TvKind
 @Composable
 fun WelcomeScreen(onChoose: (TvKind) -> Unit, onRestore: () -> Unit) {
     ScreenFrame(top = {
-        Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.CenterEnd) { TextLink("↻  Restore a TV", onRestore) }
+        val actions = dev.tidytv.app.ui.LocalAppActions.current
+        androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+            TextLink("Feedback", { actions.feedback(dev.tidytv.app.ui.FeedbackRequest(dev.tidytv.app.data.FeedbackKind.FEATURE, "welcome")) }, color = Tidy.Muted)
+            TextLink("↻  Restore a TV", onRestore)
+        }
     }) {
         HeroMascot()
         Bubble("Hi! What TV do you have?")
@@ -36,7 +40,7 @@ fun WelcomeScreen(onChoose: (TvKind) -> Unit, onRestore: () -> Unit) {
             ChoiceButton("Samsung or LG", null, Tidy.Purple) { onChoose(TvKind.SAMSUNG_LG) }
             ChoiceButton("Not sure", "We'll check once connected", Tidy.Grey, textColor = Tidy.Ink) { onChoose(TvKind.NOT_SURE) }
         }
-        Body("Free and open source. tidytv turns apps off, never deletes them, and saves a backup first so you can undo everything.")
+        Body("Free and open source. TidyTV turns apps off, never deletes them, and saves a backup first so you can undo everything.")
     }
 }
 
@@ -45,7 +49,7 @@ fun UnsupportedScreen(onBack: () -> Unit) {
     ScreenFrame(bottom = { BigButton("Back", onBack, color = Tidy.Blue) }) {
         HeroMascot(worried = true)
         Title("Samsung and LG aren't supported")
-        Body("Samsung TVs run Tizen and LG TVs run webOS. Neither lets a phone switch apps off the way Android TV does, so tidytv can't help with them.")
+        Body("Samsung TVs run Tizen and LG TVs run webOS. Neither lets a phone switch apps off the way Android TV does, so TidyTV can't help with them.")
         Note("If your Samsung or LG has a Chromecast, Fire TV stick or Google TV streamer plugged in, pick that one instead.", color = Tidy.BlueSoft, textColor = Tidy.Ink)
     }
 }
@@ -70,7 +74,7 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
             }
         }
         Note("Using a stick powered from the TV's USB port? Plug it into its wall adapter for now, so it doesn't switch off halfway.")
-        if (!fire) Body("Only see Wireless debugging? That works too: tidytv will ask for the code your TV shows.", color = Tidy.Muted)
+        if (!fire) Body("Only see Wireless debugging? That works too: TidyTV will ask for the code your TV shows.", color = Tidy.Muted)
     }
 }
 

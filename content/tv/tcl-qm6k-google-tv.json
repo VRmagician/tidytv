@@ -1,0 +1,35 @@
+{
+  "name": "TCL QM6K Pro Google TV",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "Tidy a TCL QM6K Pro Google TV by turning off its Samba TV tracker, TCL ads and demo modes. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The TCL QM6K Pro comes with the Samba TV viewing tracker, TCL usage logging and account sign-in prompts, TCL TV+ and TCL Live content apps, content pushed to the home screen at boot, a silent app installer, store demo and hotel mode apps, and preloaded browser and Alexa apps.",
+    "The notes come from a 2025 US set on Android 14 firmware. Live TV, the HDMI inputs and the remote's key handling are kept on purpose, and the Wi-Fi and setup services are left on. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never uninstalls anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI inputs, through TCL's Live TV app",
+    "Remote pairing and key handling",
+    "Wi-Fi settings and first-setup services, which must stay on",
+    "The TCL system services and dashboard"
+  ],
+  "notes": [
+    "On a related TCL set, turning off a few setup services dropped the Wi-Fi connection. Those services are kept on this list, but if Wi-Fi drops after a change, the network will need joining again in Settings.",
+    "If the home screen goes blank, the TV can switch to HDMI 1 and wake a connected game console over the HDMI link.",
+    "For soundbar volume control, connect the soundbar to HDMI 4 (eARC) instead of optical. The TV's audio control setting may also need turning on."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Google Assistant is an optional switch for this model and is not turned off by default."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in and AirPlay are not on the default list."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off TCL's content pushed to the home screen at boot, its partner tweaks to the home rows and its message box promos. Google's own rows are not on this list."
+    }
+  ]
+}

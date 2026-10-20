@@ -1,0 +1,36 @@
+{
+  "name": "TCL AK30A5",
+  "brand": "TCL",
+  "os": "Android TV 9",
+  "summary": "Turns off the boot ad, TCL analytics and preloaded TCL content on the TCL AK30A5, a China-market set without Google. Free phone app, backup and one-tap undo.",
+  "intro": [
+    "The TCL AK30A5 is a China-market Android TV 9 set with no Google services at all. It ships with a full-screen ad that opens before the home screen, TCL analytics and logging, and preloaded TCL content such as karaoke, education, music, a game store, a browser and a weather widget. Several Chinese streaming, cloud drive and social apps are also installed.",
+    "The keep list matters most on this set. Live TV and HDMI, the source panel, the only on-screen keyboard and the only on-screen app installer all stay on, because the TV depends on them. The home screen cannot be replaced here, so the list only removes ads and telemetry around it. TidyTV turns these apps off from your phone over the same Wi-Fi, after a backup, and deletes nothing."
+  ],
+  "keep": [
+    "Live TV and HDMI: com.tcl.tv stays on, because it plays DTV and HDMI and owns the remote's source key.",
+    "The source panel: com.tcl.settings stays on, because the Inputs menu opens TCL's own panel from it.",
+    "The only on-screen keyboard: the Sogou input method stays on, since it is the only one on the TV.",
+    "The TCL Guard app stays on, because it is also the only on-screen app installer.",
+    "USB media: com.tcl.ui_mediaCenter stays on if you play files from USB."
+  ],
+  "notes": [
+    "A third-party home screen cannot be installed on this model, so TCL's home screen stays and only the ads and telemetry around it can go.",
+    "Installs need about 600 MB free on the TV's storage, or they fail. A full TV can refuse new apps.",
+    "The default screensaver points at a clock app that is not installed, so the TV has no screensaver until you choose one."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Yes for the boot ad. The full-screen ad that opens before the home screen is turned off, along with TCL's analytics and logging and the preloaded content apps."
+    },
+    {
+      "q": "Will the on-screen keyboard still work?",
+      "a": "Yes. The list keeps Sogou, the only on-screen keyboard on this TV, turned on."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "This list does not change the home screen, so there is nothing to put back. Restore everything turns every app back on in one tap."
+    }
+  ]
+}

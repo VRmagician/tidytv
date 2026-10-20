@@ -1,0 +1,34 @@
+{
+  "name": "Toshiba Fire TV AFTHA004",
+  "brand": "Toshiba",
+  "os": "Fire OS 7",
+  "summary": "Turns off Amazon's shopping, content recognition, telemetry and promo apps on the Toshiba Fire TV AFTHA004. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Toshiba Fire TV AFTHA004 runs Fire OS 7 on Android 9. It ships with Amazon shopping and content recognition services, a demo content provider, telemetry and metrics services, tutorial and promo apps, and Amazon content apps for music, photos and a mini TV service. It also has a cast receiver and a set of streaming apps that the list marks as personal choice.",
+    "This list removes the ads, telemetry and preloads around Amazon's home screen. Fire OS does not let another home screen take over, so no new home screen is offered here. Two packages tried on this set would not turn off, so the list leaves them out. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup, and deletes nothing."
+  ],
+  "keep": [
+    "Alexa and over-the-air updates stay on.",
+    "AirPlay and the casting service that Netflix and YouTube use stay on.",
+    "Netflix, YouTube, Spotify, Plex, VLC and MX Player are not on the list, so they stay on.",
+    "Amazon's stock home screen stays on."
+  ],
+  "notes": [
+    "Two Amazon packages, the device metrics service and the ad deep-linking service, refuse to turn off on this set, so the list leaves them out.",
+    "Restore everything turns the apps back on. Amazon's home screen was never changed, so it stays as it is."
+  ],
+  "faq": [
+    {
+      "q": "Will Alexa still work?",
+      "a": "Yes. Alexa is kept on purpose on this list, and so are over-the-air updates."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off Amazon's shopping and ad clients, the content recognition service and the tutorial and promo apps. Amazon's home screen stays as it is."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "This list never replaces Amazon's home screen, so there is nothing to put back. Restore everything turns every app back on in one tap."
+    }
+  ]
+}

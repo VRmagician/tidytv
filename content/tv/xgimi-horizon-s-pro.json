@@ -1,0 +1,35 @@
+{
+  "name": "XGIMI Horizon S Pro",
+  "brand": "XGIMI",
+  "os": "Android TV 11",
+  "summary": "Tidy an XGIMI Horizon S Pro by turning off its burn-in tools, store demo, bug reporter and streaming apps. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The XGIMI Horizon S Pro projector comes with a store demo, factory burn-in and Wi-Fi check tools that run at boot, a bug report uploader, Google feedback and recommendation rows, a file manager, a music app and an animated screensaver. A projector at home has no use for most of them.",
+    "This list was tested on a real unit, and the result was checked again after a restart. The projector's keystone, focus, autofocus, remote and Bluetooth services are not on the list at all, and the HDMI 1 input is kept. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never uninstalls anything."
+  ],
+  "keep": [
+    "Keystone, focus and autofocus services, which the projector needs",
+    "HDMI 1 and its player",
+    "Bluetooth remote and speaker mode",
+    "The remote keys, brightness and core XGIMI system services",
+    "The first-boot setup wizard, kept on purpose"
+  ],
+  "notes": [
+    "Only HDMI 1 shows as an input on this projector, so the other input labels will not appear.",
+    "The default screensaver is off in this list. Choose another screensaver in the TV's settings, or the projector has nothing to show while idle."
+  ],
+  "faq": [
+    {
+      "q": "Will the HDMI input still work?",
+      "a": "Yes. HDMI 1 is kept along with its player and input service. It is the only input this projector shows."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast built-in is off by choice in this list, so turn it back on in the app if you cast to this projector."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off Google's recommendation rows and the Backdrop screensaver, along with several streaming apps. Other parts of the home screen are not on this list."
+    }
+  ]
+}

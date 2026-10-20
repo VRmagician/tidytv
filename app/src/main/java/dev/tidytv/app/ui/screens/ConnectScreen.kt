@@ -38,6 +38,7 @@ import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Bubble
 import dev.tidytv.app.ui.Check
 import dev.tidytv.app.ui.HeroMascot
+import dev.tidytv.app.ui.Mood
 import dev.tidytv.app.ui.Note
 import dev.tidytv.app.ui.NumberedStep
 import dev.tidytv.app.ui.Outline
@@ -59,7 +60,7 @@ fun ConnectScreen(state: ConnectState, onEvent: (ConnectEvent) -> Unit, onShareL
         is ConnectState.Connecting -> Waiting(state.tv, "Connecting to ${state.tv.title}…")
         is ConnectState.PressAllow -> PressAllow(state, onEvent)
         is ConnectState.Connected -> ScreenFrame {
-            HeroMascot()
+            HeroMascot(mood = Mood.HAPPY)
             Bubble("Found your TV!", color = Tidy.GreenSoft, textColor = Tidy.GreenInk) { Check(Tidy.Green, 30.dp) }
             TvCard(state.tv.title, state.tv.subtitle)
         }
@@ -92,7 +93,7 @@ fun ConnectScreen(state: ConnectState, onEvent: (ConnectEvent) -> Unit, onShareL
         )
         is ConnectState.Failed -> ScreenFrame(bottom = {
             BigButton("Try again", { onEvent(ConnectEvent.Retry) })
-            TextLink("Share logs", onShareLogs)
+            androidx.compose.foundation.layout.Row { TextLink("Share logs", onShareLogs); dev.tidytv.app.ui.ReportProblemLink("connect") }
         }) {
             HeroMascot(worried = true)
             Title("That didn't work")
@@ -108,7 +109,7 @@ private fun Scanning(state: ConnectState.Scanning, onEvent: (ConnectEvent) -> Un
     ScreenFrame(bottom = {
         if (state.done) TextLink("Search again", { onEvent(ConnectEvent.StartScan) })
     }) {
-        HeroMascot()
+        HeroMascot(mood = Mood.SEARCH)
         Bubble(
             when {
                 state.lookingFor != null -> "Looking for ${state.lookingFor}…"
@@ -116,7 +117,7 @@ private fun Scanning(state: ConnectState.Scanning, onEvent: (ConnectEvent) -> Un
                 else -> "Tap your TV"
             },
         ) { if (!state.done) Spinner(26.dp) }
-        if (state.lookingFor != null) Body("Your TV may have a new address. tidytv is finding it again.")
+        if (state.lookingFor != null) Body("Your TV may have a new address. TidyTV is finding it again.")
         for (tv in state.found) TvCard(tv.title, tv.subtitle, onClick = { onEvent(ConnectEvent.Pick(tv)) })
         if (state.done || state.found.isNotEmpty()) {
             if (typing) IpField(false, onEvent) else TextLink("My TV isn't here? Type its IP address", { typing = true })
@@ -173,7 +174,7 @@ private fun PressAllow(state: ConnectState.PressAllow, onEvent: (ConnectEvent) -
         HeroMascot()
         Bubble("Press Allow on your TV") { Spinner(26.dp) }
         AllowDialogPicture()
-        Body("Tick \"Always allow from this computer\" first, so your TV never asks again. tidytv carries on by itself once you press Allow.")
+        Body("Tick \"Always allow from this computer\" first, so your TV never asks again. TidyTV carries on by itself once you press Allow.")
         if (state.canRetry) Note("No answer yet. Is the prompt showing on the TV? If it went away, tap Try again.")
     }
 }

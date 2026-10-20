@@ -1,0 +1,175 @@
+{
+ "id": "xiaomi-mitv-afmu0",
+ "title": "Xiaomi TV Box S 3rd gen (MiTV-AFMU0, codename twilight, Amlogic), Google TV on Android 14 (SDK 34),",
+ "header": "Xiaomi TV Box S 3rd gen (MiTV-AFMU0, codename twilight, Amlogic), Google TV on Android 14 (SDK 34),\nfirmware UKG3.250826.001 / V816.0.11.0.UZFAABX.\nFingerprint: Xiaomi/twilight/twilight:14/UKG3.250826.001/V816.0.11.0.UZFAABX:user/release-keys\n\nApply:   TV_HOST=<box ip> tools/disable.sh examples/xiaomi-mitv-afmu0/debloat.txt\nUndo:    TV_HOST=<box ip> tools/restore.sh examples/xiaomi-mitv-afmu0/debloat.txt\nEverything is DISABLED, not uninstalled.\nTested for one evening so far (Home, grid, D-pad, dock apps) and across one reboot: the disabled list and the\ndefault home survive it. Not lived with for days yet.\n\nNotes from this box:\n- The stock home is com.google.android.apps.tv.launcherx. launcher/build-and-install.sh disables it.\n- setupwraith's RecoveryActivity (HOME priority 1, launcherx 2, a sideloaded launcher 0) takes Home once\nlauncherx is off, so setupwraith has to go too, and it has to go FIRST. Redone in that order (setupwraith,\nthen launcherx), Home went straight to the new launcher. This is the same crash-loop xiaomi-tv-a-pro-2026\ndescribes. Re-enable setupwraith to re-pair the remote.\n- Disabling setupwraith takes the box off Wi-Fi in either order if the network was saved during first setup:\nthat network belongs to setupwraith, and Android deletes it with the app. The first run here most likely lost\nWi-Fi this way; the redo stayed online because the network had been re-joined by hand in between. Seen on a\nsecond box (V816.0.7.0.UZFAABX): disabling setupwraith alone, launcherx still Home, logged\n\"WifiConfigManager: Remove all networks for app ... setupwraith\" and dropped Wi-Fi and ADB within a second.\nThe network re-joined in Settings is a new entry owned by android.uid.system and survived disabling\nlauncherx and dreamx. Check before disabling: tools/tv.py \"dumpsys wifi\" | grep -o 'cname=[^ ]*'\n- Leave alone: com.xiaomi.android.tvsetup.partnercustomizer, mitv.service, com.droidlogic*.\n- With the stock launcher gone, apps without a dock slot just appear in the grid.",
+ "sections": [
+  {
+   "title": "Telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tvqs.overseas.y24",
+     "note": "Xiaomi quality-stats uploader"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, promos, auto-installs",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.oemtab",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.soc.amlogic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.wfdsinkhelperservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mi_connect_service",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "voice assistant, phone remote, Mi cast/share (the mic button stops working)"
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.disney.disneyplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.wbd.hbomax",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.mediaexplorer",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "Netflix"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "YouTube"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "Google ambient screensaver (switch to the Clock dream first)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Setup wizard, takes Home after the stock launcher is disabled",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "launcher/build-and-install.sh disables the stock launcher itself, after Home has moved"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 27
+}

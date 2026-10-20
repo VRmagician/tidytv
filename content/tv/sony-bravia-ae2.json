@@ -1,0 +1,35 @@
+{
+  "name": "Sony BRAVIA 4K AE2",
+  "brand": "Sony",
+  "os": "Google TV 14",
+  "summary": "Turn off Samba TV, Sony usage data, Sony promo tiles, demo modes and help tiles on the Sony BRAVIA 4K AE2. A free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA 4K AE2, on North American firmware, has Samba TV viewing data and Sony usage and device agents. It also has a viewing context feed for recommendations, Sony promo and Select tiles on the Google TV home, demo and shop modes, help tiles, and extras such as a default screensaver, a Crunchyroll app and Sony Pictures Core.",
+    "Most of this list was turned off by the owner before the new home screen went on, and it has been used that way. The Sony agents, help apps and Play extras marked new were added on 19 October 2026, so they have had less time in use. TidyTV turns these apps off from your phone over the same Wi-Fi, after a backup, and deletes nothing."
+  ],
+  "keep": [
+    "HDMI inputs: the Sony TV input services (com.sony.dtv.tvinput) stay on, because they drive HDMI.",
+    "The TV API and system service (tvapi and sonysystemservice) stay on.",
+    "Picture and remote: the Sony settings apps stay on, because they control picture settings and the remote.",
+    "Play Store and Play services are always kept by TidyTV."
+  ],
+  "notes": [
+    "The default screensaver is on the list. With it off, the TV has no screensaver until you choose another.",
+    "YouTube Music stops when you leave it, so music stops on Home. SoundCloud keeps playing.",
+    "The North American ATSC antenna apps are on the list as unused. If you watch antenna TV, leave that section switched on."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Sony promo and Select tiles, the Sony tab on the Google TV home and the viewing data apps. The Sony tab is unused once the stock home is off."
+    },
+    {
+      "q": "Will my antenna TV still work?",
+      "a": "Only if you leave that section on. The North American antenna tuner services are in the unused section of this list, so leave it switched on if you watch antenna TV."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

@@ -1,0 +1,32 @@
+{
+  "name": "Redmi TV (MiTV-ANTL0)",
+  "brand": "Xiaomi",
+  "os": "Android 5.1",
+  "summary": "Turn off Xiaomi analytics, promo services and cloud app push on the Redmi TV (MiTV-ANTL0) with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "This Redmi TV runs Chinese-market firmware on Android 5.1, with no Google services at all. It ships with Xiaomi's quality and analytics uploaders, a promo renderer that also fetches screensaver ads, and a cloud service that can push apps to the TV remotely. There is also a shopping plugin, a cleaner app and a game SDK.",
+    "Every app on this list was checked on the TV itself before it was listed, so the names match this firmware. TidyTV turns these off from your phone over Wi-Fi. It saves a backup first, switches each app off in Android's own settings and never uninstalls it. Restore everything switches them all back on in one tap."
+  ],
+  "keep": [
+    "The Sogou TV keyboard. It is the only input method on this firmware, so the list leaves it on."
+  ],
+  "notes": [
+    "This firmware has no Google services, so there is no Google Play Store on it.",
+    "The boot-up video ad is a system setting rather than an app, so turning off apps does not remove it.",
+    "The update service is off in this list, so firmware updates stop too, including security updates. Turn it back on for a while when you want an update."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off the promo renderer that fetches screensaver ads, and the cloud service that pushes apps. The boot-up video ad is a system setting, so it stays until that setting is changed."
+    },
+    {
+      "q": "Will it still get firmware updates?",
+      "a": "Not while the update service is off. Switch it back on in the app when you want an update, and off again afterwards."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

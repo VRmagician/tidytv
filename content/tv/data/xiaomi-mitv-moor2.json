@@ -1,0 +1,147 @@
+{
+ "id": "xiaomi-mitv-moor2",
+ "title": "Xiaomi MiTV-MOOR2 (codename venom), Google TV / Android 11, firmware RTM5.220609.003.2674",
+ "header": "Xiaomi MiTV-MOOR2 (codename venom), Google TV / Android 11, firmware RTM5.220609.003.2674\nMediaTek chipset.\n\nPackage names that differ from the repo defaults on this firmware:\nstock launcher   com.google.android.apps.tv.launcherx   (NOT com.google.android.tvlauncher)\nLive TV app      com.mitv.livetv                        (NOT com.mediatek.wwtv.tvcenter), so set\nlive_tv_package in the launcher's\nres/values/config.xml to it\nBoth are arguments: launcher/build-and-install.sh takes STOCK_LAUNCHER, tools/restore.sh takes the\nstock launcher as its second argument.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-moor2/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-moor2/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nTested: all 22 packages below are disabled on this TV (`pm list packages -d` confirms it) with the\nlauncher from launcher/ in place and owning Home. They went off in one session, nothing crashed\nduring it and nothing has had to be re-enabled since. That is a first-day report, not the few days\nof living with it that CONTRIBUTING.md asks for, so treat the list as provisional. The packages\nunder DO NOT DISABLE were ruled out by reading dumpsys, not by disabling them and seeing what\nbroke.\n\nDO NOT DISABLE on this model, verified with dumpsys:\ncom.mitv.livetv              owns .input.SelectInputActivity - the HDMI/source switcher lives\ninside the Live TV app, so disabling it costs you input switching\nmitv.service                 PERSISTENT; hosts .TvServer, .TvSettingService, remote key handling\ncom.mediatek.network         PERSISTENT network monitor\ncom.mitv.overseaservice      PERSISTENT; hosts .netflixService (Netflix key on the remote)\ncom.mediatek.tvinput         HDMI / tuner input framework\ncom.mediatek.tv.service      core TV service\ncom.mi.bluetooth             remote + Bluetooth pairing\ncom.google.android.tv.remote.service   phone-as-remote pairing",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tvqs.overseas",
+     "note": "Firebase analytics + DOWNLOAD_WITHOUT_NOTIFICATION"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ad rows, promos and content providers on the home screen",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.oemtab",
+     "note": "holds ACCESS_ADSERVICES_AD_ID/_ATTRIBUTION - the ad row"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": "Mi content rows"
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "Mi TV+ ad-funded channels"
+    },
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall home; not a HOME candidate on this build"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "Xiaomi web promo WebView"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "Google RLZ attribution pings"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo mode",
+   "apps": [
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "in-store demo loop (.HorizontalActivity/.VerticalActivity)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi nagware and dead weight",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.mitv.toolhouse",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.manualhelp",
+     "note": "on-screen user manual"
+    },
+    {
+     "pkg": "com.xiaomo.tv.milegal",
+     "note": "legal notices app"
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": "silent preload installer config"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Mi Cast / Miracast - Chromecast still works without them",
+   "apps": [
+    {
+     "pkg": "com.mitv.milinkservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.wfdsinkhelperservice",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps, off by choice - re-enable any you use",
+   "apps": [
+    {
+     "pkg": "com.graymatrix.did",
+     "note": "ZEE5"
+    },
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": "Mi Music"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--------------------------------------------------------------------------------------------- ONLY AFTER com.gathin.tvhome IS INSTALLED",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "setup wizard; blocks a third-party launcher from Home"
+    }
+   ],
+   "optional": [],
+   "note": "Do not apply this section on a fresh run, or the Home button has nowhere to go.  Disabling the stock launcher is not enough on this firmware: com.google.android.tungsten.setupwraith also answers HOME - .MainActivity at intent-filter priority 4 and .RecoveryActivity at priority 1 - and an ordinary app cannot outrank it, because Android ignores android:priority on HOME filters for non-system apps and `cmd package set-home-activity` reports Success without taking effect (not even across a reboot). Disabling the setupwraith PACKAGE is what frees the slot; `pm disable-user` on its individual components is refused with a SecurityException. See the README troubleshooting section.  Trade-off: setupwraith is the first-run setup wizard. Everyday use is unaffected, but re-enable it before a factory reset - tools/restore.sh does that for you while this line is in the list."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 22
+}

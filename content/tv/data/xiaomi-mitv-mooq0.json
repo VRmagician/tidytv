@@ -1,0 +1,220 @@
+{
+ "id": "xiaomi-mitv-mooq0",
+ "title": "Xiaomi Mi TV (MiTV-MOOQ0, codename croods), Android TV 10, firmware QTG3.200305.006.3270",
+ "header": "Xiaomi Mi TV (MiTV-MOOQ0, codename croods), Android TV 10, firmware QTG3.200305.006.3270\nMediaTek m7632 chassis, 1.8 GB RAM, Android low-RAM mode on.\n\nAlso applied cleanly on firmware QTG3.200305.006.5135 (Vietnam retail unit, 2026-10): every package\nhere disabled the same, and the \"optional, by choice\" mirroring/media apps below were additionally\ndisabled (wfdsinkhelperservice, milinkservice, smartshare, mitvplus, videos, youtube.tvmusic,\nmediaexplorer, videoplayer) with Netflix/YouTube/VieON still playing afterwards. On that unit the\nremote's Input/Source button sends KEYCODE_MEDIA_RECORD (kernel KEY_RECORD), not KEYCODE_TV, so the\nlauncher's InputKeyService must handle KEYCODE_MEDIA_RECORD for the Input button to open the menu.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mooq0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mooq0/debloat.txt\nEverything is DISABLED for user 0, not uninstalled. Comment out any line you want to keep.\n\nKept deliberately, despite names that look like bloat. Checked with `dumpsys package`:\ncom.xiaomi.android.tvsetup.partnercustomizer  holds BleRcActivity, the Bluetooth remote pairing\ncom.mediatek.hotkey.dispatcher                the remote's hotkey service, including Source\ncom.mediatek.tvinput                          serves HDMI 1-3, composite AV and the tuner\ncom.mediatek.wwtv.setupwizard                 the channel tuning wizard for Live TV\nmitv.service, com.xiaomi.mitv.res             core TV service and framework resources\n\nQuirk: com.duokan.factorytest also declares the HOME intent, at priority 0, the same as a\nreplacement launcher (the stock launcher sits at priority 2). Disable it and set the home\nactivity explicitly BEFORE disabling com.google.android.tvlauncher, or Home can land on the\nfactory test app. It is in the list below so restore.sh re-enables it.\n\nNOTE: com.google.android.tvlauncher is deliberately NOT in this list. launcher/build-and-install.sh\ndisables it only after the replacement launcher is installed and verified as home.\n\nTested on this firmware: HDMI 1-3, composite AV, the tuner, the Bluetooth remote, Gboard,\nPlay Store, Chromecast, Miracast and USB video playback all still work.\n\nNotes from a second set on the same firmware (mirhnaz, PR #81):\n- Live TV (com.mediatek.wwtv.tvcenter) can't be disabled even if you never use the tuner: its\nTurnkeyUiMainActivity is also the HDMI/AV window. Hide it in the launcher instead (hidden_apps).\n- Before disabling com.mitv.dream, point the screensaver elsewhere:\nsettings put secure screensaver_components com.gathin.tvhome/.ClockDream\n- After power-on the TV returns to the last source, not the launcher.",
+ "sections": [
+  {
+   "title": "---- Xiaomi telemetry and analytics ----",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": "automatic bug report upload"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "crash / feedback reporting"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Xiaomi content, ads and recommendation rows ----",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall (.app.PatchWallActivity)"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": "Mi recommendation channels, Firebase + GMS measurement"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "Xiaomi promo web content"
+    },
+    {
+     "pkg": "com.xiaomi.floatingframe",
+     "note": "floating promo overlay service"
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": "partner app auto-install config"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Background services not needed ----",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner / boost / data usage"
+    },
+    {
+     "pkg": "com.xiaomi.amazon.alexa",
+     "note": "Alexa bridge; Google voice search is kept"
+    },
+    {
+     "pkg": "com.aha.mitv",
+     "note": "dormant duplicate Aha 2.0.8; ahaflix.tv 2.0.22 is kept"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Mi Gallery: MiCloud + Xiaomi market SDK"
+    },
+    {
+     "pkg": "com.mitv.dream",
+     "note": "Xiaomi MiDream screensaver, Firebase + skyeye monitor"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Google ambient screensaver, replaced by the Clock dream"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Preloaded apps nobody asked for ----",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.handbook",
+     "note": "on-screen user manual"
+    },
+    {
+     "pkg": "com.mitv.tvlock",
+     "note": "Xiaomi TV lock / parental password"
+    },
+    {
+     "pkg": "com.xiaomo.tv.milegal",
+     "note": "Xiaomi legal / privacy screens"
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "vendor disclaimer screen"
+    },
+    {
+     "pkg": "com.mediatek.wwtv.webview",
+     "note": "vendor web view shell"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "retail store demo loop"
+    },
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": "Mi Music"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Streaming apps not used (per owner's checklist) ----",
+   "apps": [
+    {
+     "pkg": "com.jio.web.androidtv",
+     "note": "JioTV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvkids",
+     "note": "YouTube Kids"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Home-screen claimants replaced by launcher/ ---- The factory test app also declares the HOME intent, at the same priority as the new launcher",
+   "apps": [
+    {
+     "pkg": "com.duokan.factorytest",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "It is disabled so the Home button can never land on it."
+  },
+  {
+   "title": "---- Stock launcher recommendation plumbing (replaced by launcher/) ----",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "Mi TV+ FAST channels"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware updates"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "voice assistant (the mic button stops working)"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.mitv.milinkservice",
+     "note": "Mi Cast"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.wfdsinkhelperservice",
+     "note": "Miracast sink"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.mediaexplorer",
+     "note": "USB media player"
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": "Mi video player"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 29
+}

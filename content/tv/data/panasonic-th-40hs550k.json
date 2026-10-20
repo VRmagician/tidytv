@@ -1,0 +1,107 @@
+{
+ "id": "panasonic-th-40hs550k",
+ "title": "Panasonic TH-40HS550K (Skyworth-built, GS655, codename shibuya, MediaTek m5621), Android TV 11 (API 30), firmware RTO9.240708.002 (12195242)",
+ "header": "Panasonic TH-40HS550K (Skyworth-built, GS655, codename shibuya, MediaTek m5621), Android TV 11 (API 30), firmware RTO9.240708.002 (12195242)\nVendor fingerprint skyworth/SW1_T/shibuya. armeabi-v7a, UI at 1280x720, about 0.9 GB RAM.\nClassic Android TV home, not Google TV: the stock launcher is com.google.android.tvlauncher.\n\nStock launcher:  com.google.android.tvlauncher\nLive TV app:     com.mediatek.wwtv.tvcenter  (Live TV and the input panel; keep it)\nNever disable any com.mediatek.* package: they are the tuner, input and HDMI stack.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/panasonic-th-40hs550k/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/panasonic-th-40hs550k/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nDisabled before this debloat, so not listed (restore.sh would turn it ON): com.google.android.marvin.talkback.\n\nStatus: disabled in four batches on one TV on 2026-10-19, with a screenshot after each batch and remote-key\nchecks of Home, Live TV, the input panel and HDMI detection. Nothing broke in that testing; the list had\nabout a day of real use when submitted, so treat it as a starting point.\n\nQuirks on this firmware, all checked on the TV:\n- Only the stock launcher and Settings' FallbackHome claim HOME; setupwraith does not. A sideloaded launcher\ninstalls and can be set as home with `cmd package set-home-activity`, no signature check.\n- Screenshots: `exec-out screencap -p` mixes \"Init wrapper sys mutex\" / \"open mma dev failed\" lines into the\nPNG. Write to a file with `screencap -p /sdcard/s.png` and pull it. While Live TV or an HDMI input is on\nscreen the file comes back empty (protected video layer).\n- The TV powers on to the last source (Live TV or an HDMI port). TV Settings contains a \"Power on behavior\"\nstring but this firmware shows no menu for it.\n- HDMI-CEC devices appear as child TV inputs, so the input list can show \"HDMI 1  PlayStation 5\".\n- Disabling partnercustomizer (below) removes the Inputs and Wi-Fi icons from the stock launcher's top bar;\nirrelevant once launcher/ is home. The stock launcher also keeps a Play Movies tile after\ncom.google.android.videos is disabled: it is a built-in shortcut, not the app.\n- About 0.9 GB of RAM: the low-memory killer ends background apps (Netflix included) quickly.",
+ "sections": [
+  {
+   "title": "Skyworth auto-installs, shop demo and setup leftovers",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.skyworth",
+     "note": "Play Auto Installs config for preloaded apps"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "Skyworth retail demo service, starts at boot"
+    },
+    {
+     "pkg": "com.smartdevice.common.demonow",
+     "note": "\"Demo Now\" store demo app"
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "disclaimer screen used only by the first-run setup"
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual (E-Manual)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and background services",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": "Google background data service (registers a VpnService), starts at boot"
+    },
+    {
+     "pkg": "com.mediatek.testpq",
+     "note": "MediaTek picture-quality test tool, starts at boot"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Recommendation rows and stock-launcher partner config",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.partnercustomizer",
+     "note": "see the top-bar quirk above"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Not used (by choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.wwtv.mediaplayer",
+     "note": "the \"Media\" tile: plays files from a USB drive"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.airoha.ble.ota",
+     "note": "\"RC Upgrade\": firmware updater for the Bluetooth remote; pairing still works"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "launcher/build-and-install.sh disables the stock launcher itself, after Home has moved"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 16
+}

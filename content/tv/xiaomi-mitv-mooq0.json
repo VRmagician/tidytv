@@ -1,0 +1,35 @@
+{
+  "name": "Xiaomi Mi TV MOOQ0",
+  "brand": "Xiaomi",
+  "os": "Android TV 10",
+  "summary": "Turn off Xiaomi analytics, PatchWall and promo rows, the TV Manager cleaner and unused apps on the Xiaomi Mi TV MOOQ0. Free phone app, with a backup and undo.",
+  "intro": [
+    "The Xiaomi Mi TV MOOQ0 on Android TV 10 ships with Xiaomi and Google analytics and bug reporting, PatchWall and Mi recommendation channels, promo web content and a floating promo overlay. It also has the TV Manager cleaner, an Alexa bridge, a retail demo loop, and preloaded apps such as Mi Music, JioTV and a parental lock.",
+    "The list was tested on this firmware: HDMI 1 to 3, composite AV, the tuner, the Bluetooth remote, Gboard, Play Store, Chromecast, Miracast and USB video playback all still worked. It was also applied on a newer build, where the optional mirroring and media apps were turned off too and Netflix, YouTube and VieON kept playing. TidyTV turns these apps off from a phone over Wi-Fi, after saving a backup."
+  ],
+  "keep": [
+    "The Bluetooth remote pairing and the remote's hotkey service, including the Source key",
+    "HDMI 1 to 3, composite AV and the tuner",
+    "The channel tuning wizard for Live TV",
+    "The core TV service and framework resources"
+  ],
+  "notes": [
+    "On some units the remote's Input or Source button sends a key the Inputs menu does not expect, so the menu may not open. Check it with the real remote.",
+    "Live TV is not in this list, because its window also opens the HDMI and AV inputs and cannot be turned off without losing them.",
+    "After power-on, the TV returns to the last input, not the home screen."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Xiaomi Mi TV MOOQ0?",
+      "a": "Yes. Google voice search is an optional entry in this list, so it stays on unless you turn it off."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, Mi Cast and Miracast are optional entries, so they stay on unless you turn them off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

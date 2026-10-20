@@ -1,10 +1,24 @@
 <!doctype html>
 <html lang="en">
 <meta charset="utf-8">
-<title>tidytv</title>
+<title>TidyTV: debloat your Android TV and Google TV from your phone</title>
 <meta name="claude:viewport-fit-sides" content="cover">
 <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
-<meta name="description" content="tidytv is a free, open-source phone app that turns off the ads, trackers and bloat on your Android TV. No computer, no AI. One tap puts it all back.">
+<meta name="description" content="Clean up your Android TV or Google TV in a few taps: turn off the ads, trackers and bloatware that make it slow. Free, open-source phone app. No computer, no AI, one-tap undo.">
+<link rel="canonical" href="https://tidytv.winkle.dev/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/">
+<meta property="og:title" content="TidyTV: your TV, without the junk">
+<meta property="og:description" content="A free phone app that turns off the ads, trackers and bloat on Android TV and Google TV. No computer needed. One tap puts it all back.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta property="og:image:width" content="1200">
+<meta property="og:image:height" content="630">
+<meta property="og:image:alt" content="Your TV, without the junk. The TidyTV mascot, a smiling blue TV.">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "SoftwareApplication", "name": "TidyTV", "operatingSystem": "Android 8.0 or newer", "applicationCategory": "UtilitiesApplication", "description": "Clean up your Android TV or Google TV in a few taps: turn off the ads, trackers and bloatware that make it slow. Free, open-source phone app. No computer, no AI, one-tap undo.", "url": "https://tidytv.winkle.dev/", "downloadUrl": "https://tidytv.winkle.dev/tidytv.apk", "softwareVersion": "0.2.0", "license": "https://opensource.org/licenses/MIT", "codeRepository": "https://github.com/jolan94/tidytv", "offers": {"@type": "Offer", "price": "0", "priceCurrency": "USD"}}, {"@context": "https://schema.org", "@type": "FAQPage", "mainEntity": [{"@type": "Question", "name": "Does TidyTV delete apps?", "acceptedAnswer": {"@type": "Answer", "text": "No. Apps are turned off with Android's own setting, never uninstalled, and Restore turns them back on."}}, {"@type": "Question", "name": "Why is my Google TV so slow, and will this help?", "acceptedAnswer": {"@type": "Answer", "text": "Many TVs ship with apps for ads, tracking and suggestions that run in the background and use memory. TidyTV turns those off and shows how much memory was freed. How much faster it feels depends on the TV."}}, {"@type": "Question", "name": "How do I debloat an Android TV without a PC?", "acceptedAnswer": {"@type": "Answer", "text": "Install TidyTV on an Android phone on the same Wi-Fi, turn on developer options and network debugging on the TV, then tap your TV in the app. It connects over Wi-Fi with ADB, so no computer or cable is needed."}}, {"@type": "Question", "name": "Do I need a computer?", "acceptedAnswer": {"@type": "Answer", "text": "No. Your phone and TV only need to be on the same Wi-Fi. No laptop, no AI, no root."}}, {"@type": "Question", "name": "Can I undo changes?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Restore everything puts every app and your old home screen back with one tap."}}, {"@type": "Question", "name": "Does it work with my TV?", "acceptedAnswer": {"@type": "Answer", "text": "Android TV and Google TV sets and boxes. Fire TV gets the clean-up but keeps Amazon's home screen. Samsung and LG don't run Android."}}, {"@type": "Question", "name": "How do I install the APK?", "acceptedAnswer": {"@type": "Answer", "text": "Open this page on your Android phone, tap Download, then open the file. Android asks once to allow installs from your browser; allow it and tap Install. The app is signed, and every release is on GitHub."}}, {"@type": "Question", "name": "Is it really free?", "acceptedAnswer": {"@type": "Answer", "text": "Yes. Free and open source under the MIT licence. No ads, no account, no tracking."}}, {"@type": "Question", "name": "Will it remove YouTube ads?", "acceptedAnswer": {"@type": "Answer", "text": "No. It turns off the TV maker's ads and trackers. Ads inside apps are not affected."}}]}]</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -186,6 +200,7 @@ p { margin: 0; }
 .hits li { display: flex; justify-content: space-between; gap: 14px; padding: 14px 18px; background: var(--ai-col); font-size: var(--step-small); }
 .hits li:nth-child(even) { background: #F6F8FD; }
 .hits li b { font-weight: 900; }
+.hits li a { color: inherit; text-decoration: none; } .hits li a:hover b { text-decoration: underline; text-underline-offset: 3px; }
 .hits li span:last-child { color: var(--soft); white-space: nowrap; font-variant-numeric: tabular-nums; }
 .faq details { border: 2px solid var(--line); border-radius: 18px; margin-top: 12px; transition: background .2s ease, border-color .2s ease; }
 .faq details:first-of-type { margin-top: 24px; }
@@ -202,6 +217,22 @@ p { margin: 0; }
 .cta p { margin-top: 12px; font-size: var(--step-lead); font-weight: 700; max-width: 30ch; }
 .cta .btn { margin-top: 28px; }
 .cta img { width: min(340px, 100%); justify-self: center; }
+
+/* GitHub star buttons. The count fills in from the GitHub API and stays hidden if that fails. */
+.btn.star { background: #fff; }
+.btn.star svg { color: #F5B400; stroke: var(--ink); stroke-width: 1.4; }
+.stars { display: none; padding: 4px 10px; border-radius: 999px; background: var(--ground); font-size: .85em; font-weight: 900; }
+.has-stars .stars { display: inline-block; }
+.starpill { display: inline-flex; align-items: center; gap: 8px; padding: 8px 14px; border-radius: 999px; border: 3px solid var(--ink); background: #fff; color: var(--ink); font-weight: 900; font-size: var(--step-small); text-decoration: none; box-shadow: 0 4px 0 var(--ink); transition: transform .14s ease, box-shadow .14s ease; }
+.starpill:hover { transform: translateY(-2px); box-shadow: 0 6px 0 var(--ink); }
+.starpill:active { transform: translateY(3px); box-shadow: 0 1px 0 var(--ink); }
+.starpill svg { width: 20px; height: 20px; color: #F5B400; stroke: var(--ink); stroke-width: 1.4; }
+.starpill .stars { padding: 2px 8px; }
+.topbar .right { display: flex; align-items: center; gap: 26px; }
+.cta .actions { margin-top: 28px; display: flex; flex-wrap: wrap; gap: 16px; }
+.cta .actions .btn { margin-top: 0; }
+@media (max-width: 640px) { .cta .actions .btn { width: 100%; justify-content: center; white-space: nowrap; padding-inline: 18px; } }
+.cta .ask { margin-top: 18px; font-size: var(--step-small); font-weight: 700; opacity: .92; max-width: 40ch; }
 
 footer { padding-block: 34px 56px; text-align: center; color: var(--soft); }
 footer .tag { font-weight: 800; color: var(--ink); font-size: 1.0625rem; }
@@ -253,20 +284,23 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
   <img class="decor-cabinet" src="img/art/decor-cabinet.webp" width="900" height="589" alt="">
   <div class="wrap">
     <div class="topbar">
-      <a class="wordmark" href="#top"><img src="img/icons/a1-mascot-flat.webp" width="44" height="44" alt="">tidytv<svg class="spark" viewBox="0 0 24 24" fill="none" stroke="#FFD54A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8 20 L11 11 M14 22 L20 14 M4 12 L8 8"/></svg></a>
-      <nav aria-label="Main"><a href="#how">How it works</a><a href="#decide">What goes</a><a href="#tvs">Supported TVs</a><a href="#faq">Questions</a></nav>
+      <a class="wordmark" href="#top"><img src="img/icons/a1-mascot-flat.webp" width="44" height="44" alt="">TidyTV<svg class="spark" viewBox="0 0 24 24" fill="none" stroke="#FFD54A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8 20 L11 11 M14 22 L20 14 M4 12 L8 8"/></svg></a>
+      <div class="right">
+        <nav aria-label="Main"><a href="#how">How it works</a><a href="#decide">What goes</a><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a href="#faq">Questions</a></nav>
+        <a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a>
+      </div>
     </div>
     <div class="hero-copy">
       <h1 class="rise">Your TV, <span class="y">without the junk.</span></h1>
       <p class="lead rise d1">A few taps to turn off ads, trackers and bloat on your Android TV.</p>
       <div class="actions rise d2">
-        <a class="btn" href="/tidytv.apk" download="tidytv-0.1.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a>
-        <a class="more" href="#how">See how it works</a>
+        <a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a>
+        <a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a>
       </div>
-      <p class="apkinfo rise d3">Version 0.1.0 · 12 MB · Android 8 or newer · <a href="https://github.com/jolan94/tidytv/releases/latest">All releases on GitHub</a></p>
-      <img class="hero-mascot" src="img/art/mascot-stand.webp" width="800" height="773" alt="The tidytv mascot, a smiling blue TV with little legs.">
+      <p class="apkinfo rise d3">Version 0.2.0 · 12 MB · Android 8 or newer · <a href="https://github.com/jolan94/tidytv/releases/latest">All releases on GitHub</a></p>
+      <img class="hero-mascot" src="img/art/mascot-stand.webp" width="800" height="773" alt="The TidyTV mascot, a smiling blue TV with little legs.">
     </div>
-    <div class="hero-phone"><div class="bezel"><div class="screen"><img src="img/real/welcome.webp" width="720" height="1600" alt="tidytv's first screen: Hi! What TV do you have? with buttons for Android TV or Google TV, Amazon Fire TV, Samsung or LG, and Not sure."></div></div></div>
+    <div class="hero-phone"><div class="bezel"><div class="screen"><img src="img/real/welcome.webp" width="720" height="1600" alt="TidyTV's first screen: Hi! What TV do you have? with buttons for Android TV or Google TV, Amazon Fire TV, Samsung or LG, and Not sure."></div></div></div>
   </div>
 </header>
 
@@ -294,15 +328,15 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
       </div>
       <div class="step rise d1">
         <div class="top"><span class="num" aria-hidden="true">2</span><h3>Tap your TV, press Allow</h3></div>
-        <p>tidytv finds your TV on the Wi-Fi. Tick "Always allow" and press Allow when the TV asks.</p>
+        <p>TidyTV finds your TV on the Wi-Fi. Tick "Always allow" and press Allow when the TV asks.</p>
         <div class="device"><div class="tvframe"><div class="screen"><div class="tvui dialog" data-ui aria-label="Example of the TV's Allow USB debugging dialog">
           <div class="dlg"><b>Allow USB debugging?</b><span>The computer's RSA key fingerprint is shown here.</span><label><i></i>Always allow from this computer</label><div class="row"><span>Cancel</span><span class="ok">Allow</span></div></div>
         </div></div></div></div>
       </div>
       <div class="step rise d2">
         <div class="top"><span class="num" aria-hidden="true">3</span><h3>Review, then tidy</h3></div>
-        <p>Choose what to turn off, then tap the button. tidytv saves a backup first.</p>
-        <div class="device"><div class="bezel"><div class="screen"><img src="img/real/review.webp" width="720" height="1600" loading="lazy" alt="tidytv's review screen: Backup saved, then groups of apps with switches."></div></div></div>
+        <p>Choose what to turn off, then tap the button. TidyTV saves a backup first.</p>
+        <div class="device"><div class="bezel"><div class="screen"><img src="img/real/review.webp" width="720" height="1600" loading="lazy" alt="TidyTV's review screen: Backup saved, then groups of apps with switches."></div></div></div>
       </div>
     </div>
   </section>
@@ -312,7 +346,7 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
       <div>
         <h2 class="sec-h rise" id="decide-h">You decide what goes</h2>
         <p class="sec-sub rise d1">Turn off the stuff you don't want. Keep what you do.</p>
-        <div class="appphone rise d2"><div class="bezel"><div class="screen" data-ui aria-label="Example of tidytv's review list">
+        <div class="appphone rise d2"><div class="bezel"><div class="screen" data-ui aria-label="Example of TidyTV's review list">
           <div class="approw"><span class="tile" style="background:#F0475E"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 10v4h3l7 5V5L6 10H3z"/><path d="M17 9a4 4 0 0 1 0 6"/></svg></span><span class="nm">Ads &amp; tracking <small>4 apps</small></span><button class="sw" type="button" role="switch" aria-checked="true" aria-label="Turn off ads and tracking" data-n="4"></button></div>
           <div class="approw"><span class="tile" style="background:#F7862A"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" aria-hidden="true"><rect x="4" y="4" width="16" height="16" rx="2"/><path d="M4 9.3h16M4 14.6h16M9.3 4v16M14.6 4v16"/></svg></span><span class="nm">Preloaded apps <small>1 app</small></span><button class="sw" type="button" role="switch" aria-checked="true" aria-label="Turn off preloaded apps" data-n="1"></button></div>
           <div class="approw"><span class="tile" style="background:#8A5CF6"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" aria-hidden="true"><rect x="9" y="3" width="6" height="11" rx="3"/><path d="M5 11a7 7 0 0 0 14 0M12 18v3"/></svg></span><span class="nm">Voice assistant <small>The mic button stops working</small></span><button class="sw" type="button" role="switch" aria-checked="false" aria-label="Turn off the voice assistant" data-n="1"></button></div>
@@ -326,13 +360,13 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
         <p class="sec-sub rise d1">A simpler, safer way to tidy your TV.</p>
         <div class="cmp-wrap rise d2">
           <table class="cmp" aria-labelledby="cmp-h">
-            <thead><tr><th scope="col"><span class="sr">Compare</span></th><th scope="col">AI assistant on a laptop</th><th scope="col">tidytv</th></tr></thead>
+            <thead><tr><th scope="col"><span class="sr">Compare</span></th><th scope="col">AI assistant on a laptop</th><th scope="col">TidyTV</th></tr></thead>
             <tbody>
-              <tr><th scope="row">What you need</th><td data-label="AI assistant on a laptop">Laptop, adb and a paid AI tool</td><td data-label="tidytv">Android phone</td></tr>
-              <tr><th scope="row">What runs on your TV</th><td data-label="AI assistant on a laptop">Commands it writes on the spot</td><td data-label="tidytv">A list tested on your model</td></tr>
-              <tr><th scope="row">Protected apps</th><td data-label="AI assistant on a laptop">Easy to get wrong</td><td data-label="tidytv">Protected by default</td></tr>
-              <tr><th scope="row">Undo</th><td data-label="AI assistant on a laptop">Ask it to reverse itself</td><td data-label="tidytv">One tap</td></tr>
-              <tr><th scope="row">Cost</th><td data-label="AI assistant on a laptop">Paid tools</td><td data-label="tidytv">Free and open source</td></tr>
+              <tr><th scope="row">What you need</th><td data-label="AI assistant on a laptop">Laptop, adb and a paid AI tool</td><td data-label="TidyTV">Android phone</td></tr>
+              <tr><th scope="row">What runs on your TV</th><td data-label="AI assistant on a laptop">Commands it writes on the spot</td><td data-label="TidyTV">A list tested on your model</td></tr>
+              <tr><th scope="row">Protected apps</th><td data-label="AI assistant on a laptop">Easy to get wrong</td><td data-label="TidyTV">Protected by default</td></tr>
+              <tr><th scope="row">Undo</th><td data-label="AI assistant on a laptop">Ask it to reverse itself</td><td data-label="TidyTV">One tap</td></tr>
+              <tr><th scope="row">Cost</th><td data-label="AI assistant on a laptop">Paid tools</td><td data-label="TidyTV">Free and open source</td></tr>
             </tbody>
           </table>
         </div>
@@ -344,7 +378,7 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
     <div class="restore">
       <div>
         <h2 class="sec-h rise" id="restore-h">Everything comes back with one tap</h2>
-        <p class="sec-sub rise d1">tidytv saves a backup before changes. Restore your apps whenever you want.</p>
+        <p class="sec-sub rise d1">TidyTV saves a backup before changes. Restore your apps whenever you want.</p>
         <ul class="facts">
           <li class="rise"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>Turned off, never uninstalled</b><span>Android's own setting, so apps return exactly as they were.</span></div></li>
           <li class="rise d1"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M5 12.5l4.5 4.5L19 7"/></svg><div><b>Backup first, every time</b><span>Apps, settings and home screen, saved on your phone.</span></div></li>
@@ -359,7 +393,7 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
   <div class="duo">
     <section class="card" id="tvs" aria-labelledby="tvs-h">
       <h2 class="sec-h rise" id="tvs-h">Is your TV on the list?</h2>
-      <p class="sec-sub rise d1">66 models from 25 brands, each tested on a real TV.</p>
+      <p class="sec-sub rise d1">93 models from 30 brands, each tested on a real TV.</p>
       <div class="search"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><circle cx="11" cy="11" r="7"/><path d="M20 20l-3.5-3.5"/></svg><label class="sr" for="qA3">Search TV brand or model</label><input id="qA3" type="search" autocomplete="off" placeholder="Search TV brand or model" value="Sony"></div>
       <div class="chips" id="chipsA3" aria-label="Popular brands"></div>
       <p class="count" id="countA3" aria-live="polite"></p>
@@ -367,7 +401,9 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
     </section>
     <section class="card faq" id="faq" aria-labelledby="faq-h">
       <h2 class="sec-h rise" id="faq-h">Questions, answered</h2>
-      <details name="faq" open><summary>Does tidytv delete apps?</summary><p>No. Apps are turned off with Android's own setting, never uninstalled, and Restore turns them back on.</p></details>
+      <details name="faq" open><summary>Does TidyTV delete apps?</summary><p>No. Apps are turned off with Android's own setting, never uninstalled, and Restore turns them back on.</p></details>
+      <details name="faq"><summary>Why is my Google TV so slow, and will this help?</summary><p>Many TVs ship with apps for ads, tracking and suggestions that run in the background and use memory. TidyTV turns those off and shows how much memory was freed. How much faster it feels depends on the TV.</p></details>
+      <details name="faq"><summary>How do I debloat an Android TV without a PC?</summary><p>Install TidyTV on an Android phone on the same Wi-Fi, turn on developer options and network debugging on the TV, then tap your TV in the app. It connects over Wi-Fi with ADB, so no computer or cable is needed.</p></details>
       <details name="faq"><summary>Do I need a computer?</summary><p>No. Your phone and TV only need to be on the same Wi-Fi. No laptop, no AI, no root.</p></details>
       <details name="faq"><summary>Can I undo changes?</summary><p>Yes. Restore everything puts every app and your old home screen back with one tap.</p></details>
       <details name="faq"><summary>Does it work with my TV?</summary><p>Android TV and Google TV sets and boxes. Fire TV gets the clean-up but keeps Amazon's home screen. Samsung and LG don't run Android.</p></details>
@@ -381,7 +417,11 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
     <div>
       <h2 class="rise" id="cta-h">A tidier TV is a few taps away.</h2>
       <p class="rise d1">Install the APK on your Android phone and follow the three steps.</p>
-      <a class="btn rise d2" href="/tidytv.apk" download="tidytv-0.1.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a>
+<div class="actions rise d2">
+              <a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a>
+        <a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a>
+      </div>
+      <p class="ask rise d3">TidyTV is free, with no ads and no sign-up. A star on GitHub is how other people find it.</p>
     </div>
     <img src="img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The mascot cheering with both arms up.">
   </section>
@@ -389,12 +429,33 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
 
 <footer class="wrap">
   <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
-  <p class="small">tidytv (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a>. Not affiliated with Google, Amazon or any TV maker.</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="/tv/">Debloat lists by TV model</a> · <a href="/guides/">Guides</a> · <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
 </footer>
 
 <script>
 document.documentElement.classList.add('js');
-const TVS = [["AiPro2K","Android TV 14",17],["Amazon Fire TV Stick 4K, 1st gen 2018","Fire OS 6.7.1.1 / Android 7.1",63],["BenQ E55-735","Google TV 14",11],["CHiQ AI PONT","Android TV 11",19],["CHiQ AI PONT","Google TV 14",13],["Chromecast with Google TV 4K","Google TV 14",15],["Hisense HiSmartTV A4, India","Android TV 9",22],["Hisense SmartTV 4K FFM","Android TV 10",18],["Hisense U75, Latin America","Google TV 12",22],["Hitachi 65QLEDSM20, Australia","Android TV 11",19],["Insignia 55 F30 4K Fire TV","Fire OS 7 / Android 9",100],["NVIDIA SHIELD TV Pro 2019","Android TV 11",11],["OnePlus TV","Google TV 14",10],["Panasonic 4KTV-JUP","Android TV 11",22],["Philips 50PUS8517/12, Europe","Android TV 11",41],["Philips 55PUS7503/12, Europe","Android TV 8.0",8],["Philips R8G Google TV, US","Google TV 14",15],["Philips Smart 4K TV, India","Google TV 14",17],["PRISM+ Q65 Ultra 2026 QLED 4K AI Google TV","Google TV 14",20],["RCA AI PONT SA","Android 14",25],["Redmi TV","Android 5.1.1 (not Android TV)",11],["SANYO ATV R2","Android TV 9",29],["Skyworth SWTV-21AE","Android TV 14",9],["Skyworth SWTV-24NA-4K NF, US","Google TV 14",18],["Sony BRAVIA 4K GB","Android TV 9",24],["Sony BRAVIA 4K UR2","Android TV 10",25],["Sony BRAVIA 4K VH2, EU","Google TV 12",15],["Sony BRAVIA 9 II","Google TV 14",14],["Sony BRAVIA 4K AE2, North America","Google TV 14",36],["Sony BRAVIA BF1","Google TV 12",11],["Sony BRAVIA KD-55X85J, South America","Google TV 12",27],["Sony BRAVIA KD-65X80J, India","Google TV 10",41],["Sony BRAVIA XBR-65X900E","Android TV 9",33],["Stellamore T950S projector","Android 13",15],["TCL 40S5400A","Android TV 11",22],["TCL 43C645","Google TV launcher on Android TV 11",20],["TCL 50EP680","Android TV 11",47],["TCL 65C725","Android TV 11",19],["TCL 65C735, France","Google TV 11",29],["TCL ak30a5","Android TV 9",16],["TCL BeyondTV","Android TV 9",12],["TCL BeyondTV, EU/Nordic","Android TV 9",27],["TCL BeyondTV2","Android TV 9",2],["TCL Smart TV Pro","Google TV 11",28],["TCL 55 4K Google TV, 2023; also TCL 55P6K, Spain","Google TV 12",18],["TCL 55Q10G Pro","Android TV 11",20],["TCL QM6K Pro, 2025","Google TV 14",25],["TCL UnionTV, Latin America","Android TV 9",27],["Thomson 32HE5800, Spain","Android TV 9",21],["Toshiba Fire TV","Fire OS 7 / Android 9",35],["Vu 4K, India","Google TV 12",12],["XGIMI Horizon S Pro projector","Android TV 11",22],["Xiaomi Mi Box S, streaming box","Android TV 9",22],["Xiaomi Mi Box S 2nd gen, streaming box","Google TV 11",16],["Xiaomi Mi TV 4A","Android TV 10",21],["Xiaomi MiTV-AESP0 stick","Android TV 9",15],["Xiaomi TV Box S 3rd gen, streaming box","Google TV 14",27],["Xiaomi MiTV-ASTP1, China firmware 2.40.641.0514.cn, 1 GB RAM, 720p","Android TV 9 (CN build)",18],["Xiaomi MiTV-AXFR1, India","Android TV 11",25],["Xiaomi MiTV-AXSO0","Android TV 9",33],["Xiaomi Mi TV","Android TV 10",29],["Xiaomi MiTV-MOOR2","Google TV 11",22],["Xiaomi MiTV-MOSR4","Google TV 11",24],["Xiaomi MiTV-MSSP3","Android TV 11",23],["Xiaomi MiTV-MSSP3, Android 9 firmware PI.7524","Android TV 9",18],["Xiaomi TV A Pro 75 2026","Google TV 14",20]];
+// Live star count on every star button. Cached for an hour; on any failure the count stays hidden.
+(async () => {
+  const KEY = 'tidytv-stars';
+  let n = null;
+  try { const c = JSON.parse(localStorage.getItem(KEY) || 'null'); if (c && Date.now() - c.t < 36e5) n = c.n; } catch (e) {}
+  if (n == null) {
+    try {
+      const r = await fetch('https://api.github.com/repos/jolan94/tidytv', { headers: { Accept: 'application/vnd.github+json' } });
+      if (r.ok) n = (await r.json()).stargazers_count;
+      try { localStorage.setItem(KEY, JSON.stringify({ n, t: Date.now() })); } catch (e) {}
+    } catch (e) {}
+  }
+  if (typeof n !== 'number' || n < 1) return;
+  const label = n >= 1000 ? (n / 1000).toFixed(n >= 10000 ? 0 : 1).replace(/\.0$/, '') + 'k' : String(n);
+  document.querySelectorAll('[data-star]').forEach(a => {
+    a.classList.add('has-stars');
+    a.querySelector('[data-count]').textContent = label;
+    a.setAttribute('aria-label', a.textContent.replace(label, '').trim() + ', ' + n + ' stars');
+  });
+})();
+
+const TVS = [["Expressluck AiPro2K","Android TV 14",17,"aipro2k"],["Amazon Fire TV Stick 4K (2018)","Fire OS 6",63,"amazon-fire-tv-stick-4k-2018"],["BenQ E55-735","Google TV 14",11,"benq-e55-735"],["BenQ E55-750","Google TV 11",8,"benq-e55-750"],["CHiQ AI PONT (DVB93CQ)","Android TV 11",19,"chiq-ai-pont"],["CHiQ AI PONT GTVU65","Google TV 14",13,"chiq-gtvu65"],["Chromecast with Google TV 4K","Google TV 14",15,"google-chromecast-gtv-4k"],["Haier Android TV DVB2K","Android TV 11",14,"haier-android-tv-dvb2k"],["Haier H32S80EFX","Google TV 14",14,"haier-h32s80efx"],["Hisense HG9","Android TV 9",29,"hisense-hg9"],["Hisense HiSmartTV A4","Android TV 9",22,"hisense-hismarttv-a4"],["Hisense HiSmartTV A4","Android TV 11",16,"hisense-hismarttv-a4-android11"],["Hisense SmartTV 4K FFM","Android TV 10",18,"hisense-smarttv-4k-ffm"],["Hisense U75","Google TV 12",22,"hisense-u75-hengshan"],["Hitachi 65QLEDSM20","Android TV 11",19,"hitachi-65qledsm20"],["Hitachi CDH-LE32SMART21","Android TV 11",19,"hitachi-cdh-le32smart21"],["Insignia F30 4K Fire TV","Fire OS 7",100,"insignia-ns55f301na25"],["JMGO N1S projector","Google TV 14",10,"jmgo-n1s-holan"],["Kalley R10G","Google TV 14",16,"kalley-r10g"],["NVIDIA SHIELD TV 2019","Android TV 11",34,"nvidia-shield-tv-2019"],["NVIDIA SHIELD TV Pro (2019)","Android TV 11",11,"nvidia-shield-tv-pro-2019"],["OnePlus TV D00","Google TV 14",10,"oneplus-tv-dubai"],["onn 4K Streaming Box (2023)","Google TV 14",8,"onn-4k-streaming-box-2023"],["Panasonic 4KTV-JUP","Android TV 11",22,"panasonic-4ktv-jup"],["Panasonic TH-40HS550K","Android TV 11",16,"panasonic-th-40hs550k"],["Philips 50PUS8517","Android TV 11",41,"philips-50pus8517"],["Philips 55OLED707","Android TV 11",32,"philips-55oled707"],["Philips 55PUS7503","Android TV 8",8,"philips-55pus7503"],["Philips 65PUS8102","Android TV 8.0",34,"philips-65pus8102"],["Philips R8G Google TV","Google TV 14",15,"philips-r8g-google-tv"],["Philips Smart 4K TV","Google TV 14",17,"philips-smart-4k-google-tv"],["Portronics Beem 470","Android 11",54,"portronics-beem-470"],["PRISM+ Q65 Ultra QLED","Android TV 14",20,"prismplus-q65-ultra-r10g"],["RCA AI PONT SA","Android TV 14",25,"rca-ai-pont"],["Redmi TV (MiTV-ANTL0)","Android 5.1",11,"redmi-mitv-antl0"],["SANYO ATV R2","Android TV 9",29,"sanyo-atv-r2"],["Skyworth SWTV-21AE","Android TV 14",9,"skyworth-swtv-21ae"],["Skyworth SWTV-24NA-4K NF","Google TV 14",18,"skyworth-swtv-24na-4k-nf"],["Sony BRAVIA 4K GB","Android TV 9",24,"sony-bravia-4k-gb"],["Sony BRAVIA 4K GB","Android TV 9",28,"sony-bravia-4k-gb-us"],["Sony BRAVIA 4K UR2","Android TV 10",25,"sony-bravia-4k-ur2"],["Sony BRAVIA KD-55X80J","Google TV 12",15,"sony-bravia-4k-vh2"],["Sony BRAVIA KD-65X85K","Google TV 12",29,"sony-bravia-4k-vh21"],["Sony BRAVIA 9 II","Google TV 14",14,"sony-bravia-9-ii"],["Sony BRAVIA 4K AE2","Google TV 14",36,"sony-bravia-ae2"],["Sony BRAVIA BF1","Google TV 12",11,"sony-bravia-bf1"],["Sony BRAVIA TL2","Android TV 11",10,"sony-bravia-tl2"],["Sony BRAVIA VU31 4K","Google TV 14",27,"sony-bravia-vu31"],["Sony BRAVIA KD-55X8509C","Android TV 7.0",26,"sony-kd-55x8509c"],["Sony BRAVIA KD-55X85J","Google TV 12",27,"sony-kd-55x85j"],["Sony BRAVIA KD-65X80J","Google TV 10",41,"sony-kd-65x80j"],["Sony KD-65X9300D","Android TV 8",31,"sony-kd-65x9300d"],["Sony BRAVIA XBR-65X900F","Android TV 9",30,"sony-xbr-65x900f"],["Sony BRAVIA XBR-65X900E","Android TV 9",33,"sony-xbr-x900e"],["Stellamore T950S projector","Android 13",15,"stellamore-t950s"],["TCL 40S5400A","Android TV 11",22,"tcl-40s5400a"],["TCL 43C645","Android TV 11",20,"tcl-43c645"],["TCL 43EP660","Android TV 9",27,"tcl-43ep660"],["TCL 50EP680","Android TV 11",47,"tcl-50ep680"],["TCL 55S470G","Google TV 12",29,"tcl-55s470g"],["TCL 65C725","Android TV 11",19,"tcl-65c725"],["TCL 65C735","Google TV 11",29,"tcl-65c735"],["TCL AK30A5","Android TV 9",16,"tcl-ak30a5"],["TCL BeyondTV","Android TV 9",12,"tcl-beyondtv"],["TCL BeyondTV","Android TV 9",27,"tcl-beyondtv-rt2851"],["TCL BeyondTV2","Android TV 9",2,"tcl-beyondtv2-latin-america"],["TCL 75C755 QD-Mini LED","Google TV 14",35,"tcl-c755-google-tv"],["TCL Smart TV Pro","Google TV 11",28,"tcl-g05-google-tv"],["TCL G07","Google TV 11",32,"tcl-g07-google-tv"],["TCL 55-inch 4K Google TV","Google TV 12",18,"tcl-g10-google-tv"],["TCL 55Q10G Pro","Android 11",20,"tcl-q10g-pro"],["TCL QM6K Pro Google TV","Google TV 14",25,"tcl-qm6k-google-tv"],["TCL UnionTV","Android TV 9",27,"tcl-uniontv-latin-america"],["Thomson 32HE5800","Android TV 9",21,"thomson-32he5800"],["Toshiba Fire TV AFTHA004","Fire OS 7",35,"toshiba-fire-tv-aftha004"],["Vu 4K","Google TV 12",12,"vu-4k-lushan"],["Wanbo X5 Pro projector","Google TV 14",23,"wanbo-x5-pro"],["XGIMI Horizon S Pro","Android TV 11",22,"xgimi-horizon-s-pro"],["Xiaomi Mi Box S","Android TV 9",22,"xiaomi-mi-box-s"],["Xiaomi Mi Box S (2nd gen)","Google TV 11",16,"xiaomi-mi-box-s-2nd-gen"],["Xiaomi Mi TV 4A","Android TV 10",21,"xiaomi-mi-tv-4a"],["Xiaomi MiTV-AESP0","Android TV 9",15,"xiaomi-mitv-aesp0"],["Xiaomi TV Box S (3rd gen)","Google TV 14",27,"xiaomi-mitv-afmu0"],["Xiaomi MiTV-ASTP1","Android 9",18,"xiaomi-mitv-astp1"],["Xiaomi MiTV-AXFR1","Android TV 11",25,"xiaomi-mitv-axfr1"],["Xiaomi Mi TV 4C Pro 2019","Android TV 9",33,"xiaomi-mitv-axso0"],["Xiaomi MiTV-AXSO2","Android TV 9",32,"xiaomi-mitv-axso2"],["Xiaomi Mi TV MOOQ0","Android TV 10",29,"xiaomi-mitv-mooq0"],["Xiaomi MiTV-MOOR2","Google TV 11",22,"xiaomi-mitv-moor2"],["Xiaomi MiTV-MOSR4","Google TV 11",24,"xiaomi-mitv-mosr4"],["Xiaomi MiTV-MSSP3","Android TV 11",23,"xiaomi-mitv-mssp3"],["Xiaomi MiTV-MSSP3","Android TV 9",18,"xiaomi-mitv-mssp3-android9"],["Xiaomi TV A Pro 75 (2026)","Google TV 14",20,"xiaomi-tv-a-pro-2026"]];
 (function () {
   const io = 'IntersectionObserver' in window ? new IntersectionObserver(es => es.forEach(e => { if (e.isIntersecting) { e.target.classList.add('in'); io.unobserve(e.target); } }), { rootMargin: '0px 0px -8% 0px' }) : null;
   document.querySelectorAll('.rise').forEach(el => io ? io.observe(el) : el.classList.add('in'));
@@ -413,8 +474,8 @@ const TVS = [["AiPro2K","Android TV 14",17],["Amazon Fire TV Stick 4K, 1st gen 2
     chips.querySelectorAll('button').forEach(b => b.setAttribute('aria-pressed', norm(b.textContent) === term));
     const found = term ? TVS.filter(t => norm(t[0] + ' ' + t[1]).includes(term)) : TVS;
     cnt.className = 'count' + (found.length ? '' : ' no');
-    cnt.textContent = found.length ? found.length + (found.length === 1 ? ' tested model' : ' tested models') : 'Not on the list yet. tidytv will tell you before changing anything.';
-    hits.replaceChildren(...found.map(t => { const li = document.createElement('li'); const a = document.createElement('span'); const b = document.createElement('b'); b.textContent = t[0]; a.append(b, document.createTextNode(t[1] ? ' · ' + t[1] : '')); const c = document.createElement('span'); c.textContent = t[2] + ' apps'; li.append(a, c); return li; }));
+    cnt.textContent = found.length ? found.length + (found.length === 1 ? ' tested model' : ' tested models') : 'Not on the list yet. TidyTV will tell you before changing anything.';
+    hits.replaceChildren(...found.map(t => { const li = document.createElement('li'); const a = document.createElement(t[3] ? 'a' : 'span'); if (t[3]) a.href = '/tv/' + t[3] + '/'; const b = document.createElement('b'); b.textContent = t[0]; a.append(b, document.createTextNode(t[1] ? ' · ' + t[1] : '')); const c = document.createElement('span'); c.textContent = t[2] + ' apps'; li.append(a, c); return li; }));
   }
   ['Sony', 'TCL', 'Xiaomi', 'Hisense', 'Philips', 'Chromecast'].forEach(b => { const btn = document.createElement('button'); btn.type = 'button'; btn.textContent = b; btn.addEventListener('click', () => { q.value = b; render(); }); chips.append(btn); });
   q.addEventListener('input', render); render();

@@ -1,0 +1,241 @@
+{
+ "id": "nvidia-shield-tv-2019",
+ "title": "NVIDIA SHIELD TV 2019 tube (model P3430, codename sif, Tegra X1+, 2 GB RAM), Android TV 11 (API 30)",
+ "header": "NVIDIA SHIELD TV 2019 tube (model P3430, codename sif, Tegra X1+, 2 GB RAM), Android TV 11 (API 30)\nTested on build RQ1A.210105.003.7825199_4387.0822 (SHIELD Experience 9.2.4), security patch 2026-01-05.\nBased on examples/nvidia-shield-tv-pro-2019/debloat.txt. Every active line below is disabled on the\nreporter's unit, with the items they already had disabled left commented out.\n\nApply:   TV_HOST=<shield ip> tools/disable.sh examples/nvidia-shield-tv-2019/debloat.txt\nUndo:    TV_HOST=<shield ip> tools/restore.sh examples/nvidia-shield-tv-2019/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nConnecting: Developer options -> \"Network debugging\" opens ADB on port 5555. The tube has no USB\nports at all, so there is no cable route and nothing loses power while debugging is on.\n\nLauncher: run launcher/build-and-install.sh before this list; it installs the launcher and hands\nHome over by disabling com.google.android.tvlauncher, which is the last line here. As on the Pro,\nthe stock launcher's Home filter has priority 2 and this repo's has 0, so `cmd package\nset-home-activity` does nothing while the stock launcher is still enabled. setupwraith is not a\nHome candidate here either. The unit this list came from runs Glass Launcher (au.busby.glasslauncher)\nrather than this repo's launcher; the stock launcher has to go for either of them to take over.\nA Shield has no HDMI inputs and no tuner, so the launcher's Inputs pill has nothing to list.\nOn that unit location is on (location_mode=3) and the launcher holds ACCESS_FINE_LOCATION, so the\nnetwork pill shows the network name; with location off it says \"Wi-Fi\".\n\nDifferences from the Pro example, by the owner's choice:\n- Firmware updates are OFF (com.nvidia.ota, NvCPLUpdater and KeyComboOta disabled). The Pro example\nkeeps KeyComboOta; re-enable all three before contacting NVIDIA support or to get security patches.\n- Live Channels and Backdrop are off. The screensaver on that unit was already \"Colors\"\n(com.android.dreams.basic), so disabling Backdrop left a screensaver set.\n- Kept: Prime Video, Chromecast built-in, Google Assistant and hotword, Alexa / Google Home control\n(com.nvidia.shield.ask), the SHIELD TV phone-remote app (com.nvidia.shield.remote.server).\n- Not present on this unit: com.nvidia.nvgamecast, com.android.printspooler, com.nvidia.osc,\ncom.google.android.katniss, com.google.android.play.games.\n\nLeave alone (same as the Pro example): com.nvidia.blakepairing, com.nvidia.bluetooth.*,\ncom.nvidia.shieldtech.accessoryui, com.nvidia.ControllerMapper, com.nvidia.remotelocator,\ncom.nvidia.irtuner, com.nvidia.NvCPLSvc, com.nvidia.nvaudiosvc, com.nvidia.avsync,\ncom.dolby.android.audio.service, com.nvidia.packagemanagerservice, com.android.tv.settings,\ncom.android.providers.tv, com.google.android.tv.remote.service, com.google.android.tungsten.setupwraith,\nPlay Services, keychain, com.android.se.\n\nReported by @geekitup in issue #312, with a screenshot of the running setup.\nNotes from that firmware:\n- A SHIELD Experience update can re-enable packages; re-run this list afterwards.\n- The remote's Netflix button is handled in firmware; disabling Netflix does not free it.",
+ "sections": [
+  {
+   "title": "NVIDIA and Google telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.nvidia.stats",
+     "note": "anonymous usage statistics"
+    },
+    {
+     "pkg": "com.nvidia.feedback",
+     "note": "crash reports and the \"send feedback\" form"
+    },
+    {
+     "pkg": "com.nvidia.diagtools",
+     "note": "log collector; re-enable if NVIDIA support asks for logs"
+    },
+    {
+     "pkg": "com.nvidia.shield.registration",
+     "note": "product registration"
+    },
+    {
+     "pkg": "com.nvidia.developerwidget",
+     "note": "developer widget service"
+    },
+    {
+     "pkg": "com.nvidia.tegraprofiler.security",
+     "note": "Tegra profiler permissions"
+    },
+    {
+     "pkg": "com.nvidia.factorysyschecker",
+     "note": "factory test"
+    },
+    {
+     "pkg": "com.nvidia.factory",
+     "note": "factory test mode"
+    },
+    {
+     "pkg": "com.nvidia.inputviewer",
+     "note": "input test viewer"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sponsored rows, promos and auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "sponsored / \"Top picks\" rows on the stock home"
+    },
+    {
+     "pkg": "android.autoinstalls.config.nvidia",
+     "note": "Play auto-installs of partner apps"
+    },
+    {
+     "pkg": "com.nvidia.shield.welcome",
+     "note": "first-run promo"
+    },
+    {
+     "pkg": "com.nvidia.factorybundling",
+     "note": "accessory bundle offers"
+    },
+    {
+     "pkg": "com.nvidia.shield.beta",
+     "note": "beta programme"
+    },
+    {
+     "pkg": "com.nvidia.shieldbeta",
+     "note": "beta programme"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "NVIDIA gaming leftovers",
+   "apps": [
+    {
+     "pkg": "com.nvidia.tegrazone3",
+     "note": "\"NVIDIA Games\" app and row; GeForce NOW is a separate app"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services",
+   "apps": [
+    {
+     "pkg": "com.android.gallery3d",
+     "note": "legacy photo viewer (\"Photos & Videos\")"
+    },
+    {
+     "pkg": "com.nvidia.shield.nas",
+     "note": "SHIELD as network storage"
+    },
+    {
+     "pkg": "com.nvidia.shield.smbserver",
+     "note": "\"Transfer files over local network\" SMB share"
+    },
+    {
+     "pkg": "com.nvidia.shield.smbauth",
+     "note": "SMB share authentication"
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": "Google data-saver VPN"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice (the owner's picks)",
+   "apps": [
+    {
+     "pkg": "com.nvidia.ota",
+     "note": "firmware updates OFF by choice; NVIDIA still ships security patches"
+    },
+    {
+     "pkg": "com.nvidia.NvCPLUpdater",
+     "note": "control-panel updater, with the above"
+    },
+    {
+     "pkg": "com.nvidia.KeyComboOta",
+     "note": "OTA key combo, with the above (the Pro example leaves this on)"
+    },
+    {
+     "pkg": "com.google.android.tv",
+     "note": "Live Channels; re-enable for a network tuner (HDHomeRun, Channels)"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient mode; screensaver on that unit is Colors, so nothing breaks"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "kept: on-device speech, needed by the mic button"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "kept: Chromecast built-in"
+    },
+    {
+     "pkg": "com.nvidia.shield.ask",
+     "note": "kept: Alexa / Google Home control"
+    },
+    {
+     "pkg": "com.nvidia.shield.remote.server",
+     "note": "kept: SHIELD TV phone remote app"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom.nvidia",
+     "note": "kept: Prime Video (system copy)"
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "kept"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "kept"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "kept"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Idle stubs",
+   "apps": [
+    {
+     "pkg": "com.android.dynsystem",
+     "note": "Dynamic System Updates (GSI loader)"
+    },
+    {
+     "pkg": "com.android.hotspot2.osulogin",
+     "note": "Passpoint hotspot sign-in"
+    },
+    {
+     "pkg": "com.android.bluetoothmidiservice",
+     "note": "Bluetooth MIDI"
+    },
+    {
+     "pkg": "com.android.cts.ctsshim",
+     "note": "CTS test shim"
+    },
+    {
+     "pkg": "com.android.cts.priv.ctsshim",
+     "note": "CTS test shim"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "runs once at first boot"
+    },
+    {
+     "pkg": "com.android.wallpaperbackup",
+     "note": "wallpaper backup agent"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.benchmarkblocker",
+     "note": ""
+    }
+   ],
+   "note": "no RAM saved, disabled for tidiness; nothing broke across a reboot"
+  },
+  {
+   "title": "Stock Android TV launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "disabling it is what hands Home to the replacement launcher"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 34
+}

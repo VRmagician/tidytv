@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Is it safe to debloat your TV with Claude or AI? | TidyTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Is it safe to debloat an Android TV or Google TV with Claude? The real failures people reported, what experts warn about, and how to lower the risk.">
+<link rel="canonical" href="https://tidytv.winkle.dev/guides/ai-tv-debloat-risks/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="/img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/guides/ai-tv-debloat-risks/">
+<meta property="og:title" content="Is it safe to debloat your TV with Claude or AI? | TidyTV">
+<meta property="og:description" content="Is it safe to debloat an Android TV or Google TV with Claude? The real failures people reported, what experts warn about, and how to lower the risk.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "The risks of letting an AI agent loose on your TV", "description": "Is it safe to debloat an Android TV or Google TV with Claude? The real failures people reported, what experts warn about, and how to lower the risk.", "datePublished": "2026-10-20", "dateModified": "2026-10-20", "author": {"@type": "Organization", "name": "TidyTV"}, "publisher": {"@type": "Organization", "name": "TidyTV"}, "image": "https://tidytv.winkle.dev/img/og.png", "mainEntityOfPage": "https://tidytv.winkle.dev/guides/ai-tv-debloat-risks/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://tidytv.winkle.dev/guides/"}, {"@type": "ListItem", "position": 3, "name": "The risks of letting an AI agent loose on your TV"}]}]</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<header class="top"><div class="wrap bar">
+  <a class="wordmark" href="/"><img src="/img/icons/a1-mascot-flat.webp" width="40" height="40" alt="">TidyTV</a>
+  <nav aria-label="Main"><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">TidyTV</a> › <a href="/guides/">Guides</a> › The risks of letting an AI agent loose on your TV</p>
+
+<article class="card guide">
+  <h1>The risks of letting an AI agent loose on your TV</h1>
+  <p class="meta">Real boot loops, a black HDMI screen and broken casting. Here is what went wrong and how to avoid it.</p>
+  <div class="prose"><p>It is mostly safe if you do it carefully, but it is not risk free. People who let an AI agent clean up their Android TV or Google TV have reported boot loops, lost HDMI inputs and broken casting. Nearly all of those problems come from turning off the wrong app, and nearly all can be avoided with a backup, small steps and a short list of apps that must never be touched.</p>
+<h2>Can an AI really brick a TV?</h2>
+<p><a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/">TechCrunch</a> reported that one person said they bricked their Android TV using Claude. We only know that from the report. But the public issue tracker for <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a>, the most popular project behind the trend, shows how a TV can end up in trouble:</p>
+<ul><li><strong>Stuck on the boot screen.</strong> A Sony TV hung on the Google TV boot screen after a restart and needed a factory reset (<a href="https://github.com/Gathin23/cleanyourtv/issues/62">issue 62</a>).</li><li><strong>A crash loop.</strong> On a Xiaomi TV running Google TV 14, disabling the stock launcher made a core system process crash again and again (<a href="https://github.com/Gathin23/cleanyourtv/issues/90">issue 90</a>).</li><li><strong>A black screen.</strong> A TCL Google TV got into a black screen loop, and a Xiaomi set into a boot loop, in reports on <a href="https://github.com/Ansub/tv-detox/issues/16">tv-detox</a> (<a href="https://github.com/Ansub/tv-detox/issues/14">and another</a>).</li><li><strong>No signal on HDMI.</strong> A OnePlus TV lost its picture from connected devices after a cleanup (<a href="https://github.com/Gathin23/cleanyourtv/issues/321">issue 321</a>).</li><li><strong>Casting stopped.</strong> Disabling an app called <code>setupwraith</code> on a Chromecast with Google TV caused an "Untrusted device" message when casting (<a href="https://github.com/Gathin23/cleanyourtv/issues/361">issue 361</a>).</li></ul>
+<p>These are individual reports on open projects, not a count of how often things fail. Many people say it went fine. The takeaway is that the failures cluster around the same few things: the home screen, the HDMI inputs and setup services.</p>
+<h2>What do the critics say?</h2>
+<p><a href="https://www.engadget.com/2267074/why-claude-cleaning-tv-bloatware-not-best-idea/">Engadget</a> and <a href="https://www.aiincontext.com/articles/a-developer-let-claude-debloat-his-tv-here-s-why-you-shouldn-t-b93f9fcd">AI In Context</a> both argue against handing this to an agent. Their concerns, in plain terms:</p>
+<ul><li><strong>Mistakes.</strong> An AI can be confidently wrong about what a package does, and a TV maker may name the same service differently on each model.</li><li><strong>Updates.</strong> Engadget warns that turning off key packages may block future system updates. A cleanyourtv issue titled "Safe handling of firmware updates" (<a href="https://github.com/Gathin23/cleanyourtv/issues/359">issue 359</a>) shows users share the worry.</li><li><strong>Prompt hacking.</strong> An agent that reads web pages or files could be steered by hidden instructions inside them.</li><li><strong>Overkill.</strong> AI In Context says the manual route, installing a launcher and clearing caches, is shorter than people expect.</li></ul>
+<p><a href="https://itsfoss.com/news/debloat-smart-tv/">It's FOSS</a> makes a point that sits underneath all of these: not every background service is bloat.</p>
+<h2>What is the debugging port, and why close it?</h2>
+<p>To work, the agent talks to your TV through ADB, a built-in Android tool, over your network. That means turning on debugging on the TV. It's FOSS advises turning debugging off again afterwards, and a cleanyourtv issue (<a href="https://github.com/Gathin23/cleanyourtv/issues/164">issue 164</a>) asks for a closing step to be added. Leaving it on is not a catastrophe on a home network, but there is no reason to keep a door open.</p>
+<h2>How do you lower the risk?</h2>
+<p>The better prompts already contain safety rails. Copy the ideas even if you write your own:</p>
+<ol><li><strong>Back up first.</strong> Record what is installed and enabled before changing anything. Keep that record somewhere other than the TV.</li><li><strong>Switch off, never uninstall.</strong> The <code>pm disable-user</code> command stops an app but leaves it on the TV, so you can turn it back on. A deleted app is much harder to bring back.</li><li><strong>Use a never-touch list.</strong> Per the prompts described by <a href="https://saascity.io/blog/debloat-android-tv-claude-code">saascity</a> and tv-detox, that list includes HDMI and tuner input services, the source menu, remote and Bluetooth pairing, the keyboard and Google Play services.</li><li><strong>Go in small batches.</strong> Disable a few apps, restart, check that Home, HDMI, remote and casting still work, then continue.</li><li><strong>Mind the launcher order.</strong> Install the new home screen and confirm it starts before you disable the stock one. The It's FOSS guide flags this order as a common gotcha.</li><li><strong>Decide on voice, Chromecast and updates yourself.</strong> Sony notes that Google Assistant is unavailable in its Apps only mode, so these are real trade-offs (<a href="https://www.sony.com/electronics/support/articles/00225587">Sony</a>).</li><li><strong>Read each plan before it runs.</strong> Ask the agent to list what it will turn off and why, and say no to anything you do not understand.</li><li><strong>Check your model.</strong> A list built for a different brand is a guess. Look for reports from the same model before you start.</li></ol>
+<h2>What does "reversible" really mean?</h2>
+<p>It means the apps are still there and can be switched back on. It does not mean every problem is fixed with one tap. If a TV will not finish booting, you may not be able to reach the commands at all, which is why the Sony report ended with a factory reset. Reversible is a strong reason to disable instead of uninstall. It is not a replacement for going slowly.</p>
+<h2>Where does TidyTV fit?</h2>
+<p><a href="/">TidyTV</a> is a free, open-source Android phone app that applies those rails by default. A backup is saved before any change and cannot be skipped. It never uninstalls. It keeps the Play Store, Play Services, keyboards, TV inputs and remote pairing untouched whatever a list says. It turns apps off one at a time, stops if anything unexpected happens, and offers a <strong>Restore everything</strong> button. It is not the only option: <a href="https://tvslim.app/">TV Slim</a> also offers restore and risk levels per package, and ADB TV runs on the TV itself.</p>
+<p>An app cannot remove all risk, and TidyTV's lists still come from the same community work as the agent route. If you want to check whether your TV has a list before you start, the <a href="/tv/">per-model pages</a> are the place to look.</p>
+<h2>So should you do it?</h2>
+<p>If you go carefully, yes, with any of these routes. The people who got hurt were mostly the ones who let a tool disable many things at once without a way back. Take a backup, start small and keep the TV's original home screen until the new one has proved itself.</p></div>
+  <h2>More guides</h2>
+  <ul class="related"><li><a href="/guides/claude-code-google-tv/">Can Claude Code really clean up your Google TV?</a></li><li><a href="/guides/claude-vs-phone-app/">Claude Code vs a phone app: two ways to debloat a Google TV</a></li><li><a href="/guides/cleanyourtv-tv-detox/">Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds</a></li><li><a href="/guides/prompt-ai-tv-cleanup/">Hack my TV&quot; got refused: how to ask an AI for a TV cleanup</a></li><li><a href="/guides/remove-google-tv-home-ads/">How to remove ads from the Google TV home screen (what works and what doesn&#x27;t)</a></li><li><a href="/guides/safe-to-disable-android-tv-apps/">Which Android TV apps are safe to disable, and which you should never touch</a></li><li><a href="/guides/debloat-by-brand/">Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV</a></li><li><a href="/guides/fire-tv-samsung-lg/">What about Fire TV, Samsung and LG? Honest answers</a></li></ul>
+</article>
+<section class="card cta">
+  <div>
+    <h2>Tidy your TV from your phone</h2>
+    <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
+    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <p class="ask">A star on GitHub is how other people find TidyTV.</p>
+  </div>
+  <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">
+</section>
+</main>
+<footer class="wrap">
+  <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
+</footer>
+<script src="/assets/stars.js" defer></script>

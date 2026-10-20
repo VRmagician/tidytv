@@ -1,0 +1,36 @@
+{
+  "name": "Hitachi CDH-LE32SMART21",
+  "brand": "Hitachi",
+  "os": "Android TV 11",
+  "summary": "Turn off the Hitachi CDH-LE32SMART21's TCL telemetry, promo rows, background services and unused apps. A free phone app, with a backup first and one-tap undo.",
+  "intro": [
+    "The Hitachi CDH-LE32SMART21 is built by TCL and ships with Google and TCL telemetry, TCL promo and message boxes, a TCL Channel web-video portal and a data-saver VPN. It also has TCL's memory manager, which runs in the background, and several preloaded apps, including Play Movies, a Chromecast receiver and a USB media player.",
+    "The list was applied in batches on one real unit, with a screenshot after each batch, and tested for one day only. Netflix and YouTube played, Settings and Wi-Fi worked, the remote's Home, Input and Back buttons worked, and the firmware updater still opened. TidyTV turns these apps off from a phone on the same Wi-Fi, after a backup. Nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV and the HDMI, AV and antenna inputs, so the Input menu still works",
+    "The remote: Bluetooth pairing, remote-key services and the mic manager",
+    "The firmware updater, so System update still shows in Settings",
+    "Picture and sound settings, the keyboard and the setup flow",
+    "Quick Panel and the TCL Channel key tile, which stay on although the new home screen hides them"
+  ],
+  "notes": [
+    "TCL's memory manager keeps starting at boot even after its app is turned off. Turning it off only removes its screens and cleaner.",
+    "Storage on this TV is tight, so an app install can fail. On the test unit an install failed while the memory manager was running. Restart the TV and install right after, or remove apps you do not want.",
+    "Open Settings from the main menu. Going to the About page directly and then Software update can crash Settings."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Hitachi CDH-LE32SMART21?",
+      "a": "The list keeps TCL's mic manager on and does not turn off Google's voice app. The notes do not record a voice test on this TV, so try it after the change."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Not by default. The list turns off the Chromecast receiver, so switch it back on in TidyTV if you cast to this TV."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

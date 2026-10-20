@@ -1,0 +1,35 @@
+{
+  "name": "Hitachi 65QLEDSM20",
+  "brand": "Hitachi",
+  "os": "Android TV 11",
+  "summary": "Turns off Anoki content recognition, FAST channels and Google recommendation rows on the Hitachi 65QLEDSM20. Free phone app, backup and one-tap undo.",
+  "intro": [
+    "The Hitachi 65QLEDSM20 is built by MTC on the same platform as CHiQ, RCA and BenQ sets. It ships with Anoki content recognition, which reports what is on screen, and Anoki FAST channels, an ad-supported TV input. It also has recommendation rows on the home screen, a data saver service, an ambient screensaver, and several streaming apps marked as personal choice.",
+    "The set was checked on an Australian unit with screenshots and a reboot. After the change, free memory after a boot was about 590 MB, up from about 320 MB on the stock home. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup. Nothing is deleted, and Restore everything brings them back in one tap."
+  ],
+  "keep": [
+    "The remote's Input button and Bluetooth remote pairing, which run through a package that looks like retail demo mode.",
+    "The launcher widget service that the MediaTek TV service needs after a reboot.",
+    "Factory, picture settings and Bluetooth chip services, plus the MediaTek packages.",
+    "Live TV and the HDMI inputs, because the list does not name them.",
+    "Play Store, Play services, keyboards and TV inputs are always kept by TidyTV."
+  ],
+  "notes": [
+    "The Input key still opens the TV's input panel, and the Inputs menu switches between HDMI and Live TV.",
+    "After a reboot, the MediaTek TV service logs a missing Anoki component once or twice. It carries on, and the TV keeps working."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Not if you turn off Google Assistant. The list marks it as personal choice, and turning it off stops the mic button. Leave it on if you use voice."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Anoki content recognition and FAST channel apps, the recommendation rows on the stock home, and the partner app auto-install config. Each one can be switched back on in the app."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

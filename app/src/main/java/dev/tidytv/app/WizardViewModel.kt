@@ -22,6 +22,7 @@ import dev.tidytv.core.lists.Candidate
 import dev.tidytv.core.lists.DebloatList
 import dev.tidytv.core.lists.Group
 import dev.tidytv.core.lists.Grouping
+import dev.tidytv.core.lists.HomeApp
 import dev.tidytv.core.lists.Launchers
 import dev.tidytv.core.lists.ListCatalog
 import dev.tidytv.core.lists.ListEntry
@@ -29,6 +30,7 @@ import dev.tidytv.core.lists.ModelMatcher
 import dev.tidytv.core.lists.Protected
 import dev.tidytv.core.ops.ActionLog
 import dev.tidytv.core.ops.ActionRecord
+import dev.tidytv.core.ops.ApkFetcher
 import dev.tidytv.core.ops.DebloatOutcome
 import dev.tidytv.core.ops.Debloater
 import dev.tidytv.core.ops.Finisher
@@ -70,7 +72,7 @@ data class ReviewState(
     val exact: Boolean = false,
     val candidates: List<Candidate> = emptyList(),
     val selected: Set<String> = emptySet(),
-    /** Installed apps the list mentions that tidytv will always leave on. */
+    /** Installed apps the list mentions that TidyTV will always leave on. */
     val kept: List<String> = emptyList(),
     /** No list matches this TV: backup only, nothing to turn off. */
     val noList: Boolean = false,
@@ -92,10 +94,16 @@ data class DockApp(val pkg: String, val label: String)
 enum class HomeAction { REPLACE_COPY, TURN_OFF_SETUP_APP, RETRY }
 
 sealed interface HomeState {
-    data class Offer(val options: List<DockApp> = emptyList(), val chosen: List<String> = emptyList()) : HomeState
+    data class Offer(
+        val options: List<DockApp> = emptyList(),
+        val chosen: List<String> = emptyList(),
+        val app: HomeApp = HomeApp.SIMPLE,
+        /** Home screens this TV can run (the styled one needs Android 8). */
+        val available: List<HomeApp> = listOf(HomeApp.SIMPLE),
+    ) : HomeState
     data object Running : HomeState
     data class Problem(val message: String, val worried: Boolean, val action: HomeAction? = null, val rescue: List<String> = emptyList()) : HomeState
-    data object Installed : HomeState
+    data class Installed(val app: HomeApp = HomeApp.SIMPLE) : HomeState
 }
 
 enum class DebugCheck { UNKNOWN, CHECKING, STILL_ON, OFF }
@@ -126,6 +134,8 @@ data class UiState(
     val problem: String? = null,
     /** Friendly names from the list notes, so the activity list reads like the review screen. */
     val labels: Map<String, String> = emptyMap(),
+    /** The real app icons read from the TV, as PNG files on the phone, by package. */
+    val icons: Map<String, String> = emptyMap(),
 )
 
 /**
@@ -138,7 +148,9 @@ class WizardViewModel(
     private val real: () -> Backend,
     private val demo: DemoBackend?,
     private val lists: () -> ListCatalog,
-    private val launcherApk: () -> ByteArray?,
+    private val launcherApk: (HomeApp) -> ByteArray?,
+    /** Turns an APK fetched from the TV into a PNG of its icon; returns the file path. Android only. */
+    private val iconFromApk: ((pkg: String, apk: ByteArray) -> String?)? = null,
 ) : ViewModel() {
     private val _ui = MutableStateFlow(UiState())
     val ui: StateFlow<UiState> = _ui.asStateFlow()
@@ -261,7 +273,7 @@ class WizardViewModel(
         } catch (e: Exception) {
             if (e is kotlinx.coroutines.CancellationException) throw e
             trace.line("snapshot failed: $e")
-            _ui.update { it.copy(problem = "Connected, but the TV didn't answer the way tidytv expected. Tap Share logs so we can fix it.") }
+            _ui.update { it.copy(problem = "Connected, but the TV didn't answer the way TidyTV expected. Tap Share logs so we can fix it.") }
             return
         }
         snapshot = snap
@@ -354,6 +366,7 @@ class WizardViewModel(
                 .filter { it.pkg in snap.installed }
                 .filter { Protected.isProtected(it.pkg, snap.liveProtected, match.list.keep) || Launchers.isHomeApp(it.pkg) }
                 .map { AppLabels.label(it.pkg, it.note) }.distinct().sorted().toList()
+            fetchIcons(candidates.map { c -> c.pkg })
             _ui.update {
                 it.copy(labels = it.labels + candidates.associate { c -> c.pkg to c.label }, review = ReviewState(
                     backup = BackupStatus.Saved, listTitle = match.list.title, exact = match.exact,
@@ -364,6 +377,30 @@ class WizardViewModel(
     }
 
     fun retryBackup() { snapshot?.let { prepareReview(it) } }
+
+    private var iconJob: Job? = null
+
+    /**
+     * Reads each app's real icon from its APK on the TV, small APKs first-come, while the user reviews.
+     * Runs between other TV work (one pull at a time under [tvLock]) and is simply skipped where it fails.
+     */
+    private fun fetchIcons(pkgs: List<String>) {
+        val toIcon = iconFromApk ?: return
+        iconJob?.cancel()
+        iconJob = viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+            for (pkg in pkgs.distinct()) {
+                if (pkg in _ui.value.icons) continue
+                store.cachedIcon(pkg)?.let { path -> _ui.update { it.copy(icons = it.icons + (pkg to path)) }; continue }
+                val s = shell ?: return@launch
+                val apk = tvLock.withLock { ApkFetcher(s).fetch(pkg) }
+                if (apk == null) { trace.line("icon $pkg: no small APK on the TV"); continue }
+                val path = runCatching { toIcon(pkg, apk) }.onFailure { trace.line("icon $pkg: ${it.javaClass.simpleName}") }.getOrNull()
+                if (path == null) { trace.line("icon $pkg: no icon in the APK (${apk.size} bytes)"); continue }
+                _ui.update { it.copy(icons = it.icons + (pkg to path)) }
+            }
+            trace.line("icons: ${_ui.value.icons.size} read from the TV")
+        }
+    }
 
     fun toggleApp(pkg: String) = _ui.update {
         val sel = it.review.selected
@@ -380,6 +417,7 @@ class WizardViewModel(
     fun startTidy() {
         val r = _ui.value.review
         if (r.backup != BackupStatus.Saved || r.selected.isEmpty()) return
+        iconJob?.cancel() // the clean-up comes first; missing icons keep their fallback
         val order = r.candidates.filter { it.pkg in r.selected }
         _ui.update { it.copy(tidy = TidyState(order = order)) }
         wizard(WizardEvent.StartTidy)
@@ -393,7 +431,7 @@ class WizardViewModel(
         while (true) {
             val s = shell ?: if (reconnect()) shell!! else null
             if (s == null) {
-                _ui.update { it.copy(tidy = it.tidy.copy(reconnecting = false, stopReason = "tidytv lost the connection to your TV and couldn't get it back. Everything done so far is saved, and Restore puts it back.")) }
+                _ui.update { it.copy(tidy = it.tidy.copy(reconnecting = false, stopReason = "TidyTV lost the connection to your TV and couldn't get it back. Everything done so far is saved, and Restore puts it back.")) }
                 wizard(WizardEvent.TidyEnded(stopped = true, launcherPossible = false))
                 return
             }
@@ -435,7 +473,7 @@ class WizardViewModel(
 
     private fun launcherPossible(): Boolean {
         val snap = snapshot ?: return false
-        if (launcherApk() == null) return false
+        if (launcherApk(HomeApp.SIMPLE) == null) return false
         val homePkg = snap.home?.substringBefore('/')
         return homePkg in Launchers.KNOWN_STOCK || homePkg == "android"
     }
@@ -449,7 +487,14 @@ class WizardViewModel(
             .filter { it !in _ui.value.tidy.results.filterValues { r -> r is PkgResult.Disabled }.keys }
             .map { DockApp(it, AppLabels.label(it)) }
             .sortedBy { it.label.lowercase() }
-        _ui.update { it.copy(home = HomeState.Offer(options, options.take(8).map { o -> o.pkg })) }
+        val available = HomeApp.entries.filter { a -> snap.info.sdk >= a.minSdk && launcherApk(a) != null }
+        _ui.update { it.copy(home = HomeState.Offer(options, options.take(8).map { o -> o.pkg }, HomeApp.SIMPLE, available)) }
+        fetchIcons(options.map { it.pkg })
+    }
+
+    fun chooseHome(app: HomeApp) = _ui.update {
+        val h = it.home as? HomeState.Offer ?: return@update it
+        if (app in h.available) it.copy(home = h.copy(app = app)) else it
     }
 
     fun toggleDock(pkg: String) = _ui.update {
@@ -460,12 +505,15 @@ class WizardViewModel(
     fun skipHome() = wizard(WizardEvent.HomeScreenDone)
 
     fun installHome() {
-        val dock = (_ui.value.home as? HomeState.Offer)?.chosen ?: lastDock
-        lastDock = dock
+        val offer = _ui.value.home as? HomeState.Offer
+        lastDock = offer?.chosen ?: lastDock
+        lastApp = offer?.app ?: lastApp
+        val dock = lastDock
         runHome { h, apk, sdk -> h.run(apk, dock, sdk) }
     }
 
     private var lastDock: List<String> = emptyList()
+    private var lastApp: HomeApp = HomeApp.SIMPLE
 
     fun homeAction(action: HomeAction, onEthernet: Boolean = false) {
         when (action) {
@@ -490,13 +538,14 @@ class WizardViewModel(
             WraithCheck.OwnsWifi -> "Your TV's Wi-Fi was set up by the Google TV setup app, so turning it off would drop the TV off Wi-Fi. Your old home screen stays."
             WraithCheck.SetupIncomplete -> "Your TV hasn't finished its first setup, so the setup app has to stay on. Your old home screen stays."
             WraithCheck.Persistent -> "The setup app can't be turned off on this TV. Your old home screen stays."
-            is WraithCheck.Unknown -> "tidytv couldn't check the setup app safely (${c.why}), so it left it on. Your old home screen stays."
+            is WraithCheck.Unknown -> "TidyTV couldn't check the setup app safely (${c.why}), so it left it on. Your old home screen stays."
             WraithCheck.Ok -> ""
         },
     )
 
     private fun runHome(block: suspend (LauncherHandover, ByteArray, Int) -> HandoverOutcome) {
-        val apk = launcherApk() ?: return
+        val app = lastApp
+        val apk = launcherApk(app) ?: return
         val lg = log ?: return
         val b = backend ?: return
         val sdk = _ui.value.tv?.sdk ?: 0
@@ -508,7 +557,7 @@ class WizardViewModel(
                 while (true) {
                     val s = shell ?: if (reconnect()) shell!! else null
                     if (s == null) { result = HandoverOutcome.Disconnected; break }
-                    val h = LauncherHandover(s, lg, sleep = { delay(b.saveWaitMs) })
+                    val h = LauncherHandover(s, lg, sleep = { delay(b.saveWaitMs) }, app = app)
                     result = tvLock.withLock { block(h, apk, sdk) }
                     if (result != HandoverOutcome.Disconnected) break
                     shell = null
@@ -521,27 +570,27 @@ class WizardViewModel(
                 return@launch
             }
             trace.line("home screen: $outcome")
-            _ui.update { it.copy(home = homeState(outcome)) }
+            _ui.update { it.copy(home = homeState(outcome, app)) }
             wizard(WizardEvent.Busy(false))
         }
     }
 
-    private fun homeState(o: HandoverOutcome): HomeState = when (o) {
-        is HandoverOutcome.Done -> HomeState.Installed
-        is HandoverOutcome.NeedsChoice -> HomeState.Problem("Your TV has more than one home screen app, so tidytv left Home alone.", worried = false)
-        is HandoverOutcome.UnknownHome -> HomeState.Problem("Your TV uses a home screen tidytv doesn't know, so it left Home alone.", worried = false)
+    private fun homeState(o: HandoverOutcome, app: HomeApp): HomeState = when (o) {
+        is HandoverOutcome.Done -> HomeState.Installed(app)
+        is HandoverOutcome.NeedsChoice -> HomeState.Problem("Your TV has more than one home screen app, so TidyTV left Home alone.", worried = false)
+        is HandoverOutcome.UnknownHome -> HomeState.Problem("Your TV uses a home screen TidyTV doesn't know, so it left Home alone.", worried = false)
         HandoverOutcome.SignatureConflict -> HomeState.Problem(
-            "Another copy of this home screen is already on your TV. Replace it with tidytv's?", worried = false, action = HomeAction.REPLACE_COPY,
+            "Another copy of this home screen is already on your TV. Replace it with TidyTV's?", worried = false, action = HomeAction.REPLACE_COPY,
         )
         is HandoverOutcome.InstallBlocked -> HomeState.Problem("This TV doesn't allow extra home screens. The clean-up still worked.", worried = false)
         is HandoverOutcome.InstallFailed -> HomeState.Problem("The home screen didn't install, so nothing about Home changed.", worried = false, action = HomeAction.RETRY)
-        is HandoverOutcome.StartFailed -> HomeState.Problem("The new home screen didn't open, so tidytv left your old one on.", worried = false, action = HomeAction.RETRY)
+        is HandoverOutcome.StartFailed -> HomeState.Problem("The new home screen didn't open, so TidyTV left your old one on.", worried = false, action = HomeAction.RETRY)
         is HandoverOutcome.SetupWraithTookHome -> HomeState.Problem(
-            if (o.rolledBack) "Google TV's setup app grabbed Home, so tidytv put your old home screen back. It can turn the setup app off and try again."
+            if (o.rolledBack) "Google TV's setup app grabbed Home, so TidyTV put your old home screen back. It can turn the setup app off and try again."
             else "Google TV's setup app grabbed Home and putting your old home screen back didn't finish. Tap Restore everything.",
             worried = !o.rolledBack, action = if (o.rolledBack) HomeAction.TURN_OFF_SETUP_APP else null,
         )
-        is HandoverOutcome.RolledBack -> HomeState.Problem("Home didn't switch over, so tidytv put your old home screen back.", worried = false, action = HomeAction.RETRY)
+        is HandoverOutcome.RolledBack -> HomeState.Problem("Home didn't switch over, so TidyTV put your old home screen back.", worried = false, action = HomeAction.RETRY)
         is HandoverOutcome.RollbackFailed -> HomeState.Problem(
             "Home didn't switch over and putting the old one back didn't stick. Your TV still works; tap Restore everything, or share logs with us.",
             worried = true, rescue = o.rescue,
@@ -594,11 +643,20 @@ class WizardViewModel(
             }
             trace.line("restore: $outcome")
             val ui = when (outcome) {
-                is RestoreOutcome.Done -> RestoreUi.Finished(
-                    "Everything is back the way it was: ${outcome.enabled.size} apps on" + if (outcome.homeRestored) ", old home screen back." else ".", ok = true,
-                )
+                is RestoreOutcome.Done -> {
+                    // The old launcher coming back is "old home screen back", not one more app.
+                    val apps = outcome.enabled.count { !dev.tidytv.core.lists.Launchers.isHomeApp(it) }
+                    val home = outcome.homeRestored
+                    RestoreUi.Finished(
+                        when {
+                            apps == 0 -> "Nothing to put back: every app is already on" + if (home) " and your old home screen is set." else "."
+                            else -> "Everything is back the way it was: $apps ${if (apps == 1) "app" else "apps"} on" + if (home) ", old home screen back." else "."
+                        },
+                        ok = true,
+                    )
+                }
                 is RestoreOutcome.Partial -> RestoreUi.Finished(
-                    "${outcome.stillOff.size} apps wouldn't turn back on, so tidytv kept your current home screen. Tap Restore everything again.", ok = false,
+                    "${outcome.stillOff.size} apps wouldn't turn back on, so TidyTV kept your current home screen. Tap Restore everything again.", ok = false,
                 )
                 else -> RestoreUi.Finished("The TV stopped answering. Check it's on and on the same Wi-Fi, then tap Restore everything again.", ok = false)
             }
@@ -613,7 +671,7 @@ class WizardViewModel(
     fun exportLogs(dir: File, appVersion: String): File {
         val tv = _ui.value.tv
         val header = buildString {
-            appendLine("tidytv $appVersion on Android ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})")
+            appendLine("TidyTV $appVersion on Android ${android.os.Build.VERSION.RELEASE} (SDK ${android.os.Build.VERSION.SDK_INT})")
             if (tv != null) appendLine("TV: ${tv.model}, Android ${tv.release} (SDK ${tv.sdk}), list: ${list?.id ?: "none"}")
             appendLine("step: ${_ui.value.wizard.step}, connect: ${_ui.value.connect::class.simpleName}")
         }

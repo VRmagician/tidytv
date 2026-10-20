@@ -1,0 +1,35 @@
+{
+  "name": "Sony BRAVIA KD-65X80J",
+  "brand": "Sony",
+  "os": "Google TV 10",
+  "summary": "Turns off Samba TV, Sony device agents, home promos, hotel mode and BRAVIA Core on the Sony BRAVIA KD-65X80J. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA KD-65X80J (2021, India) ships with Samba TV viewing tracking and Sony and Qterics device agents that report back. It also has promo rows on the Google TV home, BRAVIA Core, a retail demo and help apps, and a hotel mode service with Node.js runtimes that a home set does not need. Camera and notification apps are on the list too, though this model has no camera support.",
+    "The list was applied in batches on one evening, with a reboot and checks after each batch: Home, Settings, the inputs, Media Player, and no crashes. It has not been used for weeks yet. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup. Nothing is deleted, and Restore everything brings them back in one tap."
+  ],
+  "keep": [
+    "Live TV and HDMI: the Sony TV app (com.sony.dtv.tvx) and its input services stay on, because they play every HDMI input.",
+    "HDMI control, the remote and recordings: HDMI-CEC (braviasync), the remote and IR blaster, and the recording, reminder and timer services stay on.",
+    "Network standby and power: the home network service and Sony IP control stay on.",
+    "Google Assistant, Chromecast, the phone remote, Prime Video, Sony Media Player and Google Home control are kept here by choice."
+  ],
+  "notes": [
+    "The TV has only 4 GB for apps. A few streaming apps filled it and an install failed. Clearing app caches freed about 450 MB on the test set.",
+    "A key remapper, Button Mapper, sent Home to another launcher. If Home does not open the new home screen, turn its accessibility service off.",
+    "The setup wizard is turned off on this list. Turn it back on before a factory reset."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast stays on, but AirPlay and DLNA are turned off on this list, so cast with Chromecast."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Sony Select promo tile, the Sony tab and the launcher customizer, which are the home screen promos on this list. Samba TV and the device agents are off too."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on, including the setup wizard, and puts the old home screen back in one tap."
+    }
+  ]
+}

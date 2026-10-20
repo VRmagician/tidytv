@@ -1,0 +1,34 @@
+{
+  "name": "OnePlus TV D00",
+  "brand": "OnePlus",
+  "os": "Google TV 14",
+  "summary": "Turn off OnePlus and HeyTap extras, the BrowseHere browser and Google recommendation rows on the OnePlus TV D00. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The OnePlus TV D00 ships with OnePlus and HeyTap extras: phone link, a smart home panel, a Bluetooth speaker mode, a file browser and a content launcher page. It also has the BrowseHere web browser, Google's feedback reporter, and the stock Google TV home with its recommendation service.",
+    "The list keeps Google Assistant, Chromecast and the streaming apps on, along with the factory test apps and the remote-update service. A setting in developer options can make every app restart when you leave it, so check it is off. TidyTV turns the extras off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled, and one tap restores them."
+  ],
+  "keep": [
+    "Google Assistant, for voice control",
+    "Chromecast built-in",
+    "The streaming apps, which this list does not touch",
+    "The factory test apps and the remote-update service"
+  ],
+  "notes": [
+    "Developer options can have a setting called Don't keep activities. When it is on, every app restarts when you leave it, so check it is off.",
+    "If no other home screen is set, turning off the stock home makes Home open Settings. Set a new home screen before you turn off the stock one."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my OnePlus TV D00?",
+      "a": "Yes. Google Assistant is kept on this list, so the voice button should still work."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept on this list, so casting should still work."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

@@ -1,0 +1,23 @@
+{
+  "name": "Stellamore T950S projector",
+  "brand": "Stellamore",
+  "os": "Android 13",
+  "summary": "Turn off the Zeasn App Store, which carries Google ads, and factory apps on the Stellamore T950S. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This projector box ships with a Zeasn App Store tile and a device portal, and both carry Google ad code. It also has Stellamore factory-test and setup-guide apps, plus phone-style Google extras that a projector does not need, such as contacts and calendar sync, print services, audio effects and on-device ad personalisation.",
+    "The list was tested on one unit on 19 October 2026. The keystone service that straightens the projected picture stays on, and so does the voice and focus pair. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "The keystone service that corrects the shape of the picture. Turning it off breaks the projected image.",
+    "The voice and focus pair (HYSD), which stays on."
+  ],
+  "notes": [
+    "Many units arrive with a third-party home screen already set and the stock Zeasn home screen already off. The list works with that setup.",
+    "The stock Zeasn home screen also carries Google ad code. It is marked optional in the list, so you choose whether to turn it off."
+  ],
+  "faq": [
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the Zeasn App Store, which carries Google ad code. The stock Zeasn home screen carries the same code, and it is optional in the list."},
+    {"q": "Will the projected picture still be correct?", "a": "Yes. The keystone service that straightens the picture is kept on, because turning it off would break the image."},
+    {"q": "Can I get the old home screen back?", "a": "Yes. Restore everything turns apps back on, including the stock Zeasn home screen, in one tap."}
+  ]
+}

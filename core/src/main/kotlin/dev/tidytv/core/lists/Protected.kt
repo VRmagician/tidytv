@@ -1,7 +1,7 @@
 package dev.tidytv.core.lists
 
 /**
- * Packages tidytv never disables, whatever a list says. Upstream PROMPT.md: never disable the TV and
+ * Packages TidyTV never disables, whatever a list says. Upstream PROMPT.md: never disable the TV and
  * input services (HDMI, tuner), the input menu, remote and Bluetooth pairing, the keyboard, Play
  * Store or Play Services. Over-matching is fine: a protected package is simply left on.
  *
@@ -41,9 +41,7 @@ object Protected {
         "com.android.provision",
         "com.android.keychain",
         "com.android.certinstaller",
-        // tidytv's own home screen, once installed.
-        Launchers.TIDY_HOME_PACKAGE,
-    )
+    ) + HomeApp.entries.map { it.pkg } // TidyTV's own home screens, once installed.
 
     /** Substrings that mark TV-input, tuner, keyboard and remote-pairing packages. */
     private val PATTERNS = listOf(
@@ -68,13 +66,36 @@ object Protected {
         reason(pkg, live, listKeep) != null
 }
 
+/** A home screen TidyTV can install. Both are MIT and bundled in the app's assets. */
+enum class HomeApp(
+    val pkg: String,
+    val activity: String,
+    val minSdk: Int,
+    /** Bundled file under assets/launcher/. */
+    val asset: String,
+    /** How the chosen dock apps reach it: start-intent extras, or a config.json it reads at start. */
+    val dockByConfig: Boolean,
+) {
+    /** tv-detox (Ansub): one calm screen, 37 KB, apps editable on the TV with the remote. The default. */
+    SIMPLE("com.ansub.tvhome", ".MainActivity", 21, "tvhome.apk", dockByConfig = false),
+    /** cleanyourtv (Gathin): Apple TV style dock with a glass highlight and an inputs menu. Android 8+. */
+    STYLED("com.gathin.tvhome", ".MainActivity", 26, "cleanyourtv-home.apk", dockByConfig = true);
+
+    val component: String get() = "$pkg/$activity"
+
+    companion object {
+        fun of(pkg: String?): HomeApp? = entries.firstOrNull { it.pkg == pkg }
+    }
+}
+
 object Launchers {
-    const val TIDY_HOME_PACKAGE = "com.ansub.tvhome"
-    const val TIDY_HOME_COMPONENT = "com.ansub.tvhome/.MainActivity"
+    /** The default home screen, kept as constants for older call sites and tests. */
+    val TIDY_HOME_PACKAGE = HomeApp.SIMPLE.pkg
+    val TIDY_HOME_COMPONENT = HomeApp.SIMPLE.component
     const val SETUPWRAITH = "com.google.android.tungsten.setupwraith"
     const val LAUNCHERX = "com.google.android.apps.tv.launcherx"
 
-    /** Stock launchers tidytv may turn off, and only after its own home screen owns Home. */
+    /** Stock launchers TidyTV may turn off, and only after its own home screen owns Home. */
     val KNOWN_STOCK: Set<String> = setOf(
         "com.google.android.tvlauncher",
         LAUNCHERX,
@@ -83,6 +104,6 @@ object Launchers {
     )
 
     /** Never part of the clean-up: Home owners and the Google TV setup app that can take Home over. */
-    fun isHomeApp(pkg: String) = pkg in KNOWN_STOCK || pkg == SETUPWRAITH || pkg == TIDY_HOME_PACKAGE ||
+    fun isHomeApp(pkg: String) = pkg in KNOWN_STOCK || pkg == SETUPWRAITH || HomeApp.of(pkg) != null ||
         pkg == "com.amazon.tv.launcher"
 }

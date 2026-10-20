@@ -1,0 +1,34 @@
+{
+  "name": "Wanbo X5 Pro projector",
+  "brand": "Wanbo",
+  "os": "Google TV 14",
+  "summary": "Turn off Google feedback reporting, ad services and factory test apps on the Wanbo X5 Pro with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Wanbo X5 Pro is a projector with a Google TV stick built in. It ships with Google's feedback reporter, a Skyworth remote-management agent, Privacy Sandbox ad services and two factory test apps. There is also an Amlogic voice subtitle overlay that a projector stick does not need.",
+    "The list was applied on a real projector, and then a replacement home screen was installed. Home, D-pad navigation, and launching Netflix and YouTube from the dock were checked with screenshots. It has not been used for days yet. TidyTV turns these off from your phone over Wi-Fi, with a backup first and nothing uninstalled."
+  ],
+  "keep": [
+    "The projector's own accessibility service, plus remote pairing and hot keys.",
+    "Remote firmware and backlight updates.",
+    "Amlogic settings and connected devices, and the Dolby audio service.",
+    "The keyboard, Play Store and Play Services.",
+    "Chromecast, firmware updates and the ambient screensaver. These are kept by choice, so you can switch any of them off in the app."
+  ],
+  "notes": [
+    "USB debugging opens port 5555 without pairing. After a restart it closes again until debugging is switched back on."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Wanbo X5 Pro?",
+      "a": "Only if you keep Google Assistant on. It is in the off by choice group, so leave its switch on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept by choice, so casting keeps working unless you switch it off in the app."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

@@ -1,0 +1,168 @@
+{
+ "id": "tcl-55s470g",
+ "title": "TCL 55S470G (S4 class Google TV, US; device G10, product G10_4K_US_NF, Realtek), 1.8 GB RAM",
+ "header": "TCL 55S470G (S4 class Google TV, US; device G10, product G10_4K_US_NF, Realtek), 1.8 GB RAM\nAndroid 12 (Google TV), firmware STT2.230203.001, incremental AS50 -- same build as tcl-g10-google-tv\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-55s470g/debloat.txt\nUndo:    TV_HOST=<tv ip> examples/tcl-55s470g/restore.sh   (or tools/restore.sh <this file> com.google.android.apps.tv.launcherx)\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV / HDMI app: com.tcl.tv.\nKeep: com.tcl.tv, com.tcl.tvinput, com.tcl.dashboard, com.tcl.suspension, com.tcl.autopair,\ncom.tcl.systemserver, com.tcl.providers.config, com.tcl.initsetup, com.tcl.useragreement,\ncom.tcl.factory.view, com.tcl.globalkeyoverlay and all com.realtek.*.\n\nUnlike the G10 units in tcl-g10-google-tv, nothing shipped disabled on this one: Samba TV,\nlogkit and ttvs were all enabled. com.tcl.ttvs is KEPT here on purpose: besides Samba ACR and TCL\nBI analytics it hosts the firmware updater (versionUpdateApp SystemUpdateService) and T-Cast.\nDisable it only if you don't want TV firmware updates. Opt out in Settings > Privacy > Samba\nInteractive TV, and untick every entry under Manage providers there too (unticking the main switch\nleaves those ticked).\n\nKept by choice: Netflix, YouTube, Prime Video, Disney+, Apple TV, Paramount+, Tubi, TCLtv+,\nTCL Live (com.tcl.channelplus), AirPlay, firmware updates.\nNo separate Miracast package on this firmware.",
+ "sections": [
+  {
+   "title": "Batch 1: tracking and analytics",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": "Samba TV ACR front end (the frame service lives in ttvs, see above); re-enabled at every boot while ttvs is enabled, so also opt out in Settings"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log capture and upload"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.interactive",
+     "note": "TCL TIAS background service"
+    },
+    {
+     "pkg": "com.tcl.smartlink.core",
+     "note": "bundles a silent app installer"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL push messages and promos"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "silently installs partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3: retail demo, hotel mode, preloads",
+   "apps": [
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "re-enable for the console game-mode overlay"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "re-enable to play media from USB drives"
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "re-enable to update a TCL soundbar"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 4",
+   "apps": [
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard cleaner / app manager"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode screensaver (shows promos); screensaver moved to com.android.dreams.basic"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant voice search"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    }
+   ],
+   "optional": [],
+   "note": "background services (off by choice: voice, Chromecast)"
+  },
+  {
+   "title": "Batch 5: preloaded apps (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV app (purchases/rentals)"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Google TV phone-app remote (the physical remote is unaffected)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Needed for the custom launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disable only AFTER launcher/ is installed (see README Troubleshooting)."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 29
+}

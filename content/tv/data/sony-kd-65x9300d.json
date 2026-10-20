@@ -1,0 +1,162 @@
+{
+ "id": "sony-kd-65x9300d",
+ "title": "Sony BRAVIA KD-65X9300D (2016, SVP-DTV15 \"BRAVIA 4K 2015\" platform, MediaTek), Asia-Pacific firmware",
+ "header": "Sony BRAVIA KD-65X9300D (2016, SVP-DTV15 \"BRAVIA 4K 2015\" platform, MediaTek), Asia-Pacific firmware\nAndroid TV 8.0, build OPR2.170623.027.S16 (6.827), 32-bit ARM (armeabi-v7a), 1.5 GB RAM\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-kd-65x9300d/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-kd-65x9300d/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (restore.sh's default). The only other HOME handler is\ncom.android.tv.settings/.FallbackHome. setupwraith has no HOME activity on this firmware, and the\nsaved Wi-Fi belongs to android.uid.system, so it is left alone.\nLive TV / input app: com.sony.dtv.tvx. Keep it: it also plays every HDMI input.\nKeep: com.sony.dtv.tvinput.*, tvplayer*, braviasync* (HDMI-CEC), remotepairing, remotecontrolsettings,\nuinputservice, imeproxy, ime.chww (the active keyboard), settingsprovider, netflixmanager (Netflix\nbutton), duid.generator, enclave.service, systemupdate, timers, all com.mediatek.* and mtktvapi.agent.\nLeft alone on purpose: the rest of com.sony.dtv.b2b.* (hotel/pro mode plumbing), webapi.core and\nremoteaccess (Sony IP control), privacypolicy, com.google.android.leanbacklauncher (no HOME activity).\nAlready disabled at the factory/by owner: com.sony.dtv.kenhchonloc, com.crackle.androidtv,\ncom.sony.dtv.notifybravia, com.sony.dtv.tvcamera. Not in this list so restore.sh leaves them off.\nNo Samba TV (tv.samba.ssm) on this firmware.\n\nNotes from this firmware:\n- build-and-install.sh hands Home over cleanly: com.google.android.tvlauncher is disabled last and\nHome resolves to com.gathin.tvhome straight away.\n- Inputs works: com.sony.dtv.tvx handles the passthrough URIs; HDMI 1-4 (with CEC device names),\nVideo 1/2 and Live TV listed. Dock: Netflix, YouTube, Prime Video, com.sony.dtv.tvx; live_tv_package\ncom.sony.dtv.tvx; nothing hidden (the grid is Play Store, Timers, Programme guide, Screen mirroring).\n- Building on macOS with only a newer JDK: Gradle 8.9 needs JDK 17 (brew install openjdk@17) and the\nandroid-34 platform (sdkmanager \"platforms;android-34\").\n- 1.5 GB RAM. Survives a reboot straight into the new launcher; no crashes logged after boot.",
+ "sections": [
+  {
+   "title": "Sony and Google content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app store/promo tile"
+    },
+    {
+     "pkg": "com.sony.dtv.discovery",
+     "note": "Sony Discover content bar"
+    },
+    {
+     "pkg": "com.sony.dtv.bivlinfo",
+     "note": "BIVL content service list (feeds Discover)"
+    },
+    {
+     "pkg": "com.sony.dtv.tvlaunchercustomizer",
+     "note": "Sony tweaks to the stock home rows"
+    },
+    {
+     "pkg": "com.sony.dtv.indiametarecommendation",
+     "note": "content recommendation feed (India per its name)"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry, remote support and feedback",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony device agent / remote support"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "SDDP model/MAC/IP broadcast for Control4-style home"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and tutorials",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.imanual",
+     "note": "i-Manual"
+    },
+    {
+     "pkg": "com.sony.dtv.touchpad.tutorial",
+     "note": "touchpad remote tutorial"
+    },
+    {
+     "pkg": "com.google.android.tvtutorials",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.music",
+     "note": "Google Play Music, shut down in 2020"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver, replaced by the launcher's Clock"
+    },
+    {
+     "pkg": "com.amazon.aiv.us",
+     "note": "US Prime Video stub; the real app is amazonvideo.livingroom"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Optional features, off by owner's choice",
+   "apps": [
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": "DLNA renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.dlna.dtcpplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "re-enable to play music from USB"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.album",
+     "note": "re-enable to view photos from USB"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.video",
+     "note": "re-enable to play videos from USB"
+    },
+    {
+     "pkg": "com.vewd.core.integration.dia",
+     "note": "Vewd (Opera TV) web app store"
+    },
+    {
+     "pkg": "com.google.android.inputmethod.japanese",
+     "note": "Japanese keyboard"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 31
+}

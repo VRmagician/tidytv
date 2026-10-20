@@ -1,0 +1,35 @@
+{
+  "name": "TCL Smart TV Pro",
+  "brand": "TCL",
+  "os": "Google TV 11",
+  "summary": "TCL Smart TV Pro ships with TCL channels, analytics and retail stickers. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This US TCL Smart TV Pro ships with TCL TV+ and a free channel app, one of which bundles Google's ad software. It also has TCL recommendation rows and promo messages on the home screen, a TCL analytics service, and a cleaner that tracks device use. The list covers retail store stickers, a photo screensaver, and several Google and TCL apps this owner does not use, including YouTube Music and Play Movies.",
+    "This list was contributed by a user who owns this model, and the notes flag one problem with the home screen. TidyTV turns the list off from your phone over Wi-Fi, saves a backup first and never deletes anything. Because of the home screen problem, the list does not confirm that a replacement home screen works on this model."
+  ],
+  "keep": [
+    "Live TV and HDMI, through the TCL TV app and its input service",
+    "TCL's remote pairing and remote keys",
+    "TCL settings and the TV's system plumbing"
+  ],
+  "notes": [
+    "The setup wizard claims the Home button. On this model, once the stock home screen is switched off, Home can land on a black screen that keeps looping. On one unit the wizard came back after a restart, so a replacement home screen is not confirmed here.",
+    "The remote's Input key stops working once the Quick Panel is switched off. No other way to open the source picker is confirmed for this model.",
+    "The list switches off the Ambient screensaver. Choose a clock or Colors screensaver before you turn it off.",
+    "Re-enable the USB media player if you play media from a USB drive."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL Smart TV Pro?",
+      "a": "Not with the default list. It switches off Google Assistant and voice search, so keep them on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Only if you keep Chromecast built-in and AirPlay switched on in the app. The list switches both off by default."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap. On this model the replacement home screen is not confirmed, so check the home screen after the change."
+    }
+  ]
+}

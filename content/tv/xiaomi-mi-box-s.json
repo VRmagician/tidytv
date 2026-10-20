@@ -1,0 +1,36 @@
+{
+  "name": "Xiaomi Mi Box S",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Xiaomi Mi Box S ships with PatchWall, ad tracking and Mi Channel rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Mi Box S ships with two tracking services. Alphonso reads app usage for ad tracking, and Mi analytics reads logs and app usage. It also has PatchWall, Mi Channel rows and Xiaomi web promos on the home screen, plus partner app auto-installs. The list also turns off an ambient photo screensaver, the stock home screen, and preloaded Prime Video, YouTube Music and Play Movies.",
+    "This box was tested on its own firmware and survived a restart with nothing switched back on. The home screen stayed in place, and free memory after a restart rose from about 770 MB to 1.15 GB. The remote's Netflix key still opens Netflix. TidyTV turns the list off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The remote's Netflix key, which still opens Netflix",
+    "The remote's shortcut buttons and remote pairing, through Xiaomi's setup partner service",
+    "The Xiaomi TV server, which runs in the background",
+    "Bluetooth and the Amlogic system services",
+    "The setup wizard's remote pairing steps"
+  ],
+  "notes": [
+    "USB debugging cuts power to the USB port, so a USB speaker or drive goes quiet while it is on. Turn debugging off when you are done.",
+    "The remote's second button used to open Live Channels. Once Live Channels is switched off, that button does nothing.",
+    "Set the screensaver to the clock before you turn off the Google photo screensaver, or the TV is left with no screensaver."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Xiaomi Mi Box S?",
+      "a": "No, not with the default list. Google Assistant and the hotword service are switched off, so the mic button stops working. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Not by default. Chromecast built-in, Mi Cast and the phone remote app are on the list. Switch them back on in the app if you cast from a phone."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

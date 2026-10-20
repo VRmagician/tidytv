@@ -1,0 +1,35 @@
+{
+  "name": "Xiaomi TV A Pro 75 (2026)",
+  "brand": "Xiaomi",
+  "os": "Google TV 14",
+  "summary": "Turns off PatchWall, its Mi Home tab, Mi TV+ channels, Xiaomi analytics and the TV manager on the Xiaomi TV A Pro 75. Free phone app, backup and one-tap undo.",
+  "intro": [
+    "The Xiaomi TV A Pro 75 (2026) runs Google TV 14 on a MediaTek board. It ships with PatchWall, a Mi Home tab added to the Google TV home, Mi TV+ free channels and promo content rows. It also has Xiaomi analytics and quality uploaders, a TV manager cleaner, a firmware upgrader, and preloaded apps such as Play Games and a Xiaomi music app.",
+    "The remote keys, the Netflix button, Bluetooth pairing, Live TV, the TV inputs and tuners, AirPlay and game mode are kept, because the TV needs them. The list is a starting point for other 2024 and newer Xiaomi Google TV sets. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup, and deletes nothing."
+  ],
+  "keep": [
+    "The remote keys, the Netflix button and Bluetooth remote: the Mi TV services for them stay on.",
+    "Live TV and tuners: the Mi Live TV app and the MediaTek TV services stay on.",
+    "AirPlay, game mode and Mi setup: the MediaTek AirPlay service and Mi game mode stay on.",
+    "Netflix: the firmware turns it back on by itself, so the list does not try to turn it off.",
+    "Play Store, Play services, keyboards, TV inputs and Settings are always kept by TidyTV."
+  ],
+  "notes": [
+    "The setup wizard is turned off on this list, because the Google TV home can crash the TV's system without the change set up correctly. If you want the Google home back, Restore everything turns the setup wizard and the Google home back on. Turn the setup wizard back on before a factory reset.",
+    "To check for firmware updates, turn on the three update packages in the app."
+  ],
+  "faq": [
+    {
+      "q": "Will the Netflix button still work?",
+      "a": "Yes. The firmware turns Netflix back on by itself, and the Mi TV remote services that handle the Netflix button are kept."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the PatchWall tab and its content rows, the Mi Home tab on the Google TV home, Mi TV+ channels and the promo rows. The Google Play auto-install of partner apps is off too."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the Google home and the setup wizard back on in one tap. Turn the setup wizard back on before a factory reset."
+    }
+  ]
+}

@@ -31,6 +31,7 @@ import androidx.compose.ui.geometry.CornerRadius
 import androidx.compose.ui.geometry.Offset
 import androidx.compose.ui.geometry.Size
 import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
@@ -224,10 +225,21 @@ object BrandIcons {
 
 private val groupTints = listOf(Color(0xFFFFE1E1), Color(0xFFE1ECFF), Color(0xFFEDE3FF), Color(0xFFE0F5E9), Color(0xFFFFEFD9), Color(0xFFE3F4F8))
 
-/** App icon: brand mark when we have one, else a soft circle with initials. */
+/** Real app icons read from the TV, by package (file paths on the phone). */
+val LocalTvIcons = androidx.compose.runtime.staticCompositionLocalOf<Map<String, String>> { emptyMap() }
+
+/** App icon: the real icon from the TV, else a brand mark, else a soft circle with initials. */
 @Composable
 fun AppIcon(pkg: String, label: String, size: Dp = 36.dp) {
     val context = LocalContext.current
+    // The app's real icon, read from its APK on the TV, wins over brand marks and initials.
+    val real = LocalTvIcons.current[pkg]?.let { path ->
+        remember(path) { runCatching { android.graphics.BitmapFactory.decodeFile(path)?.asImageBitmap() }.getOrNull() }
+    }
+    if (real != null) {
+        androidx.compose.foundation.Image(real, label, Modifier.size(size).clip(RoundedCornerShape(size * 0.24f)))
+        return
+    }
     val icons = remember { BrandIcons.get(context) }
     val icon = AppLabels.iconSlug(pkg)?.let { icons[it] }
     Box(

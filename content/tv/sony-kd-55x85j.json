@@ -1,0 +1,35 @@
+{
+  "name": "Sony BRAVIA KD-55X85J",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Sony BRAVIA KD-55X85J ships with Samba TV tracking and promo tabs. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This South American Sony set ships with Samba TV, which fingerprints what is on screen. It also has Qterics and Sony device agents, a Sony bug-report uploader, and a service that shares viewing context with the home screen's recommendations. Sony promo apps, a Sony tab on the home screen, and retail demo and help apps are on the list too.",
+    "This set was checked over wired Ethernet on the day the list was applied, and the owner has not used it for days yet. Home, the remote's Input button and a reboot all worked after the list. Wi-Fi saved during setup was not tested. TidyTV turns the list off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Netflix, YouTube, Prime Video, Disney+ and Apple TV",
+    "The voice assistant and Chromecast built-in",
+    "AirPlay and Sony firmware updates",
+    "HDMI inputs, the Live TV tuner and the Sony input services",
+    "The remote, Sony settings apps and the TV's own system services"
+  ],
+  "notes": [
+    "The Input button on the remote still opens the input switcher, because the TV's own system handles it.",
+    "The ambient screensaver is switched off, so the screensaver shows a clock instead. Set the clock as the screensaver before the ambient one is switched off, or no screensaver will show."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony BRAVIA KD-55X85J?",
+      "a": "Yes. The voice assistant is kept on purpose, so it should still work. The Input button on the remote still opens the input switcher."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in and AirPlay are both kept on purpose."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Partly. It turns off the Sony promo apps, the Sony tab on the home screen and the Samba TV viewing tracker."
+    }
+  ]
+}

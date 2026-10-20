@@ -1,0 +1,25 @@
+{
+  "name": "Xiaomi MiTV-MSSP3",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Turn off PatchWall sponsored rows, Xiaomi telemetry and background services on the MiTV-MSSP3. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This Android 9 Xiaomi MiTV ships with PatchWall channels and sponsored rows, a floating-frame service, Xiaomi and Google telemetry, and a TV Manager cleaner that runs in the background. It also has a firmware update service, a Mi screensaver, a Mi gallery, Google voice search, and preloaded apps such as Play Movies and Play Games.",
+    "Before the change, the TV ran out of memory a few minutes after boot and the screen froze. After this list and the new home screen, about 900 MB was free instead of 570, and the swap was nearly empty. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "The MediaTek TV and input packages, which handle HDMI and the tuner.",
+    "Netflix, Prime Video, Pluto TV, YouTube Music and Chromecast, kept by choice.",
+    "Media Player, which still opens USB photos.",
+    "The phone remote service."
+  ],
+  "notes": [
+    "Google Assistant comes back on after each restart on this firmware, even though the list turns it off.",
+    "A background service starts Netflix at boot and uses about 130 MB. The list does not turn that service off."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my Xiaomi MiTV-MSSP3?", "a": "Not reliably. The list turns Google Assistant off by choice, but on this firmware it switches itself back on after each restart."},
+    {"q": "Does casting still work?", "a": "Yes. Chromecast is kept on by choice in this list, so phone casting still works."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the PatchWall channels, the sponsored rows, the Xiaomi floating frame and the web promos. Restore everything turns them back on in one tap."}
+  ]
+}

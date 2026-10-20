@@ -1,0 +1,36 @@
+{
+  "name": "Skyworth SWTV-24NA-4K NF",
+  "brand": "Skyworth",
+  "os": "Google TV 14",
+  "summary": "Skyworth SWTV-24NA-4K NF ships with trackers and recommendation rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This US Skyworth set ships with services that record when it was first switched on, and an after-sale service that can install apps. It also has Android's own ad and personalisation services, and Coocaa recommendation rows that bundle analytics. Interactive TV apps for Brazil and the UK do nothing on US broadcasts, so they are on the list too, with an on-screen manual and health data services.",
+    "This set was changed in small batches on 19 October 2026, with a screenshot after each step. A custom home screen was installed, and Home, the Inputs menu for HDMI and Live TV, and YouTube playback were checked the same day. It has not been used for days yet. TidyTV turns the list off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV, HDMI, composite and analog inputs, and the over-the-air tuner",
+    "The remote's hot keys, Netflix key and one-key menu",
+    "Bluetooth remote pairing, its battery level and find-my-remote",
+    "Chromecast, DIAL, Miracast and the AirPlay receiver",
+    "Keyboards, the Play Store and Play Services",
+    "Firmware updates, the USB media player and all streaming apps"
+  ],
+  "notes": [
+    "Only Wireless debugging works on this set. Port 5555 stays closed, so pair it once in Developer options under Wireless debugging. Android turns Wireless debugging off when Wi-Fi drops, and switching it back on reconnects without a new code.",
+    "If the saved Wi-Fi network belongs to the Google setup wizard, switching the wizard off makes the TV forget that network and drop off Wi-Fi. Join the network again in Settings first."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Skyworth SWTV-24NA-4K NF?",
+      "a": "Not while Google Assistant is off. The list turns it off by choice, and you can switch it back on in the app."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, DIAL, Miracast and the AirPlay receiver are kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

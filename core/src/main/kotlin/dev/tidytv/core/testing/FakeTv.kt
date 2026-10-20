@@ -1,12 +1,13 @@
 package dev.tidytv.core.testing
 
+import dev.tidytv.core.lists.HomeApp
 import dev.tidytv.core.lists.Launchers
 import dev.tidytv.core.ops.Commands
 import dev.tidytv.core.ops.TvConnectionLost
 import dev.tidytv.core.ops.TvShell
 
 /**
- * A stateful simulated Android TV that answers the commands tidytv sends, with the output formats
+ * A stateful simulated Android TV that answers the commands TidyTV sends, with the output formats
  * real TVs print. Used by every unit test and by the app's demo mode. Failure knobs let tests
  * reproduce field problems: dropped connections, refused commands, changes that don't stick,
  * install errors and Home landing on Google TV's setup app.
@@ -36,6 +37,8 @@ class FakeTv(
     var disableDoesNotStick: MutableSet<String> = mutableSetOf()
     var enableDoesNotStick: MutableSet<String> = mutableSetOf()
     var installAnswer: String = "Success"
+    /** Which of TidyTV's home screens the next pushed APK is. */
+    var installAs: HomeApp = HomeApp.SIMPLE
     var startAnswer: String? = null
     var mirrorWritable = true
     /** Google TV 14 quirk: the setup app's RecoveryActivity wins Home over the preference. */
@@ -47,6 +50,20 @@ class FakeTv(
         tick("push $remotePath")
         pushed[remotePath] = bytes
         files[remotePath] = "<apk ${bytes.size} bytes>"
+        // A real APK names its package in the manifest (UTF-16 in binary XML): install that home screen.
+        if (remotePath == Commands.APK_TMP) HomeApp.entries.firstOrNull { app ->
+            val utf16 = app.pkg.toByteArray(Charsets.UTF_16LE)
+            bytes.indexOf(utf16) >= 0 || bytes.indexOf(app.pkg.toByteArray()) >= 0
+        }?.let { installAs = it }
+    }
+
+    /** APK bytes by path, for icon tests. Paths come from [apkPaths]. */
+    val apkFiles = mutableMapOf<String, ByteArray>()
+    val apkPaths = mutableMapOf<String, String>()
+
+    override suspend fun pull(remotePath: String): ByteArray? {
+        tick("pull $remotePath")
+        return apkFiles[remotePath]
     }
 
     override suspend fun run(command: String): String {
@@ -132,8 +149,8 @@ class FakeTv(
                 if (Commands.APK_TMP !in files) "Error: Unable to open file: ${Commands.APK_TMP}\n"
                 else {
                     if (installAnswer.startsWith("Success")) changingHomeSet {
-                        installed += Launchers.TIDY_HOME_PACKAGE
-                        homeClaimants[Launchers.TIDY_HOME_COMPONENT] = 0
+                        installed += installAs.pkg
+                        homeClaimants[installAs.component] = 0
                     }
                     "Performing Streamed Install\n$installAnswer\n"
                 }
@@ -167,6 +184,13 @@ class FakeTv(
                 }
             }
             c == Commands.KEY_HOME -> ""
+            c.startsWith("mkdir -p /sdcard/Android/data/") -> "ok\n"
+            c.startsWith("printf '%s' '") && c.contains("theme_revision") -> {
+                files[c.substringAfter("> ").substringBefore(" &&")] = c.substringAfter("'%s' '").substringBefore("'"); "ok\n"
+            }
+            c.startsWith("pm grant ") -> "granted\n"
+            c.startsWith("pm path ") -> apkPaths[args.last()]?.let { "package:$it\n" } ?: ""
+            c.startsWith("stat -c %s ") -> apkFiles[args.last()]?.let { "${it.size}\n" } ?: "stat: cannot access '${args.last()}': No such file or directory\n"
             c.startsWith("echo ") && !c.contains(";") && !c.contains("&&") -> c.removePrefix("echo ").trim('"') + "\n"
 
             c.startsWith("for p in ") && c.contains("pkgFlags") -> {
@@ -264,4 +288,13 @@ class FakeTv(
             "com.google.android.play.games",
         )
     }
+}
+
+private fun ByteArray.indexOf(needle: ByteArray): Int {
+    if (needle.isEmpty() || needle.size > size) return -1
+    outer@ for (i in 0..size - needle.size) {
+        for (j in needle.indices) if (this[i + j] != needle[j]) continue@outer
+        return i
+    }
+    return -1
 }

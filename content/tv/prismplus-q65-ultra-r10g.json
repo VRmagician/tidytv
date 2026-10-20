@@ -1,0 +1,33 @@
+{
+  "name": "PRISM+ Q65 Ultra QLED",
+  "brand": "PRISM+",
+  "os": "Android TV 14",
+  "summary": "Turns off unused broadcast tuners, karaoke, Max and a likely screen mirroring service on the PRISM+ Q65 Ultra. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The PRISM+ Q65 Ultra is a Realtek-based Google TV set made by MOKA. It ships with tuner apps for DTMB, ISDB and ATSC broadcast TV that this set does not use, two karaoke apps, a Max app, an ambient screensaver, and a service that is likely screen mirroring. It also has a Wi-Fi hotspot app, a meeting service and a sticker app.",
+    "This list was used on one set for a few days. On the test day, the HDMI input, ARC audio to a soundbar and Home all worked. Nothing else was checked, so test the things you use after the change. TidyTV turns these apps off from your phone over the same Wi-Fi, saves a backup first and deletes nothing."
+  ],
+  "keep": [
+    "Live TV and the other inputs: the Realtek TV and ATV services stay on, because HDMI and the other inputs need them.",
+    "Play Store, Play services, keyboards, the remote and Bluetooth pairing are always kept by TidyTV.",
+    "Settings and setup apps are always kept too.",
+    "The stock Google TV home is turned off last, after a new home screen is running."
+  ],
+  "notes": [
+    "Turning off the stock home before a new home screen is running can land Home on a factory test app."
+  ],
+  "faq": [
+    {
+      "q": "Will HDMI still work on my PRISM+ Q65 Ultra?",
+      "a": "On the test set, yes. The HDMI input, ARC audio to a soundbar and Home all worked after the list was applied. Other inputs were not checked."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "The screen mirroring service is turned off. Its function was only likely screen mirroring, so check casting from your phone after the change."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "The list does not name any home screen ads. It turns off the Max app, the ambient screensaver and a few preloaded services, so the home screen may still show what it did before."
+    }
+  ]
+}

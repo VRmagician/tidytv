@@ -1,0 +1,35 @@
+{
+  "name": "Thomson 32HE5800",
+  "brand": "Thomson",
+  "os": "Android TV 9",
+  "summary": "Thomson 32HE5800 ships with TCL analytics, an app store and promo rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Spanish Thomson set is built by TCL and ships with TCL's analytics service and partner app auto-installs. It also has Google recommendation rows on the home screen, a TCL app store and TCL account pages, and a TV Guard cleaner with its own installer. The list also covers unused Google apps for music, movies and games, and the USB media players.",
+    "This list was applied and checked on a real unit on 19 October 2026. Wi-Fi stayed up, the clean home screen was installed, and the Home button and the Inputs menu worked after the full list. Live TV, HDMI and the remote services are kept on purpose. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV, HDMI inputs and the Source menu",
+    "The remote, Bluetooth pairing and remote key handling",
+    "The Netflix configuration service",
+    "Firmware updates for the TV and the remote",
+    "Chromecast built-in and the Ambient screensaver"
+  ],
+  "notes": [
+    "The Orange TV app that comes preloaded in Spain is not on this list, so it stays installed.",
+    "Google Play Music is on the list because Google has discontinued that service."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Thomson 32HE5800?",
+      "a": "Not with the default list. Google Assistant, voice search and the hotword service are in the off-by-choice part of the list. Turn them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in is kept on purpose."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off the Google recommendation rows and the TCL app store. The preloaded Orange TV app is not on the list, so it stays."
+    }
+  ]
+}

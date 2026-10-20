@@ -1,0 +1,37 @@
+{
+  "name": "TCL 40S5400A",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 40S5400A ships with TCL promo rows, a TCL account and unused apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL set ships with TCL promotion rows on the home screen, a TCL account sign-in, and a TGuard cleaner that also handles support. It also has a TCL web video portal, a store demo sticker, and USB media, audio, video and photo players. Some Google apps, such as Play Movies, Play Games and YouTube Music, are on the list too.",
+    "This set was changed in three rounds on 18 October 2026, rebooting after each one, and it has been used for one day so far. After the full list, the new home screen came up after a reboot, YouTube and Netflix opened, HDMI 2 worked and the Input key opened the source picker. Casting from a phone was not tested. TidyTV turns these off from your phone over Wi-Fi, with a backup first and nothing deleted."
+  ],
+  "keep": [
+    "Live TV, HDMI inputs and the source picker on the Input key",
+    "The Bluetooth remote, its pairing and the remote key help",
+    "Picture and sound settings, and the Quick Panel",
+    "The firmware updater, which checks for TV and remote updates",
+    "Netflix and YouTube, which open normally"
+  ],
+  "notes": [
+    "The Google photo screensaver uses a lot of memory while it runs. Before switching it off, set the screensaver to Colors, or the TV is left with no screensaver.",
+    "After a restart, the TV can switch to the last HDMI input by itself. Press Home to bring the new home screen back.",
+    "The TCL app with a name that sounds like text to speech is the firmware updater, and it is kept on purpose.",
+    "The TCL account app is switched back on by the system at every restart, but it stays idle."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 40S5400A?",
+      "a": "Only if you keep Google Assistant and voice search on. They sit in the off-by-choice part of the list, and the mic button needs them."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "The Chromecast receiver is left on, so it should work. Casting from a phone was not tested on this set."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

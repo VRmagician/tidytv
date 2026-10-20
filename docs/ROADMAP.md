@@ -1,11 +1,11 @@
-# tidytv roadmap
+# TidyTV roadmap
 
 Things deliberately left out of v1. v1 is: connect with no code, back up, turn bloat off, optional
 tv-detox home screen, restore everything. Everything below comes later.
 
 ## Launcher choices
-- cleanyourtv's Apple TV style launcher, built and signed in our CI (Android 8+, `config.json` themes,
-  accessibility-safe restart).
+- Done in 0.2.0: cleanyourtv's Apple TV style launcher as a second choice (Android 8+, dock written
+  to `config.json`), built by `tools/build-styled-home.sh`. Still to do: build it in CI, themes.
 - **Projectivy**, opened on the TV's Play Store page. Never bundled.
 - Measure each launcher's RAM with `dumpsys meminfo` before showing numbers. Known so far: tv-detox
   launcher is a 37 KB APK using about 30 MB RAM; the cleanyourtv launcher is about 300 KB.
@@ -31,10 +31,11 @@ tv-detox home screen, restore everything. Everything below comes later.
 - **Share my working list**: open a pre-filled upstream `tv-list` issue.
 
 ## Icons
-- Real app icons read from the TV's APKs, replacing initials for apps Simple Icons doesn't cover.
+- Done in 0.2.0: real app icons read from the TV's APKs (up to 12 MB each). Still to do: read icons
+  from bigger APKs without pulling the whole file.
 
 ## Before any Play Store listing
-- Search for trademark conflicts with the name "tidytv" (fine for GitHub).
+- Search for trademark conflicts with the name "TidyTV" (fine for GitHub).
 
 ## v2 features researched 2026-10-20 (not started)
 

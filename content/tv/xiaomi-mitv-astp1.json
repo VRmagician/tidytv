@@ -1,0 +1,34 @@
+{
+  "name": "Xiaomi MiTV-ASTP1",
+  "brand": "Xiaomi",
+  "os": "Android 9",
+  "summary": "Tidy a Xiaomi MiTV-ASTP1 by turning off its tracking, shopping and promo content, TV cleaner and Mi Music. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Xiaomi MiTV-ASTP1 China-market set comes with Xiaomi usage tracking, push messages and cloud control services, shopping channel and promo content, a TV cleaner, Mi Music, a screen recorder and a smart home panel. Most owners will not use any of these.",
+    "The notes come from one China-market set running Android 9. Its Chinese streaming apps stay on, including Tencent Video, Youku, Mango TV and bilibili, and so do casting and the app store. Only the CCTV NewTV app is turned off among the streaming apps. TidyTV turns the listed apps off from your phone over Wi-Fi, saves a backup first and never uninstalls anything."
+  ],
+  "keep": [
+    "Tencent Video, Youku, Mango TV and bilibili, the Chinese streaming apps",
+    "The core Mi TV service, which is left alone",
+    "Casting: Xiaomi smart share, MiPlay and the Wi-Fi display receiver",
+    "The app store"
+  ],
+  "notes": [
+    "Network debugging closes at every restart on this set. After a power cycle, switch it on again in Settings before the phone app can reach the TV.",
+    "Firmware updates are turned off in this list. Turn the update service back on in the app to check for an update."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Xiaomi smart share, MiPlay and the Wi-Fi display receiver are kept on purpose."
+    },
+    {
+      "q": "Will my streaming apps still work?",
+      "a": "Yes. Tencent Video, Youku, Mango TV and bilibili are kept. Only CCTV NewTV is turned off, because it is not used."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the ad and promo content: a shopping channel plugin, a promo reel, a video daily feed and a web promo view. The home screen's own rows are not on this list."
+    }
+  ]
+}

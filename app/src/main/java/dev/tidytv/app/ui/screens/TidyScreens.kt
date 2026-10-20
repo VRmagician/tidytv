@@ -20,8 +20,19 @@ import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.semantics.Role
+import androidx.compose.ui.draw.clip
+import androidx.compose.material3.RadioButtonDefaults
+import androidx.compose.material3.RadioButton
+import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.foundation.selection.selectable
+import androidx.compose.foundation.layout.padding
+import androidx.compose.foundation.layout.aspectRatio
+import androidx.compose.foundation.border
+import androidx.compose.foundation.background
 import dev.tidytv.app.HomeAction
 import dev.tidytv.app.HomeState
+import dev.tidytv.core.lists.HomeApp
 import dev.tidytv.app.TidyState
 import dev.tidytv.app.ui.AppIcon
 import dev.tidytv.app.ui.BigButton
@@ -29,6 +40,7 @@ import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Bubble
 import dev.tidytv.app.ui.Check
 import dev.tidytv.app.ui.HeroMascot
+import dev.tidytv.app.ui.Mood
 import dev.tidytv.app.ui.Note
 import dev.tidytv.app.ui.Outline
 import dev.tidytv.app.ui.ProgressBar
@@ -46,11 +58,11 @@ fun TidyingScreen(s: TidyState, onRestore: () -> Unit, onContinue: () -> Unit, o
     ScreenFrame(bottom = if (!stopped) null else { {
         BigButton("↻  Restore everything", onRestore, color = Tidy.Green)
         TextLink("Keep what was done and continue", onContinue)
-        TextLink("Share logs", onShareLogs)
+        androidx.compose.foundation.layout.Row { TextLink("Share logs", onShareLogs); dev.tidytv.app.ui.ReportProblemLink("tidy") }
     } }) {
         if (stopped) {
             HeroMascot(worried = true)
-            Title("tidytv stopped to be safe")
+            Title("TidyTV stopped to be safe")
             Note(s.stopReason!!)
             Body("Your TV is fine. ${s.disabledCount} apps were turned off before it stopped; Restore everything turns them back on.")
         } else {
@@ -94,6 +106,7 @@ fun HomeScreenStep(
     s: HomeState,
     disabledCount: Int,
     onToggle: (String) -> Unit,
+    onChoose: (HomeApp) -> Unit,
     onInstall: () -> Unit,
     onSkip: () -> Unit,
     onAction: (HomeAction, Boolean) -> Unit,
@@ -102,12 +115,13 @@ fun HomeScreenStep(
 ) {
     when (s) {
         is HomeState.Offer -> ScreenFrame(bottom = {
-            BigButton("Get the cleaner home screen", onInstall)
+            BigButton("Use the ${s.app.title} home screen", onInstall)
             TextLink("No thanks, keep my home screen", onSkip)
         }) {
             SafetyBanner("$disabledCount apps turned off")
-            Title("Get a cleaner home screen?")
-            Body("A tiny home screen (37 KB) that shows just your apps: no ads, no rows of suggestions. Your old one comes back with Restore.")
+            Title("Want a cleaner home screen?")
+            Body("Just your apps: no ads and no rows of suggestions. Your old home screen comes back with Restore everything.")
+            for (app in s.available) HomeOption(app, selected = app == s.app) { onChoose(app) }
             if (s.options.isNotEmpty()) Outline {
                 Text("Apps on your home screen", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
                 FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
@@ -120,10 +134,11 @@ fun HomeScreenStep(
             Bubble("Setting up your new home screen…") { Spinner(26.dp) }
             Body("This takes about 30 seconds. Please don't press buttons on the remote.")
         }
-        HomeState.Installed -> ScreenFrame(bottom = { BigButton("Continue", onContinue) }) {
-            HeroMascot()
+        is HomeState.Installed -> ScreenFrame(bottom = { BigButton("Continue", onContinue) }) {
+            HeroMascot(mood = Mood.HAPPY)
             Bubble("New home screen is on", color = Tidy.GreenSoft, textColor = Tidy.GreenInk) { Check(Tidy.Green, 30.dp) }
-            Body("Press Home on your remote to see it.")
+            HomePreview(s.app)
+            Body(s.app.tip)
         }
         is HomeState.Problem -> {
             var ethernet by rememberSaveable { mutableStateOf(false) }
@@ -135,7 +150,7 @@ fun HomeScreenStep(
                     null -> Unit
                 }
                 TextLink(if (s.action == null) "Continue" else "Skip, keep my home screen", onContinue)
-                if (s.worried) TextLink("Share logs", onShareLogs)
+                if (s.worried) androidx.compose.foundation.layout.Row { TextLink("Share logs", onShareLogs); dev.tidytv.app.ui.ReportProblemLink("tidy") }
             }) {
                 HeroMascot(worried = s.worried)
                 Title(if (s.worried) "Something needs a look" else "Home screen not changed")
@@ -149,6 +164,66 @@ fun HomeScreenStep(
                     for (c in s.rescue) Text(c, style = MaterialTheme.typography.labelMedium, color = Tidy.Ink)
                 }
             }
+        }
+    }
+}
+
+/** How each home screen is named and described in the app. */
+val HomeApp.title: String get() = when (this) {
+    HomeApp.SIMPLE -> "Simple"
+    HomeApp.STYLED -> "Apple TV style"
+}
+
+private val HomeApp.blurb: String get() = when (this) {
+    HomeApp.SIMPLE -> "One calm screen with your apps, your HDMI inputs and a clock. Tiny (37 KB). Move apps around on the TV with the remote."
+    HomeApp.STYLED -> "A dock of your favourite apps with a glass highlight, a big clock and an inputs menu. About 330 KB, Android 8 or newer."
+}
+
+private val HomeApp.preview: Int get() = when (this) {
+    HomeApp.SIMPLE -> dev.tidytv.app.R.drawable.home_simple
+    HomeApp.STYLED -> dev.tidytv.app.R.drawable.home_styled
+}
+
+val HomeApp.tip: String get() = when (this) {
+    HomeApp.SIMPLE -> "Press Home on your remote to see it. Hold OK on an app to move or replace it."
+    HomeApp.STYLED -> "Press Home on your remote to see it. Your chosen apps sit in the dock at the bottom."
+}
+
+@Composable
+private fun HomePreview(app: HomeApp) {
+    androidx.compose.foundation.Image(
+        androidx.compose.ui.res.painterResource(app.preview), "The ${app.title} home screen",
+        Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RoundedCornerShape(16.dp)),
+        contentScale = androidx.compose.ui.layout.ContentScale.Crop,
+    )
+}
+
+/** One home screen to pick: its real screenshot, a name and what it's like. */
+@Composable
+private fun HomeOption(app: HomeApp, selected: Boolean, onClick: () -> Unit) {
+    Column(
+        Modifier.fillMaxWidth().clip(RoundedCornerShape(22.dp))
+            .border(if (selected) 3.dp else 2.dp, if (selected) Tidy.Blue else Tidy.Line, RoundedCornerShape(22.dp))
+            .background(if (selected) Tidy.BlueSoft else Tidy.Card)
+            .selectable(selected = selected, role = Role.RadioButton, onClick = onClick)
+            .padding(12.dp),
+        verticalArrangement = Arrangement.spacedBy(10.dp),
+    ) {
+        HomePreview(app)
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Column(Modifier.weight(1f)) {
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    Text(app.title, style = MaterialTheme.typography.titleLarge, color = Tidy.Ink)
+                    if (app == HomeApp.SIMPLE) {
+                        Spacer(Modifier.width(8.dp))
+                        Text("Recommended", style = MaterialTheme.typography.labelMedium, color = Tidy.GreenInk,
+                            modifier = Modifier.clip(RoundedCornerShape(99.dp)).background(Tidy.GreenSoft).padding(horizontal = 8.dp, vertical = 2.dp))
+                    }
+                }
+                Text(app.blurb, style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
+            }
+            Spacer(Modifier.width(10.dp))
+            RadioButton(selected = selected, onClick = null, colors = RadioButtonDefaults.colors(selectedColor = Tidy.Blue))
         }
     }
 }

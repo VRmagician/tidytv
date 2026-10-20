@@ -1,0 +1,28 @@
+{
+  "name": "Expressluck AiPro2K",
+  "brand": "Expressluck",
+  "os": "Android TV 14",
+  "summary": "Turn off ad services, a viewing tracker and demo apps on the Expressluck AiPro2K. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "The AiPro2K ships with telemetry and ad services, including an automatic content recognition service that tracks what is on screen. Its preloads include a retail demo mode, a Wi-Fi display test app, a YouTube Music TV app, a Google screensaver and partner rows that feed the home screen.",
+    "This list was tested on one set on the day it was applied. Home, HDMI inputs, the Inputs menu, Live TV, Netflix, the microphone button and the phone remote all still worked after a restart. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "The remote, HDMI and pairing services from MediaTek, which run the remote and the HDMI inputs.",
+    "Live TV and the Inputs menu.",
+    "Chromecast.",
+    "The microphone button and voice search.",
+    "Controlling the TV from your phone.",
+    "The service that most likely handles the remote's Netflix, YouTube, Prime Video and Live TV buttons (inferred, not tested)."
+  ],
+  "notes": [
+    "Once the stock home screen is off, its setup wizard has to go too, or Home opens a recovery screen. The list turns off both together.",
+    "The remote's app shortcut buttons were not tested on this set.",
+    "Tested on one set on the day it was applied, not yet over several days."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my AiPro2K?", "a": "Yes. The microphone button and voice search are kept on, and they worked in testing."},
+    {"q": "Does casting still work?", "a": "Yes. Chromecast is kept on, and the phone remote still works."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the ad services and the partner rows that feed the home screen. Restore everything turns them back on in one tap."}
+  ]
+}

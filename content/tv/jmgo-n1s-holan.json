@@ -1,0 +1,36 @@
+{
+  "name": "JMGO N1S projector",
+  "brand": "JMGO",
+  "os": "Google TV 14",
+  "summary": "Tidy a JMGO N1S projector by turning off its tracker, help centre, store demo and Google feedback. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The JMGO N1S projector comes with a JMGO tracker that logs boot events, location and app use, an Atmosphere ambient scenes app, a help centre, a store demo loop, Google feedback and a diagnostics consent prompt. Most owners never use any of them, and a projector at home does not need store demo mode.",
+    "This list was tested on one projector. The HDMI input still shows in the Inputs menu as it did before, and the focus, keystone, autofocus, gimbal stand and remote services are not on the list at all. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never uninstalls anything. Restore everything brings them back."
+  ],
+  "keep": [
+    "Google Assistant and voice search",
+    "Chromecast built-in, for casting from a phone",
+    "JMGO firmware updates",
+    "The phone remote server and Bluetooth speaker mode",
+    "Autofocus, keystone correction, brightness, the gimbal stand and the projector's remote services, which must stay on"
+  ],
+  "notes": [
+    "The Google setup wizard and the stock home screen are both in this list. If the stock home goes away before a new one is in place, Home can crash in a loop.",
+    "Turning on wireless debugging opens a network port without a pairing step, and the port stays open after a reboot. Turn it off once you are done.",
+    "Standby keeps apps running, so the projector does not restart them when it is turned off and on."
+  ],
+  "faq": [
+    {
+      "q": "Will the Inputs menu still show HDMI?",
+      "a": "Yes. The HDMI input shows in the Inputs menu as it did before, because its services are not on the list."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in is kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

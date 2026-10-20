@@ -1,0 +1,34 @@
+{
+  "name": "Haier Android TV DVB2K",
+  "brand": "Haier",
+  "os": "Android TV 11",
+  "summary": "Haier Android TV DVB2K ships with a viewing tracker and promo rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Haier set ships with a viewing tracker that uses content recognition to see what is on screen, plus a demo mode meant for shop displays. It also has Haier telemetry, share and promo apps, and recommendation and ad rows from Google on the home screen. A few partner auto-install and housekeeping apps are on the list too.",
+    "This list was checked on one set on the day it was changed, not over several days. The check showed the new home screen takes over once the stock home screen is switched off. The remote's hot keys, Live TV, Google Assistant, screen sharing and the streaming apps such as Netflix and YouTube are kept on purpose. TidyTV turns the list off from your phone over Wi-Fi, saves a backup first and never uninstalls anything."
+  ],
+  "keep": [
+    "The remote's hot keys and Bluetooth remote pairing",
+    "Live TV and the TV input services, plus USB media playback",
+    "Google Assistant and the Chromecast receiver",
+    "Miracast and HaiCast screen sharing",
+    "Netflix, Prime Video, YouTube, Hotstar, Sun NXT and Zee5, which stay installed"
+  ],
+  "notes": [
+    "Some Haier and Google packages have names that look like junk but run the remote's hot keys, Bluetooth pairing or factory tests. The list keeps them, so leave them alone."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Haier Android TV DVB2K?",
+      "a": "The list keeps Google Assistant installed, so the voice button should keep working. The check on this set was made over a single day, so try the button once after the change."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept, and so are the Miracast and HaiCast screen sharing services."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Google recommendation and ad rows, plus the Haier promo app and the Haier content launcher."
+    }
+  ]
+}

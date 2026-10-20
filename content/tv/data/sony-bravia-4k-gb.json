@@ -1,0 +1,178 @@
+{
+ "id": "sony-bravia-4k-gb",
+ "title": "Sony BRAVIA 4K GB (EU: device BRAVIA_ATV2_EU, product BRAVIA_ATV2). Android TV 9 (API 28).",
+ "header": "Sony BRAVIA 4K GB (EU: device BRAVIA_ATV2_EU, product BRAVIA_ATV2). Android TV 9 (API 28).\nFirmware BRAVIA_ATV2_EU-user 9 PTT1.190515.001.S54 672201 release-keys\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-gb/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-gb/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nSame platform and firmware build as examples/sony-xbr-x900e and the same package set, so this list\nis that one with the feature entries at the bottom left enabled. 24 packages disabled, nothing\nuninstalled. Stock launcher com.google.android.tvlauncher (the restore.sh default); Live TV and\nevery HDMI input come from com.sony.dtv.tvx, so keep it. Launcher installed and Home switched,\nverified across a reboot. Not lived with for weeks yet: re-enable anything that breaks with\n`pm enable <package>`, or tools/restore.sh with this file.\n\nLeft enabled on purpose because they are features, not bloat: Chromecast built-in, screen mirroring,\nDLNA renderer, Android TV phone remote, USB Media Player and music player. Uncomment the last group\nto disable them too.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony and Google content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app store/promo tile"
+    },
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": "My BRAVIA promos"
+    },
+    {
+     "pkg": "com.sony.dtv.discovery",
+     "note": "Sony Discover content bar"
+    },
+    {
+     "pkg": "com.sony.dtv.bivlinfo",
+     "note": "BIVL content service list (feeds Discover)"
+    },
+    {
+     "pkg": "com.sony.dtv.tvlaunchercustomizer",
+     "note": "Sony tweaks to the stock home rows"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demomode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry, remote support and feedback",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony device agent / remote support"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "runs Node.js 4.2.4 (2015) broadcasting model/MAC/IP over SDDP"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.imanual",
+     "note": "i-Manual"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver, replaced by the launcher's Clock"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.sony.dtv.smartmediaapp",
+     "note": "Media Player, plays files from USB"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "plays music from USB"
+    },
+    {
+     "pkg": "screnmirroring.com",
+     "note": "Screen mirroring (Miracast)"
+    },
+    {
+     "pkg": "com.sony.dtv.networkapp.wifidirect",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": "DLNA renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Android TV phone-app remote"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 24
+}

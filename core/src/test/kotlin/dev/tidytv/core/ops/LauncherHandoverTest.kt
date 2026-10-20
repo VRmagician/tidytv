@@ -1,5 +1,6 @@
 package dev.tidytv.core.ops
 
+import dev.tidytv.core.lists.HomeApp
 import dev.tidytv.core.lists.Launchers
 import dev.tidytv.core.testing.FakeTv
 import kotlinx.coroutines.test.runTest
@@ -202,5 +203,62 @@ class LauncherHandoverTest {
         val tv = FakeTv.googleTv().apply { dropOnPrefix = "am start" }
         assertEquals(HandoverOutcome.Disconnected, handover(tv).run(apk, emptyList(), sdk = 30))
         assertEquals(launcherx, tv.home())
+    }
+
+    // ---------- The second home screen (cleanyourtv) ----------
+
+    private fun styled(tv: FakeTv, log: ActionLog = MemoryActionLog()) =
+        LauncherHandover(tv, log, clock = { 5L }, sleep = {}, app = HomeApp.STYLED).also { tv.installAs = HomeApp.STYLED }
+
+    @Test fun styledHomeGetsDockFromConfigNotExtras() = runTest {
+        val tv = FakeTv.googleTv(sdk = 34)
+        val out = styled(tv).run(apk, listOf("com.netflix.ninja", "com.google.android.youtube.tv"), sdk = 34)
+        assertEquals(HandoverOutcome.Done(Launchers.LAUNCHERX), out)
+        assertEquals(HomeApp.STYLED.component, tv.home())
+        val config = tv.pushed["/sdcard/Android/data/com.gathin.tvhome/files/config.json"]!!.decodeToString()
+        assertEquals("{\"dock_apps\": [\"com.netflix.ninja\", \"com.google.android.youtube.tv\"]}\n", config)
+        assertTrue(tv.files.keys.any { it.endsWith("com.gathin.tvhome/files/theme_revision") })
+        assertTrue(tv.commands.any { it.startsWith("am start -W -n com.gathin.tvhome/.MainActivity") && !it.contains("--es") })
+        assertTrue(tv.commands.any { it.startsWith("pm grant com.gathin.tvhome") })
+    }
+
+    @Test fun styledConfigIsWrittenBeforeTheLauncherStarts() = runTest {
+        val tv = FakeTv.googleTv()
+        styled(tv).run(apk, listOf("com.netflix.ninja"), sdk = 30)
+        val push = tv.commands.indexOfFirst { it.startsWith("push /sdcard/Android/data/com.gathin.tvhome") }
+        val start = tv.commands.indexOfFirst { it.startsWith("am start -W") }
+        assertTrue(push in 0 until start)
+    }
+
+    @Test fun styledWithNoDockSkipsConfig() = runTest {
+        val tv = FakeTv.googleTv()
+        styled(tv).run(apk, emptyList(), sdk = 30)
+        assertTrue(tv.pushed.keys.none { it.endsWith("config.json") })
+    }
+
+    @Test fun switchingBetweenTidyHomeScreensLeavesStockAlone() = runTest {
+        val tv = FakeTv.googleTv()
+        assertTrue(handover(tv).run(apk, emptyList(), sdk = 30) is HandoverOutcome.Done)
+        tv.commands.clear()
+        val out = styled(tv).run(apk, emptyList(), sdk = 30)
+        assertEquals(HandoverOutcome.Done(null), out)
+        assertEquals(HomeApp.STYLED.component, tv.home())
+        assertTrue(tv.commands.none { it.startsWith("pm disable") })
+    }
+
+    @Test fun restoreRemovesWhicheverHomeScreenWasInstalled() = runTest {
+        val tv = FakeTv.googleTv(sdk = 34)
+        val log = MemoryActionLog()
+        styled(tv, log).run(apk, listOf("com.netflix.ninja"), sdk = 34)
+        assertTrue(Restorer(tv, log).run() is RestoreOutcome.Done)
+        assertFalse(HomeApp.STYLED.pkg in tv.installed)
+        assertEquals(launcherx, tv.home())
+    }
+
+    @Test fun ourHomeScreensAreNeverCleanUpCandidates() {
+        for (app in HomeApp.entries) {
+            assertTrue(Launchers.isHomeApp(app.pkg))
+            assertTrue(dev.tidytv.core.lists.Protected.isProtected(app.pkg))
+        }
     }
 }

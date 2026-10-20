@@ -1,0 +1,34 @@
+{
+  "name": "Philips R8G Google TV",
+  "brand": "Philips",
+  "os": "Google TV 14",
+  "summary": "Tidy a Philips R8G Google TV by turning off its screen tracker, ad services and store stickers. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Philips R8G Google TV comes with a tracker that recognises what is on screen, store demo stickers, Android ad and personalisation services, partner content for the home screen, and a European red-button service that US broadcasts do not use. It also includes health data apps a TV never needs.",
+    "This list was applied in small batches, with a screenshot after each one. Home, HDMI, Live TV and YouTube playback were checked the same day. The list has not been used for days yet. TidyTV turns these apps off from your phone over Wi-Fi with a backup first, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV and the HDMI and AV inputs, which run on Realtek TV services",
+    "The phone remote and the remote's firmware update service",
+    "The keyboards the TV needs for typing",
+    "Firmware updates and the USB media player, kept on purpose",
+    "Chromecast and the streaming apps, kept on purpose"
+  ],
+  "notes": [
+    "Check the Wi-Fi first. If the network was joined during first setup, turning off the Google setup wizard can delete it, and the TV drops off Wi-Fi along with the phone remote. If that happens, join the network again in Settings."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the partner customization that adds rows to the home screen, and the store sticker overlay. The stock home screen is also in this list, so a clean home screen from the app is the usual way to replace it."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in is kept on purpose."
+    },
+    {
+      "q": "Will Live TV and HDMI still work?",
+      "a": "Yes. The Live TV and input services are kept, and HDMI and AV switching were checked after the change."
+    }
+  ]
+}

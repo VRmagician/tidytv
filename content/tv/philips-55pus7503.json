@@ -1,0 +1,35 @@
+{
+  "name": "Philips 55PUS7503",
+  "brand": "Philips",
+  "os": "Android TV 8",
+  "summary": "Turn off Philips promo rows, usage logging, the store demo app and Google recommendation rows on the Philips 55PUS7503. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The Philips 55PUS7503 is a 2018 model on Android TV 8. It ships with a store demo app, Philips usage logging, and a NetTV recommendation row called Top Picks. It also has Google's recommendation engines and first-run tutorials, which add rows to the home screen.",
+    "The list was checked on a real TV. The replacement home screen, Netflix, HDMI 1 to 4, component video and Live TV all worked, and the turned-off apps stayed off across standby and overnight use. The notes call it a draft that still needs a longer test. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled."
+  ],
+  "keep": [
+    "Chromecast, Google Assistant and Alexa",
+    "Firmware updates, Ambilight and Hue, and DLNA",
+    "The remote, Bluetooth and the Philips settings",
+    "Live TV, HDMI and the tuner services, so inputs keep working",
+    "Every streaming app"
+  ],
+  "notes": [
+    "Two analytics services stay on here: Philips' candeebug and gel. They are left on until they have been tested on this older software.",
+    "If the ADB authorisation prompt does not appear, restart the TV fully, not standby. Then go back to the Android home screen and connect again."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Philips 55PUS7503?",
+      "a": "Yes. Google Assistant is kept on this list, so the voice button should still work."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept on this list."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

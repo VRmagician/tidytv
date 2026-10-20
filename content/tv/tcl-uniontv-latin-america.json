@@ -1,0 +1,27 @@
+{
+  "name": "TCL UnionTV",
+  "brand": "TCL",
+  "os": "Android TV 9",
+  "summary": "Turn off TCL analytics, the TCL app store and promo rows on the TCL UnionTV. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This TCL UnionTV, sold in Latin America, ships with a TCL analytics service, a TCL app store, promo rows and a copy-to-TV helper. It also has Google recommendation rows, partner auto-installs, retail demo stickers, and preloaded apps such as Play Movies, Play Games, Google Music and a print spooler, plus two third-party apps, Red Bull TV and Twitch.",
+    "This was applied in batches on one unit with 1.4 GB of RAM and tested on 19 October 2026. The new home screen, the Inputs menu, HDMI switching, Settings, and launches of Netflix, Prime Video and YouTube were all checked on the set. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "Live TV and HDMI, through TCL's TV app and HDMI input services.",
+    "The source key and the input panel.",
+    "The remote's keys and pairing, including TCL's key helper and Bluetooth remote service.",
+    "Settings, setup, and the TCL USB media players that play files from a drive.",
+    "Netflix configuration, Chromecast and firmware updates."
+  ],
+  "notes": [
+    "Quick Start standby cuts the Ethernet connection, so the TV cannot be woken over the network. This firmware has no network-standby option.",
+    "The remote's T key was not tested. If the T key stops working, turn the TCL partner customizer back on with its switch.",
+    "This list has not yet been lived with for days."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my TCL UnionTV?", "a": "Not while Google Assistant and voice search are off. The list turns them off by choice, and Restore everything turns them back on in one tap."},
+    {"q": "Can I get the old home screen back?", "a": "Yes. Restore everything turns every app back on, and the stock home screen is the default again."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the TCL app store, the TCL promo rows and the Google recommendation rows. The Google Play Store stays on."}
+  ]
+}

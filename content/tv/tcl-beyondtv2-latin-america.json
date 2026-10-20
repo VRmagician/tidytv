@@ -1,0 +1,35 @@
+{
+  "name": "TCL BeyondTV2",
+  "brand": "TCL",
+  "os": "Android TV 9",
+  "summary": "Tidy a TCL BeyondTV2 by turning off its analytics service and its home screen content push. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The TCL BeyondTV2 sold in Latin America comes with a TCL analytics service and a content push that adds TCL material to the home screen at boot. The list is short on purpose. Most of the other preinstalled apps are needed for Live TV, HDMI, the remote or setup, and several streaming and ad apps were already turned off at the factory.",
+    "This list was tested on a real unit, with each app turned off on its own and a restart after each. A 24-point check covering HDMI, Live TV, Netflix, Assistant, the microphone, the Bluetooth remote, audio and crashes passed after every change. The list has not been used for days yet. TidyTV turns these apps off from your phone over Wi-Fi, with a backup first."
+  ],
+  "keep": [
+    "Live TV, the HDMI 1 to 3 inputs and the Source menu",
+    "The remote, Bluetooth pairing and key handling",
+    "Voice: Google Assistant, TCL's assistant and its microphone manager",
+    "Netflix settings, Chromecast built-in and firmware updates",
+    "Setup screens and TCL's settings"
+  ],
+  "notes": [
+    "Turning these two apps off did not measurably speed up the TV in testing. They are off for less tracking, not for speed.",
+    "Several UK and Australian catch-up apps, and the Stan app, are already turned off at the factory on this set, so the list does not need to touch them."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Google Assistant and TCL's voice services are not on the list, so they keep working."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in is not on the list."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL analytics service and the TCL content pushed to the home screen at boot. Other parts of the home screen are not on the list."
+    }
+  ]
+}

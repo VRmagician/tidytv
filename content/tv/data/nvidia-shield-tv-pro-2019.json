@@ -1,0 +1,182 @@
+{
+ "id": "nvidia-shield-tv-pro-2019",
+ "title": "NVIDIA SHIELD TV Pro (2019, model P2897, codename mdarcy, Tegra X1+, 3 GB RAM), Android TV 11 (API 30)",
+ "header": "NVIDIA SHIELD TV Pro (2019, model P2897, codename mdarcy, Tegra X1+, 3 GB RAM), Android TV 11 (API 30)\nTested on SHIELD Experience 9.2.4 (33.2.0.400), build RQ1A.210105.003.7825230_4387.0822,\nsecurity patch 2026-01-05. Package names also checked against a unit on 9.2.2.\nThe 2019 tube (P3430) and the 2015/2017 models run the same 9.x software, so this is a fair\nstarting point for them too. Check `pm list packages` first.\n\nApply:   TV_HOST=<shield ip> tools/disable.sh examples/nvidia-shield-tv-pro-2019/debloat.txt\nUndo:    TV_HOST=<shield ip> tools/restore.sh examples/nvidia-shield-tv-pro-2019/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nConnecting: Developer options -> turn on \"Network debugging\"; that is what opens ADB on port 5555.\nThe Pro has only USB-A host ports, so there is no cable route. Ethernet and Wi-Fi get different\naddresses and the Shield can come back from a reboot on the other one, so reserve an IP in your router.\n\nLauncher: the stock launcher is com.google.android.tvlauncher, so the defaults in tools/restore.sh\nand launcher/build-and-install.sh work. Run build-and-install.sh before this list. The stock\nlauncher's Home filter has priority 2 and launcher/'s has 0, so `cmd package set-home-activity`\nhas no effect while the stock launcher is enabled; disabling it (build-and-install.sh does that\nlast) is what hands Home over. launcher/ stayed the default Home across a reboot. With no\nlauncher at all, Home falls back to com.android.tv.settings/.system.FallbackHome.\nLeave com.google.android.tungsten.setupwraith alone. It declares Home activities, but after setup\nnone of them is a Home candidate (its MainActivity is disabled), unlike on some Google TV sets.\nA Shield has no HDMI inputs and no tuner, so the launcher's Inputs pill has nothing to list. To\nreach a network tuner through Live Channels, set live_tv_package to com.google.android.tv in\nconfig.xml.\nThe network pill says \"Wi-Fi\" without the network name, because location is off by default\n(location_mode=0) and Android 11 hides the SSID without it. Over Ethernet it says \"Ethernet\".\n\nNotes:\n- The remote's Netflix button is handled in firmware; disabling Netflix doesn't free it.\n- The default screensaver is Backdrop (com.google.android.backdrop). Switch to the Clock\nscreensaver (README) before disabling Backdrop, or nothing is set.\n- A SHIELD Experience update can re-enable packages; re-run this list afterwards.\n- On a Shield where some of these were already removed with `pm uninstall --user 0`,\ndisable.sh still reports \"disabled-user\" for them. That's harmless.\n- Leave alone: com.nvidia.blakepairing, com.nvidia.bluetooth.*, com.nvidia.shieldtech.accessoryui,\ncom.nvidia.ControllerMapper, com.nvidia.remotelocator, com.nvidia.irtuner (remote, controllers,\nBluetooth); com.nvidia.NvCPLSvc, com.nvidia.nvaudiosvc, com.nvidia.avsync,\ncom.dolby.android.audio.service (AI upscaling, display, audio); com.nvidia.shieldservice,\ncom.nvidia.packagemanagerservice, com.nvidia.KeyComboOta, com.android.tv.settings,\ncom.android.providers.tv (Watch Next and Live Channels), com.google.android.tv.remote.service.\n- Some guides remove Play Services, keychain or com.android.se on the Shield. People report\nsoft-bricked units after doing so. Don't.",
+ "sections": [
+  {
+   "title": "NVIDIA and Google telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.nvidia.stats",
+     "note": "anonymous usage statistics"
+    },
+    {
+     "pkg": "com.nvidia.feedback",
+     "note": "crash reports and the \"send feedback\" form"
+    },
+    {
+     "pkg": "com.nvidia.diagtools",
+     "note": "log collector; re-enable if NVIDIA support asks for logs"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sponsored rows and auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "sponsored / \"Top picks\" rows on the stock home"
+    },
+    {
+     "pkg": "android.autoinstalls.config.nvidia",
+     "note": "Play auto-installs of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "NVIDIA gaming leftovers (GameStream closed in 2023)",
+   "apps": [
+    {
+     "pkg": "com.nvidia.nvgamecast",
+     "note": "GameStream receiver; Moonlight and Sunshine don't use it"
+    },
+    {
+     "pkg": "com.nvidia.tegrazone3",
+     "note": "\"NVIDIA Games\" app and row; GeForce NOW is a separate app"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.android.gallery3d",
+     "note": "legacy photo viewer"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.nvidia.ota",
+     "note": "firmware updates; NVIDIA still ships security patches"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant (the mic button stops working)"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "on-device speech; also breaks in-app mic buttons"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient mode screensaver, see notes"
+    },
+    {
+     "pkg": "com.nvidia.osc",
+     "note": "NVIDIA's in-game overlay"
+    },
+    {
+     "pkg": "com.nvidia.shield.smbserver",
+     "note": "\"Transfer files over local network\" SMB share"
+    },
+    {
+     "pkg": "com.google.android.tv",
+     "note": "Live Channels; keep it for a network tuner"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "Netflix"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom.nvidia",
+     "note": "Prime Video (system copy)"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video (Play Store copy)"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.shieldtech.hooks",
+     "note": "maps an Xbox controller's Guide button to Home"
+    },
+    {
+     "pkg": "com.nvidia.shieldtech.proxy",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.shield.nvcustomize",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.shield.registration",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.shieldbeta",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.hotwordsetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.factorybundling",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.benchmarkblocker",
+     "note": ""
+    },
+    {
+     "pkg": "com.nvidia.NvCPLUpdater",
+     "note": ""
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock Android TV launcher, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 11
+}

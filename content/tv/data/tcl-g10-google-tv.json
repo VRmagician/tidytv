@@ -1,0 +1,128 @@
+{
+ "id": "tcl-g10-google-tv",
+ "title": "TCL 55\" 4K Google TV, 2023 model year, US (device G10, product G10_4K_US_NF, Realtek RTD2875P)",
+ "header": "TCL 55\" 4K Google TV, 2023 model year, US (device G10, product G10_4K_US_NF, Realtek RTD2875P)\nAndroid 12 (Google TV, basic mode), firmware STT2.230203.001, software V8-R75PT01-LF1V499\nLikely a good starting point for other 2023+ TCL Google TV sets on the Realtek G10 platform.\n\nAlso confirmed on a TCL 55P6K (Spain retail name for the same G10 platform), product\nG10_4K_GB_NF_32BIT, identical firmware build STT2.230203.001 — this list applies unchanged.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-g10-google-tv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-g10-google-tv/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh, the default is wrong here).\nLive TV app: com.tcl.tv (keep it, it also owns HDMI/antenna playback). Keep com.tcl.tvinput,\ncom.tcl.dashboard, com.tcl.suspension, com.tcl.autopair and com.tcl.systemserver too.\nAlready disabled at the factory: com.tcl.logkit, tv.samba.ssm.ui (Samba TV ACR), com.tcl.ttvs.\n\nKnown quirks on this firmware:\n- The red \"TV\" tile disappears from the Google TV Home row after this list (probably\ncom.tcl.partnercustomizer). TV stays in the Apps row and behind the Inputs tile.\n- Disabling dreamx leaves screensaver_components pointing at it. Switch to the AOSP fallback with\ntools/tv.py 'settings put secure screensaver_components com.android.dreams.basic/.Colors'\n- screencap writes an empty file while Live TV/HDMI is on screen. Press Home first.\n- The Google TV promo banner is drawn by launcherx itself, so only launcher/ removes it.\n- Disabling the stock launcher alone is not enough to install a replacement:\ncom.google.android.tungsten.setupwraith (the setup wizard) also claims Home at a lower\npriority and takes over once launcherx is disabled. Disable it too before setting the new\nlauncher as Home — launcher/build-and-install.sh does this automatically and rolls back if\nHome doesn't land on the new launcher. List it in your own debloat file so restore.sh brings\nit back. Confirmed on two separate 55P6K units.",
+ "sections": [
+  {
+   "title": "TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.tv.plus",
+     "note": "TCL TV+ content app"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels, also removes them from Live TV"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.interactive",
+     "note": "TCL TIAS background service"
+    },
+    {
+     "pkg": "com.tcl.smartlink.core",
+     "note": "bundles a silent app installer (CustomInstallService)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo / store mode",
+   "apps": [
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services",
+   "apps": [
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "re-enable for the console game-mode overlay"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "re-enable to play media from USB drives"
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "re-enable to update a TCL soundbar"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode screensaver, see quirks above"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Google TV phone-app remote"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.airplay2",
+     "note": "AirPlay, together with the next line"
+    },
+    {
+     "pkg": "com.realtek.airplay2",
+     "note": ""
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "Netflix, together with the next line"
+    },
+    {
+     "pkg": "com.netflix.tokenmanager",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 18
+}

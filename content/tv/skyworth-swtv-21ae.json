@@ -1,0 +1,22 @@
+{
+  "name": "Skyworth SWTV-21AE",
+  "brand": "Skyworth",
+  "os": "Android TV 14",
+  "summary": "Turn off Skyworth content rows, a demo player and an ad-funded channel app on the SWTV-21AE. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This Skyworth ships with Skyworth content rows that feed the home screen, a shop demo player used in stores, an on-screen manual, and feedback and consent services. It also has a free channel app from iWedia that is supported by ads and starts at boot, plus Google's official YouTube app, which the list leaves off in favour of SmartTube.",
+    "This list was tested on the day it was applied, so it has not had days of use yet. Live TV and the inputs run on MediaTek's TV Center app, which is not on the list. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "Live TV and the TV inputs, through MediaTek's TV Center app."
+  ],
+  "notes": [
+    "Tested on the day the list was applied, not yet lived with for days.",
+    "The screensaver setting still names Google's ambient screensaver, which the list turns off, so you may need to pick another screensaver."
+  ],
+  "faq": [
+    {"q": "Will the Live TV and inputs still work on my Skyworth SWTV-21AE?", "a": "Yes. Live TV and the inputs are run by MediaTek's TV Center app, and that app is not on the list."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off the Skyworth content rows, the ad-supported channel app and the shop demo player. Restore everything turns them back on in one tap."},
+    {"q": "Can I get the old home screen back?", "a": "Yes. Restore everything turns every app back on and puts the stock Android TV home screen back in one tap."}
+  ]
+}

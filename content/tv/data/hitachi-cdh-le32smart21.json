@@ -1,0 +1,144 @@
+{
+ "id": "hitachi-cdh-le32smart21",
+ "title": "Hitachi CDH-LE32SMART21 (32\", Latin America / Argentina; TCL-built: device C06, product C06_2K_GB,",
+ "header": "Hitachi CDH-LE32SMART21 (32\", Latin America / Argentina; TCL-built: device C06, product C06_2K_GB,\nmodel \"Smart TV\", TCL client type HIT-LA-MT9221-01), Android TV 11 (API 30), build AR2101,\nTCL software V8-T221T01-LF1V030, fingerprint TCL/C06_2K_GB/C06:11/AR2101/AR14:user/release-keys.\nMediaTek MT9221 (ro.board.platform mt5867), 1280x720 panel, about 920 MB RAM (ro.config.low_ram=true),\n2.5 GB /data. Same platform and firmware family as examples/tcl-40s5400a; read that list too.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/hitachi-cdh-le32smart21/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/hitachi-cdh-le32smart21/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (the scripts' default). The only other HOME claimant is\ncom.android.tv.settings/.system.FallbackHome; setupwraith does not claim HOME on this firmware.\nLive TV app: com.tcl.tv (its TVActivity has a leanback entry, so launcher/ needs no live_tv_action).\nInputs come from com.tcl.tvinput: the tuner (TDTVInputService) and three passthrough inputs\n(HDMI 1, HDMI 2, AV).\nlauncher/ config used: live_tv_package com.tcl.tv; hidden_apps com.tcl.partnercustomizer (TKey Channel\ntile) and com.tcl.suspension (Quick Panel tile). HDMI 1, HDMI 2, AV and Live TV all show up in the\nInputs menu; switching to HDMI 2 was confirmed on screen.\n\nApplied in batches on one real unit on 2026-10-19, each batch checked with screenshots. Tested on one\nday only (shorter than CONTRIBUTING.md asks); I will report back if anything breaks.\nChecked after the full list: launcher/ (v2.3) installed with pm install and is Home after a reboot;\nNetflix and YouTube open and play; Settings and Wi-Fi are fine; the remote's real Home, Input and Back\nbuttons all work; the firmware updater opens (Settings > Device Preferences > About > Software update >\nNetwork update > System update shows the version and a check button). No accessibility helper is involved.\nMemory: MemAvailable about 373 MB after boot on launcher/ vs about 248 MB on the stock home after debloat.\n\nAd-blocking Private DNS was also enabled and validated (dns.adguard-dns.com); YouTube still plays,\nits own ads are not blocked. Undo: tools/tv.py 'settings put global private_dns_mode opportunistic'\n\nKnown quirks on this firmware:\n- screencap -p on stdout is corrupted by MediaTek log lines (\"Init wrapper sys mutex successful\").\nSave to /sdcard and pull the file instead.\n- Screenshots are empty while Netflix, an HDMI input or the ttvs update screen is shown.\n- Storage: /data was 93% full (190 MB free) and sys_storage_threshold_percentage is 10, so about 270 MB\nis reserved and pm install failed with \"Requested internal only, but not enough space\".\n`pm trim-caches 4G` freed about 100 MB, not enough. Uninstalling user-installed apps the owner did not\nwant (Crossy Road, Max, Crunchyroll, DirecTV GO) freed about 470 MB. Those are not in this list.\n- INSTALL_FAILED_VERIFICATION_FAILURE is not a firmware sideload block here:\n1) with this little RAM, the com.tcl.guard memory manager (TGuard) kills com.android.vending in the\nmiddle of verification (logcat \"tguard-kill-systemApp\"), which fails the install. Force-stop\napps / `am kill-all`, or install right after a reboot.\n2) installing only base.apk of a split app is rejected by Play Protect for the missing splits; that\nis not a valid sideload test. The 272 KB launcher APK installed fine.\n- com.tcl.guard runs as a persistent system process (*PERS*, uid 1000). `pm disable-user` succeeds but\nthe process still starts at boot, so the disable does not stop the memory manager. It stays in the\nlist for the UI/cleaner parts.\n- Opening Settings' About page directly (am start -a android.settings.DEVICE_INFO_SETTINGS) and then\nSoftware update crashes TvSettings (ClassCastException AboutActivity -> MainSettings in\ncom.tcl.android.tv.settings.update.SoftwareUpdateFragment). Enter through the main Settings menu.\nNot caused by the debloat.\n- com.tcl.ttvs is the firmware updater (also BI and Alexa), not text-to-speech. Keep it.\ncom.tcl.messagebox carries an org.tcl.ttvs receiver; it was disabled here and the updater still\nopened and showed the check screen.\n\nDO NOT DISABLE on this TV (kept and working):\ncom.tcl.tv                           # Live TV app, plays HDMI, source picker on the Input key\ncom.tcl.tvinput                      # TV input services for HDMI, AV and the tuner\ncom.tcl.suspension                   # Quick Panel, handles VIEW_INPUTS; only hidden in the launcher config\ncom.tcl.partnercustomizer            # TKey Channel; kept, only hidden in the launcher config\ncom.tcl.ttvs                         # firmware updater (see quirks)\ncom.tcl.autopair                     # Bluetooth remote auto-pairing\ncom.tcl.tcl_bt_rcu_service           # Bluetooth remote\ncom.tcl.keyhelp                      # remote-key help/virtual keys\ncom.tcl.system.server                # remote-key plumbing\ncom.tcl.settings                     # picture/sound settings\ncom.tcl.providers.config             # TCL config provider\ncom.tcl.inputmethod.international    # keyboard\ncom.tcl.initsetup                    # setup flow\ncom.tcl.factory.view                 # factory menu\ncom.tcl.copydatatotv                 # data copy hook\ncom.tcl.micmanager                   # voice",
+ "sections": [
+  {
+   "title": "Telemetry",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "partner-app auto installer config"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL Channel web-video portal"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL messages/popups, carries a ttvs receiver (see quirks)"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "store-demo sticker"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services",
+   "apps": [
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard UI/cleaner; the memory manager still runs (see quirks)"
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": "data-saver VPN"
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "TCL Bluetooth \"listen alone\""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "launcher/build-and-install.sh disables the stock launcher itself, after Home has moved"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this unit: comment out what you use",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast receiver"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media player, together with the next three"
+    },
+    {
+     "pkg": "com.tcl.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.audioplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.imageplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "au.com.stan.and",
+     "note": "Stan"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "TCL Alexa bridge"
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 19
+}

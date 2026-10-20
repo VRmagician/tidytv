@@ -1,0 +1,35 @@
+{
+  "name": "TCL BeyondTV",
+  "brand": "TCL",
+  "os": "Android TV 9",
+  "summary": "Turn off TCL analytics, promo rows, the TV Guard cleaner, voice services and unused apps on the TCL BeyondTV. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The TCL BeyondTV ships with TCL analytics and crash reporting, TCL promo rows and a message box, and a TV Guard cleaner. It also has a TCL app store and Google's voice services, which the notes say used about 45 percent of one processor core all day. Google recommendation rows and preloaded apps such as Play Movies are on too.",
+    "The list was applied in six groups on a real unit, with a screenshot after each. Wi-Fi, the remote, TCL's source menu, the Inputs menu and Netflix all worked, and Home still worked after a restart. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV, the tuner and the HDMI inputs",
+    "The remote: Bluetooth pairing, key handling and the Google TV remote service",
+    "The source menu, Settings, setup and the keyboard",
+    "Sound modes such as Dolby, DTS and night mode",
+    "Device authentication and the Wi-Fi country settings"
+  ],
+  "notes": [
+    "The TV 2 Play app can freeze on start, even on the stock home. Update it from the Play Store.",
+    "The clock can run hours fast if the automatic time is out of date. Turn automatic time off and back on to force a fresh sync."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL BeyondTV?",
+      "a": "Not by default. The list turns off Google voice search, the mic button and TCL's Assistant bridge. Switch them back on in TidyTV if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is kept on this list, so casting still works. Miracast and T-Cast phone mirroring are turned off, so switch them on if you use them."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Sony BRAVIA 4K GB",
+  "brand": "Sony",
+  "os": "Android TV 9",
+  "summary": "Turns off the Samba TV tracker, Sony Discover rows, retail demo modes and device agents on the Sony BRAVIA 4K GB. Free phone app, backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA 4K GB, on US and Canada firmware, ships with a Samba TV viewing tracker that fingerprints what is on screen. It also has Sony content bars, promos and a Discover row on the home screen, retail demo modes, and device agents that report to Sony and Qterics. Preloaded apps such as Help, i-Manual and YouTube Music are on the list too.",
+    "The list was applied and tested the same day. Home, the Input menu, the HDMI inputs and the new home screen all worked. It has not yet been used for several days or tested across a reboot, so check the TV after a restart. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup, and deletes nothing."
+  ],
+  "keep": [
+    "The Sony TV input app (com.sony.dtv.tvx), which also plays every HDMI input.",
+    "HDMI control and the remote: the Sony input services, HDMI-CEC (braviasync), remote pairing and the power key service.",
+    "Picture settings and system services: Sony's system service, settings provider and all the MediaTek packages.",
+    "Play Store and Play services are always kept by TidyTV."
+  ],
+  "notes": [
+    "The Developer options switch is called ADB debugging on this firmware, not USB debugging. The network port stays closed until it is turned on.",
+    "The stock home's Free Live TV and Top Selling rows and its top banner stay until the stock home is replaced.",
+    "Sony Media Player is on the list, and it is what plays files from USB. Turn its switch back on in the app if you play USB files."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast built-in is in the optional features section, which the list turns off. Switch it back on in the app if you cast to the TV."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Sony Select and Discover promo rows, My BRAVIA promos, and the partner auto-installs. It also turns off the Samba TV viewing tracker, which fingerprints what is on screen."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap. Nothing is uninstalled, so the apps stay on the TV."
+    }
+  ]
+}

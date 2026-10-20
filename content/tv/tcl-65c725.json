@@ -1,0 +1,26 @@
+{
+  "name": "TCL 65C725",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "Turn off TCL promo rows, analytics and preloaded apps on the TCL 65C725. TidyTV is a free phone app with a backup and a one-tap undo.",
+  "intro": [
+    "This TCL ships with TCL analytics, a dashboard and promo services, a message box, sticker overlays and a partner customizer that adds promo rows. It also has Google recommendation rows and partner attribution, preloaded apps such as Play Movies, YouTube Music, Rakuten TV and ZEE5, and TCL's FAST channel app.",
+    "This list was applied and checked again on a real unit on 18 October 2026. Wi-Fi stayed up, and Home, the Inputs menu and app launches all worked after the full list. TidyTV turns these items off from your phone over Wi-Fi. It saves a backup first, switches each app off without deleting it, and stops if anything looks wrong."
+  ],
+  "keep": [
+    "Wi-Fi setup and provisioning services, which hold the Wi-Fi connection.",
+    "Remote key handling and Bluetooth remote pairing.",
+    "The Live TV tuner and HDMI inputs, through TCL's TV input app.",
+    "The settings app and the keyboard.",
+    "The TCL TV app, which also runs HbbTV and the voice plumbing."
+  ],
+  "notes": [
+    "A few items are the least noticeable ones and are marked 'skip if uneasy'. Leave those on if you prefer.",
+    "The microphone button works through Google Assistant, which is off by choice in this list."
+  ],
+  "faq": [
+    {"q": "Will the voice button still work on my TCL 65C725?", "a": "Only if you keep Google Assistant on. The list turns it off by choice, along with the TCL assistant, and Restore everything turns them back on in one tap."},
+    {"q": "Does casting still work?", "a": "It depends on what you turn off. Chromecast and Miracast are listed as keep-if-you-cast items, so you choose whether they stay on."},
+    {"q": "Will it stop the ads on the home screen?", "a": "It turns off TCL's promo services, message box and partner customizer, along with Google's recommendation rows. Restore everything turns them back on in one tap."}
+  ]
+}

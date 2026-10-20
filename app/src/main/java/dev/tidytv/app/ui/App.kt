@@ -8,6 +8,11 @@ import androidx.compose.material3.AlertDialog
 import androidx.compose.material3.Text
 import androidx.compose.material3.TextButton
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.CompositionLocalProvider
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.mutableStateOf
+import androidx.compose.runtime.remember
+import androidx.compose.runtime.setValue
 import dev.tidytv.app.UiState
 import dev.tidytv.app.WizardViewModel
 import dev.tidytv.app.ui.screens.ConnectScreen
@@ -21,24 +26,74 @@ import dev.tidytv.app.ui.screens.WelcomeScreen
 import dev.tidytv.core.flow.Mode
 import dev.tidytv.core.flow.Step
 
+/** What the activity does for the app: things that need a Context or another app. */
+class Host(
+    val sendFeedback: suspend (dev.tidytv.app.data.FeedbackDraft, includeLog: Boolean) -> Boolean,
+    val renderCard: (dev.tidytv.app.data.ShareStats) -> android.graphics.Bitmap,
+    val shareCard: (dev.tidytv.app.data.ShareStats) -> Unit,
+    val openStar: () -> Unit,
+)
+
 @Composable
-fun TidyApp(s: UiState, vm: WizardViewModel, onShareLogs: () -> Unit) {
-    AnimatedContent(s.wizard.step, transitionSpec = { fadeIn() togetherWith fadeOut() }, label = "step") { step ->
-        Screen(step, s, vm, onShareLogs)
+fun TidyApp(s: UiState, vm: WizardViewModel, onShareLogs: () -> Unit, host: Host) {
+    var feedback by remember { mutableStateOf<FeedbackRequest?>(null) }
+    var card by remember { mutableStateOf<Pair<dev.tidytv.app.data.ShareStats, android.graphics.Bitmap>?>(null) }
+    val actions = remember(s.tidy, s.done, s.tv, s.labels) {
+        AppActions(
+            feedback = { feedback = it },
+            shareCard = { val st = shareStats(s); card = st to host.renderCard(st) },
+        )
+    }
+    CompositionLocalProvider(LocalAppActions provides actions) {
+        AnimatedContent(s.wizard.step, transitionSpec = { fadeIn() togetherWith fadeOut() }, label = "step") { step ->
+            Screen(step, s, vm, onShareLogs)
+        }
     }
     s.problem?.let { msg ->
         AlertDialog(
             onDismissRequest = vm::dismissProblem,
             confirmButton = { TextButton(vm::dismissProblem) { Text("OK") } },
-            dismissButton = { TextButton(onShareLogs) { Text("Share logs") } },
+            dismissButton = {
+                TextButton({ vm.dismissProblem(); feedback = FeedbackRequest(dev.tidytv.app.data.FeedbackKind.BUG, "problem", "$msg\n\n") }) { Text("Report a problem") }
+            },
             text = { Text(msg) },
         )
     }
+    card?.let { (st, bmp) ->
+        ShareCardDialog(
+            bmp,
+            onShare = { host.shareCard(st) },
+            onStar = host.openStar,
+            onTellUs = { card = null; feedback = FeedbackRequest(dev.tidytv.app.data.FeedbackKind.PRAISE, "share-card") },
+            onDismiss = { card = null },
+        )
+    }
+    feedback?.let { req -> FeedbackSheet(req, host.sendFeedback) { feedback = null } }
+}
+
+/** The numbers for the share card, from what this run actually did. */
+fun shareStats(s: UiState): dev.tidytv.app.data.ShareStats {
+    val labels = s.tidy.order.associate { it.pkg to it.label } + s.labels
+    val off = s.tidy.results.filterValues { it is dev.tidytv.core.ops.PkgResult.Disabled }.keys
+    // Apps people recognise first: a real icon, then a brand mark, then the rest.
+    val apps = off.map { it to (labels[it] ?: dev.tidytv.core.lists.AppLabels.label(it)) }
+        .sortedBy { (pkg, _) -> if (pkg in s.icons) 0 else if (dev.tidytv.core.lists.AppLabels.iconSlug(pkg) != null) 1 else 2 }
+    return dev.tidytv.app.data.ShareStats(
+        appsOff = off.size,
+        tvName = s.tv?.model?.takeIf { it.isNotBlank() && !it.contains("demo", ignoreCase = true) } ?: s.tv?.title,
+        freedMb = s.done.freedMb,
+        newHome = s.done.newHome,
+        apps = apps,
+    )
 }
 
 /** One screen per wizard step. Also used directly by the screenshot tests. */
 @Composable
-fun Screen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit) {
+fun Screen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit) =
+    androidx.compose.runtime.CompositionLocalProvider(LocalTvIcons provides s.icons) { StepScreen(step, s, vm, onShareLogs) }
+
+@Composable
+private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit) {
     when (step) {
         Step.WELCOME -> WelcomeScreen({ vm?.choose(it) }, { vm?.restoreTapped() })
         Step.UNSUPPORTED -> UnsupportedScreen { vm?.back() }
@@ -50,7 +105,7 @@ fun Screen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit
         )
         Step.TIDYING -> TidyingScreen(s.tidy, { vm?.toDone(); vm?.restoreEverything() }, { vm?.toDone() }, onShareLogs)
         Step.HOME_SCREEN -> HomeScreenStep(
-            s.home, s.tidy.disabledCount, { vm?.toggleDock(it) }, { vm?.installHome() }, { vm?.skipHome() },
+            s.home, s.tidy.disabledCount, { vm?.toggleDock(it) }, { vm?.chooseHome(it) }, { vm?.installHome() }, { vm?.skipHome() },
             { a, eth -> vm?.homeAction(a, eth) }, { vm?.homeContinue() }, onShareLogs,
         )
         Step.DONE -> DoneScreen(

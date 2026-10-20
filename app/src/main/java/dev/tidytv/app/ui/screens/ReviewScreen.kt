@@ -84,7 +84,7 @@ fun ReviewScreen(
         if (s.backup != BackupStatus.Saved) return@ScreenFrame
         if (s.noList) {
             Title("No tested list for this TV yet")
-            Body("Your backup is saved, but tidytv only turns apps off from a list someone has checked on the same model. Nothing will be changed.")
+            Body("Your backup is saved, but TidyTV only turns apps off from a list someone has checked on the same model. Nothing will be changed.")
             return@ScreenFrame
         }
         if (!s.exact) Note("This list is for a similar model, not tested on yours. The safe parts are switched on; look through the rest.")
@@ -106,7 +106,7 @@ private fun BackupHeader(b: BackupStatus, onRetry: () -> Unit) {
                 textAlign = TextAlign.Center, modifier = Modifier.fillMaxWidth().padding(top = 6.dp))
         }
         is BackupStatus.Failed -> Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            Note("${b.message} tidytv won't change anything without a backup.", color = Tidy.RedSoft, textColor = Tidy.Red)
+            Note("${b.message} TidyTV won't change anything without a backup.", color = Tidy.RedSoft, textColor = Tidy.Red)
             TextLink("Try the backup again", onRetry)
         }
     }

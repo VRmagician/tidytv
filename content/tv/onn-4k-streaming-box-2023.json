@@ -1,0 +1,33 @@
+{
+  "name": "onn 4K Streaming Box (2023)",
+  "brand": "onn",
+  "os": "Google TV 14",
+  "summary": "Turn off telemetry, feedback services and preloaded apps on the onn 4K Streaming Box (2023) with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The onn 4K Streaming Box from Walmart ships with two telemetry and feedback services, four preloaded apps and the Google ambient screensaver. The preloads include Google TV's movie app and TalkBack, the screen reader. TalkBack is on the list, but you can turn it back on if you need it.",
+    "Google Assistant, the Cast receiver, the remote's app buttons and Gboard are left on, because they are the parts of the box people use every day. TidyTV turns the rest off from your phone over Wi-Fi. It saves a backup first, switches each app off in Android's own settings and never uninstalls anything. Restore everything switches them all back on in one tap."
+  ],
+  "keep": [
+    "Google Assistant, so the mic button still works.",
+    "The Cast receiver, so casting from a phone keeps working.",
+    "The remote's app buttons, which onn's key helper handles.",
+    "onn update prompts, remote firmware updates and the phone remote."
+  ],
+  "notes": [
+    "If a VPN is connected on the TV, Settings shows the VPN address instead of the home network address."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my onn 4K Streaming Box?",
+      "a": "Yes. Google Assistant is kept on this box, so the mic button stays. You can switch Assistant off in the app if you never use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. The Cast receiver is kept, so casting from a phone keeps working."
+    },
+    {
+      "q": "Can I get the old apps back?",
+      "a": "Yes. Restore everything turns every app in the list back on in one tap, and nothing is uninstalled."
+    }
+  ]
+}

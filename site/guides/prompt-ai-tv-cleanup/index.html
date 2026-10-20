@@ -1,0 +1,70 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Claude won&#x27;t hack my TV: a prompt to debloat Android TV | TidyTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Claude refused &quot;hack my TV&quot;? Learn how to ask an AI to debloat your Android TV or Google TV with a prompt that works, plus a safety checklist.">
+<link rel="canonical" href="https://tidytv.winkle.dev/guides/prompt-ai-tv-cleanup/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="/img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/guides/prompt-ai-tv-cleanup/">
+<meta property="og:title" content="Claude won&#x27;t hack my TV: a prompt to debloat Android TV | TidyTV">
+<meta property="og:description" content="Claude refused &quot;hack my TV&quot;? Learn how to ask an AI to debloat your Android TV or Google TV with a prompt that works, plus a safety checklist.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Hack my TV\" got refused: how to ask an AI for a TV cleanup", "description": "Claude refused \"hack my TV\"? Learn how to ask an AI to debloat your Android TV or Google TV with a prompt that works, plus a safety checklist.", "datePublished": "2026-10-20", "dateModified": "2026-10-20", "author": {"@type": "Organization", "name": "TidyTV"}, "publisher": {"@type": "Organization", "name": "TidyTV"}, "image": "https://tidytv.winkle.dev/img/og.png", "mainEntityOfPage": "https://tidytv.winkle.dev/guides/prompt-ai-tv-cleanup/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://tidytv.winkle.dev/guides/"}, {"@type": "ListItem", "position": 3, "name": "Hack my TV\" got refused: how to ask an AI for a TV cleanup"}]}]</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<header class="top"><div class="wrap bar">
+  <a class="wordmark" href="/"><img src="/img/icons/a1-mascot-flat.webp" width="40" height="40" alt="">TidyTV</a>
+  <nav aria-label="Main"><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">TidyTV</a> › <a href="/guides/">Guides</a> › Hack my TV&quot; got refused: how to ask an AI for a TV cleanup</p>
+
+<article class="card guide">
+  <h1>Hack my TV&quot; got refused: how to ask an AI for a TV cleanup</h1>
+  <p class="meta">The wording matters. Here is what to tell the AI, what to include, and what to leave out.</p>
+  <div class="prose"><p>If an AI refused your request to "hack my TV", the fix is to describe the job you actually want: turn off ads and preloaded apps on your own Android TV, safely and reversibly. Name your exact model, say what to keep, ask for a backup first and let the agent work in small steps. That wording is closer to what the popular projects use.</p>
+<h2>Why did the AI refuse "hack my TV"?</h2>
+<p><a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/">TechCrunch</a> and <a href="https://itsfoss.com/news/debloat-smart-tv/">It's FOSS</a> both report that people said Claude refused when they used that phrasing, and that a fuller prompt was needed. The reports do not say why. My guess, and it is only a guess, is that "hack" sounds like breaking into someone else's device, while what you want is to change settings on a TV you own.</p>
+<p>The trend itself started with other words. Developer Mert Cobanov's <a href="https://tv.cobanov.dev/">prompt page</a> asks Claude to clean up an Android TV over ADB. (ADB, or Android Debug Bridge, is the built-in tool a computer uses to send commands to an Android device.) <a href="https://github.com/Ansub/tv-detox">Ansub's tv-detox</a> opens with "Help me clean up my Android TV and make it faster." Both treat the job as maintenance.</p>
+<h2>What should a good prompt include?</h2>
+<p>The <a href="https://github.com/Gathin23/cleanyourtv/blob/main/PROMPT.md">cleanyourtv</a> prompt by Gathin, the project that took off on October 17, is a long document, not a one-liner. You do not need to copy it, but the ingredients are worth borrowing:</p>
+<ul><li><strong>Say it is your TV.</strong> "My TV, on my home network" is plain and true.</li><li><strong>Give the exact model and Android version.</strong> You will find the model name on the TV's About screen. Per-model lists are the reason the projects say they work, and the same app can be called different things on different brands.</li><li><strong>State the goal.</strong> For example: turn off ads, tracking and preloaded apps, and install a cleaner home screen.</li><li><strong>Say what to keep.</strong> Voice assistant, Chromecast and updates are your decision. <a href="https://itsfoss.com/news/debloat-smart-tv/">It's FOSS</a> says the checklist asks about each.</li><li><strong>Set the method.</strong> Turn apps off with <code>pm disable-user</code>, never uninstall, and keep a record of every change.</li><li><strong>Ask for a plan first.</strong> Make the agent list what it intends to switch off and why, then wait for you.</li></ul>
+<h2>Is there a prompt you can copy?</h2>
+<p>Here is a starting point in my own words. Adjust the brackets:</p>
+<blockquote><p>I own a [brand and model] running Android TV or Google TV [version]. It is on my home Wi-Fi at [IP address], with network debugging switched on. Please clean it up over ADB so it is faster and shows fewer ads. First, back up the list of installed and enabled apps to a file on this computer. Then show me a plan of which apps you would turn off and why, and wait for my approval. Only disable apps with pm disable-user. Never uninstall anything. Never touch HDMI or tuner input services, the source menu, remote or Bluetooth pairing, the keyboard, or Google Play services. Work in batches of five, and after each batch ask me to check that Home, HDMI and the remote still work. Ask me before touching the voice assistant, Chromecast or system updates. Install a replacement launcher and confirm it starts before disabling the stock one. At the end, give me the exact commands to undo every change.</p></blockquote>
+<p>The never-touch list is the one in the prompts described by <a href="https://saascity.io/blog/debloat-android-tv-claude-code">saascity</a> and tv-detox.</p>
+<h2>What do you need besides the prompt?</h2>
+<p>An AI chat window is not enough. <a href="https://mashable.com/tech/smart-tv-ads-claude-code-ai-cleanup">Mashable</a> explains that pasting the text into an ordinary chatbot will not work, because the agent must be able to run commands on a computer connected to your TV. You need a laptop on the same Wi-Fi and a coding agent such as Claude Code or Codex. <a href="https://techpp.com/2026/10/18/speed-up-android-tv-claude-code/">TechPP</a> notes that Claude Pro starts at $20 a month.</p>
+<p>On the TV, open About in Settings and press the build number seven times to unlock developer options. Then switch on USB or network debugging. Some TVs only offer wireless debugging with a pairing code, and a few boxes cut USB power while debugging is on, according to saascity.</p>
+<h2>What should you not ask for?</h2>
+<ul><li><strong>Do not ask it to "root" the TV.</strong> The popular methods say they need no root. You are not trying to change the system, just to turn apps off.</li><li><strong>Do not ask for everything at once.</strong> Several reported failures, such as a <a href="https://github.com/Gathin23/cleanyourtv/issues/62">boot screen hang on a Sony</a>, came after the stock launcher or a core service was disabled.</li><li><strong>Do not skip the backup.</strong> If the agent cannot show you what it saved, stop.</li><li><strong>Do not leave debugging on.</strong> Turn it off when you are done, as It's FOSS advises.</li></ul>
+<p>The <a href="/guides/ai-tv-debloat-risks/">risks article</a> covers what went wrong for other people and how to lower the odds.</p>
+<h2>What if you do not want to write a prompt at all?</h2>
+<p>Then skip the agent. <a href="/">TidyTV</a> is a free, open-source Android phone app that does the same job with taps. You turn on debugging on the TV, the phone finds it on Wi-Fi, and a backup is saved before anything changes. Apps are shown in groups, such as ads and tracking, preloaded apps, voice assistant, casting and updates, and are switched off one at a time. It never uninstalls, and one button restores everything. It uses the same community lists and launchers as cleanyourtv and tv-detox, which deserve the credit for the idea. <a href="https://tvslim.app/">TV Slim</a> is another option that runs from a PC or phone.</p>
+<p>It covers Android TV and Google TV. Samsung and LG sets do not run Android, and the AI prompts do not work on them either. To see whether your model has a list, check the <a href="/tv/">per-model pages</a>.</p>
+<p>Whichever route you take, the pattern is the same: say what you own, say what you want, protect the essentials and go slowly.</p></div>
+  <h2>More guides</h2>
+  <ul class="related"><li><a href="/guides/claude-code-google-tv/">Can Claude Code really clean up your Google TV?</a></li><li><a href="/guides/ai-tv-debloat-risks/">The risks of letting an AI agent loose on your TV</a></li><li><a href="/guides/claude-vs-phone-app/">Claude Code vs a phone app: two ways to debloat a Google TV</a></li><li><a href="/guides/cleanyourtv-tv-detox/">Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds</a></li><li><a href="/guides/remove-google-tv-home-ads/">How to remove ads from the Google TV home screen (what works and what doesn&#x27;t)</a></li><li><a href="/guides/safe-to-disable-android-tv-apps/">Which Android TV apps are safe to disable, and which you should never touch</a></li><li><a href="/guides/debloat-by-brand/">Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV</a></li><li><a href="/guides/fire-tv-samsung-lg/">What about Fire TV, Samsung and LG? Honest answers</a></li></ul>
+</article>
+<section class="card cta">
+  <div>
+    <h2>Tidy your TV from your phone</h2>
+    <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
+    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <p class="ask">A star on GitHub is how other people find TidyTV.</p>
+  </div>
+  <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">
+</section>
+</main>
+<footer class="wrap">
+  <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
+</footer>
+<script src="/assets/stars.js" defer></script>

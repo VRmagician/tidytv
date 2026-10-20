@@ -42,6 +42,10 @@ import androidx.compose.ui.semantics.heading
 import androidx.compose.ui.semantics.semantics
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
+import androidx.compose.animation.core.animateFloat
+import androidx.compose.foundation.layout.height
+import androidx.compose.runtime.getValue
+import androidx.compose.ui.graphics.graphicsLayer
 
 /**
  * Every screen: a white rounded sheet on the pale-blue backdrop (concept C), a scrolling body and an
@@ -95,17 +99,32 @@ fun Bubble(text: String, color: Color = Tidy.BlueSoft, textColor: Color = Tidy.I
     }
 }
 
-/** Mascot with the little green "sparkle" dashes from the concept. */
+/** The mascot's moods, each a Codex illustration in res/drawable-nodpi. */
+enum class Mood(val res: Int, val description: String) {
+    STAND(dev.tidytv.app.R.drawable.mascot_stand, "The TidyTV mascot, a smiling blue TV"),
+    SEARCH(dev.tidytv.app.R.drawable.mascot_search, "The mascot looking through a magnifying glass"),
+    HAPPY(dev.tidytv.app.R.drawable.mascot_happy, "The mascot smiling with its eyes closed"),
+    CHEER(dev.tidytv.app.R.drawable.mascot_cheer, "The mascot cheering with both arms up"),
+    WORRIED(dev.tidytv.app.R.drawable.mascot_worried, "The mascot looking a little worried"),
+}
+
+/** The mascot at the top of a screen, gently bobbing. */
 @Composable
-fun HeroMascot(worried: Boolean = false) {
+fun HeroMascot(worried: Boolean = false, mood: Mood = if (worried) Mood.WORRIED else Mood.STAND, height: androidx.compose.ui.unit.Dp = 150.dp) {
+    // Previews and screenshot tests must go idle, so the bob only exists outside inspection mode.
+    val still = androidx.compose.ui.platform.LocalInspectionMode.current
+    val bob = if (still) 0f else androidx.compose.animation.core.rememberInfiniteTransition(label = "bob").animateFloat(
+        initialValue = 0f, targetValue = -8f, label = "bob",
+        animationSpec = androidx.compose.animation.core.infiniteRepeatable(
+            androidx.compose.animation.core.tween(2600, easing = androidx.compose.animation.core.FastOutSlowInEasing),
+            androidx.compose.animation.core.RepeatMode.Reverse,
+        ),
+    ).value
     Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
-        if (!worried) Canvas(Modifier.size(200.dp, 150.dp)) {
-            val dashes = listOf(Offset(0.12f, 0.25f) to Offset(0.2f, 0.32f), Offset(0.06f, 0.55f) to Offset(0.16f, 0.53f),
-                Offset(0.88f, 0.25f) to Offset(0.8f, 0.32f), Offset(0.94f, 0.55f) to Offset(0.84f, 0.53f))
-            for ((a, b) in dashes) drawLine(Tidy.Green.copy(alpha = 0.75f), Offset(a.x * size.width, a.y * size.height),
-                Offset(b.x * size.width, b.y * size.height), strokeWidth = 9f, cap = androidx.compose.ui.graphics.StrokeCap.Round)
-        }
-        Mascot(132.dp, worried = worried)
+        androidx.compose.foundation.Image(
+            androidx.compose.ui.res.painterResource(mood.res), mood.description,
+            Modifier.height(height).graphicsLayer { translationY = bob.dp.toPx() },
+        )
     }
 }
 

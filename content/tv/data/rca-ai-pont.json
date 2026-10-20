@@ -1,0 +1,168 @@
+{
+ "id": "rca-ai-pont",
+ "title": "RCA AI PONT SA (Changhong, device redwood, product ISDB92RC)",
+ "header": "RCA AI PONT SA (Changhong, device redwood, product ISDB92RC)\nAndroid 14, firmware UKNV.260504.001, security patch 2026-05-01\nAlso sold as the realme 100 cm (40-inch) Full HD Smart Android TV: same redwood board, firmware UKNV.260514.001\n(pranabsarma18, PR #38).\n1 GB RAM (MemTotal about 935 MB). Stock launcher: com.google.android.tvlauncher\nLive TV / tuner: com.mediatek.wwtv.tvcenter (leave it; the Inputs menu uses it)\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/rca-ai-pont/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/rca-ai-pont/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nLeave com.homwee.factory (factory menu, see the CHiQ notes), com.mediatek.wwtv.setupwizard (the Live TV\nchannel-scan wizard) and com.homwee.synckey enabled. The last one is a privileged system app (android.uid.system)\nthat starts at boot and talks to the factory. The physical remote and HDMI path\ngo through com.mediatek.tv.service and com.mediatek.tvinput, not through this list.\n\nTested the same day on one set: Home opens, Netflix / Flow / Max / YouTube still\nresolve, Chromecast (mediashell) comes back after re-enable, HDMI stays in Inputs.\nNot a multi-day soak.\n\nKnown quirks on this firmware:\n- USB debugging alone opens network ADB on port 5555. There is no separate\nwireless-debugging toggle.\n- After a reboot the TV may take a new DHCP address.\n- com.homwee.chtvmanager (\"TV Manager\") is a visible Homwee app. It was removed\non the test set with uninstall --user 0, so it is intentionally not listed here.\n- The default IME is already Gboard. No Baidu-keyboard quirk.\n- Disabling com.google.android.tvrecommendations does not clear the stock\nlauncher's poster rows. Those go away only after launcher/ replaces Home.\nDisable com.google.android.tvlauncher only once the new home is the default,\nor Home can land on a factory activity.",
+ "sections": [
+  {
+   "title": "Homwee store, ads, installers and media extras",
+   "apps": [
+    {
+     "pkg": "com.homwee.aipont",
+     "note": "brand portal"
+    },
+    {
+     "pkg": "com.homwee.store",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.help",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.homwee.chinstallapk",
+     "note": "silent installer"
+    },
+    {
+     "pkg": "com.homwee.upgrade",
+     "note": "re-enable to check for RCA firmware"
+    },
+    {
+     "pkg": "com.homwee.dmt.upgrade",
+     "note": "second factory updater"
+    },
+    {
+     "pkg": "android.autoinstalls.config.homwee",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.mmp.screenshare",
+     "note": "re-enable to mirror a screen"
+    },
+    {
+     "pkg": "com.homwee.multiscreenshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.mmp.fileexplorer",
+     "note": "re-enable to browse USB storage"
+    },
+    {
+     "pkg": "com.homwee.mmp.imageplayer",
+     "note": "re-enable to view photos from USB"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content recognition, FAST channels and Google TV promo rows",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.anokiacroptin",
+     "note": "automatic content recognition"
+    },
+    {
+     "pkg": "com.cltv.fast",
+     "note": "FAST channel app"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Setup wizards, assistant and accessibility",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "first-run wizard; on this tvlauncher firmware Home works without touching it"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "re-enable for the microphone button"
+    },
+    {
+     "pkg": "com.homwee.alexacontrol",
+     "note": "Alexa integration; re-enable if you use Alexa (#38)"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "re-enable for TalkBack"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Android phone remote; Chromecast is mediashell"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast; re-enabled, iPhones cast YouTube with it"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "re-enabled"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "disabled on the test set"
+    },
+    {
+     "pkg": "com.apple.atve.androidtv.appletv",
+     "note": "disabled on the test set"
+    },
+    {
+     "pkg": "com.disney.disneyplus",
+     "note": "disabled on the test set"
+    },
+    {
+     "pkg": "com.mercadolibre.android.mplay_tv",
+     "note": "disabled on the test set"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "already disabled at the factory"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "already disabled at the factory"
+    }
+   ],
+   "note": "Re-enable the ones you use."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 25
+}

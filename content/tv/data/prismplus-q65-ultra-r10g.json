@@ -1,0 +1,132 @@
+{
+ "id": "prismplus-q65-ultra-r10g",
+ "title": "PRISM+ Q65 Ultra 2026 QLED 4K AI Google TV (device R10G, product PRISMPLUS_FFM, made by MOKA)",
+ "header": "PRISM+ Q65 Ultra 2026 QLED 4K AI Google TV (device R10G, product PRISMPLUS_FFM, made by MOKA)\nAndroid TV 14 (Google TV), firmware UKR1.251010.001, Realtek RTD2875 SoC, RTD6748 platform\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/prismplus-q65-ultra-r10g/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/prismplus-q65-ultra-r10g/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh, the default is wrong here).\nLive TV and inputs: keep com.realtek.dtv and com.realtek.tv.atv (needed for HDMI and the other inputs).\n\nTested on one set, disabled with pm disable-user --user 0 and lived with for a few days.\nChecked over adb on 2026-10-20: HDMI input, ARC audio to a soundbar and Home work. Nothing else verified.",
+ "sections": [
+  {
+   "title": "Launcher partner customization and Google partner setup",
+   "apps": [
+    {
+     "pkg": "com.realtek.leanbacklauncher.partnercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "Play partner auto-installs"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded services",
+   "apps": [
+    {
+     "pkg": "com.seraphic.media.tv.interactive.app",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode screensaver"
+    },
+    {
+     "pkg": "com.apps.scast",
+     "note": "likely screen mirroring"
+    },
+    {
+     "pkg": "com.apps.wifihotspot",
+     "note": ""
+    },
+    {
+     "pkg": "com.mk.tv.meeting.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.esticker3",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Broadcast tuner apps not used here (DTMB, ISDB, ATSC)",
+   "apps": [
+    {
+     "pkg": "com.realtek.dtmb",
+     "note": ""
+    },
+    {
+     "pkg": "com.realtek.tv.isdb",
+     "note": ""
+    },
+    {
+     "pkg": "com.realtek.tv.atsc",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Karaoke",
+   "apps": [
+    {
+     "pkg": "com.realtek.karaoke.userguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.realtek.kara",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.apps.mk.gameui",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.puresound",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.usbmediaplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.wbd.stream",
+     "note": "Max, off by choice"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disable only after the new launcher is installed and running, or Home lands on a factory test app."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 20
+}

@@ -1,0 +1,124 @@
+{
+ "id": "skyworth-swtv-24na-4k-nf",
+ "title": "Skyworth SWTV-24NA-4K NF (device eleonas, product SW10_NA_NF, MediaTek mt5896 / merak), US",
+ "header": "Skyworth SWTV-24NA-4K NF (device eleonas, product SW10_NA_NF, MediaTek mt5896 / merak), US\nGoogle TV 14 (API 34), build UKN6.260116.056, security patch 2026-04-01. About 1.8 GB RAM, armeabi-v7a.\nro.product.model=\"SWTV-24NA-4K NF\" (ro.product.vendor.model=SWTV-24AE-4K). Same eleonas platform as\nexamples/philips-smart-4k-google-tv, so the Skyworth com.smartdevice packages are the same.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/skyworth-swtv-24na-4k-nf/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/skyworth-swtv-24na-4k-nf/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nApplied in small batches on 2026-10-19 with a screenshot after each, then a custom launcher\ninstalled and Home, Inputs (HDMI and Live TV) and YouTube playback checked the same day. Not yet\nlived with for days; if something breaks, re-enable it with `pm enable <package>` and please report it.\n\nStock launcher: com.google.android.apps.tv.launcherx; setupwraith RecoveryActivity also claims HOME\n(priority 1), so it is in this list.\nLive TV app: com.cltv.hybrid (iWedia CanaliTV, com.iwedia.cltv.MainActivity, labelled \"Live TVˣ\");\nset it as live_tv_package. HDMI, composite and analog inputs are com.mediatek.tis; ATSC tuner\ncom.mediatek.dtv.tvinput.atsctuner.\nDisabled from the factory, so not listed (restore.sh would turn them ON):\ncom.mediatek.dtv.tvinput.isdbtuner, com.mediatek.dtv.tvinput.dvbtuner, com.mediatek.tv.retaildemo,\ncom.mediatek.opapp, com.mediatek.tv.oneworld.tvcenter.\n\nQuirks on this firmware, all checked on the TV:\n- Only Wireless debugging: port 5555 stays closed. Pair once with the stock adb (Developer options >\nWireless debugging > Pair device with pairing code, `adb pair <ip>:<port> <code>`). The stock adb\nconnected fine from macOS here; adb tracks the TV by its mDNS name\n(adb-<serial>._adb-tls-connect._tcp), so it survives port and IP changes.\n- Android switches Wireless debugging off whenever Wi-Fi drops; switch it on again and adb reconnects\nwithout a new pairing code.\n- The Wi-Fi network had been saved during first setup, so disabling setupwraith deleted it (see the\nwarning at the bottom). The TV dropped off Wi-Fi mid-command; it took a USB keyboard to rejoin.\n- YouTube playback can be screenshotted on this TV; HDMI and Live TV cannot (protected layer).\n\nKept on purpose: com.cltv.hybrid / com.cltv.mal (Live TV), com.mediatek.tis and the ATSC tuner\n(inputs), com.mediatek.tv.agent (hot keys, Netflix key, one-key menu), com.mediatek.extservice,\ncom.mediatek.autopair, com.smartdevice.global.service (BLE remote, battery, find my remote, hot keys),\ncom.smartdevice.dailyshortcut (quick menu and source sorting), com.smartdevice.duplebluetooth,\ncom.smartdevice.factory, org.liskovsoft.androidtv.rukeyboard and com.google.android.inputmethod.latin\n(keyboards), Play Store, Play Services.\nLeft alone because their purpose is unclear: com.smartdevice.dailymanage (\"Daily Manage\") and\ncom.smartdevice.myapp (\"Daily Key\"); examples/philips-smart-4k-google-tv disables both.\nKept by owner's choice: com.google.android.apps.mediashell (Chromecast), com.mediatek.dialservice (DIAL),\ncom.smartdevice.dtv.icast (Miracast/DLNA), com.ionitech.airscreen (AirPlay receiver from Play),\ncom.audiocn.karaoke.global.micmanager and com.loostone.tuning (karaoke mic), com.mediatek.tv.systemupdater\n(firmware updates), com.tianci.localmedia (USB media player), all streaming apps.",
+ "sections": [
+  {
+   "title": "Skyworth telemetry and trackers",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recordactivation",
+     "note": "records first activation"
+    },
+    {
+     "pkg": "com.smartdevice.aftersale",
+     "note": "\"after-sale\" service: boot + network receivers, can install APKs"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Android ad and personalisation services",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Skyworth content and regional broadcast extras",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recommendation",
+     "note": "Coocaa recommendation rows; bundles Sensors Data analytics"
+    },
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": "partner config that injects rows into the home screen"
+    },
+    {
+     "pkg": "tv.mopa.ginga",
+     "note": "Brazilian Ginga interactive TV, unused with US ATSC"
+    },
+    {
+     "pkg": "org.obs.mhegservice",
+     "note": "UK MHEG interactive TV, unused with US ATSC"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Not needed on a TV",
+   "apps": [
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by owner's choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Assistant / Gemini"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient screensaver (the screensaver was also turned off)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "its RecoveryActivity otherwise takes over Home"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disable only after the new launcher is installed and set as home. WARNING: if Wi-Fi was set up during the first-run wizard, the saved network belongs to setupwraith and Android DELETES it the moment setupwraith is disabled; the TV drops off the network and ADB with it. It happened on this TV. Check first: `dumpsys wifi | grep -o 'cname=[^ ]*'`. If it is not android.uid.system, forget the network and re-join it in Settings > Network BEFORE disabling this."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 18
+}

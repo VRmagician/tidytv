@@ -1,0 +1,110 @@
+{
+ "id": "xiaomi-mitv-astp1",
+ "title": "Xiaomi MiTV-ASTP1 (codename maverick; China-market firmware), Android 9 (SDK 28),",
+ "header": "Xiaomi MiTV-ASTP1 (codename maverick; China-market firmware), Android 9 (SDK 28),\nfirmware 2.40.641.0514.cn (HyperOS-era CN build), Amlogic/droidlogic, 1 GB RAM, 720p panel.\nStock launcher: com.mitv.tvhome (HOME activity .MainActivityUserMode). It is not in\nKNOWN_STOCK_LAUNCHERS, so install with: STOCK_LAUNCHER=com.mitv.tvhome launcher/build-and-install.sh\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-astp1/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-astp1/debloat.txt com.mitv.tvhome\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- No Google apps at all. Content comes from CN streaming apps: com.ktcp.video (Tencent\nVideo), com.cibn.tv (Youku's TV build \"Kumiao\"), com.hunantv.license (Mango TV - yes,\nthe app itself is in the \"license\" package), com.newtv.cboxtv (CCTV NewTV),\ncom.xiaodianshi.tv.yst (bilibili). The list below keeps them all except NewTV.\n- Network ADB (port 5555) closes on every reboot; re-enable it in\nSettings -> Account & Security -> ADB debugging after each power cycle.\n- mitv.service is the core MiTV service: do not touch it.\n- com.xiaomi.mitv.settings is the ONLY settings UI: nothing on this firmware answers\nandroid.settings.SETTINGS or WIFI_SETTINGS (the launcher's pills need a fallback for that).\n- Casting (com.xiaomi.mitv.smartshare / com.xiaomi.miplay / com.xiaomi.wfdsinkhelperservice /\ncom.duokan.airkan.tvbox) and the app store are deliberately kept.\nNewer China firmware (MiTV-MFTR0 \"freeguy\", Android 14): input routes, Xiaomi settings intents and app\ndiscovery notes in docs/devices/xiaomi-mitv-mftr0-freeguy.txt.",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry / push / cloud control",
+   "apps": [
+    {
+     "pkg": "com.miui.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.cloudcontrol",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.tvpush.tvpushservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.smspush",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads / promoted content",
+   "apps": [
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.shoplugin",
+     "note": "TV shopping channel plugin"
+    },
+    {
+     "pkg": "com.gitvdemo.video",
+     "note": "GITV promo demo reel"
+    },
+    {
+     "pkg": "com.duokan.videodaily",
+     "note": "video daily promos"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.upgrade",
+     "note": "firmware updates: re-enable to check for one"
+    },
+    {
+     "pkg": "com.xiaomi.gamecenter.sdk.service.mibox",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps not used",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": "Mi Music"
+    },
+    {
+     "pkg": "com.xiaomi.tv.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Media Explorer still opens USB photos"
+    },
+    {
+     "pkg": "com.xiaomi.screenrecorder",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartpanel",
+     "note": "smart home panel"
+    },
+    {
+     "pkg": "com.newtv.cboxtv",
+     "note": "CCTV NewTV (owner does not use)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.mitv.tvhome",
+ "count": 18
+}

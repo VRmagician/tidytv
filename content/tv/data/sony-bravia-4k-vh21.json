@@ -1,0 +1,182 @@
+{
+ "id": "sony-bravia-4k-vh21",
+ "title": "Sony BRAVIA 4K VH21 (KD-65X85K, 2022, device BRAVIA_VH21, MediaTek MT5895), Australia",
+ "header": "Sony BRAVIA 4K VH21 (KD-65X85K, 2022, device BRAVIA_VH21, MediaTek MT5895), Australia\nAndroid 12 (Google TV, API 31), build BRAVIA_VH21_M_PA-user 12 STT2.230505.001.S136 682241, 3 GB RAM\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-vh21/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-vh21/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (Google TV). Pass it to restore.sh as above;\nbuild-and-install disables it, so it is not in this list.\nLive TV / tuner app: com.sony.dtv.tvx (set it as live_tv_package in the launcher's config.xml and hide it).\nKeep the com.sony.dtv.tvinput.* services, com.sony.dtv.braviasync*, tvapi, sonysystemservice, imeproxy,\nsettingsprovider, systemupdate/update, the Sony settings apps and all com.mediatek.*: they drive HDMI,\nthe tuner, Bravia Sync, updates and the remote.\nKept by owner's choice: Chromecast built-in (mediashell), AirPlay/HomeKit (airplayapp, homekit),\nfirmware updates, HbbTV / Freeview Plus (interactivetvutil), DLNA, Sony IP control (webapi.core).\nAlready disabled at the factory: com.sonypicturescore, com.sony.dtv.b2b.vendorprotocol,\ncom.sony.dtv.b2b.softap, com.sony.dtv.kenhchonloc. Not in this list, so restore.sh leaves them alone.\n\nLauncher: the launcher must target SDK 30+ (it does now) or Play Protect blocks the install on this\nfirmware as \"built for an older version of Android\". Inputs lists the PS5 on HDMI 1 twice (the port and\nits CEC device input) on this firmware.\nSpeed: memory was the bottleneck (swap full, ~480 MB available with the streaming apps open). The last\ngroup below frees ~120 MB of always-running services; window/transition/animator scales set to 0.5 and\n`pm trim-caches` (/data went from 81% to 65% full) helped too. Reboot-checked; Ethernet, so setupwraith\nowned no saved Wi-Fi network here (check with `dumpsys wifi` before disabling it on Wi-Fi).\nApplied 19-20 Oct 2026; not yet lived with for weeks. If something breaks, `pm enable <package>`\nand please report it.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    },
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "telemetry and remote support",
+   "apps": [
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": "Sony IDD usage-data agent"
+    },
+    {
+     "pkg": "com.sony.dtv.usercontext",
+     "note": "user context providers, boot receiver only"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "remote-support session service"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony ads, promos and recommendation rows",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app recommendations"
+    },
+    {
+     "pkg": "com.sony.dtv.sonytab",
+     "note": "Sony content tab / partner rows"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "voice assistant (off by choice; the remote's mic button stops working)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.voicesearch",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.assistantadapter",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "preloaded apps (off by choice)",
+   "apps": [
+    {
+     "pkg": "au.com.ninenow.ctv",
+     "note": "9Now"
+    },
+    {
+     "pkg": "au.net.abc.iview",
+     "note": "ABC iview"
+    },
+    {
+     "pkg": "com.swm.live",
+     "note": "7plus"
+    },
+    {
+     "pkg": "com.apple.atve.sony.appletv",
+     "note": "Apple TV app"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV movies (loses access to purchases in it)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.vewd.core.integration.dia",
+     "note": "Vewd"
+    },
+    {
+     "pkg": "com.vewd.core.service",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "always-running services, off by choice to free memory (~120 MB together)",
+   "apps": [
+    {
+     "pkg": "com.uei.quicksetsdk.sony",
+     "note": "UEI QuickSet: IR control of cable boxes/soundbars; HDMI-CEC unaffected"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "Google text-to-speech: TalkBack and read-aloud stop working"
+    },
+    {
+     "pkg": "com.sony.dtv.seeds.iot",
+     "note": "Sony smart-home / phone-app link (BRAVIA Connect, remote start)"
+    },
+    {
+     "pkg": "com.sony.dtv.gestureapp",
+     "note": "BRAVIA CAM gestures (no camera on this set)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "with launcherx disabled its RecoveryActivity (HOME priority 1) outranks set-home-activity, and shell can't disable just that component. Re-enable before a factory reset."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 29
+}

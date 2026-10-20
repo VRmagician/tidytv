@@ -1,0 +1,81 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Debloat Xiaomi, TCL, Sony and Chromecast TVs | TidyTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="Brand-by-brand notes for debloating Xiaomi, TCL, Sony Bravia and Chromecast with Google TV: the known problems, and where to find your model&#x27;s list.">
+<link rel="canonical" href="https://tidytv.winkle.dev/guides/debloat-by-brand/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="/img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/guides/debloat-by-brand/">
+<meta property="og:title" content="Debloat Xiaomi, TCL, Sony and Chromecast TVs | TidyTV">
+<meta property="og:description" content="Brand-by-brand notes for debloating Xiaomi, TCL, Sony Bravia and Chromecast with Google TV: the known problems, and where to find your model&#x27;s list.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV", "description": "Brand-by-brand notes for debloating Xiaomi, TCL, Sony Bravia and Chromecast with Google TV: the known problems, and where to find your model's list.", "datePublished": "2026-10-20", "dateModified": "2026-10-20", "author": {"@type": "Organization", "name": "TidyTV"}, "publisher": {"@type": "Organization", "name": "TidyTV"}, "image": "https://tidytv.winkle.dev/img/og.png", "mainEntityOfPage": "https://tidytv.winkle.dev/guides/debloat-by-brand/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://tidytv.winkle.dev/guides/"}, {"@type": "ListItem", "position": 3, "name": "Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV"}]}]</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<header class="top"><div class="wrap bar">
+  <a class="wordmark" href="/"><img src="/img/icons/a1-mascot-flat.webp" width="40" height="40" alt="">TidyTV</a>
+  <nav aria-label="Main"><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">TidyTV</a> › <a href="/guides/">Guides</a> › Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV</p>
+
+<article class="card guide">
+  <h1>Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV</h1>
+  <p class="meta">These four brands show up most in cleanup reports, and each has its own traps.</p>
+  <div class="prose"><p>Xiaomi, TCL and Sony Bravia TVs, plus the Chromecast with Google TV, come up most in the recent wave of "clean up your TV" reports. Each has its own trouble spot: Xiaomi and the stock launcher, TCL and black screens, Sony and older software, Chromecast and casting. Always use a list written for your exact model.</p>
+<p>Debloating here means turning off pre-installed apps you don't want, without deleting them. It is done with ADB (Android Debug Bridge, a tool that sends instructions to an Android device). The wave began with Mert Cobanov's post on August 27, 2026, and picked up speed when Gathin posted on October 17 (<a href="https://cleanyour.tv/">cleanyour.tv</a>). The problems below come from public issue reports. They are not a count of how often things go wrong.</p>
+<h2>How do you debloat a Xiaomi or Mi TV?</h2>
+<p>Xiaomi is the most frequently mentioned brand. The story that started the second wave was a Xiaomi TV: Gathin says Claude Code removed 25 packages from his parents' set and built a launcher (<a href="https://cleanyour.tv/">cleanyour.tv</a>). A launcher is the app that draws your home screen. Reports in the issue tracker cover several models, including the MiTV-MOOR2, MiTV-MOSR4 and a 2026 A Pro.</p>
+<p>Know these trouble spots:</p>
+<ul><li>Disabling the stock launcher crash-looped the system on a Xiaomi TV running Google TV 14 (<a href="https://github.com/Gathin23/cleanyourtv/issues/90">issue #90</a>).</li><li>A Xiaomi boot loop is reported in the tv-detox tracker (<a href="https://github.com/Ansub/tv-detox/issues/14">#14</a>).</li><li>Some TVs with China firmware refuse third-party launchers (<a href="https://github.com/Gathin23/cleanyourtv/issues/37">#37</a>).</li></ul>
+<p>Model pages with a list for Xiaomi:</p>
+<ul><li><a href="/tv/xiaomi-mitv-moor2/">Xiaomi MiTV-MOOR2</a></li><li><a href="/tv/xiaomi-mitv-mosr4/">Xiaomi MiTV-MOSR4</a></li><li><a href="/tv/xiaomi-mitv-axso0/">Xiaomi MiTV-AXSO0 (Mi TV 4A Pro)</a></li><li><a href="/tv/xiaomi-mi-box-s/">Xiaomi Mi Box S</a></li></ul>
+<h2>How do you debloat a TCL Google TV?</h2>
+<p>TCL is the next most common brand. Reports mention a TCL 98C12L and an ak30a5 from China, and TV Slim says it was tested on a TCL 65C89K (<a href="https://tvslim.app/">tvslim.app</a>).</p>
+<p>The headline risk is a black screen. A TCL Google TV owner reported a black screen loop after a cleanup (<a href="https://github.com/Ansub/tv-detox/issues/16">tv-detox #16</a>). Add the China-firmware launcher limits above, and TCL owners should be most careful with anything that touches the home screen app.</p>
+<p>Model pages with a list for TCL:</p>
+<ul><li><a href="/tv/tcl-65c735/">TCL 65C735</a></li><li><a href="/tv/tcl-g10-google-tv/">TCL G10 55" 4K Google TV</a></li><li><a href="/tv/tcl-c755-google-tv/">TCL C755 QD-Mini LED</a></li><li><a href="/tv/tcl-qm6k-google-tv/">TCL QM6K Pro</a></li></ul>
+<h2>How do you debloat a Sony Bravia?</h2>
+<p>Sony Bravia owners are a big part of the story. The author of the <a href="https://techpp.com/2026/10/18/speed-up-android-tv-claude-code/">TechPP walkthrough</a> used a Bravia, installed the Projectivy launcher, and used private DNS to deal with ads. Issue reports cover the KD-55X74K, KDL-49W800G, KD-55X8509C (a 2015 set on Android 7) and a K-85XR70.</p>
+<p>Know these trouble spots:</p>
+<ul><li>A KD-55X74K stuck on the Google TV boot screen after a restart and needed a factory reset (<a href="https://github.com/Gathin23/cleanyourtv/issues/62">issue #62</a>).</li><li>Older sets run older Android software, so package names on a newer list may not apply.</li><li>Sony says recommendations on its Android TV models can't be removed, while Google TV models have an "Apps only" mode that hides them, at the cost of Google Assistant (<a href="https://www.sony.com/electronics/support/articles/00225587">Sony</a>). Try that setting before changing any apps.</li></ul>
+<p>Model pages with a list for Sony:</p>
+<ul><li><a href="/tv/sony-bravia-4k-gb/">Sony BRAVIA 4K GB</a></li><li><a href="/tv/sony-bravia-bf1/">Sony BRAVIA BF1</a></li><li><a href="/tv/sony-kd-55x8509c/">Sony KD-55X8509C</a></li><li><a href="/tv/sony-bravia-9-ii/">Sony BRAVIA 9 II</a></li></ul>
+<h2>How do you debloat a Chromecast with Google TV?</h2>
+<p>Both the 4K and HD Chromecast with Google TV appear in the reports. The known trap is casting: disabling a package called <code>setupwraith</code> broke casting from phones, with an "Untrusted device" message (<a href="https://github.com/Gathin23/cleanyourtv/issues/361">issue #361</a>). If you cast from your phone daily, test casting after every batch.</p>
+<p>Model page with a list for the Chromecast:</p>
+<ul><li><a href="/tv/google-chromecast-gtv-4k/">Chromecast with Google TV 4K</a></li></ul>
+<h2>Is the same list safe on every model?</h2>
+<p>No. Packages with the same job can have different names between models, and a mistake can mean a boot loop. The projects keep one list per TV for that reason, about 92 as of October 20, 2026 (<a href="https://cleanyour.tv/">cleanyour.tv</a>). Those lists are still being corrected in open issues, so apply them in small batches and check the picture, the remote and casting each time.</p>
+<h2>Why do the same mistakes repeat across brands?</h2>
+<p>Most failures come from one of three moves: turning off the stock launcher before the replacement works, turning off a package that looks like clutter but carries a core job (inputs, casting, setup), and applying a big batch at once so you can't tell which change broke things. The Engadget and AI In Context critiques make a similar point about speed over care (<a href="https://www.engadget.com/2267074/why-claude-cleaning-tv-bloatware-not-best-idea/">Engadget</a>, <a href="https://www.aiincontext.com/articles/a-developer-let-claude-debloat-his-tv-here-s-why-you-shouldn-t-b93f9fcd">AI In Context</a>). Small batches and a backup address all three.</p>
+<h2>What if your brand is not here?</h2>
+<p>Others named in reports include Acer, Hisense, OnePlus, Philips, Sharp, Panasonic, Realme, Airtel Xstream and the Nvidia Shield (2019). Samsung (Tizen), LG (webOS) and Roku are not Android TV, so the Android prompts don't apply to them (<a href="https://mashable.com/tech/smart-tv-ads-claude-code-ai-cleanup">Mashable</a>). Fire TV is a partial case: one guide says it gets the debloat half only (<a href="https://saascity.io/blog/debloat-android-tv-claude-code">saascity</a>).</p>
+<h2>What is the safest way to start?</h2>
+<ol><li>Find your exact model. If it isn't listed, be extra cautious.</li><li>Back up what is currently on.</li><li>Turn things off in small batches, never deleting.</li><li>Test after each batch, and know how to turn it all back on.</li></ol>
+<p><a href="/">TidyTV</a> is a phone app that runs these steps without a laptop: it saves a backup, turns apps off rather than deleting them, and has a one-tap restore. Browse the <a href="/tv/">full list of TV models</a> to see whether yours is covered. It is not the only way. TV Slim and ADB TV are other no-laptop tools, and the AI route from Cobanov, Gathin, Ansub and others suits people who like to tinker.</p></div>
+  <h2>More guides</h2>
+  <ul class="related"><li><a href="/guides/claude-code-google-tv/">Can Claude Code really clean up your Google TV?</a></li><li><a href="/guides/ai-tv-debloat-risks/">The risks of letting an AI agent loose on your TV</a></li><li><a href="/guides/claude-vs-phone-app/">Claude Code vs a phone app: two ways to debloat a Google TV</a></li><li><a href="/guides/cleanyourtv-tv-detox/">Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds</a></li><li><a href="/guides/prompt-ai-tv-cleanup/">Hack my TV&quot; got refused: how to ask an AI for a TV cleanup</a></li><li><a href="/guides/remove-google-tv-home-ads/">How to remove ads from the Google TV home screen (what works and what doesn&#x27;t)</a></li><li><a href="/guides/safe-to-disable-android-tv-apps/">Which Android TV apps are safe to disable, and which you should never touch</a></li><li><a href="/guides/fire-tv-samsung-lg/">What about Fire TV, Samsung and LG? Honest answers</a></li></ul>
+</article>
+<section class="card cta">
+  <div>
+    <h2>Tidy your TV from your phone</h2>
+    <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
+    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <p class="ask">A star on GitHub is how other people find TidyTV.</p>
+  </div>
+  <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">
+</section>
+</main>
+<footer class="wrap">
+  <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
+</footer>
+<script src="/assets/stars.js" defer></script>

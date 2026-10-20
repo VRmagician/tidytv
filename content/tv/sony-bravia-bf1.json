@@ -1,0 +1,35 @@
+{
+  "name": "Sony BRAVIA BF1",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Turn off Samba TV ad tracking, Sony promos, shop demo modes and preloaded apps on the Sony BRAVIA BF1. Free phone app, with a backup first and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA BF1 has Samba TV, which recognises what is on screen for ad targeting and runs all the time. It also has Sony promotions and a Sony Select tile for promoted apps, shop demo modes, a Google feedback reporter, and preloaded apps such as YouTube Music and Play Games.",
+    "The list was applied one group at a time on a real set, with voice search kept on purpose. The notes say to check Home, Netflix, YouTube, Input and AirPlay after each group. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled, and one tap restores them."
+  ],
+  "keep": [
+    "Play Store, Play Services, Gboard and Sony's update centre",
+    "The TV inputs and tuners and the Input menu, so HDMI and antenna still work",
+    "Chromecast, AirPlay and Dolby audio",
+    "Sony and Android settings"
+  ],
+  "notes": [
+    "Wait about 30 seconds after a change before restarting the TV. A restart too soon can bring back an app that was just turned off.",
+    "Sony's application disabler turns some apps back on at every start, including the AirPlay app and some Sony IoT apps. Leave them as they are.",
+    "The TV's IP address often changes after a restart. Reserve one in your router so your phone can find the TV."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony BRAVIA BF1?",
+      "a": "Yes. Voice search is kept on purpose, and Google Assistant is an optional entry, so it stays on."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. AirPlay and Chromecast are kept on this list."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap. A factory reset also turns every app back on."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Vu 4K",
+  "brand": "Vu",
+  "os": "Google TV 12",
+  "summary": "Turn off Vu's Enhanced Viewing content recognition, shop demo mode, photo and music apps and other extras on the Vu 4K. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The Vu 4K sold in India ships with Vu's Enhanced Viewing feature, which recognises content on screen, and Google's feedback reporter. It also has a shop demo mode, partner app auto-installs, and preloaded apps the owner may not use: Vu's family photo app and music app, a web browser, MX Player and Alexa.",
+    "The list was tested on the day it was applied, with two restarts, and both were normal. Switching HDMI from the launcher's Inputs menu worked, and apps opened from the dock. The notes say it had not yet been used for days. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled, and one tap restores them."
+  ],
+  "keep": [
+    "Google Assistant, which is left on by choice",
+    "Chromecast, AirPlay and Miracast screen mirroring",
+    "Firmware updates, which stay on",
+    "Vu's TV service, picture settings, USB media player and DLNA"
+  ],
+  "notes": [
+    "Leave Vu's smart-sense and AIoT services on. On a similar Hisense set, turning them off sent the TV into Android Recovery at the next start.",
+    "USB debugging alone opens network debugging on port 5555, so no separate pairing step is needed."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Vu 4K?",
+      "a": "Yes. Google Assistant is left on by choice on this list, so the voice button should still work."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, AirPlay and Miracast are left on by choice."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

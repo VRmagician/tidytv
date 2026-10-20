@@ -1,0 +1,268 @@
+{
+ "id": "portronics-beem-470",
+ "title": "Portronics Beem 470 Smart LED Projector (Allwinner H713, sun50iw12p1), Android 11 (SDK 30)",
+ "header": "Portronics Beem 470 Smart LED Projector (Allwinner H713, sun50iw12p1), Android 11 (SDK 30)\nFirmware UI_Veng.projector.20250922.160824, 1 GB RAM, 1920x1080 panel.\nThe firmware reports the generic Allwinner \"ADT-3\" / \"adt3\" identity, so match on the build\nstring rather than ro.product.model.\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/portronics-beem-470/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/portronics-beem-470/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out anything you use.\n\nTested on a retail unit: Wi-Fi, HDMI input switching, Netflix, JioHotstar, Prime Video, VLC,\nSmartTube, Apple TV and the replacement launcher keep working. Re-enable the OTA packages before\nchecking for firmware updates. Casting/EShare packages (com.ecloud.*, com.eshare.*,\ncom.allshare.*) are deliberately left enabled.\n\nFirmware quirks worth knowing before you start:\n- The remote's HOME key is ignored until both setup flags are set; otherwise the firmware keeps\nreporting \"user setup is in progress\":\nsettings put secure user_setup_complete 1\nsettings put global device_provisioned 1\n- This firmware answers no ACTION_SETTINGS intent. With launcher/, set\nsettings_component=com.htc.htcsettings/com.htc.activity.HomeActivity in config.xml.\n- The stock launcher is com.htc.htclauncherhighenglishd08; re-enable it if you remove launcher/.",
+ "sections": [
+  {
+   "title": "Stock HTC launcher and its infrastructure, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.htc.htclauncherhighenglishd08",
+     "note": "stock Home; re-enable if the custom launcher is removed"
+    },
+    {
+     "pkg": "com.htc.expandsdk",
+     "note": "service used by the HTC launcher/theme stack"
+    },
+    {
+     "pkg": "com.htc.screensaver",
+     "note": "stock screensaver; ClockDream replaces it"
+    },
+    {
+     "pkg": "com.htc.storeos",
+     "note": "HTC app store"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "HTC telemetry, factory test and updates",
+   "apps": [
+    {
+     "pkg": "com.htc.eventuploadservice",
+     "note": "usage/event uploader"
+    },
+    {
+     "pkg": "com.htc.htcotaupdate",
+     "note": "OTA; re-enable to check for firmware updates"
+    },
+    {
+     "pkg": "com.htc.hyk_test",
+     "note": "factory test app"
+    },
+    {
+     "pkg": "com.hysd.vafocus",
+     "note": "vendor projector control/voice helper; see note below"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Allwinner/Softwinner vendor apps not used on this model",
+   "apps": [
+    {
+     "pkg": "com.softwinner.awlivetv",
+     "note": "Live TV tuner UI; this model has no tuner"
+    },
+    {
+     "pkg": "com.softwinner.TvdVideo",
+     "note": "stock USB video player; VLC covers playback"
+    },
+    {
+     "pkg": "com.softwinner.TvdFileManager",
+     "note": "stock file manager"
+    },
+    {
+     "pkg": "com.softwinner.ImageParser",
+     "note": "stock image viewer"
+    },
+    {
+     "pkg": "com.softwinner.awlogsettings",
+     "note": "log-capture settings"
+    },
+    {
+     "pkg": "com.softwinner.screenshot",
+     "note": "Quick Settings screenshot tile"
+    },
+    {
+     "pkg": "com.softwinner.settingsassist",
+     "note": "settings OTA activity; re-enable with the OTA packages"
+    },
+    {
+     "pkg": "com.softwinner.settingssetup",
+     "note": "provisioning receiver; re-enable before a factory reset"
+    },
+    {
+     "pkg": "com.softwinner.provision",
+     "note": "provisioning app; re-enable before a factory reset"
+    },
+    {
+     "pkg": "com.softwinner.theme.color",
+     "note": "Allwinner theme overlay"
+    },
+    {
+     "pkg": "com.softwinner.theme.icon",
+     "note": "Allwinner theme overlay"
+    },
+    {
+     "pkg": "com.softwinner.update",
+     "note": "Allwinner OTA; re-enable to check for firmware updates"
+    },
+    {
+     "pkg": "android.rockchip.update.service",
+     "note": "Rockchip updater left in this Allwinner image"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock Google apps replaced here",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "replaced by SmartTube"
+    },
+    {
+     "pkg": "com.google.android.apps.searchlite.overlay",
+     "note": ""
+    },
+    {
+     "pkg": "org.chromium.webview_shell",
+     "note": "WebView shell; the WebView provider stays installed"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded office suite",
+   "apps": [
+    {
+     "pkg": "com.mobisystems.office",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "AOSP apps and services with no use on a 1080p projector",
+   "apps": [
+    {
+     "pkg": "com.android.music",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.musicfx",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dreams.basic",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.wallpaperbackup",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.wallpapercropper",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printservice.recommendation",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.bips",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.htmlviewer",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.egg",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.soundpicker",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.providers.userdictionary",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.providers.blockednumber",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.cellbroadcastreceiver",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.cellbroadcastservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.nfc",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.se",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.bluetoothmidiservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.hotspot2.osulogin",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.pacprocessor",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.proxyhandler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.localtransport",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.backupconfirm",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.sharedstoragebackup",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.managedprovisioning",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.onetimeinitializer",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dynsystem",
+     "note": "dynamic system updates, not used"
+    },
+    {
+     "pkg": "com.android.cts.ctsshim",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.cts.priv.ctsshim",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 54
+}

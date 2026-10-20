@@ -1,0 +1,34 @@
+{
+  "name": "TCL 43C645",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "Turn off TCL telemetry, promo rows, the firmware updater and the screen mirroring app on the TCL 43C645. A free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The TCL 43C645 reports itself as a Smart TV Pro and runs Android TV 11 with the Google TV home screen. It ships with TCL telemetry and promo services, a TCL dashboard and message box, a retail demo sticker, an overseas app showcase, and content rows. It also has a Wuaki app, Google's movies app and a calendar sync, plus an optional screen mirroring service.",
+    "The list was tested on a real unit in three batches, with a screenshot after each. Ethernet stayed up, and Home, the D-pad, the Sources menu for HDMI, Netflix and Home from Netflix all worked, including after a reboot. Private DNS kept working. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup, and deletes nothing."
+  ],
+  "keep": [
+    "Voice: the TCL assistant and Google's voice service stay on, by choice.",
+    "The Cast receiver stays on, by choice.",
+    "Live TV (com.tcl.tv) and the TCL tuner and HDMI input services stay on, so the Sources menu still works.",
+    "Remote pairing, the keyboard, input sources and TCL system settings are never turned off by this list."
+  ],
+  "notes": [
+    "Once the stock home is off, the setup wizard would take over Home. That is why the list turns the setup wizard off as well.",
+    "The firmware updater is off on this list. Turn it back on in the app if you want TCL firmware updates."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Voice is kept by choice on this list, so the TCL assistant and Google's voice service stay on."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes for the Cast receiver, which stays on. Miracast screen mirroring is turned off, so mirroring from a phone will not work until you switch it back on."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL promo and messaging apps, the content rows, the TCL home-row tweaks and the overseas app showcase. Those are the home screen promos the list covers."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "CHiQ AI PONT GTVU65",
+  "brand": "CHiQ",
+  "os": "Google TV 14",
+  "summary": "Tidy a CHiQ AI PONT GTVU65 by turning off its store, ad services, feedback and preloaded apps. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The CHiQ AI PONT GTVU65 comes with a Changhong store and help app, Google feedback and Android ad services, Play partner auto-installs, a streaming app most owners never open, and a few preloaded apps. None of it is needed to watch Live TV or HDMI.",
+    "This list was tested on one set. Home opened, Netflix, YouTube, Prime Video and Apple TV launched, and the Inputs menu still listed Antenna, Cable, Satellite, ATV, AV and HDMI 1 to 3, with HDMI 1 switching. TidyTV turns these apps off from your phone over Wi-Fi. It saves a backup first and never uninstalls anything, and Restore everything brings them all back in one tap."
+  ],
+  "keep": [
+    "Live TV and the HDMI and AV inputs, which run on MediaTek TV services",
+    "Bluetooth remote pairing and the volume receiver",
+    "Remote key handling, including the Input key",
+    "Picture brightness control and the Homwee firmware updates",
+    "Netflix, YouTube, Prime Video and Apple TV, which all launched in testing"
+  ],
+  "notes": [
+    "This list turns off the stock home screen. Home may then pause on a leftover Google setup screen before the new one opens, which adds a short delay to each press.",
+    "Marvin TalkBack, the screen reader, is turned off in this list. Turn it back on in the app if you use it."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the partner customizer that adds rows and branding to the stock home screen, along with Android's ad services. The stock home screen itself is also in this list, so a clean home screen from the app is the usual way to replace it."
+    },
+    {
+      "q": "Will the remote still work?",
+      "a": "Yes. Bluetooth remote pairing and the Input key handling are kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

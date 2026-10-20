@@ -1,0 +1,185 @@
+{
+ "id": "sony-xbr-65x900f",
+ "title": "Sony BRAVIA XBR-65X900F (2018, BRAVIA_ATV3_4K, MediaTek MT5891), US/Canada firmware",
+ "header": "Sony BRAVIA XBR-65X900F (2018, BRAVIA_ATV3_4K, MediaTek MT5891), US/Canada firmware\nProduct BRAVIA_ATV3_4K_UC, model string \"BRAVIA 4K GB ATV3\". Android TV 9 (API 28), 2 GB RAM.\nFirmware BRAVIA_ATV3_4K_UC-user 9 PTT1.190515.001.S54 672201 release-keys, security patch 2022-01-05\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-xbr-65x900f/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-xbr-65x900f/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nApplied 2026-10-19 and checked across a reboot (list still disabled, launcher still Home, HDMI and\nLive TV fine). Not lived with for weeks yet: re-enable anything that breaks with `pm enable <package>`.\n\nSame Android 9 firmware build as examples/sony-xbr-x900e and sony-bravia-4k-gb (ATV2), one platform\ngeneration newer (ATV3, MT5891). Package set is the same apart from the ATV3 panel/HDMI services.\nStock launcher: com.google.android.tvlauncher (restore.sh's default).\nLive TV / input app: com.sony.dtv.tvx. Keep it: it also plays every HDMI input and the ATSC tuner.\nKeep: com.sony.dtv.tvinput.*, braviasync* (HDMI-CEC), remotepairing, rcpowerkey, uinputservice,\nimeproxy, sonysystemservice, settingsprovider, all com.mediatek.* and mtktvapi.agent, timers.\nAlready off on this TV before the list (owner or factory): tv.samba.ssm and com.sony.dtv.promos (both\nlisted below anyway), com.sony.rvu, actionmenu.plugin.harmony, Vudu, Play Movies, Play Games.\n\nNotes from this firmware:\n- ADB: Developer options > USB debugging opens port 5555 (Android 9: no Wireless debugging pairing);\nthe TV then shows the usual \"Allow USB debugging?\" prompt. Tick \"Always allow\".\n- The sponsored banner at the top of the stock home (Hulu, Apple TV+ promos) comes from\ncom.google.android.tvlauncher itself and survives disabling tvrecommendations; only replacing the\nlauncher removes it.\n- Sony Settings pages (About, Status) return an empty screencap; read them with `uiautomator dump`.\n- The retail model number is not in getprop or UPnP (both say \"BRAVIA 4K GB ATV3\"); read it off the\nsticker or the Help app.\n- Launcher works. Same as the X900E: the stock launcher's HOME filter wins until\ncom.google.android.tvlauncher is disabled; disable it, then `cmd package set-home-activity\ncom.gathin.tvhome/.MainActivity`. Home key from inside apps returns to the new launcher.\n- Inputs works: HDMI 1-4 (HDMI 3/ARC), Video and Live TV listed via com.sony.dtv.tvx. This firmware\nreports real per-port status (\"No device\" / \"Connected\"), not every port as connected.\nconfig.xml: hidden_apps com.sony.dtv.tvx and com.sony.dtv.tvxlauncher.programguide,\nlive_tv_package com.sony.dtv.tvx.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony and Google content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": "My BRAVIA promos"
+    },
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app store/promo tile"
+    },
+    {
+     "pkg": "com.sony.dtv.discovery",
+     "note": "Sony Discover content bar"
+    },
+    {
+     "pkg": "com.sony.dtv.bivlinfo",
+     "note": "BIVL content service list (feeds Discover)"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demomode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry, remote support and feedback",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony device agent / remote support"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "Node.js SDDP broadcaster for Control4-style automation;"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded help apps",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.imanual",
+     "note": "i-Manual"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this TV",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search (mic button)"
+    },
+    {
+     "pkg": "screnmirroring.com",
+     "note": "Screen mirroring (Miracast)"
+    },
+    {
+     "pkg": "com.sony.dtv.networkapp.wifidirect",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": "DLNA renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Android TV phone-app remote"
+    },
+    {
+     "pkg": "com.google.android.inputmethod.japanese",
+     "note": "Japanese keyboard (Gboard stays the default)"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthomesettings",
+     "note": "\"Works with Alexa\" setup: Amazon login, Firebase push, runs at boot"
+    },
+    {
+     "pkg": "com.sony.dtv.smartmediaapp",
+     "note": "Media Player, plays files from USB"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "Music, plays music from USB"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver"
+    }
+   ],
+   "note": "features the owner doesn't use. Comment out any you want."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 30
+}

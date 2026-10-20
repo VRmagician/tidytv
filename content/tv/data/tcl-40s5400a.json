@@ -1,0 +1,152 @@
+{
+ "id": "tcl-40s5400a",
+ "title": "TCL 40S5400A (40\" FHD, S5400 series), EU unit: device C06, product C06_2K_GB, model \"Smart TV\".",
+ "header": "TCL 40S5400A (40\" FHD, S5400 series), EU unit: device C06, product C06_2K_GB, model \"Smart TV\".\nAndroid TV 11 (SDK 30), build AR2101, TCL software V8-T221T05-LF1V325, security patch 2025-03-05.\nMediaTek MT9221 (ro.board.platform mt5867), 4x Cortex-A55, about 1 GB RAM (low_ram=true).\nLikely a good starting point for other TCL S-series Android TV 11 sets on MT9221.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-40s5400a/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-40s5400a/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (the restore.sh / build-and-install.sh default).\nLive TV app: com.tcl.tv. It also plays HDMI: it is the only handler of the passthrough-input\nVIEW intent the Inputs menu sends, and the remote's Input key opens its source picker.\nInputs come from com.tcl.tvinput (2x HDMI, AV, tuner).\n\nApplied in three rounds on 2026-10-18 and lived with for one day so far (shorter than\nCONTRIBUTING.md asks; I'll report back if anything breaks). Rebooted after each round.\nChecked after the full list: launcher/ comes up as Home after a reboot, YouTube and Netflix open,\nswitching to HDMI 2 (PS5) works, the remote's Input key opens the source picker.\nChecked after the first two rounds: Disney+, picture settings, the firmware update check.\nNot tested: casting from a phone (the Cast receiver is kept).\nMemory, PSS: stock tvlauncher 64 MB + 15 MB swapped vs 41 to 46 MB for my build of launcher/\n(a few local changes); tvrecommendations about 20 MB, katniss about 52 MB (two processes).\n\nKnown quirks on this firmware:\n- The stock launcher declares HOME priority 2, so `cmd package set-home-activity` alone does not\ntake Home while it is enabled (Home still opens it). Disabling it, as build-and-install.sh\ndoes, is required.\n- com.tcl.usercenter (TCL account) is switched back on by the system at every boot. It stays\nidle, so it is left in the list.\n- com.tcl.ttvs is NOT text-to-speech: its activities are versionUpdateApp SystemUpdateActivity and\nNetworkUpdateActivity, i.e. the firmware updater. Keep it for OTA updates.\n- After a reboot the system can switch to the last HDMI source on its own (com.tcl.tv started by\nuid 1000 about 2 s after Home). Seen once; a PS5 on HDMI-CEC may be the trigger. Home brings\nthe launcher back.\n- The photo screensaver (com.google.android.backdrop) used about 105 MB while running. Before\ndisabling it, switch to the AOSP one:\ntools/tv.py 'settings put secure screensaver_components com.android.dreams.basic/.Colors'\n(restore: com.google.android.backdrop/com.google.android.backdrop.Backdrop)\n- screencap writes an empty file while an HDMI input is on screen. Press Home first.\n\nDO NOT DISABLE on this TV (kept and working):\ncom.tcl.tv                           # Live TV app, plays HDMI, source picker on the Input key\ncom.tcl.tvinput                      # TV input services for HDMI, AV and the tuner\ncom.tcl.ttvs                         # firmware updater (see quirks)\ncom.tcl.messagebox                   # carries a ttvs receiver (org.tcl.ttvs); kept to be safe\ncom.tcl.system.server                # remote-key plumbing\ncom.tcl.tcl_bt_rcu_service           # Bluetooth remote\ncom.tcl.autopair                     # Bluetooth remote auto-pairing\ncom.tcl.settings                     # picture/sound settings\ncom.tcl.dashboard                    # \"TCL HOME\" tile; kept, only hidden in the launcher config\ncom.tcl.suspension                   # Quick Panel; kept, not tested without it\ncom.tcl.providers.config             # reported to drop Wi-Fi on the 65C725; not tried here\ncom.tcl.keyhelp                      # remote-key help/virtual keys; kept",
+ "sections": [
+  {
+   "title": "TCL account, promos and content",
+   "apps": [
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account, re-enabled by the system at boot (idle)"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard cleaner/support"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "promo rows on the stock home"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL web-video portal"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "store-demo sticker"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "partner-app auto installer config"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google extras",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "first-run wizard, setup already done"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "launcher/build-and-install.sh disables the stock launcher itself, after Home has moved"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock home and its recommendation rows, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this unit: comment out what you use",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google search/voice, keep for the mic button"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "phone-app remote (casting does not need it)"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "Google text-to-speech, keep for TalkBack"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "photo screensaver, switch the screensaver first (quirks)"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media player, together with the next three"
+    },
+    {
+     "pkg": "com.tcl.audioplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.imageplayer",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Cast receiver: kept here for casting from a phone"
+    },
+    {
+     "pkg": "au.com.stan.and",
+     "note": "Stan"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "TCL Alexa bridge"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 22
+}

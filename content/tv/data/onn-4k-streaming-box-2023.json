@@ -1,0 +1,75 @@
+{
+ "id": "onn-4k-streaming-box-2023",
+ "title": "onn 4K Streaming Box (2023, Walmart; device YOC, product onn_4k_gtv, Amlogic), 2 GB RAM",
+ "header": "onn 4K Streaming Box (2023, Walmart; device YOC, product onn_4k_gtv, Amlogic), 2 GB RAM\nGoogle TV 14 (SDK 34), build URO4.260304.011.B1.15051976\n\nApply:   TV_HOST=<ip> tools/disable.sh examples/onn-4k-streaming-box-2023/debloat.txt\nUndo:    TV_HOST=<ip> tools/restore.sh examples/onn-4k-streaming-box-2023/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. No HDMI inputs or Live TV (it's a box):\nleave live_tv_package empty in config.xml.\n\nKnown quirks on this firmware:\n- Unlike the Chromecast on Google TV 14, port 5555 is open as soon as USB debugging is on; no pairing.\n- If a VPN app is connected, Settings > Network shows the VPN tunnel address, not the LAN one.\nFind the box with `nc -z <lan>.x 5555` or `dns-sd -B _adb-tls-connect._tcp local.`.\n- The Wi-Fi network saved during first setup belongs to setupwraith (dumpsys wifi: cname=...setupwraith).\nForget and re-join it in Settings before disabling setupwraith, or the network is deleted.\n- As on the Chromecast, setupwraith's RecoveryActivity takes Home until setupwraith is disabled.\n- Unlike the Chromecast, the remote's app buttons and mic keep working with launcherx disabled\n(com.gretzky.GlobalKey handles them; keep it). No key-mapper workaround needed.\n\nKept on purpose: Google Assistant (com.google.android.katniss), Cast receiver\n(com.google.android.apps.mediashell), onn update prompts (com.onn.updatenotification), com.gretzky.GlobalKey (onn remote app buttons), com.gretzky.hwinfo,\ncom.droidlogic.* (Amlogic vendor: HDMI, picture, remote pairing), com.onn.bluetoothconnect,\nPlay Store / Play Services, Gboard, com.google.android.tv.dfuservice (remote firmware updates),\ncom.google.android.tv.remote.service (phone remote).",
+ "sections": [
+  {
+   "title": "Telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "re-enable if you need the screen reader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google ambient mode screensaver (replaced by the launcher's Clock screensaver)",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "setup wizard; its RecoveryActivity otherwise takes over Home"
+    }
+   ],
+   "optional": [],
+   "note": "launcher/build-and-install.sh disables launcherx itself once the new launcher is installed and verified, and restore.sh re-enables it; setupwraith has to go too (it re-enables launcherx), so it stays in the list for restore.sh to bring back."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 8
+}

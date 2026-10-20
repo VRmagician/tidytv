@@ -1,0 +1,75 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Debloat Fire TV, Samsung or LG TV? What works | TidyTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="The AI and app TV cleanups were built for Android TV and Google TV. Here is what that means for Fire TV, Samsung Tizen, LG webOS and Roku, without hype.">
+<link rel="canonical" href="https://tidytv.winkle.dev/guides/fire-tv-samsung-lg/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="/img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/guides/fire-tv-samsung-lg/">
+<meta property="og:title" content="Debloat Fire TV, Samsung or LG TV? What works | TidyTV">
+<meta property="og:description" content="The AI and app TV cleanups were built for Android TV and Google TV. Here is what that means for Fire TV, Samsung Tizen, LG webOS and Roku, without hype.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "Article", "headline": "What about Fire TV, Samsung and LG? Honest answers", "description": "The AI and app TV cleanups were built for Android TV and Google TV. Here is what that means for Fire TV, Samsung Tizen, LG webOS and Roku, without hype.", "datePublished": "2026-10-20", "dateModified": "2026-10-20", "author": {"@type": "Organization", "name": "TidyTV"}, "publisher": {"@type": "Organization", "name": "TidyTV"}, "image": "https://tidytv.winkle.dev/img/og.png", "mainEntityOfPage": "https://tidytv.winkle.dev/guides/fire-tv-samsung-lg/"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Guides", "item": "https://tidytv.winkle.dev/guides/"}, {"@type": "ListItem", "position": 3, "name": "What about Fire TV, Samsung and LG? Honest answers"}]}]</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<header class="top"><div class="wrap bar">
+  <a class="wordmark" href="/"><img src="/img/icons/a1-mascot-flat.webp" width="40" height="40" alt="">TidyTV</a>
+  <nav aria-label="Main"><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">TidyTV</a> › <a href="/guides/">Guides</a> › What about Fire TV, Samsung and LG? Honest answers</p>
+
+<article class="card guide">
+  <h1>What about Fire TV, Samsung and LG? Honest answers</h1>
+  <p class="meta">The viral cleanups work on Android-based TVs. Some other TVs get part of the way, and some get nothing yet.</p>
+  <div class="prose"><p>The "Claude cleaned my TV" trend was built for Android TV and Google TV. Fire TV gets part of it, because it is Android underneath. Samsung (Tizen), LG (webOS) and Roku do not run Android, so the same method does not work on them. This guide says what we know, and where we don't know.</p>
+<h2>Why does the cleanup only work on some TVs?</h2>
+<p>The method uses ADB (Android Debug Bridge), which lets another device send commands to a TV over Wi-Fi. It turns apps off with <code>pm disable-user</code>, a command that exists on Android. The best-known prompt, in the <a href="https://github.com/Gathin23/cleanyourtv/blob/main/PROMPT.md">cleanyourtv project</a>, is written for Android and Google TV, and <a href="https://mashable.com/tech/smart-tv-ads-claude-code-ai-cleanup">Mashable</a> says other platforms are not supported.</p>
+<p>That is why the people behind it, Mert Cobanov, Gathin and Ansub, all talk about Android TV. <a href="https://techcrunch.com/2026/10/19/people-are-using-ai-to-make-their-smart-tvs-dumb-again/">TechCrunch</a> quotes Gathin saying that people also tried Fire TV, LG and projectors, but that is a report of attempts, not a promise that it worked.</p>
+<h2>Can you debloat a Fire TV?</h2>
+<p>Partly. A Fire TV is built on Android, so apps can be turned off in the same way. Two reports describe it as cleanup only.</p>
+<ul><li><a href="https://saascity.io/blog/debloat-android-tv-claude-code">Saascity's guide</a> says Fire TV gets the debloat half only. In other words, you can switch off apps, but you don't get a replacement home screen.</li><li><a href="/">TidyTV</a> says the same: a Fire TV gets the clean-up but keeps Amazon's home screen.</li></ul>
+<p>The cleanyourtv project has lists for some Fire TV models. For example, its Fire TV Stick 4K (2018) list targets Amazon telemetry and ad and recommendation feeders, and it warns that the sponsored rows on the home screen need DNS blocking, not just app removal. Insignia and Toshiba Fire TV sets have lists too. If you own one of these, check the matching page: <a href="/tv/amazon-fire-tv-stick-4k-2018/">Fire TV Stick 4K (2018)</a> or <a href="/tv/toshiba-fire-tv-aftha004/">Toshiba Fire TV</a>.</p>
+<p>A third project, <a href="https://github.com/humblemuzzu/dumbtv">dumbtv</a>, says it was tested on a Fire TV Edition as well as Android and Google TV. We haven't verified that claim ourselves.</p>
+<p>Users have asked for more. One issue on cleanyourtv simply asks, "When will it be able for FIRE TV?" (<a href="https://github.com/Gathin23/cleanyourtv/issues/79">#79</a>).</p>
+<p>The same habits apply as on any TV: turn apps off rather than uninstalling them, and switch debugging off when you are done.</p>
+<p>What we can't tell you: how a Fire TV behaves after a software update, or whether a particular model is safe to clean. Back up, change a few apps at a time and keep a way to restore.</p>
+<h2>What about Samsung TVs?</h2>
+<p>Samsung's TVs run Tizen, not Android. ADB-and-<code>pm</code> cleanups do not apply, and neither AI prompts nor TidyTV can do this job.</p>
+<p>Demand is clearly there. People in the r/vibecoding comments asked for Samsung help, including one who wanted to stop an older Samsung dragging on boot. Those comments come from search snippets, so treat them as reported rather than checked. <a href="https://www.engadget.com/2267074/why-claude-cleaning-tv-bloatware-not-best-idea/">Engadget</a> notes that Samsung's OS takes about 20% of the TV's storage, which is part of why people want to trim it.</p>
+<p>We don't have a verified method for Samsung, so we won't invent one. Your best source for what you can change is Samsung's own support pages for your model.</p>
+<h2>What about LG webOS and Roku?</h2>
+<p>The answer is the same. LG runs webOS and Roku runs its own system. Neither is Android, so the ADB route and TidyTV don't apply. We found no tested method for either in the sources we checked, and we won't guess at settings.</p>
+<h2>Is there anything you can do on a TV that isn't Android?</h2>
+<p>Here are the options that don't need a made-up fix.</p>
+<ul><li><strong>Use the TV's own settings.</strong> Look in the privacy and advertising settings for your model. We can't list them for you without checking each brand.</li><li><strong>Learn about ACR.</strong> TechCrunch and Engadget explain automatic content recognition, which can identify what's on screen by taking screenshots or fingerprinting audio. It is worth knowing the term when you read your TV's privacy menu.</li><li><strong>Add a second device.</strong> An Android TV or Google TV box or stick can be plugged into the TV's HDMI port. You then use that device as your home screen and ignore the TV's built-in one. The box itself can be cleaned. Lists exist for devices such as the <a href="/tv/google-chromecast-gtv-4k/">Chromecast with Google TV 4K</a> and the <a href="/tv/nvidia-shield-tv-2019/">NVIDIA SHIELD TV (2019)</a>.</li><li><strong>Wait.</strong> Fire TV, Samsung and LG are the most requested gaps. A request is not a plan, and we won't promise support.</li></ul>
+<h2>Which TVs does TidyTV cover?</h2>
+<ul><li><strong>Covered:</strong> Android TV and Google TV sets and boxes. The app needs an Android phone on the same Wi-Fi as the TV.</li><li><strong>Partly covered:</strong> Fire TV. It cleans up apps but keeps Amazon's home screen.</li><li><strong>Not covered:</strong> Samsung and LG, because they don't run Android. Roku is not covered either.</li></ul>
+<p>Not sure which you have? TidyTV's first screen asks, and has a "not sure" option. You can also look for your model on the <a href="/tv/">per-model pages</a>. It will not remove ads inside apps such as YouTube on any TV.</p>
+<h2>What is the honest bottom line?</h2>
+<p>If you own an Android or Google TV, the trend applies to you, with either an agent or a phone app. If you own a Fire TV, you can switch apps off but not change the home screen. If you own a Samsung, LG or Roku, nothing in this trend is built for you yet. Start at the <a href="/">TidyTV home page</a> to see what the app does.</p></div>
+  <h2>More guides</h2>
+  <ul class="related"><li><a href="/guides/claude-code-google-tv/">Can Claude Code really clean up your Google TV?</a></li><li><a href="/guides/ai-tv-debloat-risks/">The risks of letting an AI agent loose on your TV</a></li><li><a href="/guides/claude-vs-phone-app/">Claude Code vs a phone app: two ways to debloat a Google TV</a></li><li><a href="/guides/cleanyourtv-tv-detox/">Where the AI TV cleanup lists come from: cleanyourtv, tv-detox and what TidyTV adds</a></li><li><a href="/guides/prompt-ai-tv-cleanup/">Hack my TV&quot; got refused: how to ask an AI for a TV cleanup</a></li><li><a href="/guides/remove-google-tv-home-ads/">How to remove ads from the Google TV home screen (what works and what doesn&#x27;t)</a></li><li><a href="/guides/safe-to-disable-android-tv-apps/">Which Android TV apps are safe to disable, and which you should never touch</a></li><li><a href="/guides/debloat-by-brand/">Debloating by brand: Xiaomi, TCL, Sony and Chromecast with Google TV</a></li></ul>
+</article>
+<section class="card cta">
+  <div>
+    <h2>Tidy your TV from your phone</h2>
+    <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
+    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.2.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <p class="ask">A star on GitHub is how other people find TidyTV.</p>
+  </div>
+  <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">
+</section>
+</main>
+<footer class="wrap">
+  <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
+</footer>
+<script src="/assets/stars.js" defer></script>

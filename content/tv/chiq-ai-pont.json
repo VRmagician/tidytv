@@ -1,0 +1,36 @@
+{
+  "name": "CHiQ AI PONT (DVB93CQ)",
+  "brand": "CHiQ",
+  "os": "Android TV 11",
+  "summary": "Turn off the viewing tracker, FAST channel app and ad rows on the CHiQ AI PONT with TidyTV, a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The CHiQ AI PONT ships with a viewing tracker that identifies what is on screen, a FAST channel app and a vendor portal. It also adds recommendation rows, partner app installs and a few Google preloads, such as games and a screensaver. Most owners never asked for any of it.",
+    "The remote, HDMI, Live TV and firmware update services are left on, so inputs and the remote should keep working. TidyTV does the rest from your phone over the same Wi-Fi. It saves a backup first, switches each app off in Android's own settings and never uninstalls anything. Restore everything switches them all back on in one tap."
+  ],
+  "keep": [
+    "A small Google helper app. Without it the remote's Input key and hotkeys stop working after a restart.",
+    "Firmware updates, so the TV can still get system updates.",
+    "Live TV, HDMI and remote pairing, handled by MediaTek's services.",
+    "The remote key service that ships with the TV."
+  ],
+  "notes": [
+    "Live TV opens the last input you used. If that was an empty HDMI port, the screen stays black.",
+    "HDMI and Live TV screenshots come out black, because the picture is protected.",
+    "Interactive broadcast apps (HbbTV) run inside the TV, so switch them off in the Live TV menu instead.",
+    "The power button only puts the TV to sleep. Restart it now and then from the power menu."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my CHiQ AI PONT?",
+      "a": "It depends on the personal choice group. Google Assistant is in it, so the mic button only stops working if you switch Assistant off in the app."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is in the same personal choice group, so you can keep its switch on in the app. Miracast and AirPlay sit in that group too."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the ad and promo apps on the list: the viewing tracker, the FAST channel app, the vendor portal and the recommendation rows."
+    }
+  ]
+}

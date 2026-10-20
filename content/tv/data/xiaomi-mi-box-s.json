@@ -1,0 +1,175 @@
+{
+ "id": "xiaomi-mi-box-s",
+ "title": "Xiaomi Mi Box S (model MIBOX4, MDZ-22-AB, codename oneday, Amlogic gxl), Android TV 9 (SDK 28),",
+ "header": "Xiaomi Mi Box S (model MIBOX4, MDZ-22-AB, codename oneday, Amlogic gxl), Android TV 9 (SDK 28),\nfirmware PI.3933 (built 2021-09-28), security patch 2021-07-05, 2 GB RAM, 1920x1080. Indian unit:\nPatchWall arrived through Xiaomi's update service.\nFingerprint: Xiaomi/oneday/oneday:9/PI/3933:user/release-keys\n\nApply:   TV_HOST=<box ip> tools/disable.sh examples/xiaomi-mi-box-s/debloat.txt\nUndo:    TV_HOST=<box ip> tools/restore.sh examples/xiaomi-mi-box-s/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nA streaming box: no HDMI-in or tuner, so the Inputs menu has nothing to list; set live_tv_package empty in\nconfig.xml. Stock launcher: com.google.android.tvlauncher (the scripts' default).\n\nNotes from this box:\n- Leave alone: com.xiaomi.android.tvsetup.partnercustomizer (receives the remote's shortcut buttons as\nGLOBAL_BUTTON, and runs the remote-pairing steps of setup), mitv.service (Xiaomi TvServer, persistent),\ncom.google.android.tungsten.setupwraith (remote pairing), com.droidlogic* (Amlogic system, Bluetooth).\n- USB debugging alone opens network ADB on port 5555 (service.adb.tcp.port=5555).\n- USB debugging CUTS POWER to the USB port: with sys.usb.config=adb, /vendor/etc/init/hw/init.amlogic.usb.rc\nwrites 0xFDFFFFFF to register 0xc883443c and the port switches to ADB device mode, so a USB speaker or drive\ngoes dead; sys.usb.config=mtp (debugging off) writes 0xFD7FFFFF and powers it again. Turn debugging off when done.\n- cmd package set-home-activity needs the component on Android 9 (com.gathin.tvhome/.MainActivity).\n- Location is off, so Android 9 hides the Wi-Fi name from apps and the launcher's pill just says \"Wi-Fi\".\n- Remote (Vendor_2717_Product_32b9): the Netflix key still opens Netflix; BUTTON_2 opened Live Channels and\ndoes nothing once it is disabled; BUTTON_3/4 and ALL_APPS did nothing even on stock. No crashes either way.\n- Survives a reboot: nothing is re-enabled at boot, the launcher stays Home. Free RAM after boot went from\nabout 770 MB to 1.15 GB.\n- A process of the disabled stock launcher can linger until the next reboot; `am force-stop` clears it.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry and ad tracking",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": "Mi analytics: reads logs and app usage"
+    },
+    {
+     "pkg": "tv.alphonso.alphonso_eula",
+     "note": "Alphonso ad tracking, reads app usage stats"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, promos, auto-installs",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": "Mi Channel rows on the home screen"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "Xiaomi web promos"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xioami.mibox3",
+     "note": "Play auto-install of partner apps (sic, \"xioami\")"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware and PatchWall updates, installs apps; re-enable to check for an update"
+    },
+    {
+     "pkg": "com.mitv.download.service",
+     "note": "its download helper"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "voice assistant (the mic button stops working)"
+  },
+  {
+   "title": "Personal choice: casting, mirroring and the phone remote",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.mitv.milinkservice",
+     "note": "Mi cast (MiLink)"
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": "Mi video player, used by MiLink; VLC opens video files instead"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Google TV / Android TV Remote phone app"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.tv",
+     "note": "Live Channels"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "screen reader (was off)"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google Ambient photo screensaver, replaced by the launcher's Clock",
+   "apps": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.camera2",
+     "note": ""
+    }
+   ],
+   "note": "Switch the screensaver first: tools/tv.py 'settings put secure screensaver_components com.gathin.tvhome/.ClockDream'"
+  },
+  {
+   "title": "Stock Google TV launcher, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 22
+}

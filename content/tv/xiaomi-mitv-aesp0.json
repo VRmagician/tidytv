@@ -1,0 +1,34 @@
+{
+  "name": "Xiaomi MiTV-AESP0",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Turn off Xiaomi and Alphonso viewing tracking, PatchWall rows and preloaded apps such as DAZN on the Xiaomi MiTV-AESP0. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The Xiaomi MiTV-AESP0 is a stick on Android TV 9. It ships with Alphonso automatic content recognition, which tracks what you watch, plus Xiaomi and Google telemetry. It also has PatchWall and sponsored content rows, partner app auto-installs, and preloaded apps such as DAZN, Red Bull TV and Google Duo.",
+    "The voice assistant, Chromecast, Mi Cast and firmware updates stay on. The notes do not describe a full test of the list on this stick, so check the remote after the change. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup. Nothing is uninstalled, and one tap turns them back on."
+  ],
+  "keep": [
+    "The voice assistant",
+    "Chromecast built-in",
+    "Mi Cast, which is Xiaomi's screen casting from a phone",
+    "Firmware updates, so the stick can still update"
+  ],
+  "notes": [
+    "After the stock home is turned off, Home on the remote may do nothing. Check it with the real remote.",
+    "Gboard is already the default keyboard, so the keyboard needs no change."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Xiaomi MiTV-AESP0?",
+      "a": "Yes. The voice assistant is kept on this set, so the voice button should still work."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast and Mi Cast are kept on this set."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

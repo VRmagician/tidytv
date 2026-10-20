@@ -13,7 +13,7 @@ import java.io.File
 data class KnownTv(val serial: String, val title: String, val model: String, val host: String, val lastSeen: Long)
 
 /**
- * Everything tidytv keeps on the phone:
+ * Everything TidyTV keeps on the phone:
  *   keys/adbkey.pem                 ADB identity ("Always allow" sticks)
  *   tvs/<serial>/backup-<ts>.json   taken before any change
  *   tvs/<serial>/actions.jsonl      append-only change log, drives Restore
@@ -28,6 +28,13 @@ class Store(private val root: File) {
 
     /** Serial numbers become folder names, so only safe characters survive. */
     private fun tvDir(serial: String) = File(root, "tvs/" + serial.replace(Regex("[^A-Za-z0-9._-]"), "_").take(64).ifEmpty { "unknown" })
+
+    /** Real app icons read from TV APKs, one PNG per package. */
+    val iconsDir: File get() = File(root, "icons").apply { mkdirs() }
+
+    fun iconFile(pkg: String) = File(iconsDir, pkg.replace(Regex("[^A-Za-z0-9._]"), "_") + ".png")
+
+    fun cachedIcon(pkg: String): String? = iconFile(pkg).takeIf { it.length() > 0 }?.path
 
     fun actionLog(serial: String): ActionLog = FileActionLog(File(tvDir(serial), "actions.jsonl"))
 

@@ -1,0 +1,168 @@
+{
+ "id": "tcl-ak30a5",
+ "title": "TCL ak30a5 — Chinese-market TCL Android TV 9, Amlogic SoC, 1.5 GB RAM",
+ "header": "TCL ak30a5 — Chinese-market TCL Android TV 9, Amlogic SoC, 1.5 GB RAM\nAndroid 9 (PPR1.180610.011), build date 20230208, locale zh-CN, NO Google services at all\n(0 com.google.* packages, no Play Store — apps come from com.tcl.appmarket2 or a USB stick).\nLikely a good starting point for other 2020-2023 Chinese TCL sets on the same Amlogic firmware.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-ak30a5/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-ak30a5/debloat.txt com.tcl.cyberui\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.tcl.cyberui (a PERSISTENT priv-app — see the note below before disabling it).\nLive TV / HDMI: com.tcl.tv. There is NO standard TvInputManager on this firmware (`service list`\nhas no tv_input), so the launcher's Inputs menu opens TCL's own source panel instead:\nstartService(com.tcl.settings/com.tcl.insrc.ShowWindowService, action com.tcl.insrc.SHOW_WINDOW).\nKeep com.tcl.settings or that panel is gone. HDMI source ids: TV=2, AV1=3, HDMI1=8, HDMI2=9.\nKeep com.tcl.tv: it owns DTV/HDMI playback and the remote's source key (KEYCODE_TV_INPUT still\nopens the source panel over any launcher, cyberui or not).\nKeep com.sohu.inputmethod.sogou.tv: it is the ONLY input method on the TV. Disable it and there is\nno on-screen keyboard at all.\nKeep com.tcl.guard: 电视卫士 is also the only on-screen APK installer (应用安装, needs a USB stick).\nKeep com.tcl.ui_mediaCenter if you play anything from USB.\n\nKnown quirks on this firmware:\n- `pm install` is patched to refuse shell installs (\"install apk has be disabled from pm by\nsystem default\"), and PackageInstallerActivity is exported=false with its intent filters removed.\n`pm install-commit` is not gated though: an APK can still be installed by creating a\nPackageInstaller session from a shell-run app_process and committing that session.\n- APKs that declare android.intent.category.HOME are refused at parse time unless they are signed\nwith TCL's key: \"INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES: disable install launcher app not\nsignature by tcl\". A third-party launcher therefore cannot be installed on this model at all;\ncom.tcl.cyberui stays and only its ad/telemetry packages (this list) can be removed.\n- 电视卫士 → 应用安装, the only on-screen installer, stages the APK as a file without the .apk\nsuffix and fails with INSTALL_PARSE_FAILED_NOT_APK (\"Failed to parse .../my_app_session\") for\nevery package. Don't use it.\n- Installs also need roughly 600 MB free on /data or they fail with\nINSTALL_FAILED_INSUFFICIENT_STORAGE; `pm trim-caches 2000M` is usually enough.\n- Installed launcher version here is com.tcl.cyberui 7746 (7.7.46). The 灵控桌面 APKs circulating\nfor TCL sets are the same package at versionCode 7670 (7.6.70), i.e. a downgrade.\n- screensaver_components ships pointing at com.android.deskclock, which is not installed, so the\nTV has no working screensaver out of the box (and launcher/'s Clock can't be installed here).\n- /data/local/tmp is not writable by the shell user; push to /sdcard instead.\n- `screencap` cannot write to /data/local/tmp either, and returns an empty file while Live TV/HDMI\nis on screen (same as the G10). Press Home first.\n- No com.android.dreams.basic fallback screensaver. Also no TCL equivalent of `pm install`.",
+ "sections": [
+  {
+   "title": "TCL ads, telemetry, logging",
+   "apps": [
+    {
+     "pkg": "com.tcl.bootadservice",
+     "note": "boots into a full-screen ad before Home"
+    },
+    {
+     "pkg": "com.tcl.bi",
+     "note": "analytics/behaviour reporting"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded TCL content and services",
+   "apps": [
+    {
+     "pkg": "com.tcl.ffkaraoke",
+     "note": "karaoke"
+    },
+    {
+     "pkg": "com.tcl.ffeducation",
+     "note": "kids/education content"
+    },
+    {
+     "pkg": "com.tcl.tclmusic",
+     "note": "music"
+    },
+    {
+     "pkg": "com.tcl.gamecenter",
+     "note": "game store"
+    },
+    {
+     "pkg": "com.tcl.playskill",
+     "note": "\"tips\" app"
+    },
+    {
+     "pkg": "com.tcl.appreciate.art",
+     "note": "art-wallpaper screensaver content"
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": "bundled browser"
+    },
+    {
+     "pkg": "com.tcl.common.weather",
+     "note": "weather widget service"
+    },
+    {
+     "pkg": "com.tcl.wholenetsearch",
+     "note": "global search"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "EULA nag"
+    },
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "TCL updater (the OTA package com.snm.upgrade is already"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "disabled at the factory on this model)",
+   "apps": [
+    {
+     "pkg": "com.tcl.tvhealthcheck",
+     "note": "diagnostics uploader"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "verbose logging"
+    },
+    {
+     "pkg": "com.iflytek.xiri.translate",
+     "note": "iFlytek translate"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "3rd-party data/ACR. Also serves com.tcl.ttvs.proxy.business.data,"
+    },
+    {
+     "pkg": "com.tcl.c2dm.client",
+     "note": "push channel used by some TCL apps"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account (needed to sign in to TCL services)"
+    },
+    {
+     "pkg": "com.tcl.m",
+     "note": "unidentified TCL helper; left enabled on purpose"
+    },
+    {
+     "pkg": "com.tcl.convergehome",
+     "note": "TCL content aggregator; not the HOME app on this build"
+    },
+    {
+     "pkg": "com.tcl.walleve",
+     "note": "TCL 小T voice assistant, plus com.tcl.walleve.aidaemon"
+    },
+    {
+     "pkg": "com.audiocn.karaoke.micmanager",
+     "note": "mic handling for the karaoke app, plus com.tcl.micmanager"
+    },
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "phone screen mirroring / \"多屏互动\" in the source panel"
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "Miracast / \"无线投屏\" in the source panel"
+    },
+    {
+     "pkg": "com.tcl.weixin",
+     "note": "WeChat on TV"
+    },
+    {
+     "pkg": "com.xftv.tv",
+     "note": "云视听极光 (Tencent Video)"
+    },
+    {
+     "pkg": "com.newtv.cboxtv",
+     "note": "奇异果 (iQIYI)"
+    },
+    {
+     "pkg": "com.xiaodianshi.tv.yst",
+     "note": "小电视 (Bilibili)"
+    },
+    {
+     "pkg": "com.cibn.tv",
+     "note": "CIBN 高清影视"
+    },
+    {
+     "pkg": "com.baidu.netdisk.tv",
+     "note": "Baidu Netdisk"
+    },
+    {
+     "pkg": "com.netease.cloudmusic.tv",
+     "note": "NetEase Cloud Music"
+    },
+    {
+     "pkg": "com.quark.yun.tv",
+     "note": "Quark cloud drive"
+    },
+    {
+     "pkg": "com.huawei.himovceie",
+     "note": "Huawei AI Life"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.tcl.cyberui",
+ "count": 16
+}

@@ -1,0 +1,173 @@
+{
+ "id": "tcl-g07-google-tv",
+ "title": "TCL Smart TV (reports as \"Smart TV\"; device G07, product G07_4K_GB_NF, Realtek RTD2851A), Google TV on",
+ "header": "TCL Smart TV (reports as \"Smart TV\"; device G07, product G07_4K_GB_NF, Realtek RTD2851A), Google TV on\nAndroid 11 (SDK 30), build RP1A.200622.001 AR20, security patch 2025-12-05, 2 GB RAM. Same package family\nas the G05 (Quick Panel, waterfall, ttvs, TCL Live) plus the 43C645 extras (useragreement, TCL webview,\ntclhome_passive).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-g07-google-tv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-g07-google-tv/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nTested 2026-10-20 on a real unit, applied in six batches with screenshots between them: Wi-Fi, Home, the Input\nkey's source panel, Netflix, YouTube, Live TV and HDMI (from the launcher's Inputs menu) all kept working, and\nsetupwraith, launcherx and dreamx stayed disabled after a reboot (unlike the G05). Launcher works.\nStock launcher: com.google.android.apps.tv.launcherx; setupwraith's RecoveryActivity claims HOME at priority 1\nonce it is gone. The Wi-Fi saved at setup belonged to android.uid.system, not setupwraith, so disabling\nsetupwraith kept the network.\n\nRemote (IR, /dev/input/event0 \"mtkinp\"; scancodes from getevent with the real remote):\n- Input (471, TV_INPUT) goes to TclPhoneWindowManager.startQuickPanelService, so it keeps working without\nlauncherx and needs no InputKeyService.\n- Gear (561, TCL_SET) became launcherx's quick settings panel, so it does nothing once launcherx is off.\nHOME_KEY_SERVICE=1 with settings_key_scancodes 561 in config.xml brings it back.\n- Netflix (566, TCL_NETFLIX) and YouTube (569, TCL_YOUTUBE) are broadcasts that only launcherx answers, so\nthey do nothing once it is off. An accessibility service that matches those scancodes and starts the app\nfixes both (verified with the real remote).\ntools/b64push.py worked here (md5 match). Screenshots of Live TV and HDMI are 0 bytes; Netflix's are black.\n\nDO NOT DISABLE: com.tcl.tv (Live TV, HDMI playback), com.tcl.tvinput (tuner, HDMI and AV inputs),\ncom.tcl.suspension (Quick Panel, also the Input key's source panel), com.tcl.keyhelp (remote virtual keys),\ncom.tcl.autopair, com.google.android.tv.remote.service, com.tcl.inputmethod.international (the keyboard),\ncom.tcl.settings, com.tcl.system.server, com.tcl.providers.config, com.tcl.initsetup, com.tcl.factory.view,\ncom.tvos (framework resources).\nUnclear, left enabled: com.tcl.micmanager, com.google.android.apps.nbu.smartconnect.tv.\nKept by choice: Netflix, YouTube, Chromecast (com.google.android.apps.mediashell).\nAlready disabled at the factory: au.com.stan.and, com.google.android.videos, com.tcl.notereminder,\ncom.tcl.smartalexa, tv.wuaki.apptv.",
+ "sections": [
+  {
+   "title": "1. Telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "TCL BI/analytics, also TCL's firmware updater (comment this line out to keep updates)"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard device-use tracking, cleaner"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "privacy-agreement proxy for ttvs business data"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "2. Content and ad services",
+   "apps": [
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "content \"waterfall\" recommendations"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels (a TV input)"
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "TCL Home panel, promos"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "pushed messages and promos"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "TCL home content, starts at boot"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail-demo sticker"
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": "hotel-mode portal"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "partner app auto-installs"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3. Background services (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "MagiConnect"
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "screen mirroring (Chromecast kept)"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search (mic button)"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL voice service"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "assistant LED service"
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "T-Solo Bluetooth \"listen alone\""
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": "TCL support browser (the system WebView is Google's)"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "4. Preloaded apps (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media player"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.iqiyi.i18n.tv",
+     "note": "partner auto-install"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "5",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient-mode screensaver"
+    }
+   ],
+   "optional": [],
+   "note": "Launcher handover (setupwraith's RecoveryActivity claims HOME once launcherx is off; the install script disables launcherx itself). Ambient mode replaced by the launcher's Clock screensaver."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 32
+}

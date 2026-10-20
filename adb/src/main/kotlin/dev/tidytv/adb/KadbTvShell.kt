@@ -55,6 +55,18 @@ class KadbTvShell(private val kadb: Kadb, private val trace: (String) -> Unit = 
         }
     }
 
+    override suspend fun pull(remotePath: String): ByteArray? = withContext(Dispatchers.IO) {
+        try {
+            val sink = Buffer()
+            kadb.pull(sink, remotePath)
+            trace("pull $remotePath (${sink.size} bytes)")
+            sink.readByteArray()
+        } catch (e: IOException) {
+            trace("pull $remotePath !! ${e.message}")
+            null
+        }
+    }
+
     val isAlive: Boolean get() = kadb.connectionCheck()
 
     override fun close() = runCatching { kadb.close() }.let { }

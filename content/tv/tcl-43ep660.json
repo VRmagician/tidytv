@@ -1,0 +1,34 @@
+{
+  "name": "TCL 43EP660",
+  "brand": "TCL",
+  "os": "Android TV 9",
+  "summary": "Turn off TCL analytics, Channel promo boxes, the TV Guard cleaner, Miracast and unused apps on the TCL 43EP660. Free phone app, backup, one-tap undo.",
+  "intro": [
+    "The TCL 43EP660 ships with TCL analytics and an account service, plus TCL Channel content, a message box and on-screen sticker overlays. It also has a TV Guard cleaner, a phone-link app, Miracast mirroring, preloaded players, a TCL app store and Google recommendation rows.",
+    "The list was tested on a real unit in groups, with a screenshot after each group, then after two restarts. Wi-Fi stayed up, the TCL source menu and the Inputs menu worked, and Netflix and YouTube played. The notes say it has not been used for days yet. TidyTV turns these apps off from a phone on the same Wi-Fi, after saving a backup, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV, the tuner and the HDMI and AV inputs",
+    "The TCL source menu, which opens the input list",
+    "The remote, its key services and Bluetooth pairing",
+    "The default keyboard and the sound modes",
+    "Device authentication, and the Wi-Fi saved during setup"
+  ],
+  "notes": [
+    "Freeview apps, Prime Video, Stan, ZEE5 and some others are already turned off at the factory, so they are not in this list and nothing needs changing."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 43EP660?",
+      "a": "Not by default. The list turns off Google voice search, the mic button and TCL's Assistant bridge. Switch them back on in TidyTV if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is kept on this list, so casting still works. Miracast and T-Cast screen mirroring are turned off, so switch them on if you use them."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back, in one tap."
+    }
+  ]
+}

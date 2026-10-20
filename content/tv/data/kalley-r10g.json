@@ -1,0 +1,109 @@
+{
+ "id": "kalley-r10g",
+ "title": "Kalley R10G (device R10G, product ACER_FFM, made by MOKA), Google TV on Android 14, firmware UKR1.260612.001",
+ "header": "Kalley R10G (device R10G, product ACER_FFM, made by MOKA), Google TV on Android 14, firmware UKR1.260612.001\nRealtek RTD2875P SoC, RTD6748 platform, 2 GB RAM. The remote reports as \"RC860G Consumer Control\".\nSame hardware family as examples/prismplus-q65-ultra-r10g/, but a different brand build\n(ACER_FFM) with its own preloads: Claro, Kick, JioTV, CBS, Apple TV and Prime Video.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/kalley-r10g/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/kalley-r10g/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh).\nLive TV and inputs: keep com.realtek.dtv and com.realtek.tv.atv (HDMI and the other inputs use them).\nOTA: keep com.apps.ota and com.apps.authota. Keep com.realsil.ota too: it updates the remote.\n\nInput button: the RC860G remote sends KEYCODE_TV_INPUT (kernel scan code 225), not KEYCODE_TV.\nWith the stock launcher gone nothing handles it, so enable the launcher's InputKeyService\n(INPUT_KEY_SERVICE=1). com.android.tv.action.VIEW_INPUTS resolves to com.realtek.tv/.SelectInputActivity.\n\nTested on one set on 2026-10-19/20 with the reference launcher: the apps kept (Netflix, Disney+,\nMax, Spotify, YouTube, Twitch, GeForce NOW, Stremio) still launch, and HDMI input, Home and the\nInput button work. This list is fresh, not yet lived with for days; update it if something breaks.",
+ "sections": [
+  {
+   "title": "Google partner setup and store plumbing",
+   "apps": [
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music TV, off by choice"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded services",
+   "apps": [
+    {
+     "pkg": "com.seraphic.media.tv.interactive.app",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video preinstall, off by choice"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Karaoke",
+   "apps": [
+    {
+     "pkg": "com.realtek.kara",
+     "note": ""
+    },
+    {
+     "pkg": "com.realtek.karaoke.userguide",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps not used on this set; comment out anything you use",
+   "apps": [
+    {
+     "pkg": "com.apple.atve.androidtv.appletv",
+     "note": "Apple TV"
+    },
+    {
+     "pkg": "com.nagra.ion.claroco",
+     "note": "Claro TV (operator app)"
+    },
+    {
+     "pkg": "com.kick.mobile",
+     "note": "Kick"
+    },
+    {
+     "pkg": "com.jio.web.androidtv",
+     "note": "JioTV"
+    },
+    {
+     "pkg": "com.cbs.ca",
+     "note": "CBS"
+    },
+    {
+     "pkg": "net.froemling.bombsquad",
+     "note": "Bombsquad"
+    },
+    {
+     "pkg": "com.yodo1.crossyroad",
+     "note": "Crossy Road"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home and the Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disable only after the new launcher is installed and running. On this build setupwraith's RecoveryActivity claimed Home as soon as launcherx was off, so both had to go; Wi-Fi survived the reboot. Voice (\"Hey Google\") was not tested afterwards."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 16
+}

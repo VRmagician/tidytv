@@ -60,7 +60,7 @@ class WizardViewModelTest {
     @After fun tearDown() = Dispatchers.resetMain()
 
     private fun vm(demo: DemoBackend) =
-        WizardViewModel(Store(dir), Trace(File(dir, "logs")), { NoNetwork }, demo, { catalog }, { ByteArray(64) })
+        WizardViewModel(Store(dir), Trace(File(dir, "logs")), { NoNetwork }, demo, { catalog }, { home -> home.pkg.toByteArray() })
 
     private fun TestScope.connectToDemo(vm: WizardViewModel) {
         vm.ready()
@@ -100,7 +100,7 @@ class WizardViewModelTest {
 
         vm.installHome()
         advanceUntilIdle()
-        assertEquals(HomeState.Installed, vm.ui.value.home)
+        assertEquals(HomeState.Installed(dev.tidytv.core.lists.HomeApp.SIMPLE), vm.ui.value.home)
         assertEquals(Launchers.TIDY_HOME_COMPONENT, tv.home())
 
         vm.homeContinue()
@@ -115,6 +115,54 @@ class WizardViewModelTest {
         assertTrue(picked.none { it in tv.disabled })
         assertEquals(Launchers.LAUNCHERX, tv.home()?.substringBefore('/'))
         assertTrue(Launchers.TIDY_HOME_PACKAGE !in tv.installed)
+    }
+
+    @Test fun styledHomeScreenCanBeChosenAndRestored() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv = demo.tv
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        val turnedOff = vm.ui.value.review.selected.size
+        vm.startTidy()
+        advanceUntilIdle()
+        assertEquals(Step.HOME_SCREEN, vm.ui.value.wizard.step)
+        val offer = vm.ui.value.home as HomeState.Offer
+        assertEquals(dev.tidytv.core.lists.HomeApp.entries, offer.available)
+        assertEquals("the simple home screen is the default", dev.tidytv.core.lists.HomeApp.SIMPLE, offer.app)
+
+        vm.chooseHome(dev.tidytv.core.lists.HomeApp.STYLED)
+        vm.installHome()
+        advanceUntilIdle()
+        assertEquals(HomeState.Installed(dev.tidytv.core.lists.HomeApp.STYLED), vm.ui.value.home)
+        assertEquals(dev.tidytv.core.lists.HomeApp.STYLED.component, tv.home())
+        assertTrue(tv.pushed.keys.any { it.endsWith("com.gathin.tvhome/files/config.json") })
+
+        vm.homeContinue()
+        advanceUntilIdle()
+        vm.restoreEverything()
+        advanceUntilIdle()
+        val first = vm.ui.value.done.restore as RestoreUi.Finished
+        assertTrue(first.ok)
+        assertEquals("the old launcher is not counted as an app",
+            "Everything is back the way it was: $turnedOff apps on, old home screen back.", first.message)
+        assertTrue(dev.tidytv.core.lists.HomeApp.STYLED.pkg !in tv.installed)
+        vm.restoreEverything()
+        advanceUntilIdle()
+        assertEquals("Nothing to put back: every app is already on and your old home screen is set.", (vm.ui.value.done.restore as RestoreUi.Finished).message)
+    }
+
+    @Test fun styledHomeScreenIsHiddenBelowAndroid8() = runTest(dispatcher) {
+        val demo = DemoBackend(dev.tidytv.core.testing.FakeTv.googleTv(sdk = 25))
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        vm.startTidy()
+        advanceUntilIdle()
+        val offer = vm.ui.value.home as HomeState.Offer
+        assertEquals(listOf(dev.tidytv.core.lists.HomeApp.SIMPLE), offer.available)
+        vm.chooseHome(dev.tidytv.core.lists.HomeApp.STYLED)
+        assertEquals(dev.tidytv.core.lists.HomeApp.SIMPLE, (vm.ui.value.home as HomeState.Offer).app)
     }
 
     @Test fun restoreFromAFreshStartUsesThePhoneLog() = runTest(dispatcher) {

@@ -1,0 +1,34 @@
+{
+  "name": "Sony BRAVIA VU31 4K",
+  "brand": "Sony",
+  "os": "Google TV 14",
+  "summary": "Tidy a Sony BRAVIA VU31 4K by turning off its promo apps, ad services, Google leftovers and unused apps. Free phone app with a backup and one-tap undo.",
+  "intro": [
+    "The Sony BRAVIA VU31 4K comes with Sony promo and help tiles, store demo modes, Android ad and personalisation services, Google setup and calendar leftovers, and streaming apps most owners never open. Its ambient photo screensaver uses about 46 MB of memory on its own, and this 2 GB TV still swaps memory after the list is applied.",
+    "The list was applied on two VU31 sets, in batches with a screenshot and a crash check after each. Home, Inputs and the kept apps worked on the first set, and Live TV and every HDMI and AV input played on the second. TidyTV turns these apps off from your phone over Wi-Fi with a backup first, and nothing is uninstalled."
+  ],
+  "keep": [
+    "Live TV and the tuner apps, which play every HDMI and AV input",
+    "HDMI and AV inputs and the Input menu",
+    "Alexa, Chromecast, AirPlay, the phone remote and Google Assistant, kept on purpose",
+    "Sony's input menu and remote services, including the Input key"
+  ],
+  "notes": [
+    "The Google setup wizard is in this list. Before turning it off, check the Wi-Fi network is not tied to it. On the sets tested it was safe, but a network joined during setup can be deleted.",
+    "Sony's eco dashboard app is turned back on at every boot, so its tile can still appear."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast and AirPlay are kept on purpose."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off Sony's promo apps, the Sony tab that adds partner content to the stock home, and the on-device ad personalisation services. The eco dashboard tile may still appear."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back, in one tap."
+    }
+  ]
+}
