@@ -113,6 +113,7 @@ p { margin: 0; }
 .card { background: var(--card); border-radius: var(--r); padding: clamp(24px, 3vw, 44px); }
 .center { text-align: center; }
 .sec-h { font-size: var(--step-head); }
+.video-card video { display: block; width: 100%; height: auto; aspect-ratio: 16 / 9; margin-top: 24px; border-radius: 22px; background: #eaf2fb; }
 .sec-sub { color: var(--soft); font-size: clamp(1.0625rem, 1rem + 0.4vw, 1.3125rem); margin-top: 10px; }
 
 /* Steps */
@@ -286,7 +287,7 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
     <div class="topbar">
       <a class="wordmark" href="#top"><img src="img/icons/a1-mascot-flat.webp" width="44" height="44" alt="">TidyTV<svg class="spark" viewBox="0 0 24 24" fill="none" stroke="#FFD54A" stroke-width="3" stroke-linecap="round" aria-hidden="true"><path d="M8 20 L11 11 M14 22 L20 14 M4 12 L8 8"/></svg></a>
       <div class="right">
-        <nav aria-label="Main"><a href="#how">How it works</a><a href="#decide">What goes</a><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a href="#faq">Questions</a></nav>
+        <nav aria-label="Main"><a href="#video">Watch</a><a href="#how">How it works</a><a href="#decide">What goes</a><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a href="#faq">Questions</a></nav>
         <a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a>
       </div>
     </div>
@@ -315,6 +316,13 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
 </section>
 
 <main class="wrap cards">
+  <section class="card video-card" id="video" aria-labelledby="video-h">
+    <h2 class="sec-h rise" id="video-h">Watch it tidy a TV in 30 seconds.</h2>
+    <p class="sec-sub rise d1">The real app, recorded on a phone. The TV screens are illustrations.</p>
+    <video class="rise d2" controls muted playsinline loop preload="metadata" poster="media/tidytv-promo-poster.jpg" width="1920" height="1080">
+      <source src="media/tidytv-promo.mp4" type="video/mp4">
+    </video>
+  </section>
   <section id="how" aria-labelledby="steps-h">
     <h2 class="steps-h rise" id="steps-h">Three quick steps.</h2>
     <div class="trio" style="margin-top:28px">

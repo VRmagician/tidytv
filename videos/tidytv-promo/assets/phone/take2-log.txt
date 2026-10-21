@@ -1,0 +1,13 @@
+3.6 welcome
+8.7 get-ready
+14.4 scan
+16.6 connect
+23.8 review
+24.5 review-scroll
+31.9 tidy-start
+37.1 home-offer
+51.9 pick-styled
+62.6 home-installed
+70.1 done
+76.2 share-card
+81.9 restore-visible

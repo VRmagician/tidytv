@@ -1,0 +1,222 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=1920, height=1080" />
+    <title>TidyTV promo</title>
+    <script src="https://cdn.jsdelivr.net/npm/gsap@3.14.2/dist/gsap.min.js"></script>
+    <style>
+      @font-face {
+        font-family: "Nunito";
+        src: url("assets/fonts/nunito.ttf") format("truetype");
+        font-weight: 200 1000;
+      }
+      * { margin: 0; padding: 0; box-sizing: border-box; }
+      html, body { width: 1920px; height: 1080px; overflow: hidden; background: #1b1b3a; }
+      #root { position: relative; width: 100%; height: 100%; overflow: hidden; font-family: "Nunito", system-ui, sans-serif; color: #fff; }
+      .clip { position: absolute; inset: 0; }
+      #stage { position: absolute; inset: 0; }
+
+      /* A clean stage: soft white gradient, a CSS TV (screen 1068x577) and its stand. The camera moves the group. */
+      #bg { position: absolute; inset: 0; background: radial-gradient(120% 90% at 40% 35%, #ffffff 0%, #f6f8fc 55%, #e8eef8 100%); }
+      #camera { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; transform-origin: 700px 475px; }
+      #tv { position: absolute; left: 150px; top: 160px; width: 1100px; height: 609px; border-radius: 20px; background: #0b0b10; box-shadow: 0 40px 80px rgba(27,27,58,0.18), 0 0 0 2px #23232e inset; }
+      #tv-neck { position: absolute; left: 670px; top: 768px; width: 60px; height: 34px; background: linear-gradient(#2a2a35, #15151c); }
+      #tv-base { position: absolute; left: 530px; top: 800px; width: 340px; height: 14px; border-radius: 8px; background: #1a1a22; }
+      #tv-shadow { position: absolute; left: 380px; top: 806px; width: 640px; height: 30px; border-radius: 50%; background: radial-gradient(closest-side, rgba(27,27,58,0.22), rgba(27,27,58,0)); }
+      #screen { position: absolute; left: 166px; top: 176px; width: 1068px; height: 577px; border-radius: 6px; overflow: hidden; background: #050507; }
+      #screen .strip { position: absolute; left: 0; width: 1068px; background-image: url("assets/tv/screen-before.png"); background-size: 1068px 577px; }
+      #strip-hero { top: 0; height: 336px; background-position: 0 0; }
+      #strip-row { top: 336px; height: 135px; background-position: 0 -336px; }
+      #strip-chips { top: 471px; height: 106px; background-position: 0 -471px; }
+      #scr-after { position: absolute; inset: 0; background: url("assets/tv/screen-after.png") 0 0 / 1068px 577px; }
+      #glare { position: absolute; inset: 0; background: linear-gradient(118deg, rgba(255,255,255,0) 30%, rgba(255,255,255,0.06) 44%, rgba(255,255,255,0) 58%); }
+
+      .cap { position: absolute; left: 120px; top: 812px; width: 1080px; }
+      .cap .chip { display: inline-block; padding: 8px 18px; border-radius: 999px; background: #ffd54a; color: #1b1b3a; font-weight: 900; font-size: 30px; letter-spacing: 0.01em; }
+      .cap .line { margin-top: 14px; color: #1b1b3a; font-weight: 900; font-size: 66px; line-height: 1.04; letter-spacing: -0.02em; text-wrap: balance; }
+      .cap .line .y { color: #2f6bff; }
+      #illus { position: absolute; left: 40px; top: 34px; padding: 6px 14px; border-radius: 999px; background: #e8eef8; font-size: 20px; font-weight: 800; letter-spacing: 0.08em; text-transform: uppercase; color: #45456a; }
+
+      /* The phone: a 9:16 recording in a black bezel. */
+      #phone { position: absolute; left: 1360px; top: 150px; width: 404px; height: 718px; border-radius: 54px; background: #0d0d14; box-shadow: 0 40px 90px rgba(0,0,0,0.45), 0 0 0 3px #2a2a3a inset; }
+      #phone .scr { position: absolute; left: 14px; top: 14px; width: 376px; height: 690px; border-radius: 42px; overflow: hidden; background: #eaf2fb; }
+      #phone .scr video { position: absolute; left: 0; top: 0; width: 376px; height: 690px; object-fit: cover; }
+      #phone .cam { position: absolute; left: 194px; top: 26px; width: 16px; height: 16px; border-radius: 50%; background: #05050a; }
+      #ripple { position: absolute; left: 1562px; top: 790px; width: 90px; height: 90px; margin: -45px 0 0 -45px; border-radius: 50%; border: 6px solid rgba(255,255,255,0.9); opacity: 0; }
+      #wifi { position: absolute; left: 1262px; top: 470px; width: 92px; height: 6px; background: repeating-linear-gradient(90deg, #2f6bff 0 12px, transparent 12px 24px); border-radius: 3px; opacity: 0; transform-origin: 100% 50%; }
+      #toast { position: absolute; left: 960px; top: 330px; padding: 16px 26px; border-radius: 20px; background: #e6f6ec; color: #145c33; border: 3px solid #1b1b3a; font-weight: 900; font-size: 34px; box-shadow: 0 6px 0 #1b1b3a; opacity: 0; }
+      #restore { position: absolute; left: 800px; top: 610px; padding: 20px 32px; border-radius: 22px; background: #1e8a4c; color: #fff; border: 3px solid #1b1b3a; font-weight: 900; font-size: 38px; box-shadow: 0 6px 0 #1b1b3a; opacity: 0; }
+      .mascot { position: absolute; opacity: 0; }
+      #m-worried { left: 120px; top: 520px; width: 240px; }
+      #m-stand { left: 1120px; top: 40px; width: 200px; }
+      #m-happy { left: 1120px; top: 40px; width: 210px; }
+
+      /* End card: the site's blue room with a yellow floor. */
+      #end { position: absolute; left: 0; top: 0; width: 1920px; height: 1080px; background: #2f6bff; overflow: hidden; }
+      #end .floor { position: absolute; left: -10%; right: -10%; top: 780px; height: 600px; background: #ffd84d; border-radius: 50% 50% 0 0 / 60px 60px 0 0; }
+      #end .mascot-end { position: absolute; left: 170px; top: 210px; width: 560px; }
+      #end .word { position: absolute; left: 820px; top: 190px; display: flex; align-items: center; gap: 30px; }
+      #end .word img { width: 150px; height: 150px; border-radius: 36px; border: 6px solid #1b1b3a; }
+      #end .word span { font-weight: 900; font-size: 170px; letter-spacing: -0.04em; line-height: 1; }
+      #end .sub { position: absolute; left: 826px; top: 400px; font-weight: 800; font-size: 44px; color: #fff; }
+      #end .btns { position: absolute; left: 826px; top: 520px; display: flex; gap: 26px; }
+      #end .btn { padding: 22px 34px; border-radius: 24px; border: 4px solid #1b1b3a; box-shadow: 0 8px 0 #1b1b3a; font-weight: 900; font-size: 40px; color: #1b1b3a; background: #ffd54a; }
+      #end .btn.white { background: #fff; }
+      #end .site { position: absolute; left: 0; right: 0; top: 900px; text-align: center; font-weight: 900; font-size: 64px; color: #1b1b3a; letter-spacing: -0.01em; }
+    </style>
+  </head>
+  <body>
+    <div id="root" data-composition-id="main" data-start="0" data-width="1920" data-height="1080" data-duration="30">
+      <section id="stage">
+        <div id="bg"></div>
+        <div id="camera">
+          <div id="tv-shadow"></div>
+          <div id="tv-neck"></div>
+          <div id="tv-base"></div>
+          <div id="tv"></div>
+          <div id="screen">
+            <div class="strip" id="strip-hero"></div>
+            <div class="strip" id="strip-row"></div>
+            <div class="strip" id="strip-chips"></div>
+            <div id="scr-after"></div>
+            <div id="glare"></div>
+          </div>
+        </div>
+        <div id="illus">Illustration</div>
+
+        <img class="mascot" id="m-worried" src="assets/art/mascot_worried.webp" alt="" />
+        <img class="mascot" id="m-stand" src="assets/art/mascot-stand.webp" alt="" />
+        <img class="mascot" id="m-happy" src="assets/art/mascot-happy.webp" alt="" />
+
+        <div class="cap" id="c1"><div class="line">Your TV came with <span class="y">a lot of extras.</span></div></div>
+        <div class="cap" id="c2"><div class="line">Tidy it <span class="y">from your phone.</span></div></div>
+        <div class="cap" id="c3"><span class="chip">1 · Find your TV</span><div class="line">Same Wi-Fi. Press Allow once.</div></div>
+        <div class="cap" id="c4"><span class="chip">2 · Backup first, then pick</span><div class="line">Every app has a switch.</div></div>
+        <div class="cap" id="c5"><span class="chip">3 · Turn them off</span><div class="line">Turned off, <span class="y">never deleted.</span></div></div>
+        <div class="cap" id="c6"><div class="line">A clean home screen, <span class="y">if you want one.</span></div></div>
+        <div class="cap" id="c7"><div class="line">One tap <span class="y">puts it all back.</span></div></div>
+
+        <div id="wifi"></div>
+        <div id="toast">✓ Backup saved</div>
+        <div id="restore">↻ Restore everything</div>
+
+        <div id="phone">
+          <div class="scr">
+            <video id="v1" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="3" data-duration="3" data-media-start="0.6"></video>
+            <video id="v2" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="6" data-duration="1.2" data-media-start="3.7" data-playback-rate="2"></video>
+            <video id="v3" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="7.2" data-duration="2.8" data-media-start="13.6" data-playback-rate="3.6"></video>
+            <video id="v4" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="10" data-duration="5" data-media-start="23.7" data-playback-rate="1.46"></video>
+            <video id="v5" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="15" data-duration="4" data-media-start="31.0" data-playback-rate="0.65"></video>
+            <video id="v6" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="19" data-duration="2" data-media-start="49.8" data-playback-rate="1.5"></video>
+            <video id="v7" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="21" data-duration="2" data-media-start="59.6" data-playback-rate="1.6"></video>
+            <video id="v8" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="23" data-duration="1.6" data-media-start="68.6" data-playback-rate="1.2"></video>
+            <video id="v9" class="clip" src="assets/phone/take1.mp4" muted playsinline data-start="24.6" data-duration="3" data-media-start="75.2"></video>
+          </div>
+          <div class="cam"></div>
+        </div>
+        <div id="ripple"></div>
+      </section>
+
+      <section id="end" class="clip" data-start="27" data-duration="3" data-track-index="1">
+        <div class="floor"></div>
+        <img class="mascot-end" id="end-mascot" src="assets/art/mascot-cheer.webp" alt="" />
+        <div class="word" id="end-word"><img src="assets/art/icon.png" alt="" /><span>TidyTV</span></div>
+        <div class="sub" id="end-sub">Free · open source · no computer, no AI</div>
+        <div class="btns" id="end-btns"><div class="btn">⬇ Download the free app</div><div class="btn white">★ Star on GitHub</div></div>
+        <div class="site" id="end-site">tidytv.winkle.dev</div>
+      </section>
+
+      <audio id="sfx-whoosh" src="assets/sfx/whoosh.mp3" data-start="2.9" data-duration="0.57" data-track-index="3" data-volume="0.55"></audio>
+      <audio id="sfx-tap1" src="assets/sfx/click-soft.mp3" data-start="5.95" data-duration="0.36" data-track-index="4" data-volume="0.8"></audio>
+      <audio id="sfx-tap2" src="assets/sfx/click-soft.mp3" data-start="8.0" data-duration="0.36" data-track-index="4" data-volume="0.8"></audio>
+      <audio id="sfx-ping" src="assets/sfx/pop.mp3" data-start="9.6" data-duration="0.72" data-track-index="5" data-volume="0.5"></audio>
+      <audio id="sfx-toast" src="assets/sfx/pop.mp3" data-start="10.4" data-duration="0.72" data-track-index="5" data-volume="0.6"></audio>
+      <audio id="sfx-tap3" src="assets/sfx/click-soft.mp3" data-start="14.95" data-duration="0.36" data-track-index="4" data-volume="0.8"></audio>
+      <audio id="sfx-row1" src="assets/sfx/whoosh-short.mp3" data-start="15.4" data-duration="0.57" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-row2" src="assets/sfx/whoosh-short.mp3" data-start="16.2" data-duration="0.57" data-track-index="6" data-volume="0.6"></audio>
+      <audio id="sfx-row3" src="assets/sfx/whoosh-short.mp3" data-start="17.0" data-duration="0.57" data-track-index="6" data-volume="0.65"></audio>
+      <audio id="sfx-tap4" src="assets/sfx/click-soft.mp3" data-start="20.2" data-duration="0.36" data-track-index="4" data-volume="0.8"></audio>
+      <audio id="sfx-sparkle" src="assets/sfx/sparkle.mp3" data-start="20.35" data-duration="1.8" data-track-index="5" data-volume="0.55"></audio>
+      <audio id="sfx-tap5" src="assets/sfx/click-soft.mp3" data-start="25.25" data-duration="0.36" data-track-index="4" data-volume="0.8"></audio>
+      <audio id="sfx-end" src="assets/sfx/whoosh.mp3" data-start="26.95" data-duration="0.57" data-track-index="3" data-volume="0.55"></audio>
+      <audio id="sfx-chime" src="assets/sfx/chime.mp3" data-start="27.5" data-duration="2.5" data-track-index="6" data-volume="0.6"></audio>
+    </div>
+
+    <script>
+      const tl = gsap.timeline({ paused: true });
+      const out = "power3.out", inn = "power3.in";
+
+      // Camera: TV centred and pushing in, then it steps left as the phone arrives (the current), slow drift, exit up.
+      tl.fromTo("#camera", { x: 260, scale: 1.0 }, { x: 260, scale: 1.06, duration: 3, ease: "power1.inOut" }, 0);
+      tl.to("#camera", { x: 0, scale: 1.0, duration: 1.1, ease: "power3.inOut" }, 3);
+      tl.to("#camera", { x: -30, duration: 22.9, ease: "none" }, 4.1);
+      tl.to("#camera", { y: -900, duration: 0.7, ease: inn }, 27);
+
+      // Captions: each enters from the right and leaves to the left (the current).
+      const caps = [["#c1", 0.25, 2.85], ["#c2", 3.15, 5.85], ["#c3", 6.15, 9.85], ["#c4", 10.15, 14.85], ["#c5", 15.15, 18.85], ["#c6", 19.15, 22.85], ["#c7", 23.15, 26.85]];
+      for (const [id, a, b] of caps) {
+        tl.fromTo(id, { opacity: 0, x: 70 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, a);
+        tl.to(id, { opacity: 0, x: -60, duration: 0.35, ease: inn }, b - 0.35);
+      }
+      tl.fromTo("#illus", { opacity: 0 }, { opacity: 1, duration: 0.4 }, 0.3);
+      tl.to("#illus", { opacity: 0, duration: 0.3 }, 26.6);
+
+      // Scene 1: the worried mascot peeks in.
+      tl.fromTo("#m-worried", { opacity: 0, x: -140, rotation: -8 }, { opacity: 1, x: 0, rotation: 0, duration: 0.6, ease: "back.out(1.5)" }, 0.9);
+      tl.to("#m-worried", { opacity: 0, x: -160, duration: 0.4, ease: inn }, 3.0);
+
+      // Scene 2: the phone arrives from the right, mid-motion with the camera.
+      tl.fromTo("#phone", { x: 700, rotation: 6 }, { x: 0, rotation: 0, duration: 1.0, ease: "power4.out" }, 3.0);
+
+      // Scene 3: a dotted Wi-Fi line reaches the TV when it is found.
+      tl.fromTo("#wifi", { opacity: 0, scaleX: 0 }, { opacity: 1, scaleX: 1, duration: 0.5, ease: out }, 8.0);
+      tl.to("#wifi", { opacity: 0, duration: 0.3 }, 10.0);
+      tapAt(5.95, 1562, 470);
+      tapAt(8.0, 1562, 300);
+
+      // Scene 4: backup toast pops out of the phone toward the TV.
+      tl.fromTo("#toast", { opacity: 0, x: 180, scale: 0.6 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 10.4);
+      tl.to("#toast", { opacity: 0, x: -80, duration: 0.35, ease: inn }, 12.4);
+      tapAt(14.95, 1562, 820);
+
+      // Scene 5: swap to the live screen layer, then each row flies out toward the phone.
+      const fly = (id, t) => tl.to(id, { x: 1250, y: -60, rotation: 8, scale: 0.4, opacity: 0, duration: 0.6, ease: "power3.in" }, t);
+      fly("#strip-chips", 15.4);
+      fly("#strip-row", 16.2);
+      fly("#strip-hero", 17.0);
+      tl.fromTo("#m-stand", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 17.6);
+      tl.to("#m-stand", { opacity: 0, y: 40, duration: 0.3, ease: inn }, 18.7);
+
+      // Scene 6: the clean home screen wipes on as the install finishes.
+      tl.set("#scr-after", { clipPath: "inset(0 100% 0 0)" }, 0);
+      tapAt(20.2, 1562, 820);
+      tl.to("#scr-after", { clipPath: "inset(0 0% 0 0)", duration: 1.1, ease: "power3.inOut" }, 20.35);
+      tl.fromTo("#m-happy", { opacity: 0, y: 60 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 21.0);
+      tl.to("#m-happy", { opacity: 0, y: 40, duration: 0.3, ease: inn }, 26.4);
+
+      // Scene 7: share card on the phone, then the restore promise.
+      tapAt(25.25, 1520, 600);
+      tl.fromTo("#restore", { opacity: 0, x: 120, scale: 0.7 }, { opacity: 1, x: 0, scale: 1, duration: 0.5, ease: "back.out(1.6)" }, 24.0);
+      tl.to("#restore", { scale: 0.94, y: 5, duration: 0.12, ease: "power2.in" }, 25.6);
+      tl.to("#restore", { scale: 1, y: 0, duration: 0.3, ease: "back.out(2)" }, 25.72);
+
+      // Exit upward into the end card (the reveal rises).
+      tl.to(["#phone", "#restore", "#ripple"], { y: -900, duration: 0.7, ease: inn }, 27.0);
+      tl.fromTo("#end", { y: 1080 }, { y: 0, duration: 0.7, ease: "power4.out" }, 27.0);
+      tl.fromTo("#end-mascot", { y: 220, rotation: -6 }, { y: 0, rotation: 0, duration: 0.8, ease: "back.out(1.4)" }, 27.25);
+      tl.fromTo("#end-word", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, 27.4);
+      tl.fromTo("#end-sub", { opacity: 0, x: 80 }, { opacity: 1, x: 0, duration: 0.5, ease: out }, 27.55);
+      tl.fromTo("#end-btns", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: "back.out(1.5)" }, 27.7);
+      tl.fromTo("#end-site", { opacity: 0, y: 30 }, { opacity: 1, y: 0, duration: 0.5, ease: out }, 27.85);
+
+      function tapAt(t, x, y) {
+        tl.set("#ripple", { left: x, top: y }, t - 0.01);
+        tl.fromTo("#ripple", { opacity: 0.9, scale: 0.3 }, { opacity: 0, scale: 1.4, duration: 0.45, ease: "power2.out", immediateRender: false }, t);
+        tl.to("#phone", { scale: 0.985, duration: 0.08, yoyo: true, repeat: 1, ease: "power1.inOut" }, t);
+      }
+
+      window.__timelines["main"] = tl;
+    </script>
+  </body>
+</html>
