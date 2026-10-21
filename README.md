@@ -40,7 +40,7 @@ don't want. It never deletes anything, and **Restore everything** turns it all b
 <td align="center"><img src="docs/media/screens/08-styled-pick.png" width="190" alt="Choose a clean home screen"><br><b>5. Clean home screen</b><br><sub>Optional: Simple or Apple TV style</sub></td>
 <td align="center"><img src="docs/media/screens/09-home-on.png" width="190" alt="New home screen is on"><br><b>6. Done</b><br><sub>Rolls back if Home doesn't land</sub></td>
 <td align="center"><img src="docs/media/screens/11-share-card.png" width="190" alt="Share card"><br><b>7. Share it</b><br><sub>A card with what you tidied</sub></td>
-<td align="center"><img src="docs/media/screens/12-restore.png" width="190" alt="Restore everything"><br><b>8. Undo anytime</b><br><sub>Restore everything, one tap</sub></td>
+<td align="center"><img src="docs/media/screens/10-done.png" width="190" alt="Done screen with Restore everything"><br><b>8. Undo anytime</b><br><sub>Restore everything, one tap</sub></td>
 </tr>
 </table>
 
