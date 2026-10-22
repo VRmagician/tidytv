@@ -28,6 +28,28 @@ class FakeTv(
     val commands = mutableListOf<String>()
     val pushed = mutableMapOf<String, ByteArray>()
 
+    // Remote and files
+    /** Key codes pressed through the remote, in order. */
+    val keys = mutableListOf<String>()
+    /** Text typed through the remote, already decoded from `input text` encoding. */
+    val typed = mutableListOf<String>()
+    /** Components opened with `am start -n`. */
+    val launched = mutableListOf<String>()
+    /** Apps the TV home screen shows (pkg/activity). */
+    var tvApps: List<String> = emptyList()
+    /** Whether [openSession] gives a kept-open shell, and what went through it. */
+    var sessionSupported = false
+    val sessionCommands = mutableListOf<String>()
+    /** Play Store pages opened on the TV; [playStoreInstalls] makes the owner press Install straight away. */
+    val playStoreOpened = mutableListOf<String>()
+    var playStoreInstalls = false
+    /** Reboots so far, and what a firmware update brings back on the next boot. */
+    var reboots = 0
+    var reEnableOnReboot: MutableSet<String> = mutableSetOf()
+    var installOnReboot: MutableSet<String> = mutableSetOf()
+    /** Free space on /sdcard in 1K blocks, for `df`. */
+    var freeKb: Long = 8_000_000
+
     // Failure knobs
     /** Throw [TvConnectionLost] when command number N (1-based) arrives. */
     var dropAtCommand: Int? = null
@@ -68,7 +90,28 @@ class FakeTv(
 
     override suspend fun run(command: String): String {
         tick(command)
+        if (command.trim() == dev.tidytv.core.ops.Commands.REBOOT) {
+            reboots++
+            disabled -= reEnableOnReboot
+            installed += installOnReboot
+            throw TvConnectionLost("rebooting (simulated)")
+        }
         return answer(command)
+    }
+
+    /** What installing Projectivy from the Play Store adds. */
+    fun installProjectivy() {
+        installed += HomeApp.PROJECTIVY.pkg
+        homeClaimants[HomeApp.PROJECTIVY.pkg + "/.ui.home.MainActivity"] = 0
+    }
+
+    override suspend fun openSession(): dev.tidytv.core.ops.ShellSession? = if (!sessionSupported) null else object : dev.tidytv.core.ops.ShellSession {
+        override suspend fun send(command: String) {
+            tick(command)
+            sessionCommands += command
+            answer(command)
+        }
+        override fun close() = Unit
     }
 
     private var attempts = 0
@@ -114,6 +157,14 @@ class FakeTv(
             c == Commands.GETPROP -> if (getpropBroken) "" else props.entries.joinToString("\n") { "[${it.key}]: [${it.value}]" } + "\n"
             c.startsWith("getprop ") -> (props[args[1]] ?: "") + "\n"
 
+            c.startsWith("am start -a android.intent.action.VIEW -d market://details?id=") -> {
+                val p = c.substringAfter("id=")
+                playStoreOpened += p
+                if (playStoreInstalls && p == HomeApp.PROJECTIVY.pkg) installProjectivy()
+                "Starting: Intent { act=android.intent.action.VIEW dat=market://details?id=$p }\n"
+            }
+            c.startsWith("pm list packages ") && !args[3].startsWith("-") ->
+                if (args[3] in installed) "package:${args[3]}\n" else ""
             c == Commands.LIST_PACKAGES -> if (listPackagesGarbage) "Error: Could not access the Package Manager.\n"
                 else installed.sorted().joinToString("") { "package:$it\n" }
             c == Commands.LIST_DISABLED -> disabled.filter { it in installed }.sorted().joinToString("") { "package:$it\n" }
@@ -183,7 +234,7 @@ class FakeTv(
                     else "Starting: Intent { cmp=$comp }\nError type 3\nError: Activity class {$comp} does not exist.\n"
                 }
             }
-            c == Commands.KEY_HOME -> ""
+            c == Commands.KEY_HOME -> { keys += "KEYCODE_HOME"; "" }
             c.startsWith("mkdir -p /sdcard/Android/data/") -> "ok\n"
             c.startsWith("printf '%s' '") && c.contains("theme_revision") -> {
                 files[c.substringAfter("> ").substringBefore(" &&")] = c.substringAfter("'%s' '").substringBefore("'"); "ok\n"
@@ -229,6 +280,22 @@ class FakeTv(
             c.startsWith("settings list ") -> settings.filterKeys { it.startsWith(args[2] + "/") }
                 .entries.joinToString("") { "${it.key.substringAfter('/')}=${it.value}\n" }
 
+            c.startsWith("input keyevent ") -> { keys += args[2]; "" }
+            c.startsWith("input text ") -> {
+                val raw = c.removePrefix("input text ").removeSurrounding("'").replace("'\\''", "'")
+                typed += raw.replace("%s", " ").replace("\\%", "%"); ""
+            }
+            c.startsWith("cmd package query-activities --brief -a android.intent.action.MAIN -c android.intent.category.LEANBACK_LAUNCHER") ->
+                if (tvApps.isEmpty()) "No activities found\n"
+                else "${tvApps.size} activities found:\n" + tvApps.mapIndexed { i, comp ->
+                    "  Activity #$i:\n    priority=0 preferredOrder=0 match=0x108000 specificIndex=-1 isDefault=false\n    $comp\n"
+                }.joinToString("")
+            c.startsWith("cmd package query-activities") -> "No activities found\n"
+            c.startsWith("am start -n ") -> { launched += args[3]; "Starting: Intent { cmp=${args[3]} }\n" }
+            c == Commands.LIST_SEND_DIR -> pushed.keys.filter { it.startsWith(Commands.SEND_DIR + "/") }
+                .joinToString("") { it.removePrefix(Commands.SEND_DIR + "/") + "\n" } + "ok\n"
+            c.startsWith("df ") -> "Filesystem     1K-blocks    Used Available Use% Mounted on\n/dev/fuse       30000000 22000000 $freeKb  74% /storage/emulated\n"
+
             else -> "/system/bin/sh: ${args.first()}: not found\n"
         }
     }
@@ -262,6 +329,7 @@ class FakeTv(
             liveOwners += "com.tcl.tvinput"
             settings["secure/enabled_input_methods"] = "com.google.android.leanback.ime/.LeanbackImeService"
             settings["secure/default_input_method"] = "com.google.android.leanback.ime/.LeanbackImeService"
+            tvApps = listOf("com.netflix.ninja/.MainActivity", "com.google.android.youtube.tv/com.google.android.apps.youtube.tv.activity.ShellActivity", "com.android.tv.settings/.MainSettings")
             settings["global/device_provisioned"] = "1"
             settings["secure/user_setup_complete"] = "1"
             settings["global/window_animation_scale"] = "1.0"

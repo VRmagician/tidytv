@@ -38,6 +38,9 @@ class FakeAdbd(private val tv: TvShell) : AutoCloseable {
     val prompts = AtomicInteger()
     val connections = AtomicInteger()
     val shellCommands = CopyOnWriteArrayList<String>()
+    /** Lines written to kept-open `shell:` streams, and how many such streams were opened. */
+    val sessionLines = CopyOnWriteArrayList<String>()
+    val sessionsOpened = AtomicInteger()
 
     private val server = ServerSocket(0)
     val port: Int get() = server.localPort
@@ -73,6 +76,8 @@ class FakeAdbd(private val tv: TvShell) : AutoCloseable {
         var authed = false
         var sessionKeyAllowed = false
         val streams = mutableMapOf<Int, Stream>()
+        // Interactive `shell:` streams (the remote): each written line is one command.
+        val shells = mutableMapOf<Int, StringBuilder>()
         var nextId = 100
 
         while (true) {
@@ -113,7 +118,10 @@ class FakeAdbd(private val tv: TvShell) : AutoCloseable {
                     val id = nextId++
                     val remote = m.arg0
                     write(out, OKAY, id, remote, ByteArray(0))
-                    if (dest.startsWith("shell:")) {
+                    if (dest == "shell:") {
+                        shells[id] = StringBuilder()
+                        sessionsOpened.incrementAndGet()
+                    } else if (dest.startsWith("shell:")) {
                         val cmd = dest.removePrefix("shell:")
                         shellCommands += cmd
                         val limit = dropAfterCommands
@@ -132,6 +140,16 @@ class FakeAdbd(private val tv: TvShell) : AutoCloseable {
                     }
                 }
                 WRTE -> {
+                    shells[m.arg1]?.let { buf ->
+                        write(out, OKAY, m.arg1, m.arg0, ByteArray(0))
+                        buf.append(String(m.data))
+                        while (buf.contains('\n')) {
+                            val line = buf.substring(0, buf.indexOf('\n')).trim()
+                            buf.delete(0, buf.indexOf('\n') + 1)
+                            if (line.isNotEmpty()) { sessionLines += line; runBlocking { tv.run(line) } }
+                        }
+                        continue
+                    }
                     val st = streams[m.arg1]
                     write(out, OKAY, m.arg1, m.arg0, ByteArray(0))
                     if (st != null) {
@@ -142,7 +160,7 @@ class FakeAdbd(private val tv: TvShell) : AutoCloseable {
                         }
                     }
                 }
-                OKAY, CLSE -> if (m.cmd == CLSE) streams.remove(m.arg1)
+                OKAY, CLSE -> if (m.cmd == CLSE) { streams.remove(m.arg1); shells.remove(m.arg1) }
             }
         }
     }

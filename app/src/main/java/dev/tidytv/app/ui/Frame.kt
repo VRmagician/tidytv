@@ -78,6 +78,22 @@ fun ScreenFrame(
     }
 }
 
+/**
+ * The bar on every screen inside My TV: a back link on the left and the TV's name on the right,
+ * so it's always clear which TV the buttons act on.
+ */
+@Composable
+fun TopBar(back: String, onBack: () -> Unit, tvName: String?) {
+    Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
+        TextLink("‹  $back", onBack)
+        Spacer(Modifier.weight(1f))
+        if (tvName != null) Text(
+            tvName, style = MaterialTheme.typography.labelMedium, color = Tidy.Ink, maxLines = 1,
+            modifier = Modifier.background(Tidy.BlueSoft, RoundedCornerShape(999.dp)).padding(horizontal = 12.dp, vertical = 6.dp),
+        )
+    }
+}
+
 @Composable
 fun Title(text: String, modifier: Modifier = Modifier, align: TextAlign = TextAlign.Start) =
     Text(text, style = MaterialTheme.typography.headlineMedium, color = Tidy.Ink, textAlign = align,

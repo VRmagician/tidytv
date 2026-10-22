@@ -21,6 +21,8 @@ sealed interface HandoverOutcome {
     /** Rollback did not stick either. [rescue] are the commands that finish it once ADB answers. */
     data class RollbackFailed(val homeNow: String?, val rescue: List<String>) : HandoverOutcome
     data object Disconnected : HandoverOutcome
+    /** A Play Store home screen (Projectivy) isn't installed on the TV yet. Nothing was changed. */
+    data object NotInstalled : HandoverOutcome
 }
 
 /**
@@ -36,7 +38,7 @@ class LauncherHandover(
     private val sleep: suspend (Long) -> Unit = { kotlinx.coroutines.delay(it) },
     private val app: HomeApp = HomeApp.SIMPLE,
 ) {
-    private val ours = app.component
+    private var ours = app.component
     private val ourPkg = app.pkg
 
     suspend fun run(apk: ByteArray, dockApps: List<String>, sdk: Int): HandoverOutcome = try {
@@ -94,24 +96,41 @@ class LauncherHandover(
             else -> return HandoverOutcome.UnknownHome(homePkg)
         }
 
-        // 1. Install on its own: a failed install must not reach the steps that touch Home.
+        if (app.fromPlayStore) {
+            // Installed by the owner from the TV's Play Store: check it's there and find its Home activity.
+            val listed = Parse.packages(tv.run(Commands.isInstalled(ourPkg)))
+            if (ourPkg !in listed) return HandoverOutcome.NotInstalled
+            ours = Parse.component(tv.run(Commands.resolveHomeOf(ourPkg)))?.takeIf { it.startsWith("$ourPkg/") }
+                ?: return HandoverOutcome.NotInstalled
+        } else if (!install(apk)) {
+            return lastInstallFailure!!
+        }
+        return afterInstall(homeBefore, stock, dockApps, sdk)
+    }
+
+    private var lastInstallFailure: HandoverOutcome? = null
+
+    /** Step 1. Install on its own: a failed install must not reach the steps that touch Home. */
+    private suspend fun install(apk: ByteArray): Boolean {
         tv.push(apk, Commands.APK_TMP)
         log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.INTENT))
         val install = tv.run(Commands.INSTALL_TMP)
         tv.run(Commands.REMOVE_TMP)
-        when {
-            install.contains("Success") ->
-                log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.DONE))
-            else -> {
-                log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.FAILED, detail = install.take(300)))
-                return when {
-                    install.contains("UPDATE_INCOMPATIBLE") -> HandoverOutcome.SignatureConflict
-                    install.contains("VERIFICATION_FAILURE") || install.contains("INSTALL_FAILED_ABORTED") ->
-                        HandoverOutcome.InstallBlocked(install.trim())
-                    else -> HandoverOutcome.InstallFailed(install.trim())
-                }
-            }
+        if (install.contains("Success")) {
+            log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.DONE))
+            return true
         }
+        log.append(ActionRecord(clock(), Op.INSTALL, ourPkg, Phase.FAILED, detail = install.take(300)))
+        lastInstallFailure = when {
+            install.contains("UPDATE_INCOMPATIBLE") -> HandoverOutcome.SignatureConflict
+            install.contains("VERIFICATION_FAILURE") || install.contains("INSTALL_FAILED_ABORTED") ->
+                HandoverOutcome.InstallBlocked(install.trim())
+            else -> HandoverOutcome.InstallFailed(install.trim())
+        }
+        return false
+    }
+
+    private suspend fun afterInstall(homeBefore: String?, stock: String?, dockApps: List<String>, sdk: Int): HandoverOutcome {
 
         // 2. Give it the dock apps. cleanyourtv reads config.json at start (tools/theme.sh);
         // tv-detox takes them as start extras below.

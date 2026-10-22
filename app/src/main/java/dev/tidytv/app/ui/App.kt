@@ -17,6 +17,12 @@ import dev.tidytv.app.UiState
 import dev.tidytv.app.WizardViewModel
 import dev.tidytv.app.ui.screens.ConnectScreen
 import dev.tidytv.app.ui.screens.DoneScreen
+import dev.tidytv.app.ui.screens.HubScreen
+import dev.tidytv.app.ui.screens.CheckScreen
+import dev.tidytv.app.ui.screens.RescueScreen
+import dev.tidytv.app.ui.screens.RemoteScreen
+import dev.tidytv.app.ui.screens.SendFilesScreen
+import dev.tidytv.core.ops.disabledByUs
 import dev.tidytv.app.ui.screens.GetReadyScreen
 import dev.tidytv.app.ui.screens.HomeScreenStep
 import dev.tidytv.app.ui.screens.ReviewScreen
@@ -97,7 +103,15 @@ fun Screen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit
 @Composable
 private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit) {
     when (step) {
-        Step.WELCOME -> WelcomeScreen({ vm?.choose(it) }, { vm?.restoreTapped() }, s.update, { vm?.dismissUpdate() })
+        Step.WELCOME -> WelcomeScreen({ vm?.choose(it) }, { vm?.restoreTapped() }, s.update, { vm?.dismissUpdate() }, s.savedTvs, { vm?.connectSaved(it) }, { vm?.startRescue(it) })
+        Step.CHECK -> CheckScreen(s.check, s.tv?.title, s.labels, { vm?.retidy() }, { vm?.rebootTest() }, { vm?.recheck() }, { vm?.toHub() })
+        Step.RESCUE -> RescueScreen(s.rescue, { vm?.stopRescue() }, { s.rescue.tv?.let { vm?.startRescue(it) } }, { vm?.stopRescue() })
+        Step.HUB -> HubScreen(
+            s.tv, s.done.records.disabledByUs().count { !dev.tidytv.core.lists.Launchers.isHomeApp(it) }, s.wizard.kind == dev.tidytv.core.flow.TvKind.FIRE_TV,
+            { vm?.openTidy() }, { vm?.openRemote() }, { vm?.openFiles() }, { vm?.openHomeScreen() }, { vm?.openRestore() }, { vm?.back() }, { vm?.openCheck() },
+        )
+        Step.REMOTE -> RemoteScreen(s.remote, s.tv?.title, { vm?.press(it) }, { vm?.type(it) }, { vm?.launchApp(it) }, { vm?.dismissRemoteMessage() }, { vm?.toHub() })
+        Step.SEND_FILES -> SendFilesScreen(s.files, s.tv?.title, { vm?.sendFiles(it) }, { vm?.cancelFile(it) }, { vm?.retryFile(it) }, { vm?.toHub() })
         Step.UNSUPPORTED -> UnsupportedScreen { vm?.back() }
         Step.GET_READY -> GetReadyScreen(s.wizard.kind, s.wizard.mode) { vm?.ready() }
         Step.CONNECT -> ConnectScreen(s.connect, { vm?.connect(it) }, onShareLogs)
@@ -108,12 +122,12 @@ private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs
         Step.TIDYING -> TidyingScreen(s.tidy, { vm?.toDone(); vm?.restoreEverything() }, { vm?.toDone() }, onShareLogs)
         Step.HOME_SCREEN -> HomeScreenStep(
             s.home, s.tidy.disabledCount, { vm?.toggleDock(it) }, { vm?.chooseHome(it) }, { vm?.installHome() }, { vm?.skipHome() },
-            { a, eth -> vm?.homeAction(a, eth) }, { vm?.homeContinue() }, onShareLogs,
+            { a, eth -> vm?.homeAction(a, eth) }, { vm?.homeContinue() }, onShareLogs, { vm?.cancelPlayStore() },
         )
         Step.DONE -> DoneScreen(
             s.tv, s.done, s.tidy.disabledCount, s.wizard.mode == Mode.RESTORE, s.labels,
             { vm?.restoreEverything() }, { vm?.checkDebuggingOff() }, onShareLogs, { vm?.startOver() },
-            { vm?.turnOn(it) },
+            { vm?.turnOn(it) }, { vm?.toHub() },
         )
     }
 }

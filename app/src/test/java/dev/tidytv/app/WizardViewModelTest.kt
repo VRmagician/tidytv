@@ -63,13 +63,16 @@ class WizardViewModelTest {
     private fun vm(demo: DemoBackend) =
         WizardViewModel(Store(dir), Trace(File(dir, "logs")), { NoNetwork }, demo, { catalog }, { home -> home.pkg.toByteArray() })
 
-    private fun TestScope.connectToDemo(vm: WizardViewModel) {
+    /** Connects to the Demo TV, which lands on the My TV hub; [tidy] then opens Tidy up. */
+    private fun TestScope.connectToDemo(vm: WizardViewModel, tidy: Boolean = true) {
         vm.ready()
         advanceTimeBy(4_000)
         val scan = vm.ui.value.connect as ConnectState.Scanning
         assertTrue(scan.found.contains(DemoBackend.DEMO))
         vm.connect(ConnectEvent.Pick(DemoBackend.DEMO))
         advanceUntilIdle()
+        assertEquals(Step.HUB, vm.ui.value.wizard.step)
+        if (tidy) { vm.openTidy(); advanceUntilIdle() }
     }
 
     @Test fun cleanUpWithWifiDropThenHomeScreenThenRestore() = runTest(dispatcher) {
@@ -191,7 +194,8 @@ class WizardViewModelTest {
         vm.startTidy()
         advanceUntilIdle()
         val offer = vm.ui.value.home as HomeState.Offer
-        assertEquals(listOf(dev.tidytv.core.lists.HomeApp.SIMPLE), offer.available)
+        assertEquals("styled needs Android 8; Projectivy runs from Android 5.1",
+            listOf(dev.tidytv.core.lists.HomeApp.SIMPLE, dev.tidytv.core.lists.HomeApp.PROJECTIVY), offer.available)
         vm.chooseHome(dev.tidytv.core.lists.HomeApp.STYLED)
         assertEquals(dev.tidytv.core.lists.HomeApp.SIMPLE, (vm.ui.value.home as HomeState.Offer).app)
     }
@@ -209,7 +213,9 @@ class WizardViewModelTest {
         // App restarted: new view model, same phone storage, same TV.
         val second = vm(demo)
         second.restoreTapped()
-        connectToDemo(second)
+        connectToDemo(second, tidy = false)
+        second.openRestore()
+        advanceUntilIdle()
         assertEquals(Step.DONE, second.ui.value.wizard.step)
         assertTrue(second.ui.value.done.records.isNotEmpty())
         second.restoreEverything()
@@ -228,6 +234,8 @@ class WizardViewModelTest {
         demo.tv.dropOnPrefix = "settings list"
         vm.connect(ConnectEvent.Pick(DemoBackend.DEMO))
         advanceUntilIdle()
+        vm.openTidy()
+        advanceUntilIdle()
         val s = vm.ui.value
         assertTrue(s.review.backup is BackupStatus.Failed)
         vm.startTidy()
@@ -236,13 +244,147 @@ class WizardViewModelTest {
         assertTrue(demo.tv.commands.none { it.startsWith("pm disable-user") })
     }
 
-    @Test fun backFromReviewDisconnectsAndRescans() = runTest(dispatcher) {
+    @Test fun backFromReviewReturnsToTheHubStillConnected() = runTest(dispatcher) {
         val vm = vm(DemoBackend())
         vm.choose(TvKind.ANDROID_TV)
         connectToDemo(vm)
         assertTrue(vm.back())
         advanceTimeBy(100)
-        assertEquals(Step.CONNECT, vm.ui.value.wizard.step)
-        assertTrue(vm.ui.value.connect is ConnectState.Scanning)
+        assertEquals(Step.HUB, vm.ui.value.wizard.step)
+        assertTrue(vm.ui.value.tv != null)
+        assertTrue("Back from the hub goes home", vm.back())
+        advanceTimeBy(100)
+        assertEquals(Step.WELCOME, vm.ui.value.wizard.step)
+        assertEquals(null, vm.ui.value.tv)
+    }
+
+    @Test fun savedTvReconnectsInOneTapAndTheRemoteWorks() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.back(); advanceTimeBy(100)
+        val saved = vm.ui.value.savedTvs.single()
+        assertEquals(DemoBackend.DEMO.host, saved.host)
+
+        vm.connectSaved(saved)
+        advanceUntilIdle()
+        assertEquals(Step.HUB, vm.ui.value.wizard.step)
+
+        vm.openRemote(); advanceUntilIdle()
+        assertTrue(vm.ui.value.remote.apps.any { it.pkg == "com.netflix.ninja" })
+        vm.press(dev.tidytv.core.ops.RemoteKey.UP)
+        vm.type("hi")
+        vm.launchApp(vm.ui.value.remote.apps.first { it.pkg == "com.netflix.ninja" })
+        advanceUntilIdle()
+        assertEquals(listOf("KEYCODE_DPAD_UP"), demo.tv.keys)
+        assertEquals(listOf("hi"), demo.tv.typed)
+        assertEquals(listOf("com.netflix.ninja/.MainActivity"), demo.tv.launched)
+        vm.back(); advanceTimeBy(100)
+        assertEquals(Step.HUB, vm.ui.value.wizard.step)
+    }
+
+    @Test fun filesAreSentOneByOneIntoTheTvFolder() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.openFiles(); advanceUntilIdle()
+        assertTrue(vm.ui.value.files.freeBytes!! > 0)
+        val a = ByteArray(2000) { 1 }
+        val b = ByteArray(10) { 2 }
+        vm.sendFiles(listOf(PickedFile("photo.jpg", a.size.toLong()) { a.inputStream() }, PickedFile("photo.jpg", b.size.toLong()) { b.inputStream() }))
+        advanceUntilIdle()
+        val items = vm.ui.value.files.items
+        assertEquals(listOf(SendStatus.SENT, SendStatus.SENT), items.map { it.status })
+        assertEquals(listOf("photo.jpg", "photo (2).jpg"), items.map { it.savedAs })
+        assertTrue(a.contentEquals(demo.tv.pushed["/sdcard/Download/TidyTV/photo.jpg"]))
+    }
+
+    /** Tidies the Demo TV and returns to the hub; the apps turned off. */
+    private fun TestScope.tidyThenHub(vm: WizardViewModel): List<String> {
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        val chosen = vm.ui.value.review.selected.toList()
+        vm.startTidy(); advanceUntilIdle()
+        vm.skipHome(); advanceUntilIdle()
+        vm.toHub(); advanceTimeBy(100)
+        assertEquals(Step.HUB, vm.ui.value.wizard.step)
+        return chosen
+    }
+
+    @Test fun checkFindsAppsAnUpdateTurnedBackOnAndTidiesThemAgain() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val vm = vm(demo)
+        val chosen = tidyThenHub(vm)
+        vm.openCheck(); advanceUntilIdle()
+        assertEquals(Step.CHECK, vm.ui.value.wizard.step)
+        assertTrue("fresh tidy is all good", vm.ui.value.check.report!!.allGood)
+
+        val back = chosen.first()
+        demo.tv.disabled -= back // a firmware update switched it on
+        vm.recheck(); advanceUntilIdle()
+        assertEquals(listOf(back), vm.ui.value.check.report!!.backOn)
+
+        vm.retidy(); advanceUntilIdle()
+        assertTrue(back in demo.tv.disabled)
+        assertTrue(vm.ui.value.check.message!!.ok)
+        assertTrue(vm.ui.value.check.report!!.allGood)
+    }
+
+    @Test fun rebootTestReconnectsAndReportsWhatCameBack() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val vm = vm(demo)
+        val chosen = tidyThenHub(vm)
+        vm.openCheck(); advanceUntilIdle()
+        demo.tv.reEnableOnReboot = mutableSetOf(chosen.first())
+        vm.rebootTest(); advanceUntilIdle()
+        assertEquals(1, demo.tv.reboots)
+        assertEquals(null, vm.ui.value.check.rebooting)
+        assertEquals(Step.CHECK, vm.ui.value.wizard.step)
+        assertEquals(listOf(chosen.first()), vm.ui.value.check.report!!.backOn)
+    }
+
+    @Test fun rescueTurnsEverythingBackOnWhenTheTvAnswers() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val vm = vm(demo)
+        val chosen = tidyThenHub(vm)
+        vm.back(); advanceTimeBy(100)
+        assertEquals(Step.WELCOME, vm.ui.value.wizard.step)
+        val saved = vm.ui.value.savedTvs.single()
+
+        vm.startRescue(saved); advanceUntilIdle()
+        assertEquals(Step.RESCUE, vm.ui.value.wizard.step)
+        val r = vm.ui.value.rescue
+        assertTrue(r.result!!.message, r.result!!.ok)
+        assertTrue(chosen.none { it in demo.tv.disabled })
+        vm.stopRescue(); advanceTimeBy(100)
+        assertEquals(Step.WELCOME, vm.ui.value.wizard.step)
+    }
+
+    @Test fun projectivyComesFromTheTvsPlayStoreAndStaysAfterRestore() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv = demo.tv
+        tv.playStoreInstalls = false
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        vm.startTidy(); advanceUntilIdle()
+        vm.chooseHome(dev.tidytv.core.lists.HomeApp.PROJECTIVY)
+        vm.installHome()
+        advanceTimeBy(1_000)
+        assertEquals(HomeState.WaitingForPlayStore(dev.tidytv.core.lists.HomeApp.PROJECTIVY), vm.ui.value.home)
+        assertEquals(listOf(dev.tidytv.core.lists.HomeApp.PROJECTIVY.pkg), tv.playStoreOpened)
+
+        tv.installProjectivy() // the owner pressed Install
+        advanceUntilIdle()
+        assertEquals(HomeState.Installed(dev.tidytv.core.lists.HomeApp.PROJECTIVY), vm.ui.value.home)
+        assertTrue(tv.home()!!.startsWith(dev.tidytv.core.lists.HomeApp.PROJECTIVY.pkg))
+
+        vm.homeContinue(); advanceUntilIdle()
+        vm.restoreEverything(); advanceUntilIdle()
+        assertTrue((vm.ui.value.done.restore as RestoreUi.Finished).ok)
+        assertTrue("we never uninstall what we didn't install", dev.tidytv.core.lists.HomeApp.PROJECTIVY.pkg in tv.installed)
+        assertTrue(!tv.home()!!.startsWith(dev.tidytv.core.lists.HomeApp.PROJECTIVY.pkg))
     }
 }

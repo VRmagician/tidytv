@@ -6,7 +6,12 @@ tv-detox home screen, restore everything. Everything below comes later.
 ## Launcher choices
 - Done in 0.2.0: cleanyourtv's Apple TV style launcher as a second choice (Android 8+, dock written
   to `config.json`), built by `tools/build-styled-home.sh`. Still to do: build it in CI, themes.
-- **Projectivy**, opened on the TV's Play Store page. Never bundled.
+- Done in 0.5.0: Projectivy Launcher as a third choice, opened on the TV's Play Store page; you press
+  Install with the remote and TidyTV sets it as Home. Restore leaves it installed. Never bundled.
+- Done in 0.5.0: Check my TV and re-tidy (apps a TV update turned back on, plus new apps on the TV's list).
+- Done in 0.5.0: the reboot test ("Restart the TV and check" waits about 2 minutes, then checks again).
+- Done in 0.5.0: boot-loop rescue ("TV stuck after a change?" retries every 5 seconds for up to 10
+  minutes, then turns everything it changed back on).
 - Measure each launcher's RAM with `dumpsys meminfo` before showing numbers. Known so far: tv-detox
   launcher is a 37 KB APK using about 30 MB RAM; the cleanyourtv launcher is about 300 KB.
 
@@ -40,6 +45,9 @@ tv-detox home screen, restore everything. Everything below comes later.
 ## v2 features researched 2026-10-20 (not started)
 
 ### Remote control
+- Done in 0.4.0: the ADB remote (D-pad, OK, Back, Home, Menu, volume, power, media keys, typing, an
+  "Apps on your TV" launcher) through a kept-open legacy `shell:` stream, on every TV incl. Fire TV.
+  Still to do: the Android TV Remote Protocol v2 below (no developer mode, faster, wake from standby).
 - Hybrid. ADB baseline (already connected, the only open route on Fire TV), ideally scrcpy-server in
   control-only mode (Apache-2.0, millisecond key/text/touch injection). Plain `input keyevent` is a
   fallback: 50–150 ms on Android 12+, 300–1000 ms on older TVs and Fire OS.
@@ -54,6 +62,9 @@ tv-detox home screen, restore everything. Everything below comes later.
 - Size: ADB D-pad/home/back/volume ~600–900 LOC; v2 transport +~1,500 LOC; keyboard and app grid ~2–3 days each.
 
 ### File transfer and sideloading
+- Done in 0.4.0: send files from the phone to Downloads › TidyTV on the TV (streamed, progress,
+  free-space check, never overwrites). Still to do: browse/pull TV files, APK and split sideloading,
+  "send a phone app to the TV".
 - Kadb 2.1.5 already has push/pull (Source/Sink), sync `listV2/statV2`, `install(Source,size)`,
   `installMultiple`, `uninstall`, `execCmd`, `abbExec`. Progress: wrap the Source in a counting okio
   ForwardingSource.

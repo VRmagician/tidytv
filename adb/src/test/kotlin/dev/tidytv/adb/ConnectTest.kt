@@ -162,4 +162,28 @@ class ConnectTest {
         assertTrue(SubnetScanner.isValidHost(" 192.168.0.10 "))
         assertFalse(SubnetScanner.isValidHost("192.168.0"))
     }
+
+    @Test fun remoteKeysGoThroughOneKeptOpenShell() = runBlocking {
+        val shell = (connect() as ConnectResult.Connected).shell
+        val remote = dev.tidytv.core.ops.Remote(shell)
+        remote.press(dev.tidytv.core.ops.RemoteKey.UP)
+        remote.press(dev.tidytv.core.ops.RemoteKey.OK)
+        remote.type("hello world")
+        // Lines are written to the kept-open stream; give the fake a moment to run them.
+        repeat(50) { if (tv.typed.isNotEmpty()) return@repeat; Thread.sleep(20) }
+        assertEquals(1, adbd.sessionsOpened.get())
+        assertEquals(listOf("KEYCODE_DPAD_UP", "KEYCODE_DPAD_CENTER"), tv.keys)
+        assertEquals(listOf("hello world"), tv.typed)
+        remote.close()
+    }
+
+    @Test fun bigFilesStreamWithProgress() = runBlocking {
+        val shell = (connect() as ConnectResult.Connected).shell
+        val data = ByteArray(3 * 1024 * 1024 + 7) { (it % 251).toByte() }
+        val progress = mutableListOf<Long>()
+        shell.pushStream(data.inputStream(), data.size.toLong(), "/sdcard/Download/TidyTV/movie.mp4") { progress += it }
+        assertTrue("file arrived intact", data.contentEquals(tv.pushed["/sdcard/Download/TidyTV/movie.mp4"]))
+        assertTrue("several progress steps", progress.size > 3)
+        assertEquals(data.size.toLong(), progress.last())
+    }
 }

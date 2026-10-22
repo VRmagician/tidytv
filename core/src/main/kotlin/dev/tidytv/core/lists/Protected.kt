@@ -71,17 +71,26 @@ enum class HomeApp(
     val pkg: String,
     val activity: String,
     val minSdk: Int,
-    /** Bundled file under assets/launcher/. */
-    val asset: String,
+    /** Bundled file under assets/launcher/, or null for one installed from the TV's Play Store. */
+    val asset: String?,
     /** How the chosen dock apps reach it: start-intent extras, or a config.json it reads at start. */
     val dockByConfig: Boolean,
 ) {
     /** tv-detox (Ansub): one calm screen, 37 KB, apps editable on the TV with the remote. The default. */
     SIMPLE("com.ansub.tvhome", ".MainActivity", 21, "tvhome.apk", dockByConfig = false),
     /** cleanyourtv (Gathin): Apple TV style dock with a glass highlight and an inputs menu. Android 8+. */
-    STYLED("com.gathin.tvhome", ".MainActivity", 26, "cleanyourtv-home.apk", dockByConfig = true);
+    STYLED("com.gathin.tvhome", ".MainActivity", 26, "cleanyourtv-home.apk", dockByConfig = true),
+    /**
+     * Projectivy Launcher (free, closed source): never bundled. TidyTV opens its Play Store page on
+     * the TV, the owner presses Install, then TidyTV makes it Home. Its activity is looked up on the
+     * TV, and Restore never uninstalls it because TidyTV didn't install it.
+     */
+    PROJECTIVY("com.spocky.projengmenu", "", 22, null, dockByConfig = false);
 
     val component: String get() = "$pkg/$activity"
+
+    /** Installed from the TV's own Play Store rather than pushed by TidyTV. */
+    val fromPlayStore: Boolean get() = asset == null
 
     companion object {
         fun of(pkg: String?): HomeApp? = entries.firstOrNull { it.pkg == pkg }

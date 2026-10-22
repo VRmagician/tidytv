@@ -5,7 +5,7 @@
 # TidyTV
 
 **Your TV, without the junk.**<br>
-A free phone app that turns off the ads, trackers and bloat on Android TV and Google TV.<br>
+A free phone app that cleans up Android TV and Google TV, and doubles as a remote and a file sender.<br>
 No computer. No AI. One tap puts it all back.
 
 [![Download the APK](https://img.shields.io/badge/Download-free%20APK-ffd54a?style=for-the-badge&labelColor=1b1b3a)](https://tidytv.winkle.dev)
@@ -27,6 +27,22 @@ No computer. No AI. One tap puts it all back.
 TidyTV connects to your TV from your phone over Wi-Fi, saves a backup, and switches off the apps you
 don't want. It never deletes anything, and **Restore everything** turns it all back on.
 
+## What it does
+
+<table>
+<tr>
+<td align="center" width="25%"><img src="docs/media/screens/13-hub.png" width="190" alt="My TV hub with tiles"><br><b>My TV</b><br><sub>Tidy up, Remote, Send files, Restore</sub></td>
+<td align="center" width="25%"><img src="docs/media/screens/14-remote.png" width="190" alt="Phone remote"><br><b>Remote</b><br><sub>D-pad, volume, power, typing</sub></td>
+<td align="center" width="25%"><img src="docs/media/screens/15-remote-apps.png" width="190" alt="Apps on your TV list"><br><b>Apps on your TV</b><br><sub>Open any TV app</sub></td>
+<td align="center" width="25%"><img src="docs/media/screens/16-send-files.png" width="190" alt="Send files screen"><br><b>Send files</b><br><sub>Saved in Downloads › TidyTV</sub></td>
+</tr>
+<tr>
+<td align="center" width="25%"><img src="docs/media/screens/17-check.png" width="190" alt="Check my TV screen"><br><b>Check my TV</b><br><sub>Finds apps a TV update turned back on</sub></td>
+</tr>
+</table>
+
+Projectivy Launcher is a third home screen choice. TidyTV opens its page in the Play Store on your TV, you press Install with the remote, and TidyTV sets it as Home. Restore puts your old home screen back and leaves Projectivy installed. TidyTV never hosts Projectivy's APK.
+
 ## How it works
 
 <table>
@@ -37,7 +53,7 @@ don't want. It never deletes anything, and **Restore everything** turns it all b
 <td align="center" width="25%"><img src="docs/media/screens/06-tidying.png" width="190" alt="Apps being turned off one by one"><br><b>4. Tidy</b><br><sub>One app at a time, each one checked</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="docs/media/screens/08-styled-pick.png" width="190" alt="Choose a clean home screen"><br><b>5. Clean home screen</b><br><sub>Optional: Simple or Apple TV style</sub></td>
+<td align="center"><img src="docs/media/screens/08-styled-pick.png" width="190" alt="Choose a clean home screen"><br><b>5. Clean home screen</b><br><sub>Optional: Simple, Apple TV style or Projectivy</sub></td>
 <td align="center"><img src="docs/media/screens/09-home-on.png" width="190" alt="New home screen is on"><br><b>6. Done</b><br><sub>Rolls back if Home doesn't land</sub></td>
 <td align="center"><img src="docs/media/screens/11-share-card.png" width="190" alt="Share card"><br><b>7. Share it</b><br><sub>A card with what you tidied</sub></td>
 <td align="center"><img src="docs/media/screens/10-done.png" width="190" alt="Done screen with Restore everything"><br><b>8. Undo anytime</b><br><sub>Restore everything, one tap</sub></td>
@@ -52,13 +68,15 @@ don't want. It never deletes anything, and **Restore everything** turns it all b
 | 🔕 **Turned off, never deleted** | Uses Android's own `pm disable-user`. Nothing is uninstalled. |
 | 🛡️ **Protected apps stay on** | Play Store, Play Services, keyboards, TV inputs, the remote, Bluetooth, Settings and setup apps are never touched, checked again before every command. |
 | 📺 **Tested lists for 93 models** | From [cleanyourtv](https://github.com/Gathin23/cleanyourtv), each tried on a real TV. [See yours →](https://tidytv.winkle.dev/tv/) |
-| ↩️ **Undo survives anything** | Every change is logged on the TV and the phone *before* it happens, so Restore works even after a Wi-Fi drop or a lost phone. |
+| ↩️ **Undo survives anything** | Every change is logged on the TV and the phone *before* it happens, so Restore works even after a Wi-Fi drop or a lost phone. If the TV gets stuck after a change, "TV stuck after a change?" on the first screen keeps trying for up to 10 minutes and turns everything back on as soon as the TV answers. |
 
 ## Works with
 
 ✅ Android TV and Google TV sets and boxes (Sony, TCL, Xiaomi, Hisense, Philips, Chromecast, NVIDIA Shield…)<br>
 🟧 Fire TV: clean-up only, Amazon's home screen stays<br>
 ❌ Samsung (Tizen) and LG (webOS): they don't run Android
+
+The remote and Send files work on Fire TV too.
 
 Guides: [cleaning up a TV with Claude or another AI](https://tidytv.winkle.dev/guides/claude-code-google-tv/) ·
 [which apps are safe to turn off](https://tidytv.winkle.dev/guides/safe-to-disable-android-tv-apps/) ·

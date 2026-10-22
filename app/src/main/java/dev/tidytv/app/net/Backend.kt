@@ -73,6 +73,8 @@ class AdbBackend(private val discovery: Discovery, keyFile: File, private val tr
  */
 class DemoBackend(val tv: FakeTv = FakeTv.googleTv(), private val phoneApk: (String) -> java.io.File? = { null }) : Backend {
     var debuggingOn = true
+    /** The demo owner presses Install as soon as a Play Store page opens (tests turn this off). */
+    init { tv.playStoreInstalls = true }
     override val saveWaitMs = 1_200L
 
     override fun scan(): Flow<FoundTv> = flow {

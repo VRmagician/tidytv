@@ -112,6 +112,7 @@ fun HomeScreenStep(
     onAction: (HomeAction, Boolean) -> Unit,
     onContinue: () -> Unit,
     onShareLogs: () -> Unit,
+    onCancelPlayStore: () -> Unit = {},
 ) {
     when (s) {
         is HomeState.Offer -> ScreenFrame(bottom = {
@@ -122,12 +123,20 @@ fun HomeScreenStep(
             Title("Want a cleaner home screen?")
             Body("Just your apps: no ads and no rows of suggestions. Your old home screen comes back with Restore everything.")
             for (app in s.available) HomeOption(app, selected = app == s.app) { onChoose(app) }
-            if (s.options.isNotEmpty()) Outline {
+            if (s.options.isNotEmpty() && s.app != HomeApp.PROJECTIVY) Outline {
                 Text("Apps on your home screen", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
                 FlowRow(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(4.dp), verticalArrangement = Arrangement.spacedBy(8.dp)) {
                     for (o in s.options) AppChipLayout(o.pkg, o.label, o.pkg in s.chosen) { onToggle(o.pkg) }
                 }
             }
+        }
+        is HomeState.WaitingForPlayStore -> ScreenFrame(bottom = {
+            TextLink("Choose another home screen", onCancelPlayStore)
+        }) {
+            HeroMascot(mood = Mood.SEARCH, height = 130.dp)
+            Title("Press Install on your TV")
+            Body("Projectivy's page is open in the Play Store on your TV. Use the remote to press Install. TidyTV is waiting and carries on by itself.")
+            Bubble("Waiting for the install…") { Spinner(26.dp) }
         }
         HomeState.Running -> ScreenFrame {
             HeroMascot()
@@ -172,30 +181,41 @@ fun HomeScreenStep(
 val HomeApp.title: String get() = when (this) {
     HomeApp.SIMPLE -> "Simple"
     HomeApp.STYLED -> "Apple TV style"
+    HomeApp.PROJECTIVY -> "Projectivy"
 }
 
 private val HomeApp.blurb: String get() = when (this) {
     HomeApp.SIMPLE -> "One calm screen with your apps, your HDMI inputs and a clock. Tiny (37 KB). Move apps around on the TV with the remote."
     HomeApp.STYLED -> "A dock of your favourite apps with a glass highlight, a big clock and an inputs menu. About 330 KB, Android 8 or newer."
+    HomeApp.PROJECTIVY -> "A popular free launcher with rows you arrange yourself. Installed from the Play Store on your TV, so you always get the latest version."
 }
 
-private val HomeApp.preview: Int get() = when (this) {
+private val HomeApp.preview: Int? get() = when (this) {
     HomeApp.SIMPLE -> dev.tidytv.app.R.drawable.home_simple
     HomeApp.STYLED -> dev.tidytv.app.R.drawable.home_styled
+    HomeApp.PROJECTIVY -> null
 }
 
 val HomeApp.tip: String get() = when (this) {
     HomeApp.SIMPLE -> "Press Home on your remote to see it. Hold OK on an app to move or replace it."
     HomeApp.STYLED -> "Press Home on your remote to see it. Your chosen apps sit in the dock at the bottom."
+    HomeApp.PROJECTIVY -> "Press Home on your remote to see it. Change its look in Projectivy's own settings."
 }
 
 @Composable
 private fun HomePreview(app: HomeApp) {
-    androidx.compose.foundation.Image(
-        androidx.compose.ui.res.painterResource(app.preview), "The ${app.title} home screen",
+    val res = app.preview
+    if (res != null) androidx.compose.foundation.Image(
+        androidx.compose.ui.res.painterResource(res), "The ${app.title} home screen",
         Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RoundedCornerShape(16.dp)),
         contentScale = androidx.compose.ui.layout.ContentScale.Crop,
-    )
+    ) else Column(
+        Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RoundedCornerShape(16.dp)).background(Tidy.Ink).padding(12.dp),
+        verticalArrangement = Arrangement.Center, horizontalAlignment = Alignment.CenterHorizontally,
+    ) {
+        Text("Projectivy Launcher", style = MaterialTheme.typography.titleMedium, color = androidx.compose.ui.graphics.Color.White)
+        Text("from Google Play on your TV", style = MaterialTheme.typography.bodyMedium, color = androidx.compose.ui.graphics.Color.White.copy(alpha = 0.75f))
+    }
 }
 
 /** One home screen to pick: its real screenshot, a name and what it's like. */

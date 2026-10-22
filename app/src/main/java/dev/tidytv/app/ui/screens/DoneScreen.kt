@@ -67,9 +67,15 @@ fun DoneScreen(
     onShareLogs: () -> Unit,
     onStartOver: () -> Unit,
     onTurnOn: (String) -> Unit = {},
+    onMyTv: () -> Unit = {},
 ) {
     val restoring = s.restore is RestoreUi.Running
-    ScreenFrame(bottom = { TextLink("Start over", onStartOver) }) {
+    ScreenFrame(bottom = {
+        Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+            BigButton("‹  Back to My TV", onMyTv, color = Tidy.Blue)
+            TextLink("Start over", onStartOver)
+        }
+    }) {
         val fin = s.restore as? RestoreUi.Finished
         HeroMascot(mood = when {
             fin?.ok == false -> Mood.WORRIED

@@ -83,6 +83,19 @@ object Commands {
 
     const val KEY_HOME = "input keyevent KEYCODE_HOME"
 
+    /** Restarts the TV; the connection drops at once. */
+    const val REBOOT = "reboot"
+
+    /** Opens an app's page in the TV's Play Store (the owner then presses Install with the remote). */
+    fun playStorePage(pkg: String) = "am start -a android.intent.action.VIEW -d market://details?id=${PackageName.require(pkg)}"
+
+    fun isInstalled(pkg: String) = "pm list packages ${PackageName.require(pkg)}"
+
+    /** Where Send files puts things: a folder the TV's file manager and media apps can see. */
+    const val SEND_DIR = "/sdcard/Download/TidyTV"
+    const val LIST_SEND_DIR = "mkdir -p $SEND_DIR && ls -1 $SEND_DIR; echo ok"
+    const val DF_SDCARD = "df /sdcard"
+
     private val NAMESPACES = setOf("global", "secure", "system")
 
     /** "pkg/.Cls" or "pkg/pkg.Cls": both halves made only of package-name characters. */

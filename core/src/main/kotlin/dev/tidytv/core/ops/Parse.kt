@@ -5,6 +5,22 @@ import dev.tidytv.core.lists.TvInfo
 
 /** Parsers for TV command output. All tolerate CRLF and stray blank lines. */
 object Parse {
+    /**
+     * Free space in KB from `df /sdcard`. Toybox (Android 8+) prints a 1K-blocks table with an
+     * "Available" column; old toolbox (Android 7) prints "Free" with units like 3.5G.
+     */
+    fun dfAvailableKb(out: String): Long? {
+        val rows = out.lines().map { it.trim().split(Regex("\\s+")) }.filter { it.size >= 4 }
+        val header = rows.firstOrNull { "Available" in it || "Free" in it } ?: return null
+        val col = header.indexOf("Available").takeIf { it >= 0 } ?: header.indexOf("Free")
+        val row = rows.firstOrNull { it !== header && it.size > col } ?: return null
+        val v = row[col]
+        v.toLongOrNull()?.let { return it }
+        val n = v.dropLast(1).toDoubleOrNull() ?: return null
+        val mult = when (v.last().uppercaseChar()) { 'K' -> 1.0; 'M' -> 1024.0; 'G' -> 1024.0 * 1024; 'T' -> 1024.0 * 1024 * 1024; else -> return null }
+        return (n * mult).toLong()
+    }
+
     private val PROP = Regex("^\\[([^]]+)]: \\[(.*)]$")
     private val COMPONENT = Regex("([A-Za-z_][A-Za-z0-9_.]*)/([A-Za-z0-9_.$]+)")
 

@@ -104,7 +104,27 @@ sealed interface HomeState {
     data object Running : HomeState
     data class Problem(val message: String, val worried: Boolean, val action: HomeAction? = null, val rescue: List<String> = emptyList()) : HomeState
     data class Installed(val app: HomeApp = HomeApp.SIMPLE) : HomeState
+    /** Projectivy's Play Store page is open on the TV; waiting for the owner to press Install. */
+    data class WaitingForPlayStore(val app: HomeApp) : HomeState
 }
+
+/** Check my TV. [rebooting] is the reboot test's progress line, null when it isn't running. */
+data class CheckState(
+    val running: Boolean = false,
+    val report: dev.tidytv.core.ops.CheckReport? = null,
+    val retidying: Boolean = false,
+    val rebooting: String? = null,
+    val message: RestoreUi.Finished? = null,
+)
+
+/** Boot-loop rescue: keep trying a saved TV and put everything back as soon as it answers. */
+data class RescueState(
+    val tv: dev.tidytv.app.data.KnownTv? = null,
+    val attempts: Int = 0,
+    val restoring: Boolean = false,
+    val result: RestoreUi.Finished? = null,
+    val gaveUp: Boolean = false,
+)
 
 enum class DebugCheck { UNKNOWN, CHECKING, STILL_ON, OFF }
 
@@ -126,6 +146,28 @@ data class DoneState(
     val turnOnNote: RestoreUi.Finished? = null,
 )
 
+/** One app on the TV's home screen, for the remote's Apps sheet. */
+data class RemoteApp(val pkg: String, val component: String, val label: String)
+
+data class RemoteState(
+    val apps: List<RemoteApp> = emptyList(),
+    val loadingApps: Boolean = false,
+    /** The link dropped; the remote is getting it back. */
+    val reconnecting: Boolean = false,
+    val message: String? = null,
+)
+
+/** A file picked on the phone, opened lazily so big videos are never loaded into memory. */
+class PickedFile(val name: String, val size: Long, val open: () -> java.io.InputStream)
+
+enum class SendStatus { WAITING, SENDING, SENT, NO_SPACE, FAILED, CANCELLED }
+
+data class SendItem(val id: Int, val name: String, val size: Long, val sent: Long = 0, val status: SendStatus = SendStatus.WAITING, val savedAs: String? = null)
+
+data class FilesState(val items: List<SendItem> = emptyList(), val freeBytes: Long? = null) {
+    val busy get() = items.any { it.status == SendStatus.SENDING || it.status == SendStatus.WAITING }
+}
+
 data class UiState(
     val wizard: Wizard = Wizard(),
     val connect: ConnectState = ConnectState.Scanning(),
@@ -140,6 +182,12 @@ data class UiState(
     val labels: Map<String, String> = emptyMap(),
     /** A newer TidyTV on GitHub, shown as a banner on the Welcome screen. */
     val update: dev.tidytv.app.data.UpdateInfo? = null,
+    /** TVs this phone has connected to, newest first, for one-tap reconnect on Welcome. */
+    val savedTvs: List<dev.tidytv.app.data.KnownTv> = emptyList(),
+    val remote: RemoteState = RemoteState(),
+    val files: FilesState = FilesState(),
+    val check: CheckState = CheckState(),
+    val rescue: RescueState = RescueState(),
     /** The real app icons read from the TV, as PNG files on the phone, by package. */
     val icons: Map<String, String> = emptyMap(),
 )
@@ -164,6 +212,7 @@ class WizardViewModel(
     val ui: StateFlow<UiState> = _ui.asStateFlow()
 
     init {
+        _ui.update { it.copy(savedTvs = runCatching { store.knownTvs() }.getOrDefault(emptyList()).sortedByDescending { t -> t.lastSeen }) }
         updates?.let { u ->
             viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
                 u.check()?.let { info -> _ui.update { it.copy(update = info) } }
@@ -203,10 +252,16 @@ class WizardViewModel(
 
     private fun onEnter(step: Step, from: Step) {
         when (step) {
-            Step.CONNECT -> if (from != Step.REVIEW || shell == null) connect(ConnectEvent.StartScan)
+            Step.CONNECT -> pendingSaved?.let { saved -> pendingSaved = null; connect(ConnectEvent.Pick(saved)) } ?: connect(ConnectEvent.StartScan)
             Step.WELCOME -> disconnect()
             Step.DONE -> enterDone()
             Step.HOME_SCREEN -> enterHome()
+            Step.HUB -> enterHub()
+            Step.REVIEW -> if (from == Step.HUB) snapshot?.let(::prepareReview)
+            Step.REMOTE -> enterRemote()
+            Step.SEND_FILES -> enterFiles()
+            Step.CHECK -> recheck()
+            Step.RESCUE -> Unit
             else -> Unit
         }
     }
@@ -215,6 +270,21 @@ class WizardViewModel(
     fun restoreTapped() = wizard(WizardEvent.RestoreTapped)
     fun ready() = wizard(WizardEvent.Ready)
     fun startOver() = wizard(WizardEvent.StartOver)
+    fun openTidy() = wizard(WizardEvent.OpenTidy)
+    fun openRemote() = wizard(WizardEvent.OpenRemote)
+    fun openFiles() = wizard(WizardEvent.OpenFiles)
+    fun openHomeScreen() = wizard(WizardEvent.OpenHomeScreen)
+    fun openRestore() = wizard(WizardEvent.OpenRestore)
+    fun toHub() = wizard(WizardEvent.ToHub)
+    fun openCheck() = wizard(WizardEvent.OpenCheck)
+
+    private var pendingSaved: FoundTv? = null
+
+    /** One tap on a saved TV: straight to connecting, no setup steps. The saved key means no Allow prompt. */
+    fun connectSaved(tv: dev.tidytv.app.data.KnownTv) {
+        pendingSaved = FoundTv(tv.host, name = tv.title, model = tv.model, legacyOpen = true)
+        wizard(WizardEvent.ConnectSaved)
+    }
     fun toDone() = wizard(WizardEvent.ToDone)
     fun dismissProblem() = _ui.update { it.copy(problem = null) }
 
@@ -225,10 +295,6 @@ class WizardViewModel(
             connect(ConnectEvent.Back); return true
         }
         val next = WizardReducer.reduce(s.wizard, WizardEvent.Back) ?: return false
-        if (s.wizard.step == Step.REVIEW && next.step == Step.CONNECT) {
-            disconnect()
-            _ui.update { it.copy(review = ReviewState()) }
-        }
         wizard(WizardEvent.Back)
         return true
     }
@@ -309,9 +375,8 @@ class WizardViewModel(
         trace.line("tv ${snap.info.displayName} sdk ${snap.info.sdk} home ${snap.home}")
         _ui.update { it.copy(tv = summary) }
         val fire = snap.info.manufacturer.equals("Amazon", true) || snap.info.brand.equals("Amazon", true)
-        val mode = _ui.value.wizard.mode
+        loadLabels(snap)
         wizard(WizardEvent.Connected(fireOs = fire))
-        if (mode == Mode.CLEAN) prepareReview(snap) else loadLabels(snap)
     }
 
     /** Restore mode skips the review, but the activity list should still use the list's names. */
@@ -327,7 +392,8 @@ class WizardViewModel(
         backend?.close(shell)
         shell = null
         snapshot = null
-        _ui.update { UiState(wizard = it.wizard) }
+        remote?.close(); remote = null; remoteShell = null
+        _ui.update { UiState(wizard = it.wizard, update = it.update, savedTvs = it.savedTvs) }
     }
 
     /**
@@ -356,6 +422,294 @@ class WizardViewModel(
         }
         trace.line("reconnect gave up")
         return false
+    }
+
+    // ---------- My TV hub ----------
+
+    private fun enterHub() {
+        _ui.update { it.copy(done = it.done.copy(records = log?.records().orEmpty()), remote = RemoteState(apps = it.remote.apps)) }
+        _ui.update { it.copy(savedTvs = runCatching { store.knownTvs() }.getOrDefault(it.savedTvs).sortedByDescending { t -> t.lastSeen }) }
+    }
+
+    // ---------- Remote ----------
+
+    private var remote: dev.tidytv.core.ops.Remote? = null
+    private var remoteShell: TvShell? = null
+
+    private fun remoteFor(s: TvShell): dev.tidytv.core.ops.Remote {
+        if (remoteShell !== s) { remote?.close(); remote = dev.tidytv.core.ops.Remote(s); remoteShell = s }
+        return remote!!
+    }
+
+    private fun enterRemote() {
+        if (_ui.value.remote.apps.isNotEmpty()) return
+        _ui.update { it.copy(remote = it.remote.copy(loadingApps = true)) }
+        viewModelScope.launch {
+            val apps = withRemote { r -> r.apps() }.orEmpty()
+            val labels = _ui.value.labels
+            val list = apps.map { a -> RemoteApp(a.pkg, a.component, labels[a.pkg] ?: AppLabels.label(a.pkg)) }.sortedBy { it.label.lowercase() }
+            _ui.update { it.copy(remote = it.remote.copy(apps = list, loadingApps = false)) }
+            fetchIcons(list.map { it.pkg })
+        }
+    }
+
+    fun press(key: dev.tidytv.core.ops.RemoteKey) {
+        viewModelScope.launch { withRemote { it.press(key) } }
+    }
+
+    /** Types into the focused field on the TV. Characters `input text` can't send are dropped and the user is told. */
+    fun type(text: String) {
+        if (dev.tidytv.core.ops.TextInput.unsupported(text)) {
+            _ui.update { it.copy(remote = it.remote.copy(message = "Some characters (like emoji or accents) can't be typed on the TV and were left out.")) }
+        }
+        viewModelScope.launch { withRemote { it.type(text) } }
+    }
+
+    fun launchApp(app: RemoteApp) {
+        viewModelScope.launch { withRemote { it.launch(dev.tidytv.core.ops.TvApp(app.pkg, app.component)) } }
+    }
+
+    fun dismissRemoteMessage() = _ui.update { it.copy(remote = it.remote.copy(message = null)) }
+
+    /** Runs a remote action; on a dropped link, reconnects once (showing it) and tries again. */
+    private suspend fun <T> withRemote(block: suspend (dev.tidytv.core.ops.Remote) -> T): T? {
+        for (attempt in 0..1) {
+            val s = shell ?: run {
+                _ui.update { it.copy(remote = it.remote.copy(reconnecting = true)) }
+                val ok = reconnect()
+                _ui.update { it.copy(remote = it.remote.copy(reconnecting = false)) }
+                if (ok) shell else null
+            } ?: break
+            try {
+                return block(remoteFor(s))
+            } catch (e: TvConnectionLost) {
+                trace.line("remote: ${e.message}")
+                remote?.close(); remote = null; remoteShell = null
+                shell = null
+            }
+        }
+        _ui.update { it.copy(remote = it.remote.copy(message = "The TV stopped answering. Check it's on and on the same network.")) }
+        return null
+    }
+
+    // ---------- Check my TV ----------
+
+    private fun runCheck() {
+        val lg = log ?: return
+        _ui.update { it.copy(check = it.check.copy(running = true)) }
+        viewModelScope.launch {
+            val report = withShell { s ->
+                val snap = snapshot
+                val serial = _ui.value.tv?.serial
+                val l = list
+                val listPkgs = l?.let { it.entries.map { e -> e.pkg } + it.optional.map { e -> e.pkg } }.orEmpty()
+                val before = serial?.let { store.latestBackup(it) }?.packages?.toSet()
+                dev.tidytv.core.ops.TvCheck(s, lg).run(listPkgs, before, snap?.liveProtected.orEmpty(), l?.keep.orEmpty())
+            }
+            trace.line("check: $report")
+            _ui.update { it.copy(check = it.check.copy(running = false, report = report,
+                message = if (report == null) RestoreUi.Finished("The TV stopped answering. Check it's on and on the same network.", ok = false) else it.check.message)) }
+        }
+    }
+
+    /** Turns off again what a firmware update brought back, after a fresh backup, like any clean-up. */
+    fun retidy() {
+        val report = _ui.value.check.report ?: return
+        val lg = log ?: return
+        val snap = snapshot ?: return
+        if (report.toTidy.isEmpty()) return
+        wizard(WizardEvent.Busy(true))
+        _ui.update { it.copy(check = it.check.copy(retidying = true, message = null)) }
+        viewModelScope.launch {
+            val outcome = withShell { s ->
+                store.saveBackup(TvReader.backup(s, snap, System.currentTimeMillis()))
+                Debloater(s, lg, sleep = { delay(backend?.saveWaitMs ?: 0) }).run(report.toTidy, snap.liveProtected, list?.keep.orEmpty())
+            }
+            trace.line("re-tidy: $outcome")
+            val off = outcome?.results?.count { it is PkgResult.Disabled } ?: 0
+            _ui.update { it.copy(check = it.check.copy(retidying = false, message = when (outcome) {
+                is dev.tidytv.core.ops.DebloatOutcome.Finished -> RestoreUi.Finished("Tidy again: $off ${if (off == 1) "app" else "apps"} turned off.", ok = true)
+                is dev.tidytv.core.ops.DebloatOutcome.Stopped -> RestoreUi.Finished("Stopped: ${outcome.reason}", ok = false)
+                else -> RestoreUi.Finished("The TV stopped answering. Check it's on, then try again.", ok = false)
+            })) }
+            wizard(WizardEvent.Busy(false))
+            runCheck()
+        }
+    }
+
+    /**
+     * The reboot test: restart the TV, wait for it to come back (up to 3 min), then check that
+     * everything TidyTV turned off is still off and Home is still right.
+     */
+    fun rebootTest() {
+        val b = backend ?: return
+        val tv = found ?: return
+        wizard(WizardEvent.Busy(true))
+        _ui.update { it.copy(check = it.check.copy(rebooting = "Restarting your TV…", message = null)) }
+        viewModelScope.launch {
+            shell?.let { s -> runCatching { tvLock.withLock { s.run(dev.tidytv.core.ops.Commands.REBOOT) } } }
+            b.close(shell); shell = null
+            trace.line("reboot test: restarting")
+            delay(15_000)
+            var back = false
+            val deadline = 36 // 36 x 5 s = 3 minutes
+            for (i in 1..deadline) {
+                _ui.update { it.copy(check = it.check.copy(rebooting = "Waiting for your TV to start… ${(deadline - i) * 5 / 60 + 1} min left")) }
+                val link = runCatching { b.connect(tv) {} }.getOrNull()
+                if (link?.attempt == Attempt.CONNECTED && link.shell != null) { shell = link.shell; back = true; break }
+                delay(5_000)
+            }
+            trace.line("reboot test: back=$back")
+            if (back) runCatching { tvLock.withLock { shell?.let { s -> snapshot = TvReader.snapshot(s) } } }
+            _ui.update { it.copy(check = it.check.copy(rebooting = null, message = if (back) null
+                else RestoreUi.Finished("Your TV hasn't come back yet. Check it's on, then reconnect from the first screen.", ok = false))) }
+            wizard(WizardEvent.Busy(false))
+            if (back) runCheck()
+        }
+    }
+
+    /** Runs [block] on the TV, reconnecting once if the link dropped. Null when the TV is gone. */
+    private suspend fun <T> withShell(block: suspend (TvShell) -> T): T? {
+        for (attempt in 0..1) {
+            val s = shell ?: if (reconnect()) shell else null
+            if (s == null) return null
+            try {
+                return tvLock.withLock { block(s) }
+            } catch (e: TvConnectionLost) {
+                trace.line("lost: ${e.message}")
+                shell = null
+            }
+        }
+        return null
+    }
+
+    // ---------- Rescue ----------
+
+    private var rescueJob: Job? = null
+
+    /**
+     * For a TV stuck after a change: keep trying the saved TV every 5 s for up to 10 minutes, and the
+     * moment it answers, turn everything TidyTV changed back on (the undo list on the TV is enough).
+     */
+    fun startRescue(saved: dev.tidytv.app.data.KnownTv) {
+        wizard(WizardEvent.OpenRescue)
+        rescueJob?.cancel()
+        _ui.update { it.copy(rescue = RescueState(tv = saved)) }
+        rescueJob = viewModelScope.launch {
+            val ftv = FoundTv(saved.host, name = saved.title, model = saved.model, legacyOpen = true)
+            val b = backendFor(ftv)
+            for (i in 1..120) {
+                _ui.update { it.copy(rescue = it.rescue.copy(attempts = i)) }
+                val link = runCatching { b.connect(ftv) {} }.getOrNull()
+                if (link?.attempt == Attempt.CONNECTED && link.shell != null) {
+                    backend = b; shell = link.shell; found = ftv
+                    val lg = store.actionLog(saved.serial)
+                    log = lg
+                    _ui.update { it.copy(rescue = it.rescue.copy(restoring = true)) }
+                    val out = runCatching { tvLock.withLock { Restorer(link.shell, lg).run() } }.getOrNull()
+                    trace.line("rescue: $out")
+                    val msg = when (out) {
+                        is RestoreOutcome.Done -> RestoreUi.Finished("Your TV answered and everything TidyTV changed is back on. Restart the TV if it still looks stuck.", ok = true)
+                        is RestoreOutcome.Partial -> RestoreUi.Finished("${out.stillOff.size} apps wouldn't turn back on. Tap Try again.", ok = false)
+                        else -> RestoreUi.Finished("The TV dropped off again. Tap Try again.", ok = false)
+                    }
+                    _ui.update { it.copy(rescue = it.rescue.copy(restoring = false, result = msg)) }
+                    return@launch
+                }
+                delay(5_000)
+            }
+            _ui.update { it.copy(rescue = it.rescue.copy(gaveUp = true)) }
+        }
+    }
+
+    /** Re-runs Check my TV (after the user fixed something on the TV). */
+    fun recheck() {
+        _ui.update { it.copy(check = it.check.copy(message = null)) }
+        runCheck()
+    }
+
+    fun stopRescue() {
+        rescueJob?.cancel()
+        wizard(WizardEvent.Back)
+    }
+
+    // ---------- Send files ----------
+
+    private var sendJob: Job? = null
+    private var nextFileId = 0
+
+    private fun enterFiles() {
+        if (_ui.value.files.busy) return
+        viewModelScope.launch {
+            val s = shell ?: return@launch
+            val free = runCatching { tvLock.withLock { dev.tidytv.core.ops.FileSender(s).freeBytes() } }.getOrNull()
+            _ui.update { it.copy(files = it.files.copy(freeBytes = free)) }
+        }
+    }
+
+    /** Queues picked files and sends them one at a time into Downloads › TidyTV on the TV. */
+    fun sendFiles(picked: List<PickedFile>) {
+        if (picked.isEmpty()) return
+        val items = picked.map { p -> SendItem(nextFileId++, p.name, p.size) }
+        val byId = items.zip(picked).associate { (i, p) -> i.id to p }
+        _ui.update { it.copy(files = it.files.copy(items = it.files.items + items)) }
+        if (sendJob?.isActive == true) { queued += byId; retryable += byId; return }
+        queued += byId
+        retryable += byId
+        sendJob = viewModelScope.launch { drainQueue() }
+    }
+
+    private val queued = linkedMapOf<Int, PickedFile>()
+
+    private suspend fun drainQueue() {
+        while (queued.isNotEmpty()) {
+            val (id, p) = queued.entries.first()
+            queued.remove(id)
+            if (_ui.value.files.items.firstOrNull { it.id == id }?.status == SendStatus.CANCELLED) continue
+            setItem(id) { it.copy(status = SendStatus.SENDING) }
+            var result: dev.tidytv.core.ops.SendResult = dev.tidytv.core.ops.SendResult.Disconnected
+            for (attempt in 0..1) {
+                val s = shell ?: if (reconnect()) shell else null
+                if (s == null) break
+                result = tvLock.withLock {
+                    val sender = dev.tidytv.core.ops.FileSender(s)
+                    val taken = runCatching { sender.takenNames() }.getOrDefault(emptySet()).toMutableSet()
+                    sender.send(p.name, p.size, p.open, taken) { sent -> setItem(id) { it.copy(sent = sent) } }
+                }
+                if (result !is dev.tidytv.core.ops.SendResult.Disconnected) break
+                shell = null
+            }
+            trace.line("send ${p.size} bytes: $result")
+            setItem(id) {
+                when (val r = result) {
+                    is dev.tidytv.core.ops.SendResult.Sent -> it.copy(status = SendStatus.SENT, sent = it.size, savedAs = r.remotePath.substringAfterLast('/'))
+                    is dev.tidytv.core.ops.SendResult.NoSpace -> it.copy(status = SendStatus.NO_SPACE)
+                    dev.tidytv.core.ops.SendResult.Disconnected -> it.copy(status = SendStatus.FAILED)
+                }
+            }
+        }
+        enterFiles()
+    }
+
+    /** Skips a file that hasn't started yet. */
+    fun cancelFile(id: Int) {
+        queued.remove(id)
+        setItem(id) { if (it.status == SendStatus.WAITING) it.copy(status = SendStatus.CANCELLED) else it }
+    }
+
+    fun retryFile(id: Int, file: PickedFile? = null) {
+        val item = _ui.value.files.items.firstOrNull { it.id == id } ?: return
+        val p = file ?: retryable[id] ?: return
+        setItem(id) { item.copy(status = SendStatus.WAITING, sent = 0) }
+        queued[id] = p
+        if (sendJob?.isActive != true) sendJob = viewModelScope.launch { drainQueue() }
+    }
+
+    /** Picked files are kept so a failed one can be retried without picking it again. */
+    private val retryable = mutableMapOf<Int, PickedFile>()
+
+    private fun setItem(id: Int, f: (SendItem) -> SendItem) = _ui.update { u ->
+        u.copy(files = u.files.copy(items = u.files.items.map { if (it.id == id) f(it) else it }))
     }
 
     // ---------- Review ----------
@@ -510,7 +864,7 @@ class WizardViewModel(
             .filter { it !in _ui.value.tidy.results.filterValues { r -> r is PkgResult.Disabled }.keys }
             .map { DockApp(it, AppLabels.label(it)) }
             .sortedBy { it.label.lowercase() }
-        val available = HomeApp.entries.filter { a -> snap.info.sdk >= a.minSdk && launcherApk(a) != null }
+        val available = HomeApp.entries.filter { a -> snap.info.sdk >= a.minSdk && (a.fromPlayStore || launcherApk(a) != null) }
         _ui.update { it.copy(home = HomeState.Offer(options, options.take(8).map { o -> o.pkg }, HomeApp.SIMPLE, available)) }
         fetchIcons(options.map { it.pkg })
     }
@@ -532,7 +886,46 @@ class WizardViewModel(
         lastDock = offer?.chosen ?: lastDock
         lastApp = offer?.app ?: lastApp
         val dock = lastDock
-        runHome { h, apk, sdk -> h.run(apk, dock, sdk) }
+        if (lastApp.fromPlayStore) installFromPlayStore(lastApp) else runHome { h, apk, sdk -> h.run(apk, dock, sdk) }
+    }
+
+    private var playStoreJob: Job? = null
+
+    /**
+     * Projectivy: if it isn't on the TV yet, open its Play Store page there and wait (up to 5 min)
+     * for the owner to press Install with the remote; then hand Home over as usual.
+     */
+    private fun installFromPlayStore(app: HomeApp) {
+        playStoreJob?.cancel()
+        playStoreJob = viewModelScope.launch {
+            val s = shell ?: return@launch
+            if (!isOnTv(app.pkg)) {
+                runCatching { tvLock.withLock { s.run(dev.tidytv.core.ops.Commands.playStorePage(app.pkg)) } }
+                _ui.update { it.copy(home = HomeState.WaitingForPlayStore(app)) }
+                trace.line("waiting for ${app.pkg} from the Play Store")
+                var ok = false
+                for (i in 1..100) {
+                    delay(3_000)
+                    if (isOnTv(app.pkg)) { ok = true; break }
+                }
+                if (!ok) {
+                    _ui.update { it.copy(home = HomeState.Problem("Projectivy isn't installed yet. Install it from the Play Store on your TV, then try again.", worried = false, action = HomeAction.RETRY)) }
+                    return@launch
+                }
+            }
+            runHome { h, apk, sdk -> h.run(apk, emptyList(), sdk) }
+        }
+    }
+
+    /** True when [pkg] is installed on the TV; false on any error, including a dropped link. */
+    private suspend fun isOnTv(pkg: String): Boolean = withShell { s ->
+        pkg in dev.tidytv.core.ops.Parse.packages(s.run(dev.tidytv.core.ops.Commands.isInstalled(pkg)))
+    } == true
+
+    /** "Not now" while waiting on the Play Store: back to the choice. */
+    fun cancelPlayStore() {
+        playStoreJob?.cancel()
+        enterHome()
     }
 
     private var lastDock: List<String> = emptyList()
@@ -540,7 +933,7 @@ class WizardViewModel(
 
     fun homeAction(action: HomeAction, onEthernet: Boolean = false) {
         when (action) {
-            HomeAction.RETRY -> runHome { h, apk, sdk -> h.run(apk, lastDock, sdk) }
+            HomeAction.RETRY -> if (lastApp.fromPlayStore) installFromPlayStore(lastApp) else runHome { h, apk, sdk -> h.run(apk, lastDock, sdk) }
             HomeAction.REPLACE_COPY -> runHome { h, apk, sdk ->
                 if (h.removeConflictingCopy()) h.run(apk, lastDock, sdk)
                 else HandoverOutcome.InstallFailed("The other copy couldn't be removed.")
@@ -568,7 +961,7 @@ class WizardViewModel(
 
     private fun runHome(block: suspend (LauncherHandover, ByteArray, Int) -> HandoverOutcome) {
         val app = lastApp
-        val apk = launcherApk(app) ?: return
+        val apk = if (app.fromPlayStore) ByteArray(0) else launcherApk(app) ?: return
         val lg = log ?: return
         val b = backend ?: return
         val sdk = _ui.value.tv?.sdk ?: 0
@@ -600,6 +993,7 @@ class WizardViewModel(
 
     private fun homeState(o: HandoverOutcome, app: HomeApp): HomeState = when (o) {
         is HandoverOutcome.Done -> HomeState.Installed(app)
+        HandoverOutcome.NotInstalled -> HomeState.Problem("Projectivy isn't installed yet. Install it from the Play Store on your TV, then try again.", worried = false, action = HomeAction.RETRY)
         is HandoverOutcome.NeedsChoice -> HomeState.Problem("Your TV has more than one home screen app, so TidyTV left Home alone.", worried = false)
         is HandoverOutcome.UnknownHome -> HomeState.Problem("Your TV uses a home screen TidyTV doesn't know, so it left Home alone.", worried = false)
         HandoverOutcome.SignatureConflict -> HomeState.Problem(

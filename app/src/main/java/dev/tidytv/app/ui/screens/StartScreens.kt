@@ -7,6 +7,8 @@ import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
 import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
@@ -31,6 +33,9 @@ fun WelcomeScreen(
     onRestore: () -> Unit,
     update: dev.tidytv.app.data.UpdateInfo? = null,
     onDismissUpdate: () -> Unit = {},
+    savedTvs: List<dev.tidytv.app.data.KnownTv> = emptyList(),
+    onSavedTv: (dev.tidytv.app.data.KnownTv) -> Unit = {},
+    onRescue: (dev.tidytv.app.data.KnownTv) -> Unit = {},
 ) {
     ScreenFrame(top = {
         val actions = dev.tidytv.app.ui.LocalAppActions.current
@@ -40,8 +45,34 @@ fun WelcomeScreen(
         }
     }) {
         if (update != null) UpdateBanner(update, onDismissUpdate)
-        HeroMascot()
-        Bubble("Hi! What TV do you have?")
+        if (savedTvs.isNotEmpty()) {
+            androidx.compose.material3.Text("Your TVs", style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+            Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+                savedTvs.take(3).forEach { tv ->
+                    dev.tidytv.app.ui.TvCard(tv.title, tv.model, onClick = { onSavedTv(tv) })
+                }
+            }
+            var pick by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+            TextLink("TV stuck after a change?", { if (savedTvs.size == 1) onRescue(savedTvs[0]) else pick = true }, color = Tidy.Muted)
+            if (pick) androidx.compose.material3.AlertDialog(
+                onDismissRequest = { pick = false },
+                title = { androidx.compose.material3.Text("Which TV is stuck?") },
+                text = {
+                    Column {
+                        savedTvs.forEach { tv ->
+                            androidx.compose.material3.TextButton({ pick = false; onRescue(tv) }) { androidx.compose.material3.Text(tv.title) }
+                        }
+                    }
+                },
+                confirmButton = {},
+                dismissButton = { androidx.compose.material3.TextButton({ pick = false }) { androidx.compose.material3.Text("Cancel") } },
+            )
+            HeroMascot(height = 110.dp)
+            Bubble("Connect another TV")
+        } else {
+            HeroMascot()
+            Bubble("Hi! What TV do you have?")
+        }
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             ChoiceButton("Android TV / Google TV", "Sony, TCL, Philips, Hisense, Xiaomi, Chromecast…", Tidy.Blue) { onChoose(TvKind.ANDROID_TV) }
             ChoiceButton("Amazon Fire TV", "Clean-up only", Tidy.Orange) { onChoose(TvKind.FIRE_TV) }

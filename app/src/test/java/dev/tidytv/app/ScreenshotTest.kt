@@ -112,6 +112,39 @@ class ScreenshotTest {
     @Test fun done() = shoot("6_done", Step.DONE, UiState(tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
         done = DoneState(freedMb = 140, newHome = true, records = records, debugging = DebugCheck.OFF),
         labels = mapOf("com.tcl.tv.tclchannel" to "TCL Channel")))
+    // ---- 0.4.0: My TV hub, remote, send files ----
+    @Test fun welcomeSaved() = shoot("1d_welcome_saved_tvs", Step.WELCOME, UiState(savedTvs = listOf(
+        dev.tidytv.app.data.KnownTv("A1", "Living room TV", "TCL 55C735", "192.168.1.42", 2),
+        dev.tidytv.app.data.KnownTv("B2", "Bedroom", "Chromecast with Google TV", "192.168.1.57", 1))))
+    @Test fun hub() = shoot("7_hub", Step.HUB, UiState(tv = summary, wizard = dev.tidytv.core.flow.Wizard(Step.HUB, TvKind.ANDROID_TV),
+        done = DoneState(records = records)))
+    @Test fun hubFireTv() = shoot("7b_hub_fire_tv", Step.HUB, UiState(tv = summary, wizard = dev.tidytv.core.flow.Wizard(Step.HUB, TvKind.FIRE_TV)))
+    @Test fun remote() = shoot("8_remote", Step.REMOTE, UiState(tv = summary, remote = RemoteState(apps = listOf(
+        RemoteApp("com.netflix.ninja", "com.netflix.ninja/.MainActivity", "Netflix"),
+        RemoteApp("com.google.android.youtube.tv", "com.google.android.youtube.tv/.Main", "YouTube")))))
+    @Test fun remoteReconnecting() = shoot("8b_remote_reconnecting", Step.REMOTE, UiState(tv = summary, remote = RemoteState(reconnecting = true)))
+    @Test fun filesEmpty() = shoot("9_send_files", Step.SEND_FILES, UiState(tv = summary, files = FilesState(freeBytes = 8L * 1024 * 1024 * 1024)))
+    @Test fun filesSending() = shoot("9b_send_files_progress", Step.SEND_FILES, UiState(tv = summary, files = FilesState(freeBytes = 8L * 1024 * 1024 * 1024, items = listOf(
+        SendItem(1, "Holiday 2026.mp4", 734_003_200, sent = 734_003_200, status = SendStatus.SENT, savedAs = "Holiday 2026.mp4"),
+        SendItem(2, "Birthday photos.zip", 52_428_800, sent = 20_971_520, status = SendStatus.SENDING),
+        SendItem(3, "Recipe.pdf", 412_000, status = SendStatus.WAITING),
+        SendItem(4, "Old film.mkv", 9_000_000_000, status = SendStatus.NO_SPACE)))))
+    @Test fun checkAllGood() = shoot("10_check_all_good", Step.CHECK, UiState(tv = summary,
+        check = CheckState(report = dev.tidytv.core.ops.CheckReport(emptyList(), emptyList(), homeChanged = false, stillOff = 24))))
+    @Test fun checkFound() = shoot("10b_check_found", Step.CHECK, UiState(tv = summary,
+        check = CheckState(report = dev.tidytv.core.ops.CheckReport(listOf("com.google.android.youtube.tvmusic", "com.google.android.tvrecommendations"),
+            listOf("com.amazon.amazonvideo.livingroom"), homeChanged = true, stillOff = 21))))
+    @Test fun checkRebooting() = shoot("10c_check_rebooting", Step.CHECK, UiState(tv = summary,
+        check = CheckState(rebooting = "Waiting for your TV to start… 2 min left")))
+    private val savedTv = dev.tidytv.app.data.KnownTv("abc", "Living room TV", "Chromecast with Google TV", "192.168.1.40", 0)
+    @Test fun rescueTrying() = shoot("11_rescue", Step.RESCUE, UiState(rescue = RescueState(savedTv, attempts = 7)))
+    @Test fun rescueDone() = shoot("11b_rescue_done", Step.RESCUE, UiState(rescue = RescueState(savedTv, attempts = 12,
+        result = RestoreUi.Finished("Your TV answered and everything TidyTV changed is back on. Restart the TV if it still looks stuck.", ok = true))))
+    @Test fun rescueGaveUp() = shoot("11c_rescue_gave_up", Step.RESCUE, UiState(rescue = RescueState(savedTv, attempts = 120, gaveUp = true)))
+    @Test fun homeOfferProjectivy() = shoot("5c3_home_offer_projectivy", Step.HOME_SCREEN, UiState(home = HomeState.Offer(
+        app = dev.tidytv.core.lists.HomeApp.PROJECTIVY, available = dev.tidytv.core.lists.HomeApp.entries)))
+    @Test fun homeWaitingForPlayStore() = shoot("5f_home_waiting_play_store", Step.HOME_SCREEN, UiState(
+        home = HomeState.WaitingForPlayStore(dev.tidytv.core.lists.HomeApp.PROJECTIVY)))
     @Test fun doneOneBackOn() = shoot("6c_done_one_back_on", Step.DONE, UiState(tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
         done = DoneState(freedMb = 140, newHome = true, debugging = DebugCheck.OFF,
             records = records + ActionRecord(1_700_000_090_000, Op.ENABLE, order.first().pkg, Phase.DONE),

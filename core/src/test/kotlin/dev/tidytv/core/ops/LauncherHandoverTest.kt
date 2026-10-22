@@ -83,12 +83,12 @@ class LauncherHandoverTest {
 
     @Test fun unknownHomeOwnerChangesNothing() = runTest {
         val tv = FakeTv.googleTv().apply {
-            installed += "com.spocky.projengmenu"
-            homeClaimants["com.spocky.projengmenu/.Home"] = 5
-            preferredHome = "com.spocky.projengmenu/.Home"
+            installed += "com.wolf.firelauncher"
+            homeClaimants["com.wolf.firelauncher/.Home"] = 5
+            preferredHome = "com.wolf.firelauncher/.Home"
         }
         val out = handover(tv).run(apk, emptyList(), sdk = 30)
-        assertEquals(HandoverOutcome.UnknownHome("com.spocky.projengmenu"), out)
+        assertEquals(HandoverOutcome.UnknownHome("com.wolf.firelauncher"), out)
         assertTrue(tv.pushed.isEmpty())
     }
 

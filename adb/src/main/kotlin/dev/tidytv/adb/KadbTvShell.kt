@@ -8,6 +8,9 @@ import dev.tidytv.core.ops.TvShell
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.withContext
 import okio.Buffer
+import okio.source
+import dev.tidytv.core.ops.ShellSession
+import kotlin.concurrent.thread
 import okio.Path.Companion.toOkioPath
 import java.io.File
 import java.io.IOException
@@ -63,6 +66,54 @@ class KadbTvShell(private val kadb: Kadb, private val trace: (String) -> Unit = 
             sink.readByteArray()
         } catch (e: IOException) {
             trace("pull $remotePath !! ${e.message}")
+            null
+        }
+    }
+
+    override suspend fun pushStream(source: java.io.InputStream, size: Long, remotePath: String, onProgress: (Long) -> Unit) =
+        withContext(Dispatchers.IO) {
+            var sent = 0L
+            val counting = object : okio.ForwardingSource(source.source()) {
+                override fun read(sink: Buffer, byteCount: Long): Long {
+                    val n = super.read(sink, byteCount)
+                    if (n > 0) { sent += n; onProgress(sent) }
+                    return n
+                }
+            }
+            try {
+                kadb.push(counting, remotePath, mode = "644".toInt(8), lastModifiedMs = System.currentTimeMillis())
+                trace("push stream $sent/$size bytes -> $remotePath")
+            } catch (e: IOException) {
+                trace("push stream $remotePath !! ${e.message}")
+                throw TvConnectionLost(e.message ?: "connection lost", e)
+            }
+        }
+
+    /**
+     * A plain `shell:` stream kept open for the remote: each command is one line written to it.
+     * The legacy protocol works on every TV (shell v2 doesn't exist on older ones); output is
+     * read and thrown away on a daemon thread so the stream never backs up.
+     */
+    override suspend fun openSession(): ShellSession? = withContext(Dispatchers.IO) {
+        try {
+            val stream = kadb.open("shell:")
+            thread(isDaemon = true, name = "tidytv-remote-drain") {
+                runCatching { while (!stream.source.exhausted()) stream.source.skip(stream.source.buffer.size.coerceAtLeast(1)) }
+            }
+            trace("remote session open")
+            object : ShellSession {
+                override suspend fun send(command: String) = withContext(Dispatchers.IO) {
+                    try {
+                        stream.sink.writeUtf8(command).writeUtf8("\n").flush()
+                    } catch (e: IOException) {
+                        trace("remote session !! ${e.message}")
+                        throw TvConnectionLost(e.message ?: "connection lost", e)
+                    }
+                }
+                override fun close() { runCatching { stream.close() } }
+            }
+        } catch (e: Exception) {
+            trace("remote session unavailable: ${e.javaClass.simpleName}: ${e.message}")
             null
         }
     }
