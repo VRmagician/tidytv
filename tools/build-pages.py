@@ -232,7 +232,7 @@ def page(path: str, title: str, desc: str, body: str, ld: list, crumbs: list) ->
 </main>
 <footer class="wrap">
   <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
-  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="{REPO}">Source on GitHub</a> (a star helps). Not affiliated with Google, Amazon or any TV maker.</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="{REPO}">Source on GitHub</a> (a star helps) · <a href="/privacy/">Privacy policy</a>. Not affiliated with Google, Amazon or any TV maker.</p>
 </footer>
 <script src="/assets/stars.js" defer></script>
 """
@@ -398,6 +398,80 @@ def guides_index(gs: list) -> str:
 
 # ---------- main ----------
 
+
+# ---------- privacy ----------
+
+PRIVACY_DATE = "22 October 2026"
+
+def privacy_page() -> str:
+    body = f"""<article class="card guide">
+  <h1>Privacy policy</h1>
+  <p class="meta">TidyTV for Android · Effective {PRIVACY_DATE}</p>
+  <div class="prose">
+<p>TidyTV is a free, open-source phone app that cleans up Android TV and Google TV sets over your home network. It has no account, no ads, no analytics and no tracking. This page explains the little data it handles and where it goes. The full source code is on <a href="{REPO}">GitHub</a>, so anyone can check it.</p>
+
+<h2>The short version</h2>
+<ul>
+<li>TidyTV talks to your TV over your own home network. That traffic never leaves your network.</li>
+<li>Once a day it asks GitHub whether a newer version is out. Nothing about you or your TV is sent.</li>
+<li>Anything else leaves your phone only when you choose to send it: a message in the feedback form, or something you share through Android's share sheet.</li>
+<li>We don't sell data, show ads, or use analytics or advertising SDKs.</li>
+</ul>
+
+<h2>What stays on your phone</h2>
+<p>To work and to let you undo changes, TidyTV keeps these files in its own private storage on your phone:</p>
+<ul>
+<li><b>TVs you've connected to:</b> the TV's name, model, network address and serial number, so it can reconnect in one tap.</li>
+<li><b>Backups and a change log:</b> the list of apps on each TV and what TidyTV changed, so Restore can put everything back.</li>
+<li><b>A connection key:</b> the key your TV asks you to allow ("Always allow from this computer"), so it doesn't ask every time.</li>
+<li><b>A short activity log</b> for troubleshooting, and app icons read from your TV.</li>
+<li><b>A random install ID</b>, created on the phone, used only to tell feedback messages from the same install apart.</li>
+</ul>
+<p>None of this is uploaded. Uninstalling TidyTV, or clearing its storage in Android's settings, deletes all of it.</p>
+
+<h2>What happens on your TV</h2>
+<p>With the debugging permission you turn on and allow on the TV, TidyTV turns apps off and on, can set a different home screen, sends remote key presses and text you type in the Remote, and saves files you choose to send into the TV's Downloads › TidyTV folder. It reads the list of installed apps and basic device details (model, Android version) to pick the right clean-up list. It doesn't read your files, accounts, viewing history or passwords on the TV.</p>
+
+<h2>What goes over the internet</h2>
+<h3>Update check</h3>
+<p>Once a day TidyTV requests the public "latest release" page of its GitHub repository to see whether a newer version exists. The request contains nothing about you or your TV. Like any web request, GitHub sees your IP address; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
+<h3>Feedback form (only when you tap Send)</h3>
+<p>If you send a message from the app, it includes:</p>
+<ul>
+<li>your message and the kind of message you picked;</li>
+<li>your email address, only if you type one so we can reply;</li>
+<li>your phone model, Android version, TidyTV version and the random install ID;</li>
+<li>the activity log, only if you tick the box. It includes your TV's model and Android version and what TidyTV did. Serial numbers, Wi-Fi names, MAC addresses, email addresses and most of each IP address are removed from it on your phone before sending;</li>
+<li>a screenshot, only if you add one.</li>
+</ul>
+<p>Messages are received through a Google Apps Script form and stored in a private Google Sheet and email inbox used by the developer to read and answer feedback. They are used only to fix problems and improve TidyTV, never for marketing, and never shared or sold. We delete them on request and otherwise remove them when they are no longer needed.</p>
+<h3>Sharing</h3>
+<p>The share card and Share logs use Android's share sheet. Whatever you share goes only to the app you pick, under that app's own privacy policy. Logs are cleaned the same way as above.</p>
+<h3>Projectivy Launcher</h3>
+<p>If you choose Projectivy as your home screen, TidyTV opens its page in the Google Play Store on your TV. Installing it is between you and Google Play; TidyTV doesn't send anything to Projectivy's developer.</p>
+
+<h2>Permissions</h2>
+<ul>
+<li><b>Internet and network state:</b> to reach your TV on your home network, and for the update check and feedback.</li>
+<li><b>Wi-Fi state and multicast:</b> to find TVs on your network.</li>
+</ul>
+<p>TidyTV doesn't ask for your location, contacts, camera, microphone or storage. When you send files, you pick them in Android's own file picker, and TidyTV only reads the files you pick.</p>
+
+<h2>Children</h2>
+<p>TidyTV is a general-audience utility and isn't directed at children under 13. We don't knowingly collect personal information from children.</p>
+
+<h2>Your choices</h2>
+<p>You can use TidyTV without ever sending feedback or sharing anything. To have a feedback message deleted, send a request through the app's feedback form or open an issue on <a href="{REPO}/issues">GitHub</a> with the date you sent it.</p>
+
+<h2>Changes and contact</h2>
+<p>If this policy changes, we'll update this page and the date above. Questions: use the feedback form in the app or open an issue on <a href="{REPO}/issues">GitHub</a>.</p>
+  </div>
+</article>"""
+    ld = [{"@context": "https://schema.org", "@type": "WebPage", "name": "TidyTV privacy policy", "url": f"{BASE}/privacy/", "dateModified": "2026-10-22"}]
+    return page("privacy/", "Privacy policy | TidyTV", "What data the TidyTV app handles: almost none. No account, ads, analytics or tracking. What stays on your phone and what is sent only when you choose.",
+                body, ld, [("TidyTV", "/"), ("Privacy policy", None)])
+
+
 def write(rel: str, text: str):
     p = SITE / rel
     p.parent.mkdir(parents=True, exist_ok=True)
@@ -421,8 +495,9 @@ def main():
         write(f"guides/{g['slug']}/index.html", guide_page(g, gs))
     if gs:
         write("guides/index.html", guides_index(gs))
+    write("privacy/index.html", privacy_page())
     urls = [f"{BASE}/", f"{BASE}/tv/"] + [f"{BASE}/tv/{m['id']}/" for m in models] + \
-        ([f"{BASE}/guides/"] if gs else []) + [f"{BASE}/guides/{g['slug']}/" for g in gs]
+        ([f"{BASE}/guides/"] if gs else []) + [f"{BASE}/guides/{g['slug']}/" for g in gs] + [f"{BASE}/privacy/"]
     write("sitemap.xml", '<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
           + "".join(f"  <url><loc>{u}</loc><lastmod>{TODAY}</lastmod></url>\n" for u in urls) + "</urlset>\n")
     # The main page's TV search links each result to its page.

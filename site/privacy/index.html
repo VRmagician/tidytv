@@ -1,0 +1,105 @@
+<!doctype html>
+<html lang="en">
+<meta charset="utf-8">
+<title>Privacy policy | TidyTV</title>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="description" content="What data the TidyTV app handles: almost none. No account, ads, analytics or tracking. What stays on your phone and what is sent only when you choose.">
+<link rel="canonical" href="https://tidytv.winkle.dev/privacy/">
+<meta name="theme-color" content="#2F6BFF">
+<link rel="icon" href="/img/icons/a1-mascot-flat.webp" type="image/webp">
+<meta property="og:type" content="article">
+<meta property="og:site_name" content="TidyTV">
+<meta property="og:url" content="https://tidytv.winkle.dev/privacy/">
+<meta property="og:title" content="Privacy policy | TidyTV">
+<meta property="og:description" content="What data the TidyTV app handles: almost none. No account, ads, analytics or tracking. What stays on your phone and what is sent only when you choose.">
+<meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
+<meta name="twitter:card" content="summary_large_image">
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebPage", "name": "TidyTV privacy policy", "url": "https://tidytv.winkle.dev/privacy/", "dateModified": "2026-10-22"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Privacy policy"}]}]</script>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="/assets/pages.css">
+<header class="top"><div class="wrap bar">
+  <a class="wordmark" href="/"><img src="/img/icons/a1-mascot-flat.webp" width="40" height="40" alt="">TidyTV</a>
+  <nav aria-label="Main"><a href="/tv/">TV models</a><a href="/guides/">Guides</a><a class="starpill" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star<span class="stars" data-count></span></a></nav>
+</div></header>
+<main class="wrap">
+<p class="crumbs"><a href="/">TidyTV</a> › Privacy policy</p>
+<article class="card guide">
+  <h1>Privacy policy</h1>
+  <p class="meta">TidyTV for Android · Effective 22 October 2026</p>
+  <div class="prose">
+<p>TidyTV is a free, open-source phone app that cleans up Android TV and Google TV sets over your home network. It has no account, no ads, no analytics and no tracking. This page explains the little data it handles and where it goes. The full source code is on <a href="https://github.com/jolan94/tidytv">GitHub</a>, so anyone can check it.</p>
+
+<h2>The short version</h2>
+<ul>
+<li>TidyTV talks to your TV over your own home network. That traffic never leaves your network.</li>
+<li>Once a day it asks GitHub whether a newer version is out. Nothing about you or your TV is sent.</li>
+<li>Anything else leaves your phone only when you choose to send it: a message in the feedback form, or something you share through Android's share sheet.</li>
+<li>We don't sell data, show ads, or use analytics or advertising SDKs.</li>
+</ul>
+
+<h2>What stays on your phone</h2>
+<p>To work and to let you undo changes, TidyTV keeps these files in its own private storage on your phone:</p>
+<ul>
+<li><b>TVs you've connected to:</b> the TV's name, model, network address and serial number, so it can reconnect in one tap.</li>
+<li><b>Backups and a change log:</b> the list of apps on each TV and what TidyTV changed, so Restore can put everything back.</li>
+<li><b>A connection key:</b> the key your TV asks you to allow ("Always allow from this computer"), so it doesn't ask every time.</li>
+<li><b>A short activity log</b> for troubleshooting, and app icons read from your TV.</li>
+<li><b>A random install ID</b>, created on the phone, used only to tell feedback messages from the same install apart.</li>
+</ul>
+<p>None of this is uploaded. Uninstalling TidyTV, or clearing its storage in Android's settings, deletes all of it.</p>
+
+<h2>What happens on your TV</h2>
+<p>With the debugging permission you turn on and allow on the TV, TidyTV turns apps off and on, can set a different home screen, sends remote key presses and text you type in the Remote, and saves files you choose to send into the TV's Downloads › TidyTV folder. It reads the list of installed apps and basic device details (model, Android version) to pick the right clean-up list. It doesn't read your files, accounts, viewing history or passwords on the TV.</p>
+
+<h2>What goes over the internet</h2>
+<h3>Update check</h3>
+<p>Once a day TidyTV requests the public "latest release" page of its GitHub repository to see whether a newer version exists. The request contains nothing about you or your TV. Like any web request, GitHub sees your IP address; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
+<h3>Feedback form (only when you tap Send)</h3>
+<p>If you send a message from the app, it includes:</p>
+<ul>
+<li>your message and the kind of message you picked;</li>
+<li>your email address, only if you type one so we can reply;</li>
+<li>your phone model, Android version, TidyTV version and the random install ID;</li>
+<li>the activity log, only if you tick the box. It includes your TV's model and Android version and what TidyTV did. Serial numbers, Wi-Fi names, MAC addresses, email addresses and most of each IP address are removed from it on your phone before sending;</li>
+<li>a screenshot, only if you add one.</li>
+</ul>
+<p>Messages are received through a Google Apps Script form and stored in a private Google Sheet and email inbox used by the developer to read and answer feedback. They are used only to fix problems and improve TidyTV, never for marketing, and never shared or sold. We delete them on request and otherwise remove them when they are no longer needed.</p>
+<h3>Sharing</h3>
+<p>The share card and Share logs use Android's share sheet. Whatever you share goes only to the app you pick, under that app's own privacy policy. Logs are cleaned the same way as above.</p>
+<h3>Projectivy Launcher</h3>
+<p>If you choose Projectivy as your home screen, TidyTV opens its page in the Google Play Store on your TV. Installing it is between you and Google Play; TidyTV doesn't send anything to Projectivy's developer.</p>
+
+<h2>Permissions</h2>
+<ul>
+<li><b>Internet and network state:</b> to reach your TV on your home network, and for the update check and feedback.</li>
+<li><b>Wi-Fi state and multicast:</b> to find TVs on your network.</li>
+</ul>
+<p>TidyTV doesn't ask for your location, contacts, camera, microphone or storage. When you send files, you pick them in Android's own file picker, and TidyTV only reads the files you pick.</p>
+
+<h2>Children</h2>
+<p>TidyTV is a general-audience utility and isn't directed at children under 13. We don't knowingly collect personal information from children.</p>
+
+<h2>Your choices</h2>
+<p>You can use TidyTV without ever sending feedback or sharing anything. To have a feedback message deleted, send a request through the app's feedback form or open an issue on <a href="https://github.com/jolan94/tidytv/issues">GitHub</a> with the date you sent it.</p>
+
+<h2>Changes and contact</h2>
+<p>If this policy changes, we'll update this page and the date above. Questions: use the feedback form in the app or open an issue on <a href="https://github.com/jolan94/tidytv/issues">GitHub</a>.</p>
+  </div>
+</article>
+<section class="card cta">
+  <div>
+    <h2>Tidy your TV from your phone</h2>
+    <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
+    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.5.0.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <p class="ask">A star on GitHub is how other people find TidyTV.</p>
+  </div>
+  <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">
+</section>
+</main>
+<footer class="wrap">
+  <p class="tag">Free and open source · No AI · No laptop · One-tap undo</p>
+  <p class="small">TidyTV (MIT) uses TV lists from <a href="https://github.com/Gathin23/cleanyourtv">cleanyourtv</a> and the home screen from <a href="https://github.com/Ansub/tv-detox">tv-detox</a>, both MIT. <a href="https://github.com/jolan94/tidytv">Source on GitHub</a> (a star helps) · <a href="/privacy/">Privacy policy</a>. Not affiliated with Google, Amazon or any TV maker.</p>
+</footer>
+<script src="/assets/stars.js" defer></script>
