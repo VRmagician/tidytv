@@ -37,6 +37,9 @@ android {
         release {
             isMinifyEnabled = false
             signingConfig = signingConfigs.findByName("release") ?: signingConfigs.getByName("debug")
+            // Phones are ARM; x86 native libraries (Conscrypt's are ~3 MB each) only serve emulators.
+            // Debug builds keep every ABI so any emulator still runs them.
+            ndk { abiFilters += listOf("arm64-v8a", "armeabi-v7a") }
         }
     }
     compileOptions {
