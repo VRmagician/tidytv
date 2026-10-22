@@ -39,7 +39,7 @@ enum class Attempt { CONNECTED, PORT_CLOSED, UNREACHABLE, DENIED, ALLOW_TIMED_OU
 sealed interface ConnectState {
     /** [lookingFor] is set when a known TV stopped answering at its old address (its IP changed). */
     data class Scanning(val found: List<FoundTv> = emptyList(), val done: Boolean = false, val lookingFor: String? = null) : ConnectState
-    /** Nothing answered: type the IP, check it's the same Wi-Fi. */
+    /** Nothing answered: type the IP, check it's the same network. */
     data class NothingFound(val badIp: Boolean = false) : ConnectState
     data class Connecting(val tv: FoundTv) : ConnectState
     /** The TV is showing "Allow debugging?". [canRetry] turns on after 30 s. */

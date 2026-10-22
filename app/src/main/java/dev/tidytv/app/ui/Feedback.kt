@@ -60,6 +60,7 @@ data class FeedbackRequest(val kind: FeedbackKind, val page: String, val prefill
 class AppActions(
     val feedback: (FeedbackRequest) -> Unit = {},
     val shareCard: () -> Unit = {},
+    val openUrl: (String) -> Unit = {},
 )
 
 val LocalAppActions = staticCompositionLocalOf { AppActions() }

@@ -68,6 +68,7 @@ class ScreenshotTest {
     private val clean = Wizard(Step.REVIEW, TvKind.ANDROID_TV)
 
     @Test fun welcome() = shoot("1_welcome", Step.WELCOME, UiState())
+    @Test fun welcomeUpdate() = shoot("1c_welcome_update", Step.WELCOME, UiState(update = dev.tidytv.app.data.UpdateInfo("0.4.0", "https://tidytv.winkle.dev")))
     @Test fun unsupported() = shoot("1b_unsupported", Step.UNSUPPORTED, UiState())
     @Test fun getReady() = shoot("2_get_ready", Step.GET_READY, UiState(wizard = Wizard(Step.GET_READY, TvKind.ANDROID_TV)))
     @Test fun getReadyFire() = shoot("2b_get_ready_fire", Step.GET_READY, UiState(wizard = Wizard(Step.GET_READY, TvKind.FIRE_TV)))
@@ -104,13 +105,18 @@ class ScreenshotTest {
         "Google TV's setup app grabbed Home, so TidyTV put your old home screen back. It can turn the setup app off and try again.",
         worried = false, action = HomeAction.TURN_OFF_SETUP_APP)))
 
-    private val records = listOf(
-        ActionRecord(1_700_000_000_000, Op.DISABLE, "com.tcl.tv.tclchannel", Phase.DONE),
-        ActionRecord(1_700_000_060_000, Op.SET_HOME, "com.ansub.tvhome/.MainActivity", Phase.DONE),
-    )
+    private val records by lazy {
+        order.mapIndexed { i, c -> ActionRecord(1_700_000_000_000 + i * 1000L, Op.DISABLE, c.pkg, Phase.DONE) } +
+            ActionRecord(1_700_000_060_000, Op.SET_HOME, "com.ansub.tvhome/.MainActivity", Phase.DONE)
+    }
     @Test fun done() = shoot("6_done", Step.DONE, UiState(tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
         done = DoneState(freedMb = 140, newHome = true, records = records, debugging = DebugCheck.OFF),
         labels = mapOf("com.tcl.tv.tclchannel" to "TCL Channel")))
+    @Test fun doneOneBackOn() = shoot("6c_done_one_back_on", Step.DONE, UiState(tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
+        done = DoneState(freedMb = 140, newHome = true, debugging = DebugCheck.OFF,
+            records = records + ActionRecord(1_700_000_090_000, Op.ENABLE, order.first().pkg, Phase.DONE),
+            turningOn = setOf(order[1].pkg),
+            turnOnNote = RestoreUi.Finished("${order.first().label} is back on.", ok = true))))
     @Test fun doneRestored() = shoot("6b_restored", Step.DONE, UiState(tv = summary, wizard = Wizard(Step.DONE, mode = Mode.RESTORE),
         done = DoneState(records = records, restore = RestoreUi.Finished("Everything is back the way it was: 4 apps on, old home screen back.", ok = true))))
 

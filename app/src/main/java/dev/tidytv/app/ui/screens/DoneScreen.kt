@@ -14,6 +14,8 @@ import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.setValue
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.draw.clip
@@ -24,6 +26,7 @@ import dev.tidytv.app.RestoreUi
 import dev.tidytv.app.TvSummary
 import androidx.compose.ui.graphics.Color
 import dev.tidytv.app.data.FeedbackKind
+import dev.tidytv.app.ui.AppIcon
 import dev.tidytv.app.ui.BigButton
 import dev.tidytv.app.ui.FeedbackRequest
 import dev.tidytv.app.ui.LocalAppActions
@@ -41,7 +44,9 @@ import dev.tidytv.app.ui.TextLink
 import dev.tidytv.app.ui.Tidy
 import dev.tidytv.app.ui.TvCard
 import dev.tidytv.core.lists.AppLabels
+import dev.tidytv.core.lists.Launchers
 import dev.tidytv.core.ops.ActionRecord
+import dev.tidytv.core.ops.disabledByUs
 import dev.tidytv.core.ops.Finisher
 import dev.tidytv.core.ops.Op
 import dev.tidytv.core.ops.Phase
@@ -61,6 +66,7 @@ fun DoneScreen(
     onCheckDebugging: () -> Unit,
     onShareLogs: () -> Unit,
     onStartOver: () -> Unit,
+    onTurnOn: (String) -> Unit = {},
 ) {
     val restoring = s.restore is RestoreUi.Running
     ScreenFrame(bottom = { TextLink("Start over", onStartOver) }) {
@@ -89,6 +95,7 @@ fun DoneScreen(
                 Body("TidyTV has no changes saved on this phone for this TV. Restore still checks the list kept on the TV itself.")
             }
         }
+        if (!restoring) OffApps(s, labels, onTurnOn)
         BigButton(if (restoring) "Restoring…" else "↻  Restore everything", onRestore, color = Tidy.Green, enabled = !restoring)
         if (!restoreMode) DebuggingCard(s.debugging, onCheckDebugging)
         Activity(s.records, labels)
@@ -111,6 +118,32 @@ private fun HowDidItGo() {
             BigButton("It went great", actions.shareCard, Modifier.weight(1f), color = Tidy.Green)
             BigButton("Not quite", { actions.feedback(FeedbackRequest(FeedbackKind.BUG, "done")) }, Modifier.weight(1f), color = Color.White, textColor = Tidy.Ink)
         }
+    }
+}
+
+/** Every app TidyTV turned off and that is still off, each with its own Turn on (GitHub #2). */
+@Composable
+private fun OffApps(s: DoneState, labels: Map<String, String>, onTurnOn: (String) -> Unit) {
+    val off = s.records.disabledByUs().filterNot { Launchers.isHomeApp(it) }
+    s.turnOnNote?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message) }
+    if (off.isEmpty()) return
+    var showAll by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    Outline {
+        Text("Apps turned off", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+        Text("Changed your mind about one? Turn it back on by itself.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
+        Spacer(Modifier.heightIn(min = 10.dp))
+        Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
+            for (pkg in if (showAll) off else off.take(6)) {
+                val name = labels[pkg] ?: AppLabels.label(pkg)
+                Row(verticalAlignment = Alignment.CenterVertically) {
+                    AppIcon(pkg, name, 40.dp)
+                    Spacer(Modifier.width(12.dp))
+                    Text(name, style = MaterialTheme.typography.titleMedium, color = Tidy.Ink, modifier = Modifier.weight(1f), maxLines = 2)
+                    if (pkg in s.turningOn) Spinner() else TextLink("Turn on", { onTurnOn(pkg) })
+                }
+            }
+        }
+        if (off.size > 6 && !showAll) TextLink("Show all ${off.size}", { showAll = true })
     }
 }
 

@@ -51,6 +51,12 @@ object Commands {
         return "mkdir -p $MIRROR_DIR && printf '%s\\n' ${pkgs.joinToString(" ")} >> $MIRROR_FILE && echo ok"
     }
 
+    /** Drops one package from the on-TV undo list (it was turned back on by itself); prints "ok". */
+    fun unmirror(pkg: String): String {
+        val p = PackageName.require(pkg)
+        return "if [ -e $MIRROR_FILE ]; then grep -vxF $p $MIRROR_FILE > $MIRROR_FILE.tmp; mv $MIRROR_FILE.tmp $MIRROR_FILE; fi; echo ok"
+    }
+
     fun resolveHomeOf(pkg: String) = "$RESOLVE_HOME ${PackageName.require(pkg)}"
     fun setHome(component: String) = "cmd package set-home-activity --user 0 ${component(component)}"
     fun addHomeRole(pkg: String) =

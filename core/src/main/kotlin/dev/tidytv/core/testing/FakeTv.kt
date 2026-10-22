@@ -212,6 +212,11 @@ class FakeTv(
                 }
             }
             c == Commands.READ_MIRROR -> files[Commands.MIRROR_FILE].orEmpty() + "END\n"
+            c.startsWith("if [ -e ${Commands.MIRROR_FILE} ]; then grep -vxF ") -> {
+                val pkg = c.removePrefix("if [ -e ${Commands.MIRROR_FILE} ]; then grep -vxF ").substringBefore(' ')
+                files[Commands.MIRROR_FILE]?.let { cur -> files[Commands.MIRROR_FILE] = cur.lines().filter { it.isNotEmpty() && it != pkg }.joinToString("") { "$it\n" } }
+                "ok\n"
+            }
             c == Commands.CLEAR_MIRROR -> { files.remove(Commands.MIRROR_FILE); "cleared\n" }
 
             c == Commands.MEMINFO -> "MemTotal:        2009240 kB\nMemFree:          112340 kB\nMemAvailable:     ${memAvailable()} kB\n"

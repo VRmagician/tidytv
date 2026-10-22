@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
                     lists = { Store.loadLists(app.assets) },
                     launcherApk = { home -> runCatching { app.assets.open("launcher/${home.asset}").use { it.readBytes() } }.getOrNull() },
                     iconFromApk = dev.tidytv.app.data.ApkIcons(app, store)::iconFromApk,
+                    updates = dev.tidytv.app.data.UpdateCheck(store.updateFile, BuildConfig.VERSION_NAME, ::httpGet),
                 )
             }
         }
@@ -92,6 +93,7 @@ class MainActivity : ComponentActivity() {
             startActivity(Intent.createChooser(send, "Share your TidyTV card"))
         },
         openStar = { runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(REPO))) } },
+        openUrl = { url -> runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } },
     )
 
     /** A random id for this install, so Joe can tell two messages from one person apart. No account, no device id. */
@@ -100,6 +102,20 @@ class MainActivity : ComponentActivity() {
         return runCatching { f.readText().trim() }.getOrNull()?.takeIf { it.isNotEmpty() }
             ?: java.util.UUID.randomUUID().toString().also { runCatching { f.writeText(it) } }
     }
+
+    /** A small GET for the update check; null on any error. */
+    private fun httpGet(url: String): String? = runCatching {
+        val c = java.net.URL(url).openConnection() as java.net.HttpURLConnection
+        try {
+            c.connectTimeout = 8_000
+            c.readTimeout = 8_000
+            c.setRequestProperty("Accept", "application/vnd.github+json")
+            c.setRequestProperty("User-Agent", "TidyTV/${BuildConfig.VERSION_NAME}")
+            if (c.responseCode != 200) null else c.inputStream.bufferedReader().use { it.readText() }
+        } finally {
+            c.disconnect()
+        }
+    }.getOrNull()
 
     private fun shareLogs() {
         val file = vm.exportLogs(File(cacheDir, "share"), BuildConfig.VERSION_NAME)

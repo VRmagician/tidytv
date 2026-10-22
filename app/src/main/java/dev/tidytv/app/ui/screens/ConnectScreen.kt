@@ -49,6 +49,7 @@ import dev.tidytv.app.ui.Tidy
 import dev.tidytv.app.ui.Title
 import dev.tidytv.app.ui.TvCard
 import dev.tidytv.core.flow.ConnectEvent
+import dev.tidytv.core.flow.ConnectMachine
 import dev.tidytv.core.flow.ConnectState
 import dev.tidytv.core.flow.FoundTv
 
@@ -71,6 +72,7 @@ fun ConnectScreen(state: ConnectState, onEvent: (ConnectEvent) -> Unit, onShareL
             listOf(
                 "On the TV: Settings › System › Developer options.",
                 "Turn on Network debugging (some TVs call it ADB over network). Only see Wireless debugging? Turn that on instead.",
+                "Using Ethernet? Wireless debugging stays greyed out until the TV joins Wi-Fi. Turn on Network debugging, or switch the TV to Wi-Fi.",
                 "Come back and tap Try again.",
             ),
             onEvent,
@@ -79,9 +81,9 @@ fun ConnectScreen(state: ConnectState, onEvent: (ConnectEvent) -> Unit, onShareL
             "Can't reach ${state.tv.host}",
             "Nothing answered at that address.",
             listOf(
-                "Check the TV is on (not asleep) and connected to Wi-Fi.",
-                "Check your phone is on the same Wi-Fi, not mobile data or a guest network.",
-                "Find the TV's address in Settings › Network & Internet › your Wi-Fi name.",
+                "Check the TV is on (not asleep) and connected to your network, by Wi-Fi or Ethernet.",
+                "Check your phone is on the same home network, not mobile data or a guest network.",
+                "Find the TV's address in Settings › Network & Internet (your Wi-Fi name, or Ethernet).",
             ),
             onEvent,
         )
@@ -106,6 +108,7 @@ fun ConnectScreen(state: ConnectState, onEvent: (ConnectEvent) -> Unit, onShareL
 @Composable
 private fun Scanning(state: ConnectState.Scanning, onEvent: (ConnectEvent) -> Unit) {
     var typing by rememberSaveable { mutableStateOf(false) }
+    androidx.activity.compose.BackHandler(enabled = typing) { typing = false }
     ScreenFrame(bottom = {
         if (state.done) TextLink("Search again", { onEvent(ConnectEvent.StartScan) })
     }) {
@@ -130,12 +133,12 @@ private fun NothingFound(state: ConnectState.NothingFound, onEvent: (ConnectEven
     ScreenFrame(bottom = { TextLink("Search again", { onEvent(ConnectEvent.StartScan) }) }) {
         HeroMascot(worried = true)
         Title("No TV found yet")
-        Body("Type your TV's IP address. You'll find it on the TV in Settings › Network & Internet › your Wi-Fi name.")
+        Body("Type your TV's IP address. You'll find it on the TV in Settings › Network & Internet (your Wi-Fi name, or Ethernet).")
         IpField(state.badIp, onEvent)
         Outline {
-            Text("Same Wi-Fi?", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+            Text("Same network?", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
             Spacer(Modifier.height(4.dp))
-            Body("Your phone and TV must be on the same Wi-Fi network. Guest networks and mobile data won't find the TV.")
+            Body("Your phone and TV must be on the same home network. The TV can use Wi-Fi or Ethernet. Guest networks and mobile data won't find the TV.")
         }
     }
 }
@@ -143,16 +146,18 @@ private fun NothingFound(state: ConnectState.NothingFound, onEvent: (ConnectEven
 @Composable
 private fun IpField(bad: Boolean, onEvent: (ConnectEvent) -> Unit) {
     var ip by rememberSaveable { mutableStateOf("") }
+    val valid = ConnectMachine.isIp(ip)
+    val bad = bad || (ip.count { it == '.' } == 3 && !valid)
     Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
         OutlinedTextField(
             value = ip, onValueChange = { ip = it.filter { c -> c.isDigit() || c == '.' }.take(15) },
             label = { Text("TV's IP address, e.g. 192.168.1.42") }, singleLine = true, isError = bad,
             supportingText = if (bad) { { Text("That doesn't look like an IP address.") } } else null,
             keyboardOptions = KeyboardOptions(keyboardType = KeyboardType.Decimal, imeAction = ImeAction.Go),
-            keyboardActions = KeyboardActions(onGo = { onEvent(ConnectEvent.TypedIp(ip)) }),
+            keyboardActions = KeyboardActions(onGo = { if (valid) onEvent(ConnectEvent.TypedIp(ip)) }),
             modifier = Modifier.fillMaxWidth(), textStyle = MaterialTheme.typography.titleLarge,
         )
-        BigButton("Connect", { onEvent(ConnectEvent.TypedIp(ip)) }, enabled = ip.count { it == '.' } == 3)
+        BigButton("Connect", { onEvent(ConnectEvent.TypedIp(ip)) }, enabled = valid)
     }
 }
 

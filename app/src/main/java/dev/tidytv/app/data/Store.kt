@@ -25,6 +25,8 @@ class Store(private val root: File) {
 
     val keyFile = File(root, "keys/adbkey.pem")
     val logsDir = File(root, "logs")
+    /** The update check's cache: when it last asked GitHub, what it found, what was dismissed. */
+    val updateFile = File(root, "update.json")
 
     /** Serial numbers become folder names, so only safe characters survive. */
     private fun tvDir(serial: String) = File(root, "tvs/" + serial.replace(Regex("[^A-Za-z0-9._-]"), "_").take(64).ifEmpty { "unknown" })

@@ -3,7 +3,9 @@ package dev.tidytv.app.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
+import androidx.compose.foundation.background
 import androidx.compose.foundation.layout.fillMaxWidth
+import androidx.compose.foundation.layout.padding
 import androidx.compose.runtime.Composable
 import androidx.compose.ui.Alignment
 import androidx.compose.ui.Modifier
@@ -24,7 +26,12 @@ import dev.tidytv.core.flow.Mode
 import dev.tidytv.core.flow.TvKind
 
 @Composable
-fun WelcomeScreen(onChoose: (TvKind) -> Unit, onRestore: () -> Unit) {
+fun WelcomeScreen(
+    onChoose: (TvKind) -> Unit,
+    onRestore: () -> Unit,
+    update: dev.tidytv.app.data.UpdateInfo? = null,
+    onDismissUpdate: () -> Unit = {},
+) {
     ScreenFrame(top = {
         val actions = dev.tidytv.app.ui.LocalAppActions.current
         androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -32,6 +39,7 @@ fun WelcomeScreen(onChoose: (TvKind) -> Unit, onRestore: () -> Unit) {
             TextLink("↻  Restore a TV", onRestore)
         }
     }) {
+        if (update != null) UpdateBanner(update, onDismissUpdate)
         HeroMascot()
         Bubble("Hi! What TV do you have?")
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
@@ -41,6 +49,25 @@ fun WelcomeScreen(onChoose: (TvKind) -> Unit, onRestore: () -> Unit) {
             ChoiceButton("Not sure", "We'll check once connected", Tidy.Grey, textColor = Tidy.Ink) { onChoose(TvKind.NOT_SURE) }
         }
         Body("Free and open source. TidyTV turns apps off, never deletes them, and saves a backup first so you can undo everything.")
+    }
+}
+
+/** A newer release is out. TidyTV is sideloaded, so this is the only way people hear about it. */
+@Composable
+private fun UpdateBanner(update: dev.tidytv.app.data.UpdateInfo, onDismiss: () -> Unit) {
+    val actions = dev.tidytv.app.ui.LocalAppActions.current
+    androidx.compose.foundation.layout.Row(
+        Modifier.fillMaxWidth()
+            .background(Tidy.Yellow, androidx.compose.foundation.shape.RoundedCornerShape(18.dp))
+            .padding(start = 16.dp, end = 4.dp, top = 6.dp, bottom = 6.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        androidx.compose.material3.Text(
+            "TidyTV ${update.version} is out", style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = Tidy.Ink,
+            modifier = Modifier.weight(1f),
+        )
+        TextLink("Get it", { actions.openUrl(dev.tidytv.app.data.UpdateCheck.SITE_URL) })
+        TextLink("Not now", onDismiss, color = Tidy.Muted)
     }
 }
 
@@ -59,7 +86,10 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
     val fire = kind == TvKind.FIRE_TV
     ScreenFrame(bottom = { BigButton("My TV is ready", onReady) }) {
         Title(if (mode == Mode.RESTORE) "Let's reconnect to your TV" else "Get your TV ready")
-        Body("This takes about a minute and is only needed once. Keep your phone on the same Wi-Fi as the TV.")
+        Body(
+            if (mode == Mode.RESTORE) "Restoring needs the TV on and reachable. Keep your phone on the same home network as the TV and check debugging is still switched on."
+            else "This takes about a minute and is only needed once. Keep your phone on the same home network as the TV (the TV can be on Wi-Fi or Ethernet).",
+        )
         Outline {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 if (fire) {
@@ -74,7 +104,13 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
             }
         }
         Note("Using a stick powered from the TV's USB port? Plug it into its wall adapter for now, so it doesn't switch off halfway.")
-        if (!fire) Body("Only see Wireless debugging? That works too: TidyTV will ask for the code your TV shows.", color = Tidy.Muted)
+        if (!fire) {
+            Note(
+                "On Ethernet? Wireless debugging only appears when the TV is on Wi-Fi. Network debugging works on Ethernet, or switch the TV to Wi-Fi for a minute.",
+                color = Tidy.BlueSoft, textColor = Tidy.Ink,
+            )
+            Body("Only see Wireless debugging? That works too: TidyTV will ask for the code your TV shows.", color = Tidy.Muted)
+        }
     }
 }
 

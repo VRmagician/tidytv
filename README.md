@@ -66,8 +66,9 @@ Guides: [cleaning up a TV with Claude or another AI](https://tidytv.winkle.dev/g
 
 ## Privacy
 
-TidyTV talks only to your TV, over your own Wi-Fi. It has no account, no analytics and no ads. It
-sends something over the internet only when you choose to: tapping **Send** in the feedback form
+TidyTV talks to your TV over your own home network. It has no account, no analytics and no ads.
+Once a day it asks GitHub whether a newer version is out (a plain request for the latest release;
+nothing about you or your TV is sent). Anything else goes over the internet only when you choose to: tapping **Send** in the feedback form
 (your message, phone model, Android and app version, and the log or screenshot if you tick them), or
 sharing your result card or logs through Android's share sheet.
 

@@ -32,6 +32,7 @@ class Host(
     val renderCard: (dev.tidytv.app.data.ShareStats) -> android.graphics.Bitmap,
     val shareCard: (dev.tidytv.app.data.ShareStats) -> Unit,
     val openStar: () -> Unit,
+    val openUrl: (String) -> Unit = {},
 )
 
 @Composable
@@ -42,6 +43,7 @@ fun TidyApp(s: UiState, vm: WizardViewModel, onShareLogs: () -> Unit, host: Host
         AppActions(
             feedback = { feedback = it },
             shareCard = { val st = shareStats(s); card = st to host.renderCard(st) },
+            openUrl = host.openUrl,
         )
     }
     CompositionLocalProvider(LocalAppActions provides actions) {
@@ -95,7 +97,7 @@ fun Screen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit
 @Composable
 private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit) {
     when (step) {
-        Step.WELCOME -> WelcomeScreen({ vm?.choose(it) }, { vm?.restoreTapped() })
+        Step.WELCOME -> WelcomeScreen({ vm?.choose(it) }, { vm?.restoreTapped() }, s.update, { vm?.dismissUpdate() })
         Step.UNSUPPORTED -> UnsupportedScreen { vm?.back() }
         Step.GET_READY -> GetReadyScreen(s.wizard.kind, s.wizard.mode) { vm?.ready() }
         Step.CONNECT -> ConnectScreen(s.connect, { vm?.connect(it) }, onShareLogs)
@@ -111,6 +113,7 @@ private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs
         Step.DONE -> DoneScreen(
             s.tv, s.done, s.tidy.disabledCount, s.wizard.mode == Mode.RESTORE, s.labels,
             { vm?.restoreEverything() }, { vm?.checkDebuggingOff() }, onShareLogs, { vm?.startOver() },
+            { vm?.turnOn(it) },
         )
     }
 }

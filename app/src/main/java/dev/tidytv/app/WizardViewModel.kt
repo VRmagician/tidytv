@@ -120,6 +120,10 @@ data class DoneState(
     val debugging: DebugCheck = DebugCheck.UNKNOWN,
     val records: List<ActionRecord> = emptyList(),
     val restore: RestoreUi = RestoreUi.Idle,
+    /** Apps being turned back on one at a time (GitHub #2). */
+    val turningOn: Set<String> = emptySet(),
+    /** One line about the last single app, e.g. "Netflix is back on." */
+    val turnOnNote: RestoreUi.Finished? = null,
 )
 
 data class UiState(
@@ -134,6 +138,8 @@ data class UiState(
     val problem: String? = null,
     /** Friendly names from the list notes, so the activity list reads like the review screen. */
     val labels: Map<String, String> = emptyMap(),
+    /** A newer TidyTV on GitHub, shown as a banner on the Welcome screen. */
+    val update: dev.tidytv.app.data.UpdateInfo? = null,
     /** The real app icons read from the TV, as PNG files on the phone, by package. */
     val icons: Map<String, String> = emptyMap(),
 )
@@ -151,9 +157,26 @@ class WizardViewModel(
     private val launcherApk: (HomeApp) -> ByteArray?,
     /** Turns an APK fetched from the TV into a PNG of its icon; returns the file path. Android only. */
     private val iconFromApk: ((pkg: String, apk: ByteArray) -> String?)? = null,
+    /** Once-a-day check for a newer release on GitHub. Null in tests. */
+    private val updates: dev.tidytv.app.data.UpdateCheck? = null,
 ) : ViewModel() {
     private val _ui = MutableStateFlow(UiState())
     val ui: StateFlow<UiState> = _ui.asStateFlow()
+
+    init {
+        updates?.let { u ->
+            viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
+                u.check()?.let { info -> _ui.update { it.copy(update = info) } }
+            }
+        }
+    }
+
+    /** "Not now" on the update banner: quiet until an even newer release. */
+    fun dismissUpdate() {
+        val v = _ui.value.update?.version ?: return
+        _ui.update { it.copy(update = null) }
+        viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) { updates?.dismiss(v) }
+    }
 
     private var backend: Backend? = null
     private var shell: TvShell? = null
@@ -628,7 +651,7 @@ class WizardViewModel(
         val lg = log ?: return
         if (_ui.value.done.restore is RestoreUi.Running) return
         wizard(WizardEvent.Busy(true))
-        _ui.update { it.copy(done = it.done.copy(restore = RestoreUi.Running(0))) }
+        _ui.update { it.copy(done = it.done.copy(restore = RestoreUi.Running(0), turnOnNote = null)) }
         viewModelScope.launch {
             var count = 0
             var outcome: RestoreOutcome? = null
@@ -658,10 +681,36 @@ class WizardViewModel(
                 is RestoreOutcome.Partial -> RestoreUi.Finished(
                     "${outcome.stillOff.size} apps wouldn't turn back on, so TidyTV kept your current home screen. Tap Restore everything again.", ok = false,
                 )
-                else -> RestoreUi.Finished("The TV stopped answering. Check it's on and on the same Wi-Fi, then tap Restore everything again.", ok = false)
+                else -> RestoreUi.Finished("The TV stopped answering. Check it's on and on the same network, then tap Restore everything again.", ok = false)
             }
             _ui.update { it.copy(done = it.done.copy(restore = ui, records = lg.records(), debugging = DebugCheck.UNKNOWN)) }
             wizard(WizardEvent.Busy(false))
+        }
+    }
+
+    /** Turns one app TidyTV turned off back on, leaving everything else as it is (GitHub #2). */
+    fun turnOn(pkg: String) {
+        val lg = log ?: return
+        val d = _ui.value.done
+        if (pkg in d.turningOn || d.restore is RestoreUi.Running) return
+        _ui.update { it.copy(done = it.done.copy(turningOn = it.done.turningOn + pkg, turnOnNote = null)) }
+        viewModelScope.launch {
+            var outcome: RestoreOutcome? = null
+            for (attempt in 0..1) {
+                val s = shell ?: if (reconnect()) shell!! else null
+                if (s == null) break
+                outcome = tvLock.withLock { Restorer(s, lg).enableOnly(setOf(pkg)) }
+                if (outcome !is RestoreOutcome.Disconnected) break
+                shell = null
+            }
+            trace.line("turn on $pkg: $outcome")
+            val name = _ui.value.labels[pkg] ?: _ui.value.tidy.order.firstOrNull { it.pkg == pkg }?.label ?: dev.tidytv.core.lists.AppLabels.label(pkg)
+            val note = when (outcome) {
+                is RestoreOutcome.Done -> RestoreUi.Finished("$name is back on.", ok = true)
+                is RestoreOutcome.Partial -> RestoreUi.Finished("$name wouldn't turn back on. Try again, or use Restore everything.", ok = false)
+                else -> RestoreUi.Finished("The TV stopped answering. Check it's on and on the same network, then try again.", ok = false)
+            }
+            _ui.update { it.copy(done = it.done.copy(turningOn = it.done.turningOn - pkg, turnOnNote = note, records = lg.records())) }
         }
     }
 

@@ -1,6 +1,7 @@
 package dev.tidytv.core.ops
 
 import dev.tidytv.core.lists.HomeApp
+import dev.tidytv.core.lists.Launchers
 
 sealed interface RestoreOutcome {
     /** Everything TidyTV changed is back. */
@@ -61,6 +62,48 @@ class Restorer(
             val homeRestored = restoreHome(records)
             tv.run(Commands.CLEAR_MIRROR)
             return RestoreOutcome.Done(enabled, homeRestored)
+        } catch (e: TvConnectionLost) {
+            return RestoreOutcome.Disconnected(enabled)
+        }
+    }
+
+    /**
+     * Turns just [pkgs] back on (GitHub #2: "I turned Netflix off by mistake"). Only apps TidyTV
+     * turned off are touched, and never a home app: bringing one back alone could move Home, so
+     * those stay with the full restore. Each app that comes back leaves the TV's undo list, so a
+     * later full restore (or a restore from a new phone) doesn't count it twice.
+     */
+    suspend fun enableOnly(pkgs: Set<String>, onEnabled: (String) -> Unit = {}): RestoreOutcome {
+        val enabled = mutableListOf<String>()
+        try {
+            val mirror = Parse.mirror(tv.run(Commands.READ_MIRROR)) ?: emptySet()
+            val ours = log.records().disabledByUs() + mirror
+            val targets = pkgs.filter { it in ours && !Launchers.isHomeApp(it) }
+            if (targets.isEmpty()) return RestoreOutcome.Done(enabled, homeRestored = false)
+            val disabledNow = Parse.packages(tv.run(Commands.LIST_DISABLED))
+            for (pkg in targets) {
+                if (pkg !in disabledNow) {
+                    log.append(ActionRecord(clock(), Op.ENABLE, pkg, Phase.DONE, detail = "was not off"))
+                    tv.run(Commands.unmirror(pkg))
+                    continue
+                }
+                log.append(ActionRecord(clock(), Op.ENABLE, pkg, Phase.INTENT))
+                tv.run(Commands.enable(pkg))
+            }
+            val after = Parse.packages(tv.run(Commands.LIST_DISABLED))
+            val stillOff = mutableListOf<String>()
+            for (pkg in targets.filter { it in disabledNow }) {
+                if (pkg in after) {
+                    log.append(ActionRecord(clock(), Op.ENABLE, pkg, Phase.FAILED, detail = "still off"))
+                    stillOff += pkg
+                } else {
+                    log.append(ActionRecord(clock(), Op.ENABLE, pkg, Phase.DONE))
+                    tv.run(Commands.unmirror(pkg))
+                    enabled += pkg
+                    onEnabled(pkg)
+                }
+            }
+            return if (stillOff.isEmpty()) RestoreOutcome.Done(enabled, homeRestored = false) else RestoreOutcome.Partial(enabled, stillOff)
         } catch (e: TvConnectionLost) {
             return RestoreOutcome.Disconnected(enabled)
         }

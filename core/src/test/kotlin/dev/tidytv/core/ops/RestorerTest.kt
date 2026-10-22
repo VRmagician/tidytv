@@ -114,4 +114,75 @@ class RestorerTest {
         assertTrue(tv.commands.any { it == "cmd package set-home-activity --user 0 com.google.android.tvlauncher/.MainActivity" })
         assertTrue("no role command below Android 10", tv.commands.none { it.startsWith("cmd role") })
     }
+
+    // ---- One app back on (GitHub #2) ----
+
+    @Test fun enableOnlyTurnsOnJustThatApp() = runTest {
+        val (tv, log) = cleaned()
+        val out = Restorer(tv, log, clock = { 5L }).enableOnly(setOf("com.tcl.ttvs"))
+        assertEquals(RestoreOutcome.Done(listOf("com.tcl.ttvs"), homeRestored = false), out)
+        assertFalse("com.tcl.ttvs" in tv.disabled)
+        assertTrue("the others stay off", "com.tcl.tv.plus" in tv.disabled && "com.tcl.guard" in tv.disabled)
+        assertEquals(setOf("com.tcl.tv.plus", "com.tcl.guard"), log.records().disabledByUs())
+    }
+
+    @Test fun enableOnlyRemovesTheAppFromTheTvUndoList() = runTest {
+        val (tv, log) = cleaned()
+        Restorer(tv, log).enableOnly(setOf("com.tcl.ttvs"))
+        val mirror = tv.files[Commands.MIRROR_FILE].orEmpty().lines().filter { it.isNotEmpty() }
+        assertEquals(listOf("com.tcl.tv.plus", "com.tcl.guard"), mirror)
+        // A restore from a new phone (TV list only) brings back exactly the rest.
+        val out = Restorer(tv, MemoryActionLog()).run()
+        assertEquals(setOf("com.tcl.tv.plus", "com.tcl.guard"), (out as RestoreOutcome.Done).enabled.toSet())
+    }
+
+    @Test fun fullRestoreAfterASingleOneStillWorksAndBringsHomeBack() = runTest {
+        val (tv, log) = cleaned()
+        log.append(ActionRecord(3, Op.SET_HOME, Launchers.TIDY_HOME_COMPONENT, Phase.DONE, before = Launchers.LAUNCHERX + "/.MainActivity"))
+        Restorer(tv, log).enableOnly(setOf("com.tcl.guard"))
+        val out = Restorer(tv, log).run()
+        assertTrue(out is RestoreOutcome.Done)
+        assertTrue(bloat.none { it in tv.disabled })
+        assertTrue((out as RestoreOutcome.Done).homeRestored)
+    }
+
+    @Test fun enableOnlyRefusesAppsTidyTvDidNotTurnOff() = runTest {
+        val tv = FakeTv.googleTv().apply { disabled += "com.netflix.ninja" }
+        val (_, log) = cleaned(tv)
+        val out = Restorer(tv, log).enableOnly(setOf("com.netflix.ninja"))
+        assertEquals(RestoreOutcome.Done(emptyList(), homeRestored = false), out)
+        assertTrue("the owner's own choice stays", "com.netflix.ninja" in tv.disabled)
+    }
+
+    @Test fun enableOnlyNeverBringsBackAHomeAppAlone() = runTest {
+        val tv = FakeTv.googleTv()
+        val log = MemoryActionLog()
+        Debloater(tv, log, clock = { 1L }, sleep = {}).run(bloat)
+        // Pretend the stock launcher was turned off by us (handover does this).
+        log.append(ActionRecord(2, Op.DISABLE, Launchers.LAUNCHERX, Phase.DONE))
+        tv.disabled += Launchers.LAUNCHERX
+        Restorer(tv, log).enableOnly(setOf(Launchers.LAUNCHERX))
+        assertTrue(Launchers.LAUNCHERX in tv.disabled)
+    }
+
+    @Test fun enableOnlyThatDoesNotStickIsPartial() = runTest {
+        val (tv, log) = cleaned()
+        tv.enableDoesNotStick += "com.tcl.ttvs"
+        val out = Restorer(tv, log).enableOnly(setOf("com.tcl.ttvs"))
+        assertEquals(listOf("com.tcl.ttvs"), (out as RestoreOutcome.Partial).stillOff)
+        assertTrue("still on the undo list", tv.files[Commands.MIRROR_FILE].orEmpty().contains("com.tcl.ttvs"))
+    }
+
+    @Test fun enableOnlyReportsADroppedConnection() = runTest {
+        val (tv, log) = cleaned()
+        tv.dropAtCommand = tv.commands.size + 2
+        assertTrue(Restorer(tv, log).enableOnly(setOf("com.tcl.ttvs")) is RestoreOutcome.Disconnected)
+    }
+
+    @Test fun unmirrorRejectsUnsafeNames() {
+        listOf("a;rm -rf /", "com.x\nfoo", "com.x' y").forEach { bad ->
+            assertTrue(runCatching { Commands.unmirror(bad) }.isFailure)
+        }
+        assertTrue(Commands.unmirror("com.tcl.ttvs").contains("grep -vxF com.tcl.ttvs "))
+    }
 }

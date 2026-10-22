@@ -29,6 +29,7 @@ import org.junit.After
 import org.junit.Assert.assertEquals
 import org.junit.Assert.assertTrue
 import org.junit.Before
+import dev.tidytv.core.ops.disabledByUs
 import org.junit.Test
 import java.io.File
 import java.nio.file.Files
@@ -150,6 +151,36 @@ class WizardViewModelTest {
         vm.restoreEverything()
         advanceUntilIdle()
         assertEquals("Nothing to put back: every app is already on and your old home screen is set.", (vm.ui.value.done.restore as RestoreUi.Finished).message)
+    }
+
+    @Test fun oneAppCanBeTurnedBackOnByItself() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv = demo.tv
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        val chosen = vm.ui.value.review.selected.toList()
+        vm.startTidy()
+        advanceUntilIdle()
+        vm.skipHome()
+        advanceUntilIdle()
+        assertEquals(Step.DONE, vm.ui.value.wizard.step)
+        val pkg = chosen.first()
+        assertTrue(pkg in tv.disabled)
+
+        vm.turnOn(pkg)
+        advanceUntilIdle()
+        assertTrue("that app is back on", pkg !in tv.disabled)
+        assertTrue("the rest stay off", chosen.drop(1).all { it in tv.disabled })
+        val note = vm.ui.value.done.turnOnNote!!
+        assertTrue(note.message, note.ok && note.message.endsWith("is back on."))
+        assertTrue(vm.ui.value.done.turningOn.isEmpty())
+        assertTrue(pkg !in vm.ui.value.done.records.disabledByUs())
+
+        vm.restoreEverything()
+        advanceUntilIdle()
+        assertTrue((vm.ui.value.done.restore as RestoreUi.Finished).ok)
+        assertTrue(chosen.none { it in tv.disabled })
     }
 
     @Test fun styledHomeScreenIsHiddenBelowAndroid8() = runTest(dispatcher) {
