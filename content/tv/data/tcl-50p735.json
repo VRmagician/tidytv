@@ -1,0 +1,151 @@
+{
+ "id": "tcl-50p735",
+ "title": "TCL 50P735 BeyondTV4 (Smart TV Pro, Android 11, SDK 30) debloat list",
+ "header": "TCL 50P735 BeyondTV4 (Smart TV Pro, Android 11, SDK 30) debloat list\nShared by one owner (#911); the firmware build and a reboot check were not reported, so treat it as provisional\nand compare with tcl-50c725k/ and tcl-55p638/ (same BeyondTV4 family).\n\nApply: TV_HOST=<tv ip> tools/disable.sh examples/tcl-50p735/debloat.txt\nUndo:  TV_HOST=<tv ip> tools/restore.sh examples/tcl-50p735/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\ncom.tcl.versionUpdateApp is TCL's firmware updater: this owner turned it off; re-enable it to take an update.",
+ "sections": [
+  {
+   "title": "1. Telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "2. Content, promos, recommendation rows and Google extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.overseasappshow",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3",
+   "apps": [
+    {
+     "pkg": "com.tcl.guard",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.suspension",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.hearaid",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Cleaners, background services, duplicate webview, and unused tools"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 30
+}

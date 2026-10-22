@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi TV S Pro 100 Mini LED 2025",
+  "brand": "Xiaomi",
+  "os": "Android 14 (China)",
+  "summary": "Xiaomi TV S Pro 100 Mini LED 2025 ships with telemetry, ads and shopping. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This China-market Xiaomi TV ships with telemetry, diagnostics and cloud control, plus ads, shopping and promoted content. The list is short, 14 apps, and ends with some features off by choice. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was disabled on 20 October in batches, checking Home, Xiaomi settings, HDMI 1 and the screensaver after each. All but the gallery app were also checked after a reboot. This list is debloat only. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The stock Xiaomi home, which stays on",
+    "The core Xiaomi TV service",
+    "Settings and HDMI inputs"
+  ],
+  "notes": [
+    "A new home screen cannot take over on this firmware. Switching the stock home off leaves a black screen.",
+    "Network debugging closes on every reboot. Turn it back on in Account and Security each time."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi TV S Pro 100 Mini LED 2025?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Can I install a new home screen?",
+      "a": "No. This firmware drops the HOME screens of normal apps, so the Xiaomi home must stay on."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi TV S Pro 100 Mini LED 2025?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

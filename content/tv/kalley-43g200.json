@@ -1,0 +1,35 @@
+{
+  "name": "Kalley 43G200",
+  "brand": "Kalley",
+  "os": "Google TV 14",
+  "summary": "Kalley 43G200 ships with telemetry, ad services and maker content. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Kalley set runs Google TV and ships with telemetry services, Android ad and personalisation services and content pushed by the maker. The list also switches off a few apps that have no use on a TV. It is a short list, nine apps, because the set also re-enables several of its own helpers at every start.",
+    "The list was tested on one set, with a restart after each group. Home, HDMI, the Assistant and casting kept working. It is fresh and has not been lived with for days yet. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Google TV home screen, because switching it off with the setup helper can stop the TV starting",
+    "The Google setup helper, which this firmware turns back on at every start",
+    "Live TV and the inputs (Realtek TV service)",
+    "Google Assistant and casting"
+  ],
+  "notes": [
+    "Do not switch off the Google TV home screen or the Google setup helper on this set. One test set got stuck at the Google TV logo and needed a USB reflash.",
+    "Some apps this firmware turns back on at every start, so they are not on the list.",
+    "This list was tested on one set and has not been lived with for days. Switch an app back on if something breaks."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Kalley 43G200?",
+      "a": "Yes. Google Assistant and casting kept working in testing, and the list leaves them on."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. The Google TV home screen is never switched off on this set. Restore everything also turns every app back on in one tap."
+    },
+    {
+      "q": "Is it safe to turn off the setup helper on this TV?",
+      "a": "No. Switching it off together with the home screen made one test set stick at the Google TV logo. TidyTV keeps both on."
+    }
+  ]
+}

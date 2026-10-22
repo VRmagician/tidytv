@@ -1,0 +1,136 @@
+{
+ "id": "polytron-2k-hayward",
+ "title": "Polytron 2K Android TV (WLTV POLYTRON2K, device hayward; Hisense/CVTE board, MediaTek mt5867), Android TV 11,",
+ "header": "Polytron 2K Android TV (WLTV POLYTRON2K, device hayward; Hisense/CVTE board, MediaTek mt5867), Android TV 11,\nbuild RTMA.250416.094. About 930 MB of RAM, 1280x720 UI, hardware decoders up to 1080p, classic Android TV\nlauncher (com.google.android.tvlauncher) plus com.google.android.tungsten.setupwraith, which also claims Home.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/polytron-2k-hayward/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/polytron-2k-hayward/debloat.txt\nEverything is DISABLED, not uninstalled; comment out any line you want to keep. (The tested set had\nthese packages removed for user 0, with the same effect.) Kept on purpose: Live TV\n(com.mediatek.wwtv.tvcenter), the USB media player, the Play Store, Google Play services and\ncom.android.providers.contacts. The installer disables tvlauncher once the new Home is in.\n\nADB: USB debugging opens network ADB on port 5555 directly. The TV hops between the 2.4 GHz and 5 GHz\nnetworks of a dual-band router and gets a new IP each time; reserve one on the router.",
+ "sections": [
+  {
+   "title": "Ads and silent installs",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.hisense",
+     "note": "silently installs promoted apps"
+    },
+    {
+     "pkg": "android.autoinstalls.config.hisense.hayward",
+     "note": "same, device-specific config"
+    },
+    {
+     "pkg": "com.mediatek.android.leanbacklauncher.partnercustomizer",
+     "note": "partner promo rows on the stock launcher"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "feeds the recommendation / sponsored rows"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "store demo mode"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Second Home claimant (header)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "disable.sh checks first that it does not own the saved Wi-Fi network."
+  },
+  {
+   "title": "Telemetry",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner referral tracking"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused system services (also in the Hisense lists here; the contacts provider stays)",
+   "apps": [
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "store-mode disclaimer"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "printing"
+    },
+    {
+     "pkg": "com.android.providers.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on the tested set (keep what you use)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "voice search / Assistant"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver (pick Basic or the launcher's Clock screensaver instead)"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "official YouTube (TizenTube is used instead)"
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in (26 MB in the background)"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "Google text-to-speech (only needed for screen reading)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Already disabled at the factory on this firmware",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 21
+}

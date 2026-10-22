@@ -1,0 +1,38 @@
+{
+  "name": "Amazon Fire TV 50\" 4K (AFTTIFF43)",
+  "brand": "Amazon",
+  "os": "Fire OS 7",
+  "summary": "Amazon Fire TV 50\" 4K ships with telemetry, ads and demo mode. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 50-inch Amazon Fire TV for the US reports usage and content recognition data and shows ads and shopping. It also carries retail demo mode, tutorials, extra Amazon apps, extra Alexa services and a screensaver. The list groups them so you can keep what you use.",
+    "It was tested on a real unit over a remote link. Four of Amazon's own services are protected and cannot be turned off. TidyTV turns off the rest from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Alexa core, so the phone apps can control the TV",
+    "Casting through AirPlay, Miracast and Netflix or YouTube",
+    "Software updates",
+    "Live TV and channel scan",
+    "HDMI inputs",
+    "The Silk browser and the Appstore",
+    "The remote and Bluetooth"
+  ],
+  "notes": [
+    "Four Amazon services cannot be turned off on this model, so they stay.",
+    "The Amazon banner on the home screen is not affected. A private DNS ad blocker worked on this build and can help.",
+    "Only YouTube is installed. The Netflix, Prime and Disney+ tiles install the app on first open."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Fire TV?",
+      "a": "Yes. Alexa core is kept, and it only listens while you hold the mic button."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. AirPlay, Miracast and Netflix or YouTube casting are all kept."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Partly. It turns off ads, shopping and tutorials, but the hero banner on Home stays because it is hosted by Amazon."
+    }
+  ]
+}

@@ -109,6 +109,17 @@
    "note": ""
   },
   {
+   "title": "Vendor accessibility helper, separate from the NFC stack (com.android.nfc) NfxAccessibilityService v1.1.3; disabled without observed issues on this firmware",
+   "apps": [
+    {
+     "pkg": "com.android.nfx",
+     "note": "vendor NfxAccessibilityService, not a typo for com.android.nfc"
+    }
+   ],
+   "optional": [],
+   "note": "Re-enable if you use its accessibility/gesture or remote-key features."
+  },
+  {
    "title": "Stock Google apps replaced here",
    "apps": [
     {
@@ -264,5 +275,5 @@
  ],
  "kept": [],
  "stock_launcher": null,
- "count": 54
+ "count": 55
 }

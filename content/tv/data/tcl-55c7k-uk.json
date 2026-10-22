@@ -1,0 +1,221 @@
+{
+ "id": "tcl-55c7k-uk",
+ "title": "TCL 55C7K-UK QD-Mini LED Google TV, 2025, UK (device G08, model \"Smart TV Pro\", MediaTek tcl9618)",
+ "header": "TCL 55C7K-UK QD-Mini LED Google TV, 2025, UK (device G08, model \"Smart TV Pro\", MediaTek tcl9618)\nAndroid 14 (Google TV), firmware UTT2.250416.001 AU02. About 2.4 GB RAM.\nSame G08 board and firmware build as examples/tcl-c755-google-tv; that list was the starting point.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-55c7k-uk/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-55c7k-uk/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV / HDMI app: com.tcl.tv.\nKeep (as on the C755): com.tcl.tv, com.tcl.tvinput, com.tcl.dashboard, com.tcl.suspension, com.tcl.autopair,\ncom.tcl.systemserver, com.tcl.providers.config, com.tcl.initsetup, com.tcl.useragreement,\ncom.tcl.globalkeyoverlay, com.tcl.systemui.plugin, com.tcl.factory.view, com.tcl.inputmethod.international,\ncom.tcl.eva, com.tcl.hearaid, all com.mediatek.*, and com.google.android.tv.remote.service\n(it carries the Bluetooth remote's mic button).\nLeft alone, purpose unclear: com.tpa.kb (holds TCL Live TV / Channel+ / Samba permissions), com.tvos.\nUK catch-up apps (BBC iPlayer, ITVX, Channel 4, BBC Sounds) are kept.\n\nApplied on a real unit on 2026-10-21 (not yet lived with for days): Wi-Fi stayed up, the launcher took\nHome, the Inputs menu listed HDMI 1-4 and Live TV, the Clock screensaver ran, and after a reboot Home,\nWi-Fi and the screensaver setting came back with no system_server crashes.\n\nKnown quirks on this firmware:\n- The Wi-Fi network saved during first setup belonged to setupwraith (cname=...setupwraith); forget and\nre-join it in Settings before the list goes on, or disable.sh skips setupwraith.\n- `cmd dreams` is refused to the shell; to test the screensaver, drop screen_off_timeout to 15000 for a\nmoment and put the old value (600000 here) back.",
+ "sections": [
+  {
+   "title": "TCL tracking and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "Samba TV ACR viewing tracking, TCL \"BI\" analytics, Alexa core, T-Cast"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log capture and upload"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.interactive",
+     "note": "TCL TIAS background service"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL push messages and promos"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL movie/show recommendation browser"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo",
+   "apps": [
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services",
+   "apps": [
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TCL \"cleaner\" / app manager"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "silently installs partner apps"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner attribution"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this unit",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant voice (mic button)"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "Netflix, together with the next line"
+    },
+    {
+     "pkg": "com.netflix.tokenmanager",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "Miracast screen mirroring"
+    },
+    {
+     "pkg": "com.tcl.magiconnectfree",
+     "note": "TCL T-Cast / Magiconnect phone mirroring"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "game mode / VRR overlay for consoles"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media player"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": "USB photo gallery + TCL screensaver"
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "T-Solo \"listen alone\" (Bluetooth headphones while the speakers stay off)"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast"
+    },
+    {
+     "pkg": "com.tcl.airplay2",
+     "note": "AirPlay, together with the next two lines"
+    },
+    {
+     "pkg": "com.mediatek.AirplayAPK",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.airplaydaemon",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "TCL soundbar firmware updates"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": ""
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "The other HOME candidate, disabled while launcherx still owns Home and before build-and-install.sh",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "note": "with launcherx gone, setupwraith's RecoveryActivity claims HOME at priority 1. Forget and re-join the Wi-Fi first if setupwraith owns it (disable.sh checks)."
+  },
+  {
+   "title": "launcherx is disabled by launcher/build-and-install.sh",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "Google ambient screensaver (promos); screensaver set to ClockDream first"
+    }
+   ],
+   "optional": [],
+   "note": "Switch screensaver_components to com.gathin.tvhome/.ClockDream before disabling dreamx."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 32
+}

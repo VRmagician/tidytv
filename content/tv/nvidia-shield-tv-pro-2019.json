@@ -2,34 +2,37 @@
   "name": "NVIDIA SHIELD TV Pro (2019)",
   "brand": "NVIDIA",
   "os": "Android TV 11",
-  "summary": "Turns off NVIDIA usage stats, sponsored home rows, GameStream leftovers and extra apps on the SHIELD TV Pro (2019). Free phone app, backup and one-tap undo.",
+  "summary": "Tidy the NVIDIA SHIELD TV Pro 2019: switch off telemetry, auto-installs and old gaming apps with a free phone app, a backup first and one-tap undo.",
   "intro": [
-    "The NVIDIA SHIELD TV Pro (2019) ships with NVIDIA usage statistics, a feedback form and a log collector, and sponsored or Top picks rows on the home screen. It also has leftovers from NVIDIA's GameStream service, which closed in 2023, a legacy photo viewer and a print spooler. Partner apps are auto-installed by Play after setup, and the list can stop that too.",
-    "This list was tested on SHIELD Experience 9.2.4, and its package names were also checked on 9.2.2. The stock home screen change stayed in place across a reboot. The remote, controllers, Bluetooth, Watch Next and Live Channels are left alone. TidyTV turns these apps off from your phone over the same Wi-Fi, after saving a backup, and deletes nothing."
+    "The SHIELD TV Pro ships with NVIDIA usage statistics, crash and feedback reporters and a log collector. It also has partner auto-installs, the NVIDIA Games app, the old GameStream receiver (GameStream closed in 2023), a legacy photo viewer and a print service most people never use.",
+    "This list was tested on SHIELD Experience 9.2.4 with Android 11, and the package names were also checked on 9.2.2. The remote, controllers and Bluetooth, audio and display services, and the SHIELD TV phone app all stay on. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first, and deletes nothing."
   ],
   "keep": [
-    "The remote, controllers and Bluetooth services, including pairing, the accessory screens and the controller mapper.",
-    "Display, audio and AI upscaling: NVIDIA's display and audio services, and the Dolby audio service.",
-    "Settings, the SHIELD service, updates, and Watch Next with Live Channels.",
-    "Play Services, the keychain and the secure element service stay on. Some guides remove them, and some units were left soft-bricked afterwards."
+    "The recommendations service (com.google.android.tvrecommendations), needed by the SHIELD TV phone app's remote keys",
+    "The remote, game controllers and Bluetooth pairing",
+    "AI upscaling, display and audio services",
+    "Watch Next and Live Channels data",
+    "TV settings",
+    "Google Play Services and the NVIDIA key-combo update service"
   ],
   "notes": [
-    "Backdrop is the default screensaver. Pick another screensaver first, or the TV is left with none.",
-    "A SHIELD Experience update can turn some of these apps back on. Run the list again after an update.",
-    "Reserve an IP address for the Shield on your router. Ethernet and Wi-Fi get different addresses, and the Shield can come back on either one after a reboot."
+    "The sponsored rows and Top picks come from the recommendations service. It stays on because turning it off breaks the SHIELD TV phone app's remote keys, so this list does not remove those rows from the stock home screen.",
+    "A clean home screen replaces the stock one, so those rows are not what you see day to day.",
+    "A SHIELD update can turn apps back on. Run Check my TV afterwards.",
+    "Netflix on the remote is handled by the firmware, so turning Netflix off does not free that button."
   ],
   "faq": [
     {
-      "q": "Will the voice button still work?",
-      "a": "Yes, if you leave Google Assistant on. It is an optional item on this list, and turning it off stops the mic button. Google's speech service is also optional, and turning it off breaks in-app mic buttons."
+      "q": "Will the SHIELD TV phone remote app still work?",
+      "a": "Yes. The recommendations service stays on because the phone app's keys fail without it, and the remote and Bluetooth services are left alone."
     },
     {
-      "q": "Does casting still work?",
-      "a": "Chromecast built-in is an optional item on this list. Leave its switch on if you cast to the Shield, because turning it off stops that."
+      "q": "Will it stop the sponsored rows on the home screen?",
+      "a": "Not on the stock home screen, because the service that feeds them must stay on. A clean home screen replaces the stock one, so you would not see them there."
     },
     {
-      "q": "Will it stop the ads on the home screen?",
-      "a": "It turns off the sponsored and Top picks rows from Google's recommendations service, and the partner app auto-installs. Those are the home screen promos the list covers."
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap. Nothing is uninstalled."
     }
   ]
 }

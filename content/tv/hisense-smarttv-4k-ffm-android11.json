@@ -1,0 +1,34 @@
+{
+  "name": "Hisense SmartTV 4K FFM (Android 11)",
+  "brand": "Hisense",
+  "os": "Android 11",
+  "summary": "Hisense SmartTV 4K FFM (Android 11) ships with demo mode and setup leftovers. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Hisense SmartTV 4K FFM runs Android 11. It ships with retail demo mode, a first-time experience, a Google partner stub that installs apps silently and an on-screen disclaimer app. The Google TV setup wizard is also on the list. There are 6 apps. It is a short, careful list.",
+    "Applied in two batches with a restart after, with no crashes and a normal boot. Three Hisense smart services must stay on, because a longer list that turned them off sent a sister model to Android Recovery. TidyTV keeps them on and turns the rest off with a backup first. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Hisense smart sense and AIoT services, which the TV needs to boot",
+    "The Live TV and HDMI app and the TV input service",
+    "The Hisense input service",
+    "The Hisense smart service and customer launcher"
+  ],
+  "notes": [
+    "Three Hisense services must never be turned off. Turning them off sent a sister model to Android Recovery.",
+    "Several apps were already off from the factory, such as YouTube Music and Play Games."
+  ],
+  "faq": [
+    {
+      "q": "Is it safe on my Hisense SmartTV 4K FFM?",
+      "a": "The list is short and careful. It leaves out the three services that sent a sister model to Android Recovery."
+    },
+    {
+      "q": "Will HDMI still work?",
+      "a": "Yes. The services behind the HDMI, AV and tuner inputs are kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the Google TV home screen back in one tap."
+    }
+  ]
+}

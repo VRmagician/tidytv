@@ -1,0 +1,92 @@
+{
+ "id": "mtc-uk-2k-android-tv",
+ "title": "MTC UK 2K Android TV (codename tabata), Android TV 11, firmware RTO8.250807.002, MediaTek m5621",
+ "header": "MTC UK 2K Android TV (codename tabata), Android TV 11, firmware RTO8.250807.002, MediaTek m5621\nShares its firmware family with JVC UK sets (android.autoinstalls.config.JVC is present).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/mtc-uk-2k-android-tv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/mtc-uk-2k-android-tv/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nQuirks: dumpsys is crippled on this firmware (\"Service dumps disabled due to hung\nsystem process\") - verify with pm list packages -d and screenshots, not dumpsys.\nThe stock launcher is com.google.android.tvlauncher (Android TV leanback, not Google TV\nlauncherx), so restore.sh needs no launcher argument.",
+ "sections": [
+  {
+   "title": "Google launcher ad/recommendation services (launcher itself is disabled by build-and-install.sh)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.partnercustomizer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google telemetry and ambient ads",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice, by choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "katniss is Assistant and voice search, so the remote's mic button stops working"
+  },
+  {
+   "title": "Preloaded junk",
+   "apps": [
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": ""
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Calendar on a TV",
+   "apps": [
+    {
+     "pkg": "com.android.providers.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Freeview Play app layer (RTE bridge)",
+   "apps": [
+    {
+     "pkg": "com.twentyfouri.tvbridge.rte",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Note: on the tested unit the whole uk.co.freeview.* suite was already disabled out of the box; disabling again throws SecurityException - the end state is the same, the list is safe to apply."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 10
+}

@@ -1,0 +1,143 @@
+{
+ "id": "tcl-mt9655-cn-android14",
+ "title": "TCL / FFalcon China 2026, device tcl9655_cn / product MT9655_4K_CN, MediaTek MT9655 (\"merak\"),",
+ "header": "TCL / FFalcon China 2026, device tcl9655_cn / product MT9655_4K_CN, MediaTek MT9655 (\"merak\"),\nAndroid 14 (SDK 34), build tcl9655_cn_an64-user 14 UTT2.250416.001 AU01, security patch\n2025-09-05, 3.7 GB RAM, arm64-v8a. ro.adb.secure=1.\nRetail name reported as \"TCL Smart TV Pro\" / IFFALCON (雷鸟); ro.product.model is generic, so\nidentify this unit by ro.product.name=MT9655_4K_CN and the build id above, not by the brand.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-mt9655-cn-android14/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-mt9655-cn-android14/debloat.txt com.tcl.cyberui\n\n============================================================================\nADB: read this before anything else. This build is much harder than the 2026 MT9653 sets.\n============================================================================\nThere is no \"Developer options\" screen and no \"Wireless debugging\" row anywhere in the UI.\nTCL replaced the whole Settings app: com.android.settings is NOT installed, the stock settings\npackage is com.tcl.setting and it only declares MainActivity, SceneActivity,\nStartOtherAppActivity and SlicePermissionActivity. Searching every activity for \"adb\", \"debug\"\nor \"develop\" through an activity launcher returns nothing, and\nandroid.settings.APPLICATION_DEVELOPMENT_SETTINGS has no handler.\n\nThe only switch is 通用设置 -> 更多 -> ADB. It opens adbd in **TLS mode on a random high port**\n(observed 40769, 35879, 41629, 46493 on the same unit, a new one on every toggle):\n- the port answers an ADB CNXN with STLS and never speaks plaintext;\n- `adb connect ip:port` fails, daemon trace shows\n\"Post-handshake SSL_peek failed [SSLV3_ALERT_CERTIFICATE_UNKNOWN]\";\n- mDNS advertises _adb-tls-connect._tcp (instance adb-<serial>-xxxx) but never\n_adb-tls-pairing._tcp, so `adb pair` has nothing to talk to;\n- 5555 is closed and no other listener speaks ADB (full 1-65535 scan: adbd, two TCL services,\nDLNA on 16626, AirPlay on 38171).\nSwitching Wi-Fi shows the stock Android prompt \"要允许通过此网络进行无线调试吗\" (per-BSSID), which\nproves the wireless-debugging framework is present but the pairing UI was removed.\n\nThe working path is USB:\n1. dual male USB-A cable, PC side in a USB 3.0 port, TV side in a **USB 2.0** port;\n2. ADB toggle ON, then `adb devices`: Windows enumerates USB\\VID_18D1&PID_4EE7 with the serial\nthat matches the mDNS instance, and the TV shows \"Allow USB debugging\";\n3. accept it (and \"always allow\"), then `adb tcpip 5555` and `adb connect <ip>:5555`.\nThe USB path only works while the ADB toggle stays on, and 5555 is lost on every reboot\n(re-run `adb tcpip 5555` with the cable attached).\n\n============================================================================\nSideloading and the launcher: both are locked, and the lock is not in the installer app.\n============================================================================\nEvery APK is refused over adb, including apps that do not declare HOME:\nadb install / pm install / cmd package install\n-> INSTALL_FAILED_VERIFICATION_FAILURE: Install not allowed for file:///data/app/vmdl*.tmp\nSpoofing the installer package (-i com.tcl.guard, com.tcl.appmarket2, com.android.packageinstaller)\nchanges nothing. The rejection is logged by system_server (PackageManager), not only by the\ncom.android.packageinstaller verifier.\n\nThe only channel that installs normal APKs is a USB stick through 电视卫士 (com.tcl.guard).\nDriving the system installer UI over adb gets further but still fails: file:// URIs are refused\noutright on Android 14, and a MediaStore content:// URI\nam start -a android.intent.action.VIEW -t application/vnd.android.package-archive \\\n-d content://media/external/file/<id> --grant-read-uri-permission \\\n-n com.android.packageinstaller/.InstallStart\ndoes show \"应用未被认证，是否继续安装\" and then fails with\nverifier: signature not match for tcl com.gathin.tvhome, will not be installed !\n\nRoot cause, readable with:\ncontent query --uri content://com.tcl.providers.config/all | grep InstallConfig\n{\"enable\":\"true\",\"strategies\":[\n{\"name\":\"safeStrategy\",\"enable\":\"true\",\"priority\":\"0\"},\n{\"name\":\"blackListStrategy\",\"enable\":\"true\",\"packages\":[],\"priority\":\"1\"},\n{\"name\":\"thridStrategy\",\"enable\":\"false\",\"packages\":[\"com.dangbeimarket\",\"com.shafa.market\",\"com.ant.store.appstore\"],\"priority\":\"2\"},\n{\"name\":\"launcherStrategy\",\"enable\":\"true\",\"packages\":[],\"priority\":\"3\"},\n{\"name\":\"overDueStrategy\",\"enable\":\"true\",\"packages\":[],\"priority\":\"4\"},\n{\"name\":\"pmStrategy\",\"enable\":\"true\",\"priority\":\"5\"}]}\nlauncherStrategy is enabled with an empty allowlist, so a HOME package is only accepted if it is\nsigned with com.tcl.cyberui's key. The row cannot be edited from the shell: `content update`\nreturns 0 and silently ignores the write (verified by writing the Version row and reading it\nback), the `content` CLI splits --bind on every ':' so a JSON value cannot be passed at all, and\n/data/user_de/0/com.tcl.providers.config/databases/ is not readable as shell.\n\nStock launcher: com.tcl.cyberui, the only activity that resolves MAIN+HOME. Never disable it.\nNet effect for this generation: debloat only. A replacement launcher is impossible without a\nTCL-signed build, root, or a firmware downgrade.\n\nTested on a real unit: 28 packages disabled, one full `reboot` afterwards, Home, source panel,\nSettings, app store, 电视卫士, Media Center and Multi-screen all still worked, crash buffer empty,\nfree RAM went from 1.97 GB to 1.15 GB (of 3.7 GB). Wait at least 10 seconds after applying before\nrebooting.\n\nNot present on this unit, so they are absent from the list: com.tcl.bi,\ncom.tcl.recognize.service, com.tcl.weixin, com.tcl.videocall.\nKept on purpose: com.tcl.cyberui, com.tcl.tv, com.tcl.settings, com.tcl.systemserver, com.tcl.ttvs,\ncom.tcl.providers.config, com.tcl.guard (USB install), com.tcl.appmarket2 (store),\ncom.tcl.ui_mediaCenter (USB playback), com.sohu.inputmethod.sogou.tv (only keyboard),\ncom.tcl.autopair (remote pairing), com.tcl.miracast, com.tcl.MultiScreenInteraction_TV,\ncom.tcl.systemui.plugin.* (source panel and quick settings), com.tcl.usercenter,\ncom.tcl.walleve (voice, left on by owner choice).",
+ "sections": [
+  {
+   "title": "Ad and telemetry reporting",
+   "apps": [
+    {
+     "pkg": "com.tcl.bootadservice",
+     "note": "full-screen ad before Home"
+    },
+    {
+     "pkg": "com.tcl.profilemanager",
+     "note": "audience / profile reporting"
+    },
+    {
+     "pkg": "com.tcl.xian.StartandroidService",
+     "note": "background reporting service"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log collection and upload"
+    },
+    {
+     "pkg": "com.tcl.atomic.servicecenter",
+     "note": "home-screen recommendation cards"
+    },
+    {
+     "pkg": "com.tcl.c2dm.client",
+     "note": "TCL push, long-lived connection"
+    },
+    {
+     "pkg": "com.tcl.wholenetsearch",
+     "note": "whole-net search with VOD promotions"
+    },
+    {
+     "pkg": "com.tcl.playskill",
+     "note": "\"tips\" promo app"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": "repair-guide app"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "user-agreement popup"
+    },
+    {
+     "pkg": "com.tcl.appreciate.art",
+     "note": "art-wallpaper / screensaver promo content"
+    },
+    {
+     "pkg": "com.tcl.ffeducation",
+     "note": "kids / education content"
+    },
+    {
+     "pkg": "com.tcl.ffkaraoke",
+     "note": "karaoke"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "OPTIONAL",
+   "apps": [
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "system OTA and app auto-update"
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "peripheral firmware OTA, ~200 MB resident"
+    },
+    {
+     "pkg": "com.snm.upgrade",
+     "note": "updateos, a second updater"
+    }
+   ],
+   "optional": [],
+   "note": "OTA. Re-enable when you want firmware updates. Keeping it off also stops an update from bringing the packages above back."
+  },
+  {
+   "title": "OPTIONAL: home widgets and content apps",
+   "apps": [
+    {
+     "pkg": "com.tcl.common.weather",
+     "note": "weather widget and its background service"
+    },
+    {
+     "pkg": "com.tcl.tshop",
+     "note": "TCL shop / shopping entry"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "game bar"
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "game centre"
+    },
+    {
+     "pkg": "com.tcl.micmanager",
+     "note": "microphone manager (karaoke)"
+    },
+    {
+     "pkg": "com.audiocn.karaoke.micmanager",
+     "note": "karaoke microphone manager"
+    },
+    {
+     "pkg": "com.tcl.tvsmartalbum",
+     "note": "smart photo album"
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": "hotel mode"
+    },
+    {
+     "pkg": "com.tcl.hearaid",
+     "note": "hearing aid"
+    },
+    {
+     "pkg": "com.tcl.vod",
+     "note": "TCL VOD entry"
+    },
+    {
+     "pkg": "com.tcl.qiyiguo",
+     "note": "iQIYI content entry"
+    },
+    {
+     "pkg": "com.tcl.tliveplay",
+     "note": "live TV content entry"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.tcl.cyberui",
+ "count": 28
+}

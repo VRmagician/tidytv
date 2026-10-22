@@ -1,0 +1,77 @@
+{
+ "id": "telesystem-ont2hd",
+ "title": "Tele System TS ON T2/HD (ONT2HD), Android TV 11 (SDK 30), firmware 20231013:user/release-keys",
+ "header": "Tele System TS ON T2/HD (ONT2HD), Android TV 11 (SDK 30), firmware 20231013:user/release-keys\nSDMC ODM platform with Amlogic/droidlogic SoC, Italy/Europe DVB-T2 set-top box / TV.\n\nLive TV app: com.sdmc.tv (owns the digital tuner and leanback activity; set as live_tv_package).\nStock launcher: com.google.android.tvlauncher (classic Android TV home, disabled by launcher/build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/telesystem-ont2hd/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/telesystem-ont2hd/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes on this device:\n- Connect over ADB: port 5555 is open when USB debugging is enabled in Developer Options.\n- The replacement launcher from launcher/ installs cleanly and takes Home without issues.\n- Live TV: com.sdmc.tv runs tuner playback and provides leanback launcher activity.\n- DO NOT DISABLE:\ncom.sdmc.tv                  Live TV tuner app\ncom.droidlogic.tvinput       HDMI and tuner input framework\ncom.sdmc.bluetoothconnect    Bluetooth remote pairing\ncom.sdmc.GlobalKey           Remote control hotkey handler\ncom.droidlogic.updater       Firmware OTA updates",
+ "sections": [
+  {
+   "title": "SDMC vendor bloat and diagnostics",
+   "apps": [
+    {
+     "pkg": "com.sdmc.facTest",
+     "note": "SDMC factory test menu"
+    },
+    {
+     "pkg": "com.sdmc.leakbackcustomer",
+     "note": "SDMC partner customer service (purpose unclear; comment out if anything breaks)"
+    },
+    {
+     "pkg": "com.sdmc.hwinfo",
+     "note": "SDMC hardware info and diagnostics"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sdmc",
+     "note": "silently installs partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV / Android TV bloat",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Voice assistant / search"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack accessibility"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "Stock recommendation rows"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "Google partner promotions"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Crash reporter"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "Stock launcher: the installer disables it once the new Home is in"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 12
+}

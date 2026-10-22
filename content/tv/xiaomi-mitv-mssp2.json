@@ -1,0 +1,34 @@
+{
+  "name": "Xiaomi MiTV-MSSP2",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Xiaomi MiTV-MSSP2 ships with Xiaomi and Google telemetry and sponsored rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This low-memory EU Xiaomi TV ships with Xiaomi and Google telemetry, PatchWall, content rows and sponsored rows, and extra background services and apps. Two old Android TV home screens are still installed. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "No apps were switched off before this list, and every app on it exists on this build. Both stock home screens were disabled and Home kept resolving to the new one. TidyTV saves a backup first. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV (the MediaTek TV app)",
+    "Gboard as the keyboard",
+    "HDMI and TV input services"
+  ],
+  "notes": [
+    "Live TV closes itself after about 25 seconds on an HDMI port with nothing plugged in.",
+    "Screenshots of Live TV and HDMI come back empty on this firmware.",
+    "ADB over 5 GHz Wi-Fi can stall for a while."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi MiTV-MSSP2?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Why does Live TV drop back to Home?",
+      "a": "On an HDMI port with nothing connected, it closes itself after about 25 seconds. That is the TV's own behaviour."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi MiTV-MSSP2?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

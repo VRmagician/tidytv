@@ -1,0 +1,36 @@
+{
+  "name": "Nokia Streaming Box 8000",
+  "brand": "Nokia",
+  "os": "Android TV 14",
+  "summary": "Nokia Streaming Box 8000 ships with telemetry, ad services and unused preloads. TidyTV is a free phone app that quiets them, with a backup and undo.",
+  "intro": [
+    "This Nokia box ships with telemetry, feedback and ad measurement services, content and ad services, and leftover factory and test apps. The list also covers a few streaming apps that are off by choice. Each app on the list has its own switch in the app, so you decide what goes.",
+    "This firmware refuses to switch apps off. Instead, the list suspends each app and stops it running in the background, and nothing is disabled or uninstalled. It was checked on the box with a backup first. The phone and TV need to be on the same Wi-Fi, and the TV asks you once to allow debugging."
+  ],
+  "keep": [
+    "The Bluetooth remote service",
+    "IR control of the TV from the box remote",
+    "The remote's app buttons and the recent apps screen",
+    "Remote firmware updates",
+    "The Amlogic services for settings, sleep timer and HDMI-CEC"
+  ],
+  "notes": [
+    "The box refuses the usual switch-off commands, so apps are suspended and kept out of the background instead.",
+    "Network debugging switches off at every restart. Turn it back on in Developer options each time.",
+    "The stock home screen cannot be replaced on this box yet."
+  ],
+  "faq": [
+    {
+      "q": "Will the remote still work on my Nokia box?",
+      "a": "Yes. The Bluetooth remote service, IR control and the remote's app buttons are all kept."
+    },
+    {
+      "q": "Can I replace the home screen?",
+      "a": "Not yet. This firmware does not allow it, so the stock home screen stays."
+    },
+    {
+      "q": "Can I undo it?",
+      "a": "Yes. Restore everything turns every app back on in one tap. Nothing is deleted."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "TCL 55P7K",
+  "brand": "TCL",
+  "os": "Google TV (Android 12)",
+  "summary": "TCL 55P7K ships with the Samba TV tracker switched on, plus ads and regional preloads. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This Middle East TCL runs Google TV on Android 12, and nothing was turned off at the factory. Samba TV, which tracks what is on screen, the TCL analytics logkit and the TCL service all ship switched on. It also has TCL content rows, Live FAST channels, push messages, hotel mode and retail demo apps, and preloads like OSN+ and iQIYI.",
+    "The list was lived with for a day and a reboot with a custom launcher, and nothing broke. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on."
+  ],
+  "keep": [
+    "Live TV and HDMI (the TCL TV app)",
+    "The Input picker, remote pairing and the system server",
+    "The TV settings, which also run TCL's quick panels",
+    "The TCL browser, because the remote's Web key opens it"
+  ],
+  "notes": [
+    "The remote sends Settings, Netflix, YouTube and Web as special key codes. Test any remap with the real remote.",
+    "Turning off the stock home also means turning off the setup app, which claims Home otherwise."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55P7K?",
+      "a": "Yes. The list does not turn off the voice assistant."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL content feed, Live FAST channels, content pushed at boot, push messages and promos, and silent partner installs."
+    },
+    {
+      "q": "Will TV updates still work?",
+      "a": "The analytics service is on the list. Turn it back on in the app if firmware updates stop arriving."
+    }
+  ]
+}

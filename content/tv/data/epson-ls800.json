@@ -1,0 +1,72 @@
+{
+ "id": "epson-ls800",
+ "title": "Epson LS800 laser projector, Android TV module HA90 (built by Askey, board sti6202d101, Amlogic/droidlogic),",
+ "header": "Epson LS800 laser projector, Android TV module HA90 (built by Askey, board sti6202d101, Amlogic/droidlogic),\nAndroid TV 14 (API 34), firmware UKG3.250826.001 (u-2.05-U-0, 2026-06-15), UI at 1920x1080 on a 3840x2160 panel.\nFingerprint: Epson/sti6202d101/sti6202d101:14/UKG3.250826.001/20260615:user/release-keys\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/epson-ls800/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/epson-ls800/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (Android TV home with Search/Home/Live/Shop/Apps tabs, not\nGoogle TV's launcherx). HOME claimants on stock: tvlauncher and com.android.tv.settings/.system.FallbackHome.\n\nKEEP, the Android side drives the projector itself:\n- com.epson: projector control (auto focus, auto keystone, cinema/picture modes, Bluetooth speaker mode).\n- com.epson.droidsettings (projector menu), com.epson.flexiblepicture, com.epson.installation,\ncom.epson.visualization, com.epson.warningui (lamp/temperature warnings), com.epson.bizmodeui.\n- com.epson.logcollection: it collects operation logs, but it also owns the Information screen\n(com.epson.intent.action.INFORMATION). Disabled, Projector Settings > Information crashes Projector\nSettings with ActivityNotFoundException. Opt out of operation logs on that screen instead.\n- com.droidlogic.tv.extras: input-source screen (com.android.tv.action.VIEW_INPUTS) and sleep timer.\n- com.droidlogic.tvinput, com.droidlogic.android.tv, com.droidlogic.tv.settings: HDMI inputs and settings.\n- Firmware updates kept by choice: com.epson.fwupdate, com.droidlogic.updater, com.askey.autousbota.\n\nNotes from this unit (verified with screenshots, 21 October 2026):\n- Only Wireless debugging (TLS) is offered; pair once with `adb pair`, then `adb tcpip 5555`. Port 5555\ncame back by itself after a reboot.\n- The saved Wi-Fi network belongs to setupwraith (cname=com.google.android.tungsten.setupwraith), but\nsetupwraith does not claim HOME here, so it stays enabled and is not in this list.\n- Launcher: install and HOME takeover work (mFocusedApp = com.gathin.tvhome after Home and after a reboot).\nInputs lists HDMI 1-3 (droidlogic HW5-HW7, HDMI 1 also as a CEC device); HDMI opens in\ncom.droidlogic.android.tv, so keep that enabled and only hide its tile. No tuner, no Live TV row.\n- Remote (\"EPSON PJ REMOTE\", BT, Vendor_005d_Product_0001.kl): Home, Input (opens droidlogic's source\nscreen), Settings, projector menu and mic all keep working without the stock launcher.\nThe YouTube button is usage 0x0c008d -> KEYCODE_MACRO_3, and Epson's PhoneWindowManager.startCustomApp\nhard-codes it to com.google.android.youtube.tvmusic (Play Store page if that is missing), which forwards\nto YouTube. It runs in interceptKeyBeforeQueueing, so app_keys cannot remap it; keep YouTube Music enabled.\nThe Apps button (ALL_APPS) goes dead once tvlauncher is disabled: Android 14 consumes it before\naccessibility services and sends it only to a system launcher, so HomeKeyService cannot catch it either.\n- Reboot-checked: everything listed stays disabled. Left out on purpose:\ncom.google.android.tvrecommendations. Disabled, it is back to enabled=1 within minutes, with\n`dumpsys package` naming com.droidlogic (Amlogic's system package) as lastDisabledCaller. It only feeds\nthe stock launcher's rows, so with that launcher gone it is harmless; don't keep disabling it.",
+ "sections": [
+  {
+   "title": "Batch 1: telemetry",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback reporter"
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": "feedback/diagnostics consent prompt"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "firmware re-enables it (lastDisabledCaller: com.droidlogic), see header"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: ads and content plumbing",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.askey.tvbox",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Android ad services (Topics, attribution)"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "print spooler, no printers on a projector"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3: preloaded / unused apps (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.instagram.airwave",
+     "note": ""
+    },
+    {
+     "pkg": "tv.pluto.android",
+     "note": ""
+    },
+    {
+     "pkg": "com.epson.onlinemeetings",
+     "note": "Epson Online Meetings (video conferencing), owner does not use it"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 9
+}

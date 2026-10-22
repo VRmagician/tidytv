@@ -1,0 +1,103 @@
+{
+ "id": "peaq-ptv43aqu-5023c",
+ "title": "PEAQ PTV 43AQU-5023C (Changhong, reports brand OK. / model \"AI PONT\", device dundas), Android TV 11",
+ "header": "PEAQ PTV 43AQU-5023C (Changhong, reports brand OK. / model \"AI PONT\", device dundas), Android TV 11\n(API 30), firmware RTMA.250416.196, MediaTek m7332, 1920x1080, about 1.3 GB RAM (MemTotal 1405164 kB).\nSame Homwee vendor layer as examples/ok-ai-pont-ikebukuro; this list starts from that one.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/peaq-ptv43aqu-5023c/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/peaq-ptv43aqu-5023c/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher. Shipped disabled: com.cltv.fast, com.google.android.marvin.talkback.\nThe one saved Wi-Fi network belongs to setupwraith, so setupwraith is left alone. Only tvlauncher and\ncom.android.tv.settings/.system.FallbackHome answer HOME.\nTested on one set on 21 Oct 2026, the same day and through one reboot, not a multi-day soak. Done over the\ntools/relay.py relay (macOS Local Network privacy blocked direct ADB).\nDisabled in batches with a screenshot between each; every package stayed disabled through a reboot. Then\nlauncher/build-and-install.sh set com.gathin.tvhome as Home (mFocusedApp checked, also after the reboot) and\ntools/theme.sh pushed config.json. Checked: D-pad across dock, grid and top bar; Inputs lists HDMI 1-3, AV and\nLive TV; YouTube, Netflix and Spotify play with AdGuard Private DNS on; the remote's Netflix, YouTube, Input\nand Settings buttons still work without tvlauncher.\n\nKEEP: com.homwee.dmt.upgrade and com.homwee.upgrade (updates), com.homwee.synckey (remote keys),\ncom.homwee.chtvmanager, com.homwee.factory, com.mediatek.* (Live TV, inputs, remote pairing, picture),\ncom.google.android.apps.mediashell (Chromecast) and com.homwee.multiscreenshare / mmp.screenshare\n(mirroring), both used on this set.",
+ "sections": [
+  {
+   "title": "Batch 1: telemetry, ads and recommendation rows",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.controller",
+     "note": "Anoki automatic content recognition"
+    },
+    {
+     "pkg": "com.homwee.aipont",
+     "note": "AI PONT brand portal and its recommendation channels"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.homwee",
+     "note": "partner-app auto-installs"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: vendor and preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.homwee.store",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.help",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant (the mic button stops working)"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient screensaver, replaced by the launcher's Clock"
+    }
+   ],
+   "optional": [],
+   "note": "personal choice, not used on this set: comment out what you use"
+  },
+  {
+   "title": "Batch 4",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.homwee.mmp.fileexplorer",
+     "note": "Media Player (USB files and media); not used on this set"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "note": "personal choice, preloaded streaming apps not used on this set (kept: Netflix, YouTube)."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 15
+}

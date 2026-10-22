@@ -1,0 +1,36 @@
+{
+  "name": "Sony BRAVIA X9000H (China)",
+  "brand": "Sony",
+  "os": "Android TV 12",
+  "summary": "Sony BRAVIA X9000H China firmware has telemetry, shop mode and hotel-mode apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This is the China-market firmware, without Google Play. It ships with Sony usage and remote-support agents, viewing context providers, shop demo mode and a set of hotel and business packages. It also has help tiles, camera apps for a camera this model does not have, and a JD smart-service app.",
+    "The Dangbei home screen and app store are left alone as the fallback home. TidyTV turns the listed apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. Home survived a reboot after the change, and each app can be switched back on."
+  ],
+  "keep": [
+    "Live TV and tuner app (Sony TV service)",
+    "HDMI, CEC and remote services",
+    "The Dangbei home screen as fallback",
+    "The Dangbei app store",
+    "HappyCast screen casting, the only casting route without Google Cast",
+    "TV updates and DRM key services"
+  ],
+  "notes": [
+    "The list does not touch the preinstalled Chinese content apps. Turn those off one by one if you do not use them.",
+    "Turning off the help content removes the help tiles from Settings."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It removes Sony's telemetry and promo agents. The ads that come from the Dangbei home and the preinstalled content apps are not on the list, so those stay unless you switch them off."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Casting through HappyCast is kept. This firmware has no Google Cast."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "The Dangbei home screen is never turned off, so it is always there. Restore everything also turns every app back on."
+    }
+  ]
+}

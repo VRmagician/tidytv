@@ -1,0 +1,35 @@
+{
+  "name": "BYINTEK Love U4",
+  "brand": "BYINTEK",
+  "os": "Android 9",
+  "summary": "BYINTEK Love U4 ships with Zeasn ads, silent installs and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The BYINTEK Love U4 projector has a Zeasn ad service that can install apps silently, and a Zeasn store. It also has preloaded apps, a store called RuStore that comes back after every restart, phone and setup leftovers, wired phone casting and extra Google apps. The list has 15 apps.",
+    "The projector settings, keystone and focus, the TV service, HDMI input and Miracast are all kept. So is the AirPlay, Chromecast and DLNA receiver. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The projector settings, input sources and ADB switch",
+    "Keystone and focus",
+    "The TV service, HDMI input, Miracast and media apps",
+    "The AirPlay, Chromecast and DLNA receiver",
+    "Factory test apps"
+  ],
+  "notes": [
+    "The firmware reinstalls RuStore at every boot if it goes missing, as it also does with YouTube, Netflix and Chrome.",
+    "The factory test apps are kept because they may hold calibration data."
+  ],
+  "faq": [
+    {
+      "q": "Will AirPlay and Chromecast still work on my Love U4?",
+      "a": "Yes. The receiver that handles AirPlay, Chromecast and DLNA is kept. Only wired phone casting over USB is on the list."
+    },
+    {
+      "q": "Will it stop apps installing themselves?",
+      "a": "It turns off the Zeasn ad service, the one that can install apps silently, along with the Zeasn store."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

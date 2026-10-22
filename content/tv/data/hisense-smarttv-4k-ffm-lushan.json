@@ -1,0 +1,127 @@
+{
+ "id": "hisense-smarttv-4k-ffm-lushan",
+ "title": "Hisense SmartTV 4K FFM (device lushan, board his9603, platform merak, MediaTek MT9676 / mt5896),",
+ "header": "Hisense SmartTV 4K FFM (device lushan, board his9603, platform merak, MediaTek MT9676 / mt5896),\nGoogle TV 12 (Android 12), firmware STT2.230929.001.092, security patch 2025-05-01. The Android model\nstring is \"SmartTV 4K FFM\", the same as examples/hisense-smarttv-4k-ffm/ (huangshan, Android TV 10) and\nexamples/hisense-smarttv-4k-ffm-android11/ (songshan); this is a third board with its own package set.\nMongolia, en-US locale.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/hisense-smarttv-4k-ffm-lushan/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/hisense-smarttv-4k-ffm-lushan/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED with pm disable-user, never uninstalled.\n\nApplied on 2026-10-22 in four batches, with a reboot and a screenshot after each: normal boot, no\ncrashes, the HDMI input, Wi-Fi and the remote's buttons kept working. In use since, with the Clean\nYour TV launcher as Home.\n\nStock launcher: com.google.android.apps.tv.launcherx (the Google TV home). It is disabled by the\nlauncher install, not by this list; pass it to tools/restore.sh as the stock launcher.\nLeft ON by choice here (deliberately not in this list): Google Assistant (katniss), casting and\nmirroring (Chromecast, AirPlay, Miracast, DLNA), the OTA updaters, Netflix, YouTube, Spotify, Twitch.\nNever disabled: com.hisense.tv.smartsense, com.vt.tv.smartsense.ui, com.vt.tv.aiot. The huangshan FFM\nlist notes that disabling them sent that set to Android Recovery.",
+ "sections": [
+  {
+   "title": "Hisense telemetry",
+   "apps": [
+    {
+     "pkg": "com.vt.tv.evservice",
+     "note": "viewing-data (ACR) service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google tracking and feedback",
+   "apps": [
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner referral tracking"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "crash/feedback uploader"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "calendar sync, unused on a TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.hisense.odinbrowser",
+     "note": "Hisense browser"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "com.vt.hishow",
+     "note": "\"Family Moment\" screensaver and photo content"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Store/hotel demo mode and the first-time setup flow (setup already complete)",
+   "apps": [
+    {
+     "pkg": "com.vt.storemode",
+     "note": ""
+    },
+    {
+     "pkg": "com.vt.fte",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps and voice, off by choice (comment out any you use)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.iqiyi.i18n.tv",
+     "note": "iQIYI"
+    },
+    {
+     "pkg": "com.mercadolibre.android.mplay_tv",
+     "note": "Mercado Play"
+    },
+    {
+     "pkg": "com.wbd.stream",
+     "note": "HBO Max"
+    },
+    {
+     "pkg": "com.vt.alexa",
+     "note": "Hisense Alexa (Google Assistant is kept)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Hisense device assistant",
+   "apps": [
+    {
+     "pkg": "com.vt.tv.protector",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "a cleaner with a boot receiver (cache clean, \"turbo mode\")"
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Its RecoveryActivity claims HOME and beats the new launcher once com.google.android.apps.tv.launcherx is disabled; `pm disable` of that one component is refused, so the whole package has to go for a launcher swap. It also owns saved Wi-Fi networks, so check first: `dumpsys wifi | grep -o 'cname=[^ ]*'`. If the network the TV is actually connected to belongs to setupwraith, forget and re-join it in Settings before running this, or the disable deletes that network and takes the TV off Wi-Fi and ADB. Needs FORCE_SETUPWRAITH=1 to pass disable.sh's Wi-Fi guard."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 17
+}

@@ -1,0 +1,237 @@
+{
+ "id": "amazon-fire-tv-afteu014",
+ "title": "Amazon Fire TV smart TV (AFTEU014, codename greta), Fire OS 7.6.8.5 (PS7685/4487), Android 9 (SDK 28),",
+ "header": "Amazon Fire TV smart TV (AFTEU014, codename greta), Fire OS 7.6.8.5 (PS7685/4487), Android 9 (SDK 28),\nMediaTek m7322, 3 HDMI + DVB tuner, 1.6 GB RAM. Germany.\n\nFIRE OS: DEBLOAT ONLY. Home is com.amazon.tv.launcher/.ui.HomeActivity_vNext (priority 950), with\ncom.amazon.firehomestarter and com.amazon.tv.settings.v2/.system.FallbackHome behind it; the launcher package is\nprotected and `cmd package set-home-activity` prints Success but is ignored, so launcher/ does not take Home here.\nAmazon's input player and Live TV are closed to other apps (com.amazon.tv.permission.TUNE_INPUT and\ncom.amazon.tv.livetv.permission.TUNE_CHANNEL; the LAUNCH_INPUTS picker is signature|privileged).\nKEYCODE_TV_INPUT_HDMI_1..3 switch inputs from the ADB shell, but not when an app injects them into its own window.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/amazon-fire-tv-afteu014/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/amazon-fire-tv-afteu014/debloat.txt com.amazon.tv.launcher\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\n\nApplied 2026-10-21 in four batches with a screenshot after each, then rebooted: 34 of 35 stayed disabled. Home,\nthe Live tab with DVB channels, Netflix, Joyn, ZDF and ARD Mediathek open. com.amazon.vizzini (Alexa voice) comes\nback enabled at every boot, as on hisense-fire-tv-aftcibfbd1; it is listed anyway and simply does not stick.\nProtected on this build (\"Cannot disable a protected package\"): com.amazon.device.software.ota and\ncom.amazon.device.software.ota.override, so firmware updates keep arriving, plus the Fire OS 7 set commented below.\nPrivate DNS dns.adguard-dns.com (private_dns_mode hostname) works: doubleclick.net resolves to 127.0.0.1 and YouTube\nstill plays, but the hero banner and the \"Gesponsert\" row stay, since they come from the launcher's own feed.\nARD Mediathek registers only LEANBACK_LAUNCHER: start de.swr.ard.avp.mobile.android.amazon/.TvActivity to test it.\n\nAlready disabled on this TV before this list (left as they were; restore does not touch them):\ncom.amazon.tv.acr, com.amazon.hybridadidservice, com.amazon.ftv.screensaver, com.android.nfc,\ncom.amazon.tv.democontent.provider, com.amazon.sneakpeek, com.amazon.wirelessmetrics.service,\ncom.amazon.tv.fw.metrics, com.amazon.tv.ottssocompanionapp, com.amazon.tv.alexanotifications,\ncom.amazon.tv.alexaalerts, com.amazon.shoptv.client, com.amazon.perfcollection, com.amazon.hedwig.\n\nKept on purpose: Live TV, tuner and HDMI (com.amazon.tv.livetv, com.amazon.mediatek.livetv, com.mediatek.tvinput*,\ncom.amazon.tv.channelscan, com.amazon.tv.conditionalaccess, HbbTV com.vewd.*), com.amazon.tv.launcher,\ncom.amazon.firehomestarter, settings, com.amazon.tv.ime, remote/Bluetooth (fireinputdevices, uxcontrollerservice,\nautopairservice, bluetoothpa/blepa), Appstore (venezia, tigris), Prime Video (firebat, avod), casting\n(cast.sink, dialservice, awvflingreceiver, whisperplay, whisperlink), account and sync, com.amazon.tv.oobe,\naccessibility and TTS (logan, ivona), com.amazon.providers.contentsupport (also switches the TTS engine).\nLooked at with dumpsys and left alone because their role is unclear: com.amazon.katoch, com.amazon.centrix,\ncom.amazon.cpl, com.amazon.tifobserver, com.amazon.connectivitydiag, com.amazon.neopactservice, com.amazon.dpcclient.",
+ "sections": [
+  {
+   "title": "Amazon telemetry, metrics, logs, usage reporting",
+   "apps": [
+    {
+     "pkg": "com.amazon.client.metrics.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ceviche",
+     "note": "data collection pipelines"
+    },
+    {
+     "pkg": "com.amazon.tv.developer.dataservice",
+     "note": "content personalization data for third-party apps"
+    },
+    {
+     "pkg": "com.amazon.livedeviceservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.privacypassservice",
+     "note": "privacy pass token service"
+    },
+    {
+     "pkg": "com.amazon.wifilocker",
+     "note": "uploads Wi-Fi passwords to Amazon"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.device.metrics",
+     "note": "protected on Fire OS 7"
+    },
+    {
+     "pkg": "com.amazon.device.logmanager",
+     "note": "protected on Fire OS 7"
+    },
+    {
+     "pkg": "com.amazon.device.crashmanager",
+     "note": "protected on Fire OS 7"
+    },
+    {
+     "pkg": "com.amazon.diode",
+     "note": "protected on Fire OS 7"
+    },
+    {
+     "pkg": "com.amazon.minerva.client.api",
+     "note": "protected on Fire OS 7"
+    },
+    {
+     "pkg": "com.fireos.usagestats.proxy",
+     "note": "protected on Fire OS 7"
+    },
+    {
+     "pkg": "com.amazon.ftvads.deeplinking",
+     "note": "protected on Fire OS 7"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Ads, promos, notices, tutorials",
+   "apps": [
+    {
+     "pkg": "com.amazon.kso.blackbird",
+     "note": "launcher ad sync / bidding"
+    },
+    {
+     "pkg": "com.amazon.device.sale.service",
+     "note": "sale / deal campaign service"
+    },
+    {
+     "pkg": "com.amazon.tv.easyupgrade",
+     "note": "\"upgrade your Fire TV\" promos"
+    },
+    {
+     "pkg": "com.amazon.systemnotices",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.releasenotes",
+     "note": "\"what's new\" release notes"
+    },
+    {
+     "pkg": "com.amazon.uxnotification",
+     "note": "UX notification popups"
+    },
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": "remote tutorial"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded Amazon apps (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.bueller.music",
+     "note": "Amazon Music"
+    },
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": "Amazon Photos"
+    },
+    {
+     "pkg": "com.amazon.tv.localgallery",
+     "note": "USB photo/video viewer"
+    },
+    {
+     "pkg": "com.amazon.tahoe",
+     "note": "Amazon Kids (FreeTime)"
+    },
+    {
+     "pkg": "com.amazon.gamehub",
+     "note": "Luna / games hub"
+    },
+    {
+     "pkg": "com.amazon.imdb.tv.android.app",
+     "note": "Freevee stub"
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": "miniTV"
+    },
+    {
+     "pkg": "com.amazon.naatyam",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.audiohome",
+     "note": "Alexa Home Theater"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Alexa voice (owner's choice; TTS and accessibility kept)",
+   "apps": [
+    {
+     "pkg": "com.amazon.vizzini",
+     "note": "Alexa voice on Fire TV"
+    },
+    {
+     "pkg": "com.amazon.alexamediaplayer.runtime.ftv",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.alexa.externalmediaplayer.fireos",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wha.mediabrowserservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.spotify.mediabrowserservice",
+     "note": "Spotify for Alexa (the Spotify app is separate)"
+    },
+    {
+     "pkg": "com.amazon.ods.kindleconnect",
+     "note": "\"show on Fire TV\" from Echo / Fire tablet"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Silk browser (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.cloud9",
+     "note": "Silk browser"
+    },
+    {
+     "pkg": "com.amazon.tv.website_launcher",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.device.software.ota",
+     "note": "protected on Fire OS 7"
+    },
+    {
+     "pkg": "com.amazon.device.software.ota.override",
+     "note": "protected on Fire OS 7"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Fire OS updates (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.tv.forcedotaupdater.v2",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "The OTA service itself is protected, so updates still arrive; only the forced updater is off"
+  },
+  {
+   "title": "Printing (nothing to print from on a TV)",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.bips",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 35
+}

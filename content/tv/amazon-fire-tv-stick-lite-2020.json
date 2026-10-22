@@ -1,0 +1,36 @@
+{
+  "name": "Fire TV Stick Lite (1st gen)",
+  "brand": "Amazon",
+  "os": "Fire OS 7",
+  "summary": "Fire TV Stick Lite ships with telemetry and sponsored rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Fire TV Stick Lite sends telemetry, metrics and usage reports to Amazon. Its home screen has sponsored rows, recommendations, promos and shopping, and it comes with preloaded Amazon apps and setup helpers. The list covers 51 apps in groups so you can keep what you use.",
+    "It was restarted after the list was applied, and everything stayed off. Home, Prime Video and Netflix opened and Wi-Fi still connected. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Amazon's home screen and settings",
+    "The Appstore and keyboard",
+    "Remote and Bluetooth",
+    "Software updates",
+    "Alexa voice search",
+    "Prime Video and miniTV",
+    "Casting"
+  ],
+  "notes": [
+    "Five Amazon services are protected on this build and cannot be turned off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Fire TV Stick Lite?",
+      "a": "Yes. Voice search on the remote's mic button keeps working with all the Alexa extras off."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Casting is kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Amazon's home screen is never turned off on Fire TV. Restore everything turns every app TidyTV disabled back on."
+    }
+  ]
+}

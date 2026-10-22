@@ -53,6 +53,7 @@ class TvCheck(private val tv: TvShell, private val log: ActionLog) {
         val homeNow = Parse.component(tv.run(Commands.RESOLVE_HOME))?.substringBefore('/')
         val homeChanged = ourHomeWasSet && HomeApp.of(homeNow) == null
 
-        return CheckReport(backOn, newOnList, homeChanged, stillOff = ours.count { it in disabled })
+        // Counted like the hub and Done screens: the old launcher the home-screen switch turned off isn't an app.
+        return CheckReport(backOn, newOnList, homeChanged, stillOff = ours.count { it in disabled && !Launchers.isHomeApp(it) })
     }
 }

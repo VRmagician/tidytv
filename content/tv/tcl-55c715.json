@@ -1,0 +1,36 @@
+{
+  "name": "TCL 55C715",
+  "brand": "TCL",
+  "os": "Android TV 9",
+  "summary": "TCL 55C715 QLED ships with TCL analytics, promo rows and a cleaner app. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Belgian TCL QLED runs Android TV 9 and ships with TCL analytics, a bug report uploader and partner app attribution. The home screen carries recommendation rows, a TCL Channel tile and promo rows, and TCL adds a message box, retail demo stickers, a TV Guard cleaner and a TCL app store.",
+    "The list was tested on a real TV, rebooted three times and used by a family since. Netflix, YouTube, Prime Video, Play Store, Live TV, HDMI, Settings, Chromecast and the Bluetooth remote all kept working. Free memory rose from about 557 MB to 780 MB. TidyTV saves a backup first."
+  ],
+  "keep": [
+    "Live TV (the TCL TV app)",
+    "HDMI through TCL's source menu",
+    "Chromecast and the Bluetooth remote",
+    "Play Store and Play Movies",
+    "Google WebView",
+    "Settings"
+  ],
+  "notes": [
+    "The TCL account app comes back on at every boot, even when it is switched off. It stays off until the next restart.",
+    "The USB media centre stays in the source menu but opens nothing once it is turned off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55C715?",
+      "a": "Not with the default list. It turns off Google voice search, speech recognition and the remote microphone manager. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is kept and works. Miracast and TCL T-Cast are on the list by choice."
+    },
+    {
+      "q": "Will TV updates still work?",
+      "a": "The TCL updater is on the list because the owner saw no update since 2020. Switch it back on to check."
+    }
+  ]
+}

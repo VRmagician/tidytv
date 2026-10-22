@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi TV S Mini LED 75 (2025)",
+  "brand": "Xiaomi",
+  "os": "Google TV (Android 14)",
+  "summary": "Xiaomi TV S Mini LED 75 (2025) ships with telemetry, content rows and a cleaner. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This Xiaomi TV ships with telemetry, content, ads and recommendations, and a cleaner that uses Firebase analytics. It also has preloaded apps and a setup wizard that takes Home once the stock home is off. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "Apps were switched off in batches of one to seven with a screenshot after each, with a new home screen installed. Inputs switch to HDMI, Prime Video plays and Sideloading works. This is a first-day report. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and HDMI 1 to 3",
+    "The remote's Input, Home and app buttons, with a clean home screen",
+    "Settings and Prime Video"
+  ],
+  "notes": [
+    "Some remote buttons only worked on the stock home and need a key service once it is off.",
+    "The setup wizard is switched off to stop it claiming Home."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi TV S Mini LED 75?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the remote's buttons still work?",
+      "a": "Most do. A few that the stock home answered need a small key service once it is off."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi TV S Mini LED 75?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

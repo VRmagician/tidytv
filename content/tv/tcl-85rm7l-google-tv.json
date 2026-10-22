@@ -1,0 +1,35 @@
+{
+  "name": "TCL 85RM7L",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "TCL 85RM7L ships with a Samba TV viewing tracker and TCL promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL runs Google TV on Android 14 and ships with Samba TV, which tracks what is on screen, TCL analytics, log upload and account sign-in nags. It also has TCL Live FAST channels, content pushed to the home screen at boot, push messages and promos, retail demo apps, an e-manual and a cleaner. The ambient screensaver shows promos.",
+    "This is a clean-up only, and the stock Google TV home stays. The list was tested in five batches on a real unit. Home, YouTube, Live TV, the Input panel, four HDMI inputs, Chromecast, AirPlay, Miracast and Assistant all kept working. TidyTV saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Chromecast, AirPlay and Miracast",
+    "Google Assistant and the remote's mic button",
+    "The game bar",
+    "The USB media player and gallery",
+    "Live TV and the Input panel",
+    "Firmware updates through Google Play Services"
+  ],
+  "notes": [
+    "Turning off the TCL tweaks to the Google TV home may drop the red TV tile."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 85RM7L?",
+      "a": "Yes. Google Assistant and the remote service that carries the mic button are kept."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, AirPlay and Miracast are kept and were tested."
+    },
+    {
+      "q": "Will TV updates still work?",
+      "a": "Yes. Firmware updates come through Google Play Services, which this list does not touch."
+    }
+  ]
+}

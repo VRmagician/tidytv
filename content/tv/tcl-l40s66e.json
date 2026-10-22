@@ -1,0 +1,34 @@
+{
+  "name": "TCL L40S66E",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL L40S66E ships with TCL telemetry, content and ad apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 40-inch TCL for Latin America runs on a small amount of memory, and its TCL telemetry, content and ad apps and background services add to the load. The list is short, 15 apps, and is aimed at those three groups. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was applied in four batches on one real set, checked after each with screenshots and remote keys. Home, the Input key source picker, Settings, Wi-Fi and Netflix kept working, and the inputs menu listed HDMI 1, HDMI 2, AV and Live TV. It was tested for one day only. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the Input key's source picker",
+    "HDMI 1, HDMI 2 and AV inputs",
+    "Wi-Fi and Settings",
+    "Netflix and the other streaming apps"
+  ],
+  "notes": [
+    "The set has only about 920 MB of memory, so a clean home screen with fewer animations suits it.",
+    "It was tested for one day only."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my TCL L40S66E?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the Input key still open the source picker?",
+      "a": "Yes. It was checked after the whole list was applied."
+    },
+    {
+      "q": "Does TidyTV delete anything on my TCL L40S66E?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

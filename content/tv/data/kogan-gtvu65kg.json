@@ -1,0 +1,86 @@
+{
+ "id": "kogan-gtvu65kg",
+ "title": "Kogan Google TV (Changhong-built CHiQ AI PONT, product GTVU65KG, device dangni), Google TV 14 (API 34),",
+ "header": "Kogan Google TV (Changhong-built CHiQ AI PONT, product GTVU65KG, device dangni), Google TV 14 (API 34),\nfirmware UKN3.250415.047.A1, security patch 2025-05-01, MediaTek mt5867, Australia.\n1 GB RAM (MemTotal about 930 MB). ro.product.brand Kogan, vendor brand CHiQ, manufacturer Changhong.\nSame board as examples/chiq-gtvu65 on a newer UKN3 firmware; the Kogan boot logo is in firmware and\n/product/media/bootanimation.zip, read-only without root.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/kogan-gtvu65kg/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/kogan-gtvu65kg/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nDebloat only: the stock Google TV home (com.google.android.apps.tv.launcherx) stays, so setupwraith and\nthe MediaTek partnercustomizer stay too. For the launcher half, follow examples/chiq-gtvu65.\nAlready disabled from the factory: com.mediatek.wwtv.tvcenter.plus.\n\nTested on one set the same day, not a multi-day soak: after each batch Home opens, the Input key opens\nthe switcher with Live TV, AV, HDMI 1 (ARC) and HDMI 2, and Netflix launches. After a reboot the list\nstays disabled, Home is launcherx and the crash buffer is empty.\nAdGuard Private DNS (dns.adguard-dns.com) validates on this firmware.\n\nKEEP, even though the names look like bloat:\n- com.homwee.mmp.screenshare (/product/app/CH_AirPlay) and com.homwee.multiscreenshare: the AirPlay\nreceiver, so iPhones can cast. Disable only if nobody uses AirPlay.\n- com.google.android.apps.mediashell: Chromecast.\n- com.homwee.upgrade and com.homwee.dmt.upgrade: firmware updates.\n- com.mediatek.autopair, com.homwee.factory, com.homwee.dynamicbacklight and the TV services, as in\nexamples/chiq-gtvu65.",
+ "sections": [
+  {
+   "title": "Telemetry and ad services",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "Play partner auto-installs"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Changhong / Homwee store and help",
+   "apps": [
+    {
+     "pkg": "com.homwee.store",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.help",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "re-enable if you use the screen reader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps not used in this home (by choice; keep the ones you use)",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "au.net.abc.iview",
+     "note": "user-installed on this set"
+    },
+    {
+     "pkg": "com.sbs.ondemand.tv",
+     "note": "user-installed on this set"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 12
+}

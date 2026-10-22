@@ -1,0 +1,33 @@
+{
+  "name": "Karbonn SWTV-20AE",
+  "brand": "Karbonn",
+  "os": "Android TV 10",
+  "summary": "Karbonn SWTV-20AE ships with Skyworth ads, India-only preloads and telemetry. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Karbonn set is built by Skyworth and ships with Skyworth content, ads and preloaded apps, plus a set of India-specific apps nobody asked for. It also carries telemetry and feedback services, an ambient screensaver and recommendation rows on the home screen.",
+    "The list was tested on the day it was applied and everything kept working. The set has only about 1.7 GB of memory, so a lighter home screen helps it feel less slow. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Skyworth Live TV and tuner input services",
+    "The Play Store and Google services",
+    "The Skyworth app store package, which the firmware will not let anyone switch off"
+  ],
+  "notes": [
+    "The Skyworth app store package is protected by the firmware, so it stays on.",
+    "Turning the animation speed down in Android settings can make this low-memory set feel quicker."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off the Skyworth ads and content, the India-specific preloads and the recommendation rows on the stock home screen."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    },
+    {
+      "q": "Will Live TV and HDMI still work on my Karbonn SWTV-20AE?",
+      "a": "Yes. The Live TV and input services are kept, and testing on the day confirmed the set kept working."
+    }
+  ]
+}

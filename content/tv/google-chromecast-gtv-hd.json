@@ -1,0 +1,35 @@
+{
+  "name": "Chromecast with Google TV (HD)",
+  "brand": "Google",
+  "os": "Google TV 14",
+  "summary": "Chromecast with Google TV (HD) ships with telemetry and ads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Chromecast with Google TV (HD) ships with Google telemetry, feedback and ads, four Privacy Sandbox modules, preloaded apps and the Google ambient mode screensaver. The list has 15 apps. It is a dongle, so it has no Live TV app and no HDMI inputs.",
+    "It uses the same firmware as the 4K model. Wi-Fi joined during first setup can belong to the setup wizard, and turning that off deletes the network. Forgetting and rejoining first avoids it. TidyTV turns these off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The setup wizard, unless your Wi-Fi was rejoined",
+    "Casting",
+    "Google Play Store and Play Services",
+    "The remote and Bluetooth pairing"
+  ],
+  "notes": [
+    "The HD has no Ethernet, so losing Wi-Fi also drops debugging. Forget and rejoin your Wi-Fi first if the setup wizard owns it.",
+    "Debugging switches off at every restart, so turn it back on in Developer options.",
+    "Turning off the setup wizard can break casting, as it holds the cast device credentials."
+  ],
+  "faq": [
+    {
+      "q": "Will casting still work on my Chromecast with Google TV HD?",
+      "a": "Yes by default. Only turning off the setup wizard can break casting, so leave it on if you cast."
+    },
+    {
+      "q": "Why did my Wi-Fi drop?",
+      "a": "Wi-Fi joined during first setup can belong to the setup wizard. Turning it off deletes that network. Forget and rejoin it first."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the Google TV home screen back in one tap."
+    }
+  ]
+}

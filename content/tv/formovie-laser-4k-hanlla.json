@@ -1,0 +1,35 @@
+{
+  "name": "Formovie Laser 4K",
+  "brand": "Formovie",
+  "os": "Android TV 14",
+  "summary": "Formovie Laser 4K ships with Google telemetry and unused home screen extras. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Formovie Laser 4K projector has few ads of its own, so its list is light. It covers Google telemetry and feedback, and the extras of the stock home screen, which you no longer need once the new home screen is in place. The list has 6 apps.",
+    "The projector's own apps carry its features, and they stay on. That includes focus and keystone, the remote service and the Dolby audio service. The built-in Ethernet port is not affected. TidyTV turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The projector manager, for the Bluetooth remote, global keys, focus and keystone",
+    "The app drawer on a remote key",
+    "The Input button handler",
+    "The MediaTek TV service and remote pairing",
+    "The Dolby audio service for optical out",
+    "Factory test apps, never opened"
+  ],
+  "notes": [
+    "The Play Games, YouTube Music and Movies apps were already off from the factory."
+  ],
+  "faq": [
+    {
+      "q": "Will focus and keystone still work on my Formovie projector?",
+      "a": "Yes. The projector manager that runs them is kept."
+    },
+    {
+      "q": "Is there much to remove?",
+      "a": "Not a lot. This is a light list of 6 apps, because the build has no Formovie ad or content service."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the stock home screen back in one tap."
+    }
+  ]
+}

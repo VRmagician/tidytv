@@ -1,0 +1,131 @@
+{
+ "id": "xiaomi-mitv-ayfr0",
+ "title": "Xiaomi TV Stick 4K (model MiTV-AYFR0, codename soul, Amlogic), Android TV 14 (SDK 34),",
+ "header": "Xiaomi TV Stick 4K (model MiTV-AYFR0, codename soul, Amlogic), Android TV 14 (SDK 34),\nfirmware UKG3.250107.001 / V816.0.26.6.10.UZFAATK.\nFingerprint: Xiaomi/soul/soul:14/UKG3.250107.001/V816.0.26.6.10.UZFAATK:user/release-keys\n\nApply:   TV_HOST=<stick ip> tools/disable.sh examples/xiaomi-mitv-ayfr0/debloat.txt\nUndo:    TV_HOST=<stick ip> tools/restore.sh examples/xiaomi-mitv-ayfr0/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nA streaming stick: no HDMI-in or tuner, so leave live_tv_package empty in config.xml.\nStock launcher: com.google.android.tvlauncher (disabled by launcher/build-and-install.sh).\n\nNotes from this stick:\n- HOME claimants on stock: com.google.android.tvlauncher/.MainActivity and\ncom.android.tv.settings/.system.FallbackHome. Unlike Google TV builds (such as MiTV-AFMU0/AFMU1),\ncom.google.android.tungsten.setupwraith does NOT claim HOME here, so setupwraith can stay enabled\nand the saved Wi-Fi network (owned by setupwraith) does not need to be forgotten and re-joined.\n- The Bluetooth remote (\"Xiaomi RC Consumer Control\", vendor 0x2717 product 0x32b9,\n/vendor/usr/keylayout/Vendor_2717_Product_32b9.kl) sends standard KEY_HOMEPAGE (scancode 0x000c0223 -> HOME)\non the round Home button, not ALL_APPS, so HOME_KEY_SERVICE=1 is not needed.\n- HDMI-CEC One Touch Play works with the custom launcher: system_server (HdmiControlService) sends\n<Text View On> and <Active Source> before starting the HOME activity.\n- Kept on purpose: Google Assistant (katniss), Chromecast (mediashell), phone remote (tv.remote.service),\nMiracast (smartshare, wfdsinkhelperservice), screensavers (com.mitv.dream, com.google.android.backdrop),\ncom.xiaomi.tvqs.overseas (quick settings panel), com.xiaomi.android.tvsetup.partnercustomizer,\ncom.google.android.tungsten.setupwraith.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry and attribution",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, promos, auto-installs",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.soc.amlogic",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.mibox3",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xioami.mibox3",
+     "note": "misspelled duplicate present on firmware (sic, \"xioami\")"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi update service (re-enable to check for firmware updates)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 22
+}

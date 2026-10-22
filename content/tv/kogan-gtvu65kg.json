@@ -1,0 +1,36 @@
+{
+  "name": "Kogan Google TV GTVU65KG",
+  "brand": "Kogan",
+  "os": "Google TV 14",
+  "summary": "Kogan Google TV GTVU65KG ships with telemetry, ad services and store apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Kogan set is built by Changhong and ships with telemetry and ad services, a Changhong store and help app, and several preloaded apps. The list also turns off streaming apps that this home did not use, and each one has its own switch in the app.",
+    "It was tested on one set on the same day. Home, the Input key with Live TV and both HDMI inputs, and Netflix all kept working, and the list stayed off after a restart. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The AirPlay receiver, so iPhones can still cast",
+    "Chromecast built in",
+    "Firmware update services",
+    "The remote pairing, factory and backlight services",
+    "The TV services for Live TV and HDMI",
+    "The stock Google TV home screen"
+  ],
+  "notes": [
+    "TidyTV only cleans up the apps on this set. The Google TV home screen stays, and so does its setup helper.",
+    "The AirPlay receiver is kept. Switch it off in the app if nobody uses AirPlay."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work on my Kogan?",
+      "a": "Yes. Chromecast and the AirPlay receiver are both kept, so you can cast from Android and from an iPhone."
+    },
+    {
+      "q": "Will the Input key and HDMI still work?",
+      "a": "Yes. After each batch in testing, the Input key opened the switcher with Live TV and both HDMI inputs."
+    },
+    {
+      "q": "Can I get everything back?",
+      "a": "Yes. Restore everything turns every app back on in one tap. Nothing is deleted."
+    }
+  ]
+}

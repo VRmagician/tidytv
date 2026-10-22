@@ -1,0 +1,131 @@
+{
+ "id": "sankey-smart2ktvse",
+ "title": "Sankey SMART2KTVSE (Whale OS)",
+ "header": "Sankey SMART2KTVSE (Whale OS)\nModel: SMART2KTVSE\nBrand: SiliconPlayer\nDevice: am30bm\nAndroid: 13\nProduct: WhaleTV\nFirmware: (not captured - TV went to sleep)\n\nBloatware/Telemetry packages disabled with pm disable-user\nTested and working for several days. Nothing broken.\n\nIMPORTANT: How to enable ADB on Whale OS (SMART2KTVSE)\n- MENU+1147 does NOT work on this model (tested, nothing appears)\n- To enable ADB: Install \"Activity Launcher\" app (de.szalkowski.activitylauncher)\nvia USB, open it, navigate to Settings -> Developer options, enable USB debugging\n- ADB over WiFi works on port 5555 after enabling\n\nWhale OS specific services",
+ "sections": [
+  {
+   "title": "Other apps",
+   "apps": [
+    {
+     "pkg": "com.zeasn.whaletrackservice",
+     "note": "Tracking/telemetry service"
+    },
+    {
+     "pkg": "com.zeasn.whaleservice",
+     "note": "Core Whale OS service"
+    },
+    {
+     "pkg": "com.zeasn.tokenapp",
+     "note": "Token management"
+    },
+    {
+     "pkg": "com.zeasn.hotelmodelservice",
+     "note": "Hotel mode (not needed for home use)"
+    },
+    {
+     "pkg": "com.zeasn.deviceportal.asdprovider.certified",
+     "note": "Device portal"
+    },
+    {
+     "pkg": "com.zeasn.tv.cast",
+     "note": "Casting bloat (not the system cast)"
+    },
+    {
+     "pkg": "com.zeasn.livetv",
+     "note": "Live TV service - SKIPPED during disable (needed for HDMI inputs)"
+    },
+    {
+     "pkg": "com.zeasn.whaleos.settings",
+     "note": "Whale OS settings overlay"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory/test apps",
+   "apps": [
+    {
+     "pkg": "com.hikeen.factorymenu",
+     "note": "Factory menu (MENU+1147 does NOT work on SMART2KTVSE)"
+    },
+    {
+     "pkg": "com.hikeen.factoryautomation",
+     "note": "Factory automation"
+    },
+    {
+     "pkg": "com.hikeen.middleware.server",
+     "note": "Middleware server"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice assistant and runtime",
+   "apps": [
+    {
+     "pkg": "com.whaletv.aivoice",
+     "note": "AI voice assistant"
+    },
+    {
+     "pkg": "com.whaletv.web.app_runtime",
+     "note": "Web app runtime"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Android ad services",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Android ad services"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unknown services",
+   "apps": [
+    {
+     "pkg": "com.mirakulo.astrotv.service",
+     "note": "Unknown service (safe to disable)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "System updaters (disable to prevent bloat from returning)",
+   "apps": [
+    {
+     "pkg": "com.droidlogic.updater",
+     "note": "OTA updater"
+    },
+    {
+     "pkg": "com.droidlogic.appinstall",
+     "note": "App installer service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher (disabled after CleanYourTV launcher is installed)",
+   "apps": [
+    {
+     "pkg": "com.whaletv.launcher",
+     "note": "Original Whale TV launcher"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 18
+}

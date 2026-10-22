@@ -1,0 +1,32 @@
+{
+  "name": "Skyworth 7S60_A5",
+  "brand": "Skyworth",
+  "os": "Android 8",
+  "summary": "Skyworth 7S60_A5 ships with Coocaa ads, telemetry and unused preloads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This is a China-market Skyworth set running Coocaa OS on Android 8. It ships with ads and telemetry, preloaded apps, a voice assistant and updates, and Coocaa extras. The list turns most of these off by choice. Each app on the list has its own switch in the app, so you decide what goes.",
+    "It was tested in October 2026. Coocaa OS does not let you pick a new home screen the usual way, so the new home goes in through a small shim. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The stock home app, until the shim is in place",
+    "The Skyworth TV and inputs service (Live TV)",
+    "Settings, the remote and Bluetooth pairing"
+  ],
+  "notes": [
+    "Coocaa OS has no home screen chooser and ignores the usual command, so a new home screen goes in through a small homepage shim."
+  ],
+  "faq": [
+    {
+      "q": "Will Live TV and the inputs still work?",
+      "a": "Yes. The Skyworth TV and inputs service is kept."
+    },
+    {
+      "q": "Can I switch to a new home screen?",
+      "a": "Yes, through a small homepage shim, because this firmware has no home screen chooser."
+    },
+    {
+      "q": "Can I undo it?",
+      "a": "Yes. Restore everything turns every app back on in one tap. Nothing is deleted."
+    }
+  ]
+}

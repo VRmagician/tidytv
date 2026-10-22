@@ -1,0 +1,194 @@
+{
+ "id": "philips-55oled708",
+ "title": "Philips 55OLED708/12 (55\" 4K OLED, Ambilight, 2023 model), Poland, UI in Ukrainian",
+ "header": "Philips 55OLED708/12 (55\" 4K OLED, Ambilight, 2023 model), Poland, UI in Ukrainian\nGoogle TV 12 (API 31), firmware STT2.230831.001 build 20803, board PH1M_WW_9972\nro.product.model=Philips Google TV TA1  ro.product.device=PH1M_WW_9972  ro.product.manufacturer=TPV\nFingerprint: Philips/PH1M_WW_9972/PH1M_WW_9972:12/STT2.230831.001/20803:user/release-keys\nMediaTek, 2.8 GB RAM, armeabi-v7a userspace. On Wi-Fi. ro.adb.secure=1.\n\nNOT the same platform as examples/philips-55oled707 or philips-50pus8517 (Android TV 11, board\nPH1M_EA_9970A, com.google.android.tvlauncher) nor philips-75pus8505 (Android TV 12, PH9M). This is the\nGoogle TV generation: stock launcher com.google.android.apps.tv.launcherx, setupwraith claims Home,\nSamba TV ACR is preinstalled, and there is no org.droidtv.usagelogger. The org.droidtv layer is shared\nwith those files, so their DO NOT DISABLE blocks still apply (xtv, eum, aurora, icp, playtv...).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/philips-55oled708/debloat.txt\n(forget and re-join Wi-Fi first, see setupwraith below; then FORCE_SETUPWRAITH=1)\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/philips-55oled708/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh)\nHome claimants: launcherx (priority 2), setupwraith .RecoveryActivity (1), tv.settings FallbackHome (-1000)\nLive TV app:    org.droidtv.playtv (live_tv_package). HDMI 1-4, component and composite are\ncom.mediatek.tis (labelled \"TIF Test\"; keep it), the DVB tuner com.mediatek.dtv.tvinput.dvbtuner.\nApp labels were read from each APK with `aapt dump badging`, not guessed from package names.\nAlready disabled from the factory, so not listed: tv.wuaki.apptv (Rakuten), ru.ivi.client, the\nATSC and ISDB tuners, com.omni.ssutv.*, and the regional org.droidtv.*config packages.\n\nApplied in small batches on 2026-10-21 with a screenshot and a 30 s idle-log check (50PUS8517 quirk 5\nmethod) after each. No retry loop appeared; the idle log went from 865 to ~690 lines per 30 s.\nHome, inputs (HDMI 2 with a PS5), Live TV, Settings, YouTube playback and every remote button were\nchecked the same day; not yet lived with for days. If something breaks, `pm enable <package>` and report it.\nAfter a reboot `pm list packages -d` was identical: nothing re-enabled itself on this firmware, Play-Fi\nand Chromecast included (unlike the 55OLED707 and 50PUS8517). Checked again 8.5 min after boot.\n\nMemory, `dumpsys meminfo` on the home screen; readings straddle a reboot, so approximate:\nStock:                      1,755 MB used PSS (launcherx 182 MB across two processes)\nThis list + launcher/:      1,582 MB used PSS (com.gathin.tvhome 159 MB)\n\nQuirks on this firmware:\n1. org.droidtv.demome asks for TV_INPUT_HARDWARE here, so tools/disable.sh refuses it (#321). Kept.\n2. Remote buttons go through org.droidtv.GlobalKey, which hard-codes two of them to the stock launcher:\nthe gear button (scancode 141, KEY_SETUP) starts launcherx/.dashboard.DashboardActivity and the\nApps button (scancode 779, keycode 813) sends ALL_APPS. With launcherx disabled both do nothing.\nFixed with the launcher's HomeKeyService (HOME_KEY_SERVICE=1): settings_key_scancodes 141 and\napp_keys 813:com.gathin.tvhome. Matching the gear button by keycode (327) did NOT work, by\nscancode it does; checked with the real remote. SOURCES (768), Netflix (772), YouTube (776), TV\n(170, last source) and Quick menu (765) are handled by GlobalKey itself and keep working.\nTV Guide (172) does nothing on a set with no channels tuned, before and after.\n3. The org.droidtv.candeebug CollectionService is bound by 22 TV processes; none retried after it was\ndisabled. tv.samba.ssm is bound by org.droidtv.tv.tptvservice:SambaService, also no retries.\n4. Settings references io.mimi.tvapp and tpvaudiomanager sends Mimi a broadcast; with both Mimi\npackages disabled the sound menus still open.\n\nKept on purpose: AirPlay (com.mediatek.partner.airplay_sys, AirplayAPK, airplaydaemon), Google\nAssistant (katniss), firmware updates (org.droidtv.upgradeapp, com.mediatek.tv.systemupdater), DLNA\n(org.droidtv.dlna, bound by the Media app), org.droidtv.tv.playFiAudioService (bound by Settings,\naudiocalibration and tpvaudiomanager), com.mediatek.browservice (bound by the DVB tuner), Multi View,\nIP control, Ambilight, BrowseHere and the Vewd browser, and the streaming apps this household uses\n(Netflix, YouTube, YouTube Music, Prime Video, HBO Max, Apple TV).",
+ "sections": [
+  {
+   "title": "TP Vision telemetry",
+   "apps": [
+    {
+     "pkg": "org.droidtv.candeebug",
+     "note": "\"DAC\" analytics uploader"
+    },
+    {
+     "pkg": "org.droidtv.gel",
+     "note": "\"GEL\" metrics collector, runs inside candeebug's process; disable both"
+    },
+    {
+     "pkg": "org.droidtv.tv.frameworklogger",
+     "note": "\"FrameworkLogger\": hands reboot reasons and firmware-install records to the Philips logger"
+    },
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "\"Samba Services Manager\": Samba TV ACR (identifies what is on screen), Firebase + Mixpanel"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Market Feedback Agent"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Philips and Google promos, retail demo, first-setup leftovers",
+   "apps": [
+    {
+     "pkg": "com.tpv.nftgallery",
+     "note": "\"NFT Collection\" art gallery app, INTERNET"
+    },
+    {
+     "pkg": "org.droidtv.m7opapp",
+     "note": "M7 satellite operator promo (Canal Digitaal, TV Vlaanderen, Skylink, HD Austria); keep if you use one"
+    },
+    {
+     "pkg": "org.droidtv.astrahdplus",
+     "note": "\"HD+\", German Astra satellite pay-TV operator app; keep if you subscribe"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner referrer / attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "runs once at first setup, nothing afterwards"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "org.droidtv.demome",
+     "note": "\"Demo me\" retail demo loop. KEPT: on this firmware it requests TV_INPUT_HARDWARE, so disable.sh refuses it (#321)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Philips features this owner does not use",
+   "apps": [
+    {
+     "pkg": "com.phorus.playfi.tv",
+     "note": "\"Play-Fi\" multi-room audio app"
+    },
+    {
+     "pkg": "com.phorus.playfi.softap",
+     "note": "DTSPlayFiSoftAP, Play-Fi's soft access point helper"
+    },
+    {
+     "pkg": "org.droidtv.control4app",
+     "note": "\"Control4\" home-automation integration (4 packages)"
+    },
+    {
+     "pkg": "org.droidtv.control4adapterservice",
+     "note": "\"UcAdaptor\""
+    },
+    {
+     "pkg": "org.droidtv.control4sddp",
+     "note": "\"SddpService\", Control4 discovery"
+    },
+    {
+     "pkg": "org.droidtv.control4UcService",
+     "note": "\"UcService\""
+    },
+    {
+     "pkg": "org.droidtv.matter",
+     "note": "\"MatterTV\", Matter smart-home bridge"
+    },
+    {
+     "pkg": "io.mimi.tvapp",
+     "note": "\"Mimi Sound Personalization\" hearing-test app; Settings only links to it"
+    },
+    {
+     "pkg": "io.mimi.sdk.service",
+     "note": "\"MimiService\", its audio service; nothing bound it"
+    },
+    {
+     "pkg": "org.droidtv.amazonalexa",
+     "note": "\"Amazon Alexa\" bridge (was running at idle)"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "org.droidtv.tv.playFiAudioService",
+     "note": "KEEP: Settings, audiocalibration and tpvaudiomanager bind it"
+    }
+   ],
+   "note": "Check each against your own setup."
+  },
+  {
+   "title": "Casting this owner does not use (AirPlay is kept",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in (~26 MB at idle)"
+    },
+    {
+     "pkg": "com.mediatek.dialservice",
+     "note": "\"AOW_DIAL\": DIAL, how Netflix/YouTube phone apps find the TV"
+    }
+   ],
+   "optional": [],
+   "note": "com.mediatek.partner.airplay_sys and friends)"
+  },
+  {
+   "title": "Preinstalled apps and streaming apps this owner does not use, all in /data/app",
+   "apps": [
+    {
+     "pkg": "tv.twitch.android.app",
+     "note": "Twitch"
+    },
+    {
+     "pkg": "com.megogo.application",
+     "note": "MEGOGO"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.boosteroidtv.streaming",
+     "note": "Boosteroid cloud gaming"
+    },
+    {
+     "pkg": "com.tm.replica",
+     "note": "\"Replica\" iPhone screen mirroring"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "build-and-install.sh disables it; 182 MB across two processes at idle"
+    }
+   ],
+   "note": "Its RecoveryActivity claims Home at priority 1 and takes over once the stock launcher is gone. The Wi-Fi network joined during first setup belonged to it: forget and re-join the network in Settings FIRST (it then belongs to com.android.tv.settings), or the TV drops off Wi-Fi. Networks it still owns are forgotten when it is disabled. Re-enable it before a factory reset."
+  },
+  {
+   "title": "Stock launcher and the content it alone used",
+   "apps": [
+    {
+     "pkg": "org.droidtv.oemtabprovider",
+     "note": "\"Philips\" tab of the Google TV home screen (promos), INTERNET"
+    }
+   ],
+   "optional": [],
+   "note": "Disable the launcher FIRST (launcher/build-and-install.sh does it after Home has moved): pulling a provider out from under a live launcher kills it."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 30
+}

@@ -1,0 +1,35 @@
+{
+  "name": "TCL 55C725",
+  "brand": "TCL",
+  "os": "Google TV (Android 11)",
+  "summary": "TCL 55C725 ships with pushed TCL content, Live FAST channels and analytics. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Italian TCL runs Google TV on Android 11 with 2 GB of memory. It ships with TCL content pushed to the home screen at boot, a TCL Channel browser, TCL Live FAST channels, a store demo sticker, a message box, TCL analytics and partner setup. Extras include a WebView test browser, games, a screen reader and an e-manual.",
+    "The list was applied and verified on a real unit over Ethernet, with a reboot. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on. TCL's TV, input and remote apps are kept."
+  ],
+  "keep": [
+    "Live TV and the TCL input service",
+    "Remote pairing and the TCL system server",
+    "The TCL keyboard and settings",
+    "The Input key and Quick panel",
+    "The microphone manager and assistant LED",
+    "Chromecast"
+  ],
+  "notes": [
+    "The remote's gear key is remapped when the stock quick settings panel is off. See the app's steps."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55C725?",
+      "a": "This list does not turn off the voice assistant. The microphone manager and assistant LED are kept."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is kept. TCL's T-Cast phone casting is on the list and is switched off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Google TV home screen back."
+    }
+  ]
+}

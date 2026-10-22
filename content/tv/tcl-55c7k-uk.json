@@ -1,0 +1,35 @@
+{
+  "name": "TCL 55C7K",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "TCL 55C7K QD-Mini LED ships with a Samba TV viewing tracker and TCL ads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This UK TCL QD-Mini LED runs Google TV on Android 14. It ships with Samba TV, which tracks what you watch, and TCL analytics, log upload and account sign-in nags. It also carries TCL Live FAST channels, TCL content pushed to the home screen at boot, push messages, retail demo apps and a cleaner.",
+    "The list was applied on a real unit, though not yet lived with for days. Wi-Fi stayed up, the Inputs menu listed HDMI 1 to 4 and Live TV, and after a reboot Home and Wi-Fi came back. TidyTV saves a backup first, never deletes anything and lets you switch any app back on."
+  ],
+  "keep": [
+    "Live TV and HDMI (the TCL TV app)",
+    "The TCL input service, Quick panel and remote pairing",
+    "The remote's microphone service",
+    "The keyboard and TCL settings",
+    "UK catch-up apps (BBC iPlayer, ITVX, Channel 4, BBC Sounds)",
+    "Two TCL system agents whose purpose is unclear"
+  ],
+  "notes": [
+    "Wi-Fi saved during first setup may belong to the setup app. Forget and rejoin it in Settings before that app is turned off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55C7K?",
+      "a": "Not with the default list, which turns off Google Assistant voice by the owner's choice. Switch it back on in the app if you use the mic button."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL content rows, Live FAST channels, TCL tweaks to the Google TV home and the push messages and promos."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Miracast and TCL's T-Cast phone mirroring are on the list by choice and switched off. Switch them back on in the app if you use them."
+    }
+  ]
+}

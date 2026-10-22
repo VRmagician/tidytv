@@ -1,0 +1,34 @@
+{
+  "name": "Google TV Streamer",
+  "brand": "Google",
+  "os": "Google TV 14",
+  "summary": "Google TV Streamer ships with telemetry, feedback, ads and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Google TV Streamer ships with Google telemetry, feedback and ads, four Privacy Sandbox modules and preloaded apps. The list is short, at 11 apps. It is a dongle, so it has no Live TV app and no HDMI inputs, and it keeps Google's home screen choice open.",
+    "Casting reads its device credentials from the setup wizard, so turning that off kills casting on this device, as on Google's own Chromecast. TidyTV keeps that in mind. It turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The setup wizard, which holds the cast credentials",
+    "Casting",
+    "Google Play Store and Play Services",
+    "The remote and Bluetooth"
+  ],
+  "notes": [
+    "Turning off the setup wizard kills casting with an Untrusted device error. Turn it back on and wait for the cast service to restart.",
+    "The debugging port stays closed until you pair once through Wireless debugging."
+  ],
+  "faq": [
+    {
+      "q": "Will casting still work on my Google TV Streamer?",
+      "a": "Yes, as long as the setup wizard stays on. It holds the credentials that casting needs."
+    },
+    {
+      "q": "Will it remove ads?",
+      "a": "It turns off Google's telemetry, feedback and ad services and a few preloaded apps. The list is short, at 11 apps."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the Google TV home screen back in one tap."
+    }
+  ]
+}

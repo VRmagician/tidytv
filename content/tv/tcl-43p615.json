@@ -1,0 +1,35 @@
+{
+  "name": "TCL 43P615",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 43P615 ships with TCL analytics, pushed promos and a cleaner that tracks use. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This UK and EU set runs Android TV 11 and ships with TCL analytics, home screen recommendation rows, partner app attribution and a partner app auto installer. TCL also pushes content to the home screen at boot, sends messages and promos, and includes a retail demo sticker, a TGuard cleaner that tracks device use, a TCL account centre and TCL IoT.",
+    "The list was applied in six batches with a screenshot after each, then verified over three reboots with an identical final state. Wi-Fi, the D-pad, the Inputs menu, Live TV, the Play Store and the remote's app, Input and Settings buttons all worked. TidyTV saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the TCL input service for tuner and HDMI",
+    "Both HDMI ports and AV",
+    "The Play Store",
+    "Wi-Fi and Settings",
+    "The remote's app, Input and Settings buttons"
+  ],
+  "notes": [
+    "The owner used the TV Bro browser, so the preinstalled browsers are on the list. Switch them back on in the app if you use them.",
+    "One TCL service can switch partner apps back on at boot. The list turns it off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 43P615?",
+      "a": "Not with the default list. It turns off Google Assistant, the TCL voice service and the microphone manager. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "The list turns off Miracast screen mirroring and the MagiConnect companion. Switch them back on in the app if you cast that way."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}

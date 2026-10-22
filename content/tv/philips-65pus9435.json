@@ -1,0 +1,34 @@
+{
+  "name": "Philips 65PUS9435",
+  "brand": "Philips",
+  "os": "Android TV 12",
+  "summary": "Philips 65PUS9435 ships with TP Vision telemetry and Philips and Google promos. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 65 inch Philips set from 2020 runs Android TV 12 and ships with telemetry, Philips and Google content promotion, and preloaded streaming and game apps. The list is in five batches and also covers streaming apps and Philips web-app tiles this owner does not use.",
+    "It follows the list for a sister model on the same firmware, with a few changes for this owner. The other entries stayed off across two restarts. Apple TV is left on, because this owner uses it. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV (Philips PlayTV)",
+    "Apple TV, which this owner uses",
+    "The Play Store and Google Play Services"
+  ],
+  "notes": [
+    "Two Philips services switch themselves back on at every restart, so they are not on the list.",
+    "The stock home screen can be switched off before or after the new one is in place. It made no difference on this unit.",
+    "A few Freeview apps come switched off from the factory on this unit."
+  ],
+  "faq": [
+    {
+      "q": "Do the Philips apps stay off after a restart?",
+      "a": "Yes for the listed apps. Two services turn themselves back on at each restart, so the list leaves them out."
+    },
+    {
+      "q": "Will Apple TV still work?",
+      "a": "Yes. It is left on, because this owner uses it."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "XGIMI MoGo 2",
+  "brand": "XGIMI",
+  "os": "Android TV 11",
+  "summary": "XGIMI MoGo 2 ships with telemetry, bug reporting and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This XGIMI projector ships with telemetry, bug reports and feedback tools and a few preloaded apps. The list is short, 8 apps, and covers only what was found on this firmware. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was applied on a real unit and rebooted twice, then used for about a day. The projector's own hardware services were all left on: auto keystone, ToF autofocus, the HDMI input player, the Bluetooth remote and key handling. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Auto keystone and ToF autofocus",
+    "The HDMI input player",
+    "The Bluetooth remote and key handling",
+    "Google voice, so the mic button keeps working"
+  ],
+  "notes": [
+    "Both USB debugging and Network debugging must be on, or the connection stays closed.",
+    "The Play Store says the Netflix TV app is not compatible. Netflix's regular Android app is a workaround."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my XGIMI MoGo 2?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the remote's mic button still work?",
+      "a": "Yes. Voice is not switched off here, and the mic button worked in testing."
+    },
+    {
+      "q": "Does TidyTV delete anything on my XGIMI MoGo 2?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

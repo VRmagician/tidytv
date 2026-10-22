@@ -1,0 +1,36 @@
+{
+  "name": "Sony BRAVIA XR-65X90J (China)",
+  "brand": "Sony",
+  "os": "Android 10",
+  "summary": "Sony BRAVIA XR-65X90J China firmware has usage agents, shop mode and hotel apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This is the China-market firmware, without Google Play or the Sony promo rows found on other Sony sets. It does have Sony usage and bug-report uploaders, viewing context providers, shop demo mode, help tiles, camera apps for a camera this model lacks, a JD smart-service app and hotel and business packages.",
+    "The Dangbei home screen is kept as the fallback. TidyTV turns the listed apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. Any app can be switched back on, and restore puts everything back in one tap."
+  ],
+  "keep": [
+    "Live TV and player app (Sony TV service)",
+    "HDMI and CEC services",
+    "The Dangbei home screen as fallback",
+    "HappyCast, the only casting route here",
+    "Remote control and device control services",
+    "TV updates and DRM key services"
+  ],
+  "notes": [
+    "The ad surfaces on this firmware are mostly the Dangbei home, its store and the preinstalled content apps, which are not on the list.",
+    "The owner used a third-party home screen on this TV."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Only partly. This firmware has no Sony ad rows to remove. The Dangbei home and content apps are left alone."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. HappyCast is kept. This set has no Google Cast."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. The Dangbei home screen is never turned off, and Restore everything turns every app back on."
+    }
+  ]
+}

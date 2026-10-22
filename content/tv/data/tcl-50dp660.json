@@ -1,0 +1,142 @@
+{
+ "id": "tcl-50dp660",
+ "title": "TCL 50DP660 (50DP660*, product \"Percee TV\", MediaTek MT5658 / board mt5891, armv7), Europe.",
+ "header": "TCL 50DP660 (50DP660*, product \"Percee TV\", MediaTek MT5658 / board mt5891, armv7), Europe.\nAndroid TV 8.0 (API 26), firmware V8-T658T01-LF1V602, build OTT1.180130.001.\nChecked on a real TV; this list was applied and survived several reboots.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-50dp660/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-50dp660/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher is com.google.android.tvlauncher and it has HOME priority 2 on this firmware: it\nmust be disabled, or set-home-activity reports Success and HOME still lands on it. Install the\nreplacement launcher first, otherwise disable.sh will skip that line for its own HOME guard.\nLive TV is com.tcl.tv, the tuner input is com.tcl.tvinput, HDMI and AV are com.tcl.tvpassthrough.\n\nFactory menu from the remote, no software needed:\nSettings > Picture > Advanced Settings > Brightness, highlight Contrast, type 1 9 5 0\nthen Other > ADB. Developer options > USB debugging must be on as well, or the RSA dialog never\nappears and adb says \"unauthorized\". service.adb.tcp.port is preset to 5555 by the vendor, so\nADB comes up on the network, not USB.\n\nWARNING - 1-Factory menu > NVM reset wipes the Wi-Fi MAC, the Widevine keybox and the Netflix\nESN. It is not a one-step operation: after the NVM reset do a factory data reset AND reflash the\nfull firmware over USB. Only the reflash re-provisions the vendor data; stopping earlier leaves a\n02:00:00:00:00:00 Wi-Fi MAC and Netflix error -121 for good.\n\nKeep these enabled (disabling any of them breaks something obvious):\ncom.tcl.inputmethod.international   the on-screen keyboard - no text input without it\ncom.tcl.tv, com.tcl.tvinput, com.tcl.tvpassthrough, com.tcl.sourcemananger\ncom.tcl.settings, com.tcl.autopair, com.tcl.virtualkey, com.tcl.factory.view\ncom.mediatek.wifi, com.mediatek.tunerservice, mtktvapi.agent\ncom.google.android.apps.mediashell  Google Cast receiver - keep it if you cast\ncom.google.android.backdrop         ambient screensaver",
+ "sections": [
+  {
+   "title": "Stock launcher and its recommendation rows, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google media and voice - this set has no microphone",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Assistant / voice search, runs two processes"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "speech recognition engine, see the note at the bottom"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "TCL content, mirroring, updaters and bundled players",
+   "apps": [
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "MagiConnect screen mirroring"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "\"T-Channel\" content tiles on the stock home"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa bridge, persistent - see the note at the bottom"
+    },
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "OTA updater; re-enable to check for firmware updates"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "media centre plus USB scanning"
+    },
+    {
+     "pkg": "com.tcl.xian.StartandroidService",
+     "note": "TCL start-up service"
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store (21.2 MB APK)"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers"
+    },
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "\"cleaner\" widget"
+    },
+    {
+     "pkg": "com.tcl.m",
+     "note": "MenuHelp"
+    },
+    {
+     "pkg": "com.tcl.eletronicpolicy",
+     "note": "e-warranty sheet"
+    },
+    {
+     "pkg": "com.tcl.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.audioplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.imageplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.pvr.pvrplayer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "ODM leftovers and third-party preloads",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": ""
+    },
+    {
+     "pkg": "com.example.copydatatotv",
+     "note": "factory test app, persistent"
+    },
+    {
+     "pkg": "com.example.tvcapture",
+     "note": "factory test app"
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 26
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Sharp AQUOS TVE21F",
+  "brand": "Sharp",
+  "os": "Android TV 14",
+  "summary": "Sharp AQUOS TVE21F ships with maker telemetry, recommendation rows and test apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This UK Sharp set is built on a CVTE and MediaTek platform. It ships with manufacturer telemetry, recommendation rows, retail and partner plumbing, factory and test apps, and unused preloaded apps. Package names say little on this firmware, so each entry was checked first.",
+    "It was applied and verified in October 2026, with screenshots after each batch. Live TV, HDMI 1, the Play Store and SmartTube playback all worked. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Play Store and Google Play Services",
+    "Gboard and Google text-to-speech",
+    "Dolby audio",
+    "Live TV, HDMI and the channel scan (the MediaTek services)",
+    "USB media and remote hotkeys"
+  ],
+  "notes": [
+    "The stock home screen was already off when the list was applied."
+  ],
+  "faq": [
+    {
+      "q": "Will Live TV and HDMI still work on my Sharp?",
+      "a": "Yes. Live TV and HDMI 1 were checked after the list was applied."
+    },
+    {
+      "q": "Will I lose the channel scan?",
+      "a": "No. The channel scan app is kept, along with USB media and the remote hotkeys."
+    },
+    {
+      "q": "Can I undo it?",
+      "a": "Yes. Restore everything turns every app back on in one tap. Nothing is deleted."
+    }
+  ]
+}

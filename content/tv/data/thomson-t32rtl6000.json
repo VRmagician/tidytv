@@ -1,0 +1,209 @@
+{
+ "id": "thomson-t32rtl6000",
+ "title": "Thomson T32RTL6000 (manufacturer SCBC, Realtek platform), Android TV 9 (API 28), 1.5 GB",
+ "header": "Thomson T32RTL6000 (manufacturer SCBC, Realtek platform), Android TV 9 (API 28), 1.5 GB\nRAM, 1280x720 output. Firmware PTT1.210114.001 build 337 (2021-04-25), security patch 2021-03-05.\nThe OS itself reports model/device strings \"ATV R1\"/\"R1\" on this TV — same hardware:\nfingerprint THOMSON/THOMSON/R1:9/PTT1.210114.001/337:user/release-keys\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/thomson-t32rtl6000/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/thomson-t32rtl6000/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nSame platform family as examples/sanyo-atv-r2/ (SCBC, PTT1.x firmware branch): the SANYO\nlist cross-checks several decisions here (the GDPR consent agent, and FastScreen being a\nFastCast Miracast receiver rather than a launcher on this family).\n\nStock launcher: com.google.android.tvlauncher (restore.sh / build-and-install.sh defaults work).\nLive TV app: com.android.tv with the Realtek tuner stack (com.realtek.dtv and friends) —\nthe tuner must stay enabled or live channels disappear.\nTvProvider quirk: on this firmware the system TvProvider stays empty — the vendor tuner\nkeeps channels and EPG in its own store, so launcher channel rows are dormant until the\nprovider fills (e.g. after a firmware update).\nKept on purpose: GMS / Play / WebView / keyboard, the tuner stack above, remote/Bluetooth\n(com.apps.smartkey, bluetoothremote, fivekey, virtualkey, autopair),\ncom.creative.fastscreen.tv (FastCast Miracast receiver on this family — NOT a FastScreen\nad app, do not disable it as one), and streaming apps left to taste.",
+ "sections": [
+  {
+   "title": "--- Telemetry, analytics, recommendation rows ---",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "SCBC consent agent for data collection (safe to disable; confirmed on SANYO ATV R2 too)",
+   "apps": [
+    {
+     "pkg": "com.apps.function.gdpr",
+     "note": ""
+    },
+    {
+     "pkg": "com.realtek.leanbacklauncher.partnercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Content/promo rows and partner auto-installs ---",
+   "apps": [
+    {
+     "pkg": "com.apps.channels",
+     "note": "the SCBC \"S-Channels\" content app"
+    },
+    {
+     "pkg": "android.autoinstalls.config.scbc.device",
+     "note": "partner auto-install config for SCBC devices"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Google Assistant (the mic button on the remote goes dead) ---",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Preinstalled service and stores ---",
+   "apps": [
+    {
+     "pkg": "com.vewd.core.service",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Streaming apps off by choice (adjust to taste) ---",
+   "apps": [
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "tv.okko.androidtv",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "mobi.zona",
+     "note": ""
+    },
+    {
+     "pkg": "de.benzac.msx",
+     "note": ""
+    },
+    {
+     "pkg": "limehd.ru.lise",
+     "note": ""
+    },
+    {
+     "pkg": "limehd.ru.lite",
+     "note": ""
+    },
+    {
+     "pkg": "limehd.ru.ctv",
+     "note": ""
+    },
+    {
+     "pkg": "limehd.ru.ctvshka",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Google add-ons ---",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- OEM leftovers (factory/demo/test utilities, com.apps.*) ---",
+   "apps": [
+    {
+     "pkg": "com.apps.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.factory.ui",
+     "note": ""
+    },
+    {
+     "pkg": "com.rtk.engmenu",
+     "note": ""
+    },
+    {
+     "pkg": "com.realtek.factorytools",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.clear",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.networkspeed",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.usbmediaplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.wifihotspot",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Firmware OTA (keeps an update from reinstalling the junk) ---",
+   "apps": [
+    {
+     "pkg": "com.apps.ota",
+     "note": ""
+    },
+    {
+     "pkg": "com.apps.authota",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 34
+}

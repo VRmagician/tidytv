@@ -1,0 +1,224 @@
+{
+ "id": "sony-kd-55xf8096",
+ "title": "Sony BRAVIA KD-55XF8096 (2018, model string \"BRAVIA 4K GB ATV3\", product BRAVIA_ATV3_4K_EU, MediaTek MT5891), Spain",
+ "header": "Sony BRAVIA KD-55XF8096 (2018, model string \"BRAVIA 4K GB ATV3\", product BRAVIA_ATV3_4K_EU, MediaTek MT5891), Spain\nAndroid TV 9 (API 28), firmware Sony/BRAVIA_ATV3_4K_EU/BRAVIA_ATV3_4K:9/PTT1.190515.001.S54/672201:user/release-keys,\nsecurity patch 2022-01-05 (Sony has stopped updating it). 2 GB RAM.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-kd-55xf8096/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-kd-55xf8096/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nSame hardware (MT5891) and Android build (S54) as examples/sony-bravia-4k-gb and examples/sony-kd-55xe8596 (S52).\nBRAVIA_ATV3_4K_EU is the 2018 XF-series refresh of the 2017 BRAVIA_ATV2_EU (XE-series).\nPackage set is nearly identical; differences noted below.\n\nApplied and reboot-checked on 2026-10-22. Home, live TV, HDMI inputs, DLNA, IR remote and HbbTV\n(red button) all work after reboot. Re-enable anything that breaks with `pm enable <package>`.\n\nStock launcher: com.google.android.tvlauncher. Its HOME filter has priority 2,\nso `cmd package set-home-activity` reports Success but does nothing until it is disabled.\nLive TV / input app: com.sony.dtv.tvx. Keep it: it drives every HDMI input too.\nKeep: com.sony.dtv.tvinput.*, braviasync* (HDMI-CEC), remotepairing, rcpowerkey, uinputservice,\nimeproxy, sonysystemservice, settingsprovider, all com.mediatek.* and mtktvapi.agent, timers,\nwebapi.core, remoteaccess (Sony IP Control / Home Assistant Bravia integration),\ncom.sony.huey.dlna.module (DLNA renderer), com.uei.quicksetsdk.sony (IR universal remote),\ncom.vewd.core.integration.dia (HbbTV / red button).\n\nNew in ATV3 vs ATV2/XE8596: com.sony.dtv.smarthomesettings (Alexa setup, runs at every boot),\ncom.sony.dtv.discovery + com.sony.dtv.bivlinfo (Sony Discover content bar and its feeds),\ncom.sony.dtv.scrums.action was present but uninstalled to remove home screen ads — not in this list\n(disable.sh uses pm disable-user only; uninstall --user 0 is irreversible).",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV — fingerprints what is on screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony and Google content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app store / promo tile"
+    },
+    {
+     "pkg": "com.sony.dtv.sonyselect.overlay",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": "My BRAVIA promos"
+    },
+    {
+     "pkg": "com.sony.dtv.discovery",
+     "note": "Sony Discover content bar (ATV3-specific)"
+    },
+    {
+     "pkg": "com.sony.dtv.bivlinfo",
+     "note": "BIVL content service list, feeds Discover (ATV3-specific)"
+    },
+    {
+     "pkg": "com.sony.dtv.tvlaunchercustomizer",
+     "note": "Sony tweaks to the stock home rows"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Smart home / voice assistant setup",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.smarthomesettings",
+     "note": "\"Works with Alexa\" setup — runs at every boot (ATV3-specific)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demomode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry, remote support and feedback",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony device agent / remote support"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonyloglevelsettingsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonyloglevelsettingvnd",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Hotel / professional mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.b2b.hotelmode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.rs232csupport",
+     "note": "RS-232C control; re-enable if something drives the TV over serial"
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "Node.js SDDP broadcaster for Control4-style home automation"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and leftovers",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.imanual",
+     "note": "i-Manual"
+    },
+    {
+     "pkg": "com.sony.dtv.youview",
+     "note": "YouView (UK service, not present in Spain firmware but listed for completeness)"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies — service shut down, was using 108 MB"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Android TV phone-app remote (and Home Assistant's Android TV Remote)"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": "DLNA renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.uei.quicksetsdk.sony",
+     "note": "IR universal remote (Logitech Harmony etc.)"
+    },
+    {
+     "pkg": "com.vewd.core.integration.dia",
+     "note": "HbbTV / red button"
+    },
+    {
+     "pkg": "screnmirroring.com",
+     "note": "Screen mirroring (Miracast)"
+    },
+    {
+     "pkg": "com.sony.dtv.networkapp.wifidirect",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 31
+}

@@ -1,0 +1,142 @@
+{
+ "id": "tcl-65q650g",
+ "title": "TCL 65Q650G (US Q6 2023, reports as \"Smart TV\" / BeyondTV4), Android TV 11 (SDK 30), Realtek RTD2851",
+ "header": "TCL 65Q650G (US Q6 2023, reports as \"Smart TV\" / BeyondTV4), Android TV 11 (SDK 30), Realtek RTD2851\n(client type TCL-NA-RTD51M), firmware V8-R51MT08-LF1V095, Google TV launcher\n(com.google.android.apps.tv.launcherx), 2 GB RAM, 32-bit userspace.\nList derived from examples/tcl-43c645 (same R51MT platform), checked against this unit's packages.\nSame firmware family as examples/tcl-65q550g (a different model, tested over Ethernet there).\n\nTested 2026-10-20 on a real unit, applied in three batches with a screenshot after each: Home, the\nremote's Input panel (com.tcl.suspension) and Live TV (com.tcl.tv/.TVActivity, all four HDMI ports in\nTvInputManager) kept working. Quirks: Git Bash rewrites /data/... paths for tools/tv.py --pull, so set\nMSYS_NO_PATHCONV=1; screencap to /sdcard fails here, use /data/local/tmp. Launcher installed with\ntools/tv.py --push + pm install, later with build-and-install.sh (b64push md5 matched). Reboot-checked: all\npackages stayed disabled, Home stayed on the new launcher, both key services re-bound.\n\nStock launcher: com.google.android.apps.tv.launcherx (disabled by build-and-install.sh). setupwraith claims\nHOME (priority 1) once it is off, so it is in group 1b. Check `dumpsys wifi | grep -o 'cname=[^ ]*'` first:\non this unit the Wi-Fi network in use belonged to android.uid.system, so disabling setupwraith kept it.\n\nRemote (Bluetooth BT_RC813_M1, /dev/input/event3, /system/usr/keylayout/Generic.kl):\n- Input (TV_INPUT) and the mic keep working without launcherx.\n- Netflix (242, TCL_NETFLIX), YouTube (245, TCL_YOUTUBE) and Prime Video (752, TCL_PRIMEVIDEO) do nothing\nonce launcherx is off: app_keys KEYCODE_TCL_NETFLIX:com.netflix.ninja, KEYCODE_TCL_YOUTUBE:\ncom.google.android.youtube.tv, KEYCODE_TCL_PRIMEVIDEO:com.amazon.amazonvideo.livingroom with\nINPUT_KEY_SERVICE=1 bring them back (getevent -l names Prime KEY_PRIMEVIDEO; its scancode is 752, not 365).\n- Gear (233, TCL_SET) also went dead; app_keys KEYCODE_TCL_SET did not catch it, settings_key_scancodes 233\nwith HOME_KEY_SERVICE=1 did.\n- TclAppBoot refuses to start the key services at boot until `appops set com.gathin.tvhome APP_AUTO_START allow`.\nAll verified with the real remote, also after a reboot. Live TV app: com.tcl.tv (live_tv_package, hidden_apps).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-65q650g/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-65q650g/debloat.txt com.google.android.apps.tv.launcherx\nKept by choice: voice (katniss, com.google.android.tv.assistant, com.tcl.assistant), Cast receiver\n(mediashell), firmware updater (com.tcl.versionUpdateApp), YouTube TV and YouTube Music.\nNever disable: com.tcl.providers.config com.tcl.initsetup com.tcl.factory.view com.tcl.system.server\ncom.tcl.tcl_bt_rcu_service com.tcl.autopair com.tcl.tvinput com.tcl.tv com.tcl.settings\ncom.tcl.suspension (Input panel) com.tcl.xian.StartandroidService com.tvos",
+ "sections": [
+  {
+   "title": "1. Telemetry, partner auto-installs, account and EULA nags",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "silently installs partner apps"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "EULA screen, done after setup"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "1b",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Google TV first-run wizard (claims HOME once the stock launcher is off)"
+  },
+  {
+   "title": "2. Unused apps (off by choice) and extras",
+   "apps": [
+    {
+     "pkg": "com.tubitv",
+     "note": ""
+    },
+    {
+     "pkg": "tv.pluto.android",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels, also removes them from Live TV"
+    },
+    {
+     "pkg": "com.tcl.tv.plus",
+     "note": "TCL TV+ content app"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL web-video / recommendation portal"
+    },
+    {
+     "pkg": "com.espn.score_center",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Works with Alexa"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard memory cleaner"
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3",
+   "apps": [
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "TCL Home panel and remote key helper (disabled on their own; Input panel still worked)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 26
+}

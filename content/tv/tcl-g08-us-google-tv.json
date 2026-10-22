@@ -1,0 +1,35 @@
+{
+  "name": "TCL 75-inch T7 Series (75T7)",
+  "brand": "TCL",
+  "os": "Google TV (Android 14)",
+  "summary": "TCL 75-inch T7 Series (75T7) ships with TCL promos, push messages and preloaded streaming apps. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This US TCL Google TV ships with TCL promos, push messages and a retail and hotel demo mode, plus telemetry and Android 14 ad and privacy services. It also has Alexa and AirPlay parts, streaming apps preloaded by the US firmware, and some extras nobody asked for.",
+    "The first 35 apps were switched off on one set, which was rebooted, and all of them stayed off. The last two were added later for a custom home screen and not yet checked after a restart. This is about a day of use. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV, HDMI and the input menu",
+    "The TCL game bar for the 144 Hz screen",
+    "Google voice search (the mic button)",
+    "Netflix, YouTube and Play Services",
+    "The TV's Dolby and MediaTek system parts"
+  ],
+  "notes": [
+    "The last two apps on the list were not rebooted yet.",
+    "Alexa and AirPlay are off by the owner's choice."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my TCL 75-inch T7 Series?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the game bar still work?",
+      "a": "Yes. The TCL game bar is kept on purpose for this 144 Hz gaming set."
+    },
+    {
+      "q": "Does TidyTV delete anything on my TCL 75-inch T7 Series?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

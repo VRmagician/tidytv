@@ -1,0 +1,34 @@
+{
+  "name": "Redmi TV MFTP0",
+  "brand": "Xiaomi",
+  "os": "Android 9",
+  "summary": "Redmi TV MFTP0 ships with Xiaomi telemetry, startup ads and promoted content. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Redmi TV runs China-market firmware. It ships with Xiaomi telemetry, quality reports and cloud control, ads, promoted content and shopping, and background services and preloaded apps. A startup ad is one of the things the list removes. Each app on the list has its own switch in the app, so you decide what goes.",
+    "The list was applied in two batches, and the owner checked Home and the voice remote after each. States held after standby, and the owner reported no startup ad after a full restart. It has not been lived with for several days. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The stock Xiaomi home screen, which must stay on",
+    "The voice remote",
+    "Xiaomi settings"
+  ],
+  "notes": [
+    "Keep the stock Xiaomi home screen on. This firmware only lets certain home screens take over, and the standard one did not.",
+    "The network debugging port closes at every restart, so turn it on again in Settings after each power cycle.",
+    "Developer mode is unlocked by pressing OK on the product model seven times, and debugging is under Account and Security."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice remote still work on my Redmi TV?",
+      "a": "Yes. The owner checked the voice remote after each batch."
+    },
+    {
+      "q": "Will it remove the startup ad?",
+      "a": "Yes. The owner reported no startup ad after a full restart."
+    },
+    {
+      "q": "Can I get everything back?",
+      "a": "Yes. Restore everything turns every app back on in one tap. Nothing is deleted."
+    }
+  ]
+}

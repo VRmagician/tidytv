@@ -1,0 +1,111 @@
+{
+ "id": "turkcell-tv-plus-4k-box-dv6069y",
+ "title": "Turkcell TV+ 4K Box (TV PLUS 4K BOX, SDMC DV6069Y_TVPLUS, Amlogic, board \"faraday\"), Turkey, operator streaming box",
+ "header": "Turkcell TV+ 4K Box (TV PLUS 4K BOX, SDMC DV6069Y_TVPLUS, Amlogic, board \"faraday\"), Turkey, operator streaming box\nAndroid TV 10 (SDK 29), build QT.20230328, security patch 2023-02-05. 2 GB RAM, 32-bit userspace (armeabi-v7a).\nFingerprint: TVPLUS/TVPLUS_OTT/DV6069Y_TVPLUS:10/QT/20230328:user/release-keys\n\nApply:   TV_HOST=<box ip> tools/disable.sh examples/turkcell-tv-plus-4k-box-dv6069y/debloat.txt\nUndo:    TV_HOST=<box ip> tools/restore.sh examples/turkcell-tv-plus-4k-box-dv6069y/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\nTested on one box the same day, including several reboots; not a multi-day soak.\n\nA streaming box: no HDMI-in or tuner, so set live_tv_package empty in config.xml. Stock launcher:\ncom.google.android.tvlauncher (the scripts' default). It is a Google-certified Android TV: Play Store, Play Services\nand the standard launcher, no operator home screen. No user restrictions or device owner; sideloading works.\n\nNotes from this box:\n- Network debugging opens port 5555 with ro.adb.secure=1, so each computer is accepted on screen.\n- The remote's app buttons are global keys handled by com.sdmc.GlobalKey (keylayout Vendor_7545_Product_0171.kl):\nYouTube = KEYCODE_BUTTON_4 (KEY_F1), Play Store = BUTTON_5 (KEY_F3), TV+ = BUTTON_10 (key 185, which\nGlobalKey calls \"SDMCEXTEND2\"). GlobalKey starts the mapped app; if the app is not installed it opens its Play\nStore page instead. The keylayout also maps a Prime Video key (63, BUTTON_8), but this box's remote has none.\n- DISABLING YOUTUBE BREAKS THE PLAY STORE BUTTON: GlobalKey only checks that a package is installed, so the\nYouTube button on a disabled com.google.android.youtube.tv throws ActivityNotFoundException and crashes\nGlobalKey. After repeated crashes Android marks the process bad and every app button (Play Store, TV+)\nis dead until a reboot. If you\ndisable YouTube, take the buttons away from GlobalKey with app_keys and INPUT_KEY_SERVICE=1, e.g.\n\"KEYCODE_BUTTON_4:<your YouTube app>\", \"KEYCODE_BUTTON_5:com.android.vending\", \"KEYCODE_BUTTON_10:<package>\".\nInputKeyService gets the keys before the global-key broadcast. Checked with the real remote after a reboot.\n- com.google.android.tv.remote.service comes back at every boot, after both pm disable-user and pm uninstall --user 0,\nso it is not listed here (about 14 MB).\n- com.sdmc.disablecec turns HDMI-CEC off on first boot only (com_sdmc_disablecec_first_run=1); switching CEC on in\nSettings sticks.\n- The test unit was on a 1080p PC monitor and the box had picked 2160p59.94 with YCbCr 4:2:0 (cur_VIC 353 in\n/sys/class/amhdmitx/amhdmitx0/config). Settings > TV settings > Display > Screen resolution set to 1080p-59.94hz\nswitched it to VIC 16, YCbCr 4:4:4, and it survives a reboot.\n- Free RAM after boot went from about 460 MB to about 930 MB; ZRAM in use from about 185 MB to about 25 MB.\n- AdGuard Private DNS (dns.adguard-dns.com) works.\n\nKept on purpose: com.sdmc.GlobalKey (remote app buttons), com.sdmc.standbyserver (standby), com.sdmc.bluetoothconnect\n(remote pairing), com.sdmc.disablecec, com.sdmc.factorymonitor (watches package removal, purpose unclear),\ncom.droidlogic* (Amlogic settings, display and Bluetooth), com.droidlogic.otaupgrade (firmware updates),\ncom.google.android.tungsten.setupwraith, com.google.android.inputmethod.latin (keyboard), Play Store, Play Services.",
+ "sections": [
+  {
+   "title": "Telemetry, log collection, factory test",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.droidlogic.readlog",
+     "note": "copies logs to a USB drive when one is mounted"
+    },
+    {
+     "pkg": "com.sdmc.facTest",
+     "note": "factory tester, starts at boot; checked with dumpsys only, never opened"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Recommendations, operator customisation, auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.sdmc.leakbackcustomer",
+     "note": "operator rows and widgets for the stock launcher (PARTNER_CONFIGURATION)"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sdmc",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.sdmc.autorunapp",
+     "note": "starts the operator app at boot"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice: voice, casting, YouTube",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "voice assistant; the mic button stops working"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "replaced by SmartTube here; read the GlobalKey note above first"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.turkcell.ott",
+     "note": "TV+; the remote's TV+ button opens its Play Store page once it is gone"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.camera2",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.gallery3d",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 17
+}

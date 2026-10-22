@@ -1,0 +1,129 @@
+{
+ "id": "challenger-32t22bt",
+ "title": "Challenger 32T22 BT (device cvt_mt5863_col, board TP.MT5510.PB781, MTK MT5659 / MT5863), Android 7.0 (API 24), firmware NRD90M 1464 (V8-MT659CO-A18V015)",
+ "header": "Challenger 32T22 BT (device cvt_mt5863_col, board TP.MT5510.PB781, MTK MT5659 / MT5863), Android 7.0 (API 24), firmware NRD90M 1464 (V8-MT659CO-A18V015)\nUltra low-spec budget TV (1 GB RAM, 8 GB Flash, MediaTek MT5659, CVTE / TCL ODM firmware for Challenger Colombia).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/challenger-32t22bt/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/challenger-32t22bt/debloat.txt com.cvte.tv.launcher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.cvte.tv.launcher (AppActivity). Pass it to restore.sh or set-home-activity if reverting.\nLive TV & Inputs: keep com.cvte.tvservice, com.cvte.tv.androidsetting, and com.mediatek.tv.agent (needed for HDMI and TV tuners).\n\nTested on Challenger 32T22 BT: freed up crucial RAM for third-party launcher (com.gathin.tvhome) and streaming apps.",
+ "sections": [
+  {
+   "title": "Factory test and diagnostic tools (CVTE & TCL ODM)",
+   "apps": [
+    {
+     "pkg": "cn.cvte.tv.factory.autotest",
+     "note": ""
+    },
+    {
+     "pkg": "com.cvte.tcl.factory.at",
+     "note": ""
+    },
+    {
+     "pkg": "com.cvte.tv.audiotest",
+     "note": ""
+    },
+    {
+     "pkg": "com.cvte.fac.menu",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.FactoryMode",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.sticker",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Bloatware, cleaners, and third-party stores",
+   "apps": [
+    {
+     "pkg": "com.cvte.tvclean",
+     "note": "Background memory cleaner"
+    },
+    {
+     "pkg": "com.cvte.tv.appstore",
+     "note": "Proprietary app store"
+    },
+    {
+     "pkg": "cm.aptoidetv.pt.cvt_platform7",
+     "note": "Preinstalled Aptoide TV build"
+    },
+    {
+     "pkg": "cn.tcl.odm.android.vstoresubclient",
+     "note": "Zeasn / TCL store client"
+    },
+    {
+     "pkg": "com.talents.huanclientauth",
+     "note": "Huan client authentication"
+    },
+    {
+     "pkg": "com.creative.fastscreen.tv",
+     "note": "Screen mirroring adware/service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services and redundant media apps",
+   "apps": [
+    {
+     "pkg": "com.cvte.tv.ucservice",
+     "note": "CVTE UserCenter service"
+    },
+    {
+     "pkg": "com.mediatek.androidbox",
+     "note": "MediaTek WFD Sink test utility"
+    },
+    {
+     "pkg": "com.apps.usbmediaplayer",
+     "note": "Redundant USB player"
+    },
+    {
+     "pkg": "com.cvte.tv.media",
+     "note": "Stock media center"
+    },
+    {
+     "pkg": "com.cvte.tv.player",
+     "note": "Stock media player"
+    },
+    {
+     "pkg": "com.ecloud.emedia",
+     "note": "DLNA/media cloud service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "System extras & browsers",
+   "apps": [
+    {
+     "pkg": "com.android.htmlviewer",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.browser",
+     "note": "Outdated stock browser (AOSP)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher (disable only after installing and setting an alternative launcher as Home)",
+   "apps": [
+    {
+     "pkg": "com.cvte.tv.launcher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.cvte.tv.launcher",
+ "count": 21
+}

@@ -1,0 +1,208 @@
+{
+ "id": "tcl-55c715",
+ "title": "TCL 55C715 QLED (2020, Belgium), reports ro.product.model BeyondTV2 / device BeyondTV, board rtd285o (Realtek RT2851),",
+ "header": "TCL 55C715 QLED (2020, Belgium), reports ro.product.model BeyondTV2 / device BeyondTV, board rtd285o (Realtek RT2851),\nclient type TCL-EU-RT2851-S1, software V8-R851T02-LF1V606 (AP06), Android TV 9 (API 28), build PPR1.180610.011,\nsecurity patch 2020-09-05, 2 GB RAM. Same firmware as examples/tcl-beyondtv-rt2851/, which was the starting point.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-55c715/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-55c715/debloat.txt\nStock launcher: com.google.android.tvlauncher (Android TV Home 7.x, Play-updated). Live TV app: com.tcl.tv\n(launcher config: live_tv_package com.tcl.tv). The launcher's Inputs menu lists HDMI 1-3, AV and Live TV through\nTvInputManager; no source_panel fallback needed. Network ADB (port 5555) was open as soon as USB debugging was on.\n\nTested 2026-10-20 on a real unit: applied in the groups below with a screenshot after each, then rebooted three times.\nNetflix, YouTube, Prime Video, Play Store, Play Movies, Live TV, HDMI through TCL's source menu and the launcher's\nInputs menu, Settings, Chromecast and the Bluetooth remote all kept working. MemAvailable went from 557 MB to\nabout 780 MB with the same apps; voice_ap dropped from ~27% of one core to ~3% once group 6 was off.\nIn daily family use since then (streaming apps, live TV through the set-top box on HDMI 1, casting); nothing beyond\nthe notes below had to be re-enabled.\n\nQuirks on this firmware:\n- com.tcl.usercenter comes back enabled at every boot, even with its Play update removed (TCL's boot-time list;\nTV Settings also binds to it). Listed anyway: it stays off until the next reboot. Rakuten TV (tv.wuaki.apptv)\ndoes the same, see group 3.\n- com.tcl.partnercustomizer also supplies the stock Android TV Home's Inputs icon (and the TCL Channel tile and a\nTV Guard shortcut). Disabling it removes the icon; the remote's Source button still works. No effect with a\ncustom launcher.\n- Disabling com.google.android.katniss (group 6) also disables search on the stock home screen, typed search too.\n- Settings > Applications opens TCL \"TV Guard\" (com.tcl.tvweishi), and still does while it is disabled.\n- Re-enable com.tcl.tvweishi and com.tcl.appmarket2 (group 7) while installing the launcher, as on the RT2851 list.\n\nAlready disabled at the factory, left alone: the 14 uk.co.freeview.* apps, com.tcl.bootadservice,\ncom.tcl.common.terminalmanagerplus, com.tcl.smartalexa, com.tcl.notereminder, com.tcl.gallery, Stan, ZEE5, Eros Now,\nLINE TV, Play Music, Play Games.\n\nDO NOT DISABLE (load-bearing on this firmware, as on tcl-beyondtv-rt2851):\ncom.tcl.tv com.tcl.tvinput com.tcl.tvpassthrough com.tcl.sourcemananger com.tcl.keycustomfunctionservice\ncom.tcl.framework.custom com.tcl.tcl_bt_rcu_service com.tcl.autopair com.google.android.tv.remote.service\ncom.tcl.inputmethod.international com.tcl.settings com.tcl.initsetup com.tcl.factory.view com.tcl.showmode\ncom.tcl.xian.StartandroidService com.tcl.appstatecontroller com.realtek.netflix.setting com.android.WifiCountryService\nAlso kept: com.tcl.videoplayer (serves Live TV info dialogs), com.tcl.audioplayer (\"listen with the screen off\"),\ncom.tcl.imageplayer, com.tcl.UpdatePeripheral (boot-time peripheral updater, purpose unclear), com.tcl.rc.ota.",
+ "sections": [
+  {
+   "title": "1. Telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL BI analytics"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "\"send feedback\""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": "bug report uploader"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "one-time setup leftovers"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "partner-app auto installer"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "2. Content, recommendation rows and promos",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "home-screen recommendation rows"
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL Channel tile, promo rows; also the stock home's Inputs icon (see above)"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL message/promo box"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers"
+    },
+    {
+     "pkg": "com.tcl.cyberui",
+     "note": "TCL content service, unused"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3. Preloads and background extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "end-user agreement screens"
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": "unused, Google WebView is the active provider"
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": "remote-key help overlays"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV: re-enabled at every boot like usercenter; removed for the user instead"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "4. USB media, off by choice (the players stay, see above)",
+   "apps": [
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media centre (\"Centre multimédia\" stays in the source menu, opens nothing)"
+    },
+    {
+     "pkg": "com.tcl.copydatatotv",
+     "note": "copy-to-TV helper, starts at boot"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "5. Off by choice",
+   "apps": [
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "Miracast screen mirroring"
+    },
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "TCL T-Cast / MagiConnect"
+    },
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "TCL firmware updater; no update since AP06 (2020)"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast, kept"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "6",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google voice search"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "offline speech recognition"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL's Google Assistant bridge"
+    },
+    {
+     "pkg": "com.tcl.micmanager",
+     "note": "remote microphone manager"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "Assistant LED service"
+    }
+   ],
+   "optional": [],
+   "note": "Voice, off by choice: the mic button and home-screen search go with it"
+  },
+  {
+   "title": "7. After the launcher is installed",
+   "apps": [
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "TCL \"TV Guard\" cleaner"
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store (Play Store stays)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "8. Extras nobody used here",
+   "apps": [
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account login (QR / phone binding); re-enabled at boot, see above"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack screen reader"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "printing"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "calendar sync"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.contacts",
+     "note": "contacts sync"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient-mode screensaver (pick another screensaver first)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 33
+}

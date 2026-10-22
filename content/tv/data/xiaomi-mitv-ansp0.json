@@ -1,0 +1,193 @@
+{
+ "id": "xiaomi-mitv-ansp0",
+ "title": "Xiaomi MiTV-ANSP0 (codename jobs; 小米电视5 Pro 65\", China-market firmware), Android 9 (SDK 28),",
+ "header": "Xiaomi MiTV-ANSP0 (codename jobs; 小米电视5 Pro 65\", China-market firmware), Android 9 (SDK 28),\nfirmware 23.6.5.3226, Amlogic, 4 GB RAM, 1080p UI (320 dpi), 54 GB /data.\nStock launcher: com.mitv.tvhome (PatchWall, HOME activity .MainActivityUserMode) - KEEP IT ENABLED,\nsee \"Home\" below. Install with: STOCK_LAUNCHER=com.mitv.tvhome launcher/build-and-install.sh\n(build-and-install.sh already knows com.mitv.tvhome, so the argument is optional).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-ansp0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-ansp0/debloat.txt com.mitv.tvhome\nMore notes (settings intents, inputs, ADB, install blacklist): docs/devices/xiaomi-mitv-ansp0-jobs.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Home: disabling com.mitv.tvhome drops HOME to com.android.tv.settings/.system.FallbackHome\n(priority -1000 in the manifest, but it still wins once nothing else is left), which shows a\nblack screen. Keeping PatchWall enabled and setting the new launcher as the preferred home\nworks, and survives a reboot; PatchWall is then never shown. Verified with\n`cmd package set-home-activity --user 0 com.gathin.tvhome/.MainActivity`.\n- Standard settings intents DO resolve here: android.settings.SETTINGS ->\ncom.android.tv.settings/.MainSettings, android.settings.WIFI_SETTINGS ->\ncom.android.tv.settings/.connectivity.NetworkActivity. The launcher's pills need no fallback keys.\n- Inputs: com.droidlogic.tvinput registers the ports (Hdmi1InputService/HW5,\nHdmi2/HW6, Hdmi3/HW7, AV1InputService/HW1), but nothing answers ACTION_VIEW on the standard\nTvContract passthrough URI, so the launcher lists the ports without being able to switch them.\nThe TV app switches with EXTSRC_PLAY and an integer extra instead; see\ndocs/devices/xiaomi-mitv-ansp0-jobs.txt.\n- Network ADB (port 5555) closes on every reboot; re-enable it in\nSettings -> 账号与安全 (Account & Security) -> ADB 调试 after each power cycle.\n- `pm disable-user` is accepted for the shell user on this build (unlike MiTV-ANTL0, which needs\n`pm hide`).\n- mitv.service is the core MiTV service: do not touch it.\n- Voice: disabling voicecontrol, wakeupservice, the Mico MQTT service and the two Mi Home\npackages also stops an external Xiao Ai speaker from controlling the TV (its \"turn the TV\noff\" command). Verified both ways on this set; see the Voice group below.\n- com.xiaomi.mitv.settings is the vendor settings UI; the standard com.android.tv.settings app is\nalso present and answers the plain settings actions.\n- No Google apps at all. Content comes from CN streaming apps; casting (smartshare / miplay /\nwfdsinkhelperservice / duokan.airkan.tvbox / upnp) and the app store are deliberately kept.\n- com.mitv.care is disabled by the factory already.\n\nOwner's-choice removals NOT listed below (disabled here, re-enable in Settings > Apps if needed):\ncom.douyu.xl.douyutv (Douyu), net.cibntv.ott.sk (CIBN 4K), com.lutongnet.nldmxXiaomiChildren\n(children's training app) and one sideloaded tool.",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry / push / cloud control",
+   "apps": [
+    {
+     "pkg": "com.miui.analytics",
+     "note": "Mi analytics"
+    },
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": "TV analytics"
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": "statistics upload"
+    },
+    {
+     "pkg": "com.xiaomi.tvqs",
+     "note": "quality system: uploads crash/perf/dropbox entries"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.csi",
+     "note": "\"after-sales assistant\": satisfaction survey upload"
+    },
+    {
+     "pkg": "com.mitv.cloudcontrol",
+     "note": "cloud control: starts on connectivity, pushes apps remotely"
+    },
+    {
+     "pkg": "com.android.smspush",
+     "note": "SMS push, useless on a TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads / promoted content",
+   "apps": [
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "MiWebView promo container; also fetches the screensaver ads"
+    },
+    {
+     "pkg": "com.mitv.shoplugin",
+     "note": "TV shopping channel plugin (Taobao SDK)"
+    },
+    {
+     "pkg": "com.gitvdemo.video",
+     "note": "GITV promo demo reel"
+    },
+    {
+     "pkg": "com.duokan.videodaily",
+     "note": "video daily promos"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.gamecenter.sdk.service.mibox",
+     "note": "game centre SDK"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.xiaomi.mitv.upgrade",
+     "note": "firmware updater: kept on so updates arrive (#322)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps not used",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": "Mi Music"
+    },
+    {
+     "pkg": "com.xiaomi.tv.gallery",
+     "note": "Mi photo album"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Media Explorer as a tile; USB browsing still works"
+    },
+    {
+     "pkg": "com.xiaomi.screenrecorder",
+     "note": "screen recorder"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.calendar",
+     "note": "calendar"
+    },
+    {
+     "pkg": "com.mitv.alarmcenter",
+     "note": "alarms"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.handbook",
+     "note": "user handbook"
+    },
+    {
+     "pkg": "com.xiaomi.tweather",
+     "note": "weather"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.karaoke.service",
+     "note": "karaoke"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.tvvideocall",
+     "note": "MiTime video calls"
+    },
+    {
+     "pkg": "com.xiaomi.eetv.litehome",
+     "note": "a second home screen (\"办公模式\" office mode)"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.light",
+     "note": "light-effect app (\"Symphony of Shadows\")"
+    }
+   ],
+   "optional": [],
+   "note": "features this owner does not use (comment out what you do use)"
+  },
+  {
+   "title": "Voice and Mi Home",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.smartpanel",
+     "note": "smart-home panel"
+    },
+    {
+     "pkg": "com.xiaomi.smarthome.tv",
+     "note": "Mi Home"
+    },
+    {
+     "pkg": "com.xiaomi.voicecontrol",
+     "note": "Xiao Ai voice control"
+    },
+    {
+     "pkg": "com.xiaomi.wakeupservice",
+     "note": "voice wake-up"
+    },
+    {
+     "pkg": "com.xiaomi.mico.mqtt.service.application.tv",
+     "note": "Mico voice MQTT service"
+    }
+   ],
+   "optional": [],
+   "note": "KEEP THESE if an external Xiao Ai (小爱) speaker should be able to control the TV: disabling all five cut a household's voice \"turn the TV off\" in testing, and enabling them again restored it. The TV-side voice remote may only need voicecontrol/wakeupservice; the speaker path goes through the Mico MQTT service and the Mi Home packages. Not narrowed down to one package."
+  },
+  {
+   "title": "Stock screensaver, replaced by the launcher's ClockDream",
+   "apps": [
+    {
+     "pkg": "com.mitv.screensaver",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.mitv.tvhome",
+     "note": ""
+    }
+   ],
+   "note": "Apply only AFTER the launcher is Home and its screensaver is selected, otherwise the TV has no screensaver: settings put secure screensaver_components com.gathin.tvhome/.ClockDream settings put secure screensaver_enabled 1"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.mitv.tvhome",
+ "count": 31
+}

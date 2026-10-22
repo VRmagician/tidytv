@@ -1,0 +1,36 @@
+{
+  "name": "Fire TV Stick 4K Max (1st gen)",
+  "brand": "Amazon",
+  "os": "Fire OS 7",
+  "summary": "Fire TV Stick 4K Max (1st gen) ships with telemetry, sponsored rows and promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Fire TV Stick 4K Max sends telemetry, metrics and usage reports to Amazon. Its home screen has sponsored rows, recommendations, promos and shopping, and the stick comes with preloaded Amazon apps. The list covers all three groups and leaves Amazon's home screen alone.",
+    "It was restarted twice after the list was applied, and everything stayed off. Home, Prime Video, Netflix and voice search worked. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Amazon's home screen and settings",
+    "The Appstore and keyboard",
+    "Remote and Bluetooth",
+    "Software updates",
+    "Alexa voice search",
+    "Prime Video",
+    "The Silk browser and casting"
+  ],
+  "notes": [
+    "With Alexa voice search left on, a group of Alexa helper services turns itself back on at every restart, so they are not on the list."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Fire TV Stick 4K Max?",
+      "a": "Yes. Alexa voice search is kept on purpose."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. The cast receiver and related casting services are kept."
+    },
+    {
+      "q": "Can I get a different home screen?",
+      "a": "No. Amazon's home screen is protected on Fire TV. TidyTV removes the ads, telemetry and preloads around it."
+    }
+  ]
+}

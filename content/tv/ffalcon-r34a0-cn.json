@@ -1,0 +1,34 @@
+{
+  "name": "FFALCON r34a0",
+  "brand": "FFALCON",
+  "os": "Android 5.1",
+  "summary": "FFALCON r34a0 ships with preloaded apps and a boot ad on old Android 5.1. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This FFALCON r34a0 is a China-market TV on old Android 5.1 with only 1 GB of memory and 8 GB of storage. It has preloaded apps that can be hidden, and a boot ad. The list is short, at 22 apps, and applies only to this firmware.",
+    "Here is what is known about testing it. The firmware refuses the usual way of turning apps off, so apps are hidden instead, and a new home screen app will not install. TidyTV can only debloat this set, over Wi-Fi, with a backup first and nothing deleted."
+  ],
+  "keep": [
+    "The stock CyberUI home screen",
+    "The TV's built-in apps that are not on the list",
+    "Settings and system services"
+  ],
+  "notes": [
+    "This firmware denies the usual way of turning apps off, so the list hides them instead and undoing it uses a different command.",
+    "New home screens are refused, so only the stock CyberUI home screen can be used.",
+    "Installing apps from a computer is blocked until two settings are switched on."
+  ],
+  "faq": [
+    {
+      "q": "Can I put a new home screen on my FFALCON r34a0?",
+      "a": "No. This firmware refuses any home screen app, so the stock CyberUI home screen stays."
+    },
+    {
+      "q": "Is this model handled the same way as others?",
+      "a": "No. This old Android 5.1 firmware refuses the normal setting, so apps are hidden instead. It was tested on one unit on 21 October 2026."
+    },
+    {
+      "q": "Can I undo it?",
+      "a": "Yes. Hidden apps can be unhidden, and Restore everything in the app turns every app TidyTV changed back on."
+    }
+  ]
+}

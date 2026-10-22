@@ -1,0 +1,36 @@
+{
+  "name": "Sony BRAVIA XR-65A80J",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Sony BRAVIA XR-65A80J OLED ships with a viewing tracker, home screen promos and hotel-mode apps. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This Sony OLED ships with Samba TV, which tracks what is on screen, plus Qterics and Sony agents that report device and usage data. The Google TV home carries a Sony promo tile and content rows, and partner apps can install themselves. The TV also has retail demo mode, hotel and pro-mode services, and help tiles.",
+    "The list was checked on this TV and tested with a replacement launcher. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on in the app."
+  ],
+  "keep": [
+    "Live TV, tuner and the Sony input app",
+    "BRAVIA Sync, HDMI-CEC and eARC audio services",
+    "Google voice assistant and Chromecast",
+    "Miracast and firmware updates",
+    "Ambient mode and Living Decor",
+    "The Play Store and Play Services"
+  ],
+  "notes": [
+    "Do not turn off the stock home until a working replacement is installed and checked.",
+    "AirPlay, DLNA and the broadcast red-button player (HbbTV) are optional choices on the list."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony XR-65A80J?",
+      "a": "Yes. The voice assistant is kept."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes for Chromecast and Miracast, which are kept. AirPlay is an optional switch on the list."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the stock Google TV home screen back."
+    }
+  ]
+}

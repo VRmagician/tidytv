@@ -1,0 +1,109 @@
+{
+ "id": "xiaomi-mitv-mssp2",
+ "title": "Xiaomi MiTV-MSSP2 (codename volver), Android TV 9 (SDK 28), firmware PI.4621, MediaTek, low-RAM build.",
+ "header": "Xiaomi MiTV-MSSP2 (codename volver), Android TV 9 (SDK 28), firmware PI.4621, MediaTek, low-RAM build.\nro.build.fingerprint Xiaomi/volver/volver:9/PI/4621:user/release-keys, security patch 2020-07-05, EU region.\nLive TV app: com.mediatek.wwtv.tvcenter (already the live_tv_package in launcher config.xml).\nStock launcher: com.google.android.tvlauncher (the default, disabled by build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mssp2/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mssp2/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- No packages were disabled before this list. Default IME is already Gboard and every package\nbelow exists on this build.\n- The older Android TV home (com.google.android.leanbacklauncher) is still installed next to\ntvlauncher, like on MSSP3 PI.4663. Both disabled here and Home kept resolving to the new launcher.\n- Screenshots of Live TV and HDMI come back empty (0 bytes); check the screen with\ndumpsys activity activities | grep mResumedActivity\nand the playing input with dumpsys tv_input (inputId under sessionStateMap).\n- Live TV closes itself after about 25 s on an HDMI port with nothing connected and drops back to Home.\n- ADB over the 5 GHz Wi-Fi stalls for 20-120 s now and then, mostly while the screensaver runs.\nWake the TV (KEYCODE_WAKEUP) and retry.\n- Private DNS dns.adguard-dns.com works for ad and tracker domains; it does not block YouTube ads.\n- Left alone on purpose: com.mediatek.wwtv.tvcenter / com.mediatek.tvinput (HDMI + tuner), mitv.service,\ncom.mediatek.hotkey.dispatcher and com.xiaomi.android.tvsetup.partnercustomizer (remote hotkeys,\nNetflix button), com.google.android.tv.remote.service (phone remote), com.xiaomi.mitv.mediaexplorer\n(USB Media Player), com.xiaomi.mitv.updateservice (firmware updates), Play Store, Play Services,\nGoogle Assistant, Chromecast and the keyboard.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, sponsored rows",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi + Android background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "no printing on a TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.music",
+     "note": "Play Music, discontinued"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock Android TV launchers, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher",
+     "note": "older Android TV home, still installed, see header"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 16
+}

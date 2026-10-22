@@ -1,0 +1,108 @@
+{
+ "id": "amazon-fire-tv-aftdec012e",
+ "title": "Amazon Fire TV, model AFTDEC012E (codename ginza), Android 11 (SDK 30), build RS8185.3885N",
+ "header": "Amazon Fire TV, model AFTDEC012E (codename ginza), Android 11 (SDK 30), build RS8185.3885N\nTested on one unit, Fire OS (Amazon), so no Google services.\n\nFIRE OS: DEBLOAT ONLY. Amazon's launcher (com.amazon.tv.launcher) keeps Home, and its packages and components\ncannot be disabled (\"Cannot disable a protected package\"), so this list does not install a launcher. It removes\nAmazon's ads, telemetry and preloads. Details and what was tested: docs/TROUBLESHOOTING.md, \"Fire TV (Fire OS)\".\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/amazon-fire-tv-aftdec012e/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/amazon-fire-tv-aftdec012e/debloat.txt com.amazon.tv.launcher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nKept on purpose: Alexa, OTA updates, DIAL/whisperplay (Netflix and YouTube casting), Netflix, YouTube, Prime\nVideo, voice search and the stock launcher. Miracast, MiniTV, Disney+ and Tubi are listed at the bottom, commented\nout, for the owner to decide.",
+ "sections": [
+  {
+   "title": "Ads, content recognition, shopping",
+   "apps": [
+    {
+     "pkg": "com.amazon.shoptv.client",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.acr",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.democontent.provider",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and metrics",
+   "apps": [
+    {
+     "pkg": "com.amazon.neo.minerva",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva.logcat",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wirelessmetrics.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfcollection",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfc",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Tutorials, promos and Amazon content preloads",
+   "apps": [
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.gamehub",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.bueller.music",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.naatyam",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.cast.sink",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": ""
+    },
+    {
+     "pkg": "com.disney.disneyplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.tubitv.ott",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 15
+}

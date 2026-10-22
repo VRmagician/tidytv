@@ -1,0 +1,113 @@
+{
+ "id": "philips-google-tv-ta7",
+ "title": "Philips Google TV TA7 (TPV, PH3M_LT_T32 / device PH3M_AL_T32, MediaTek), Brazil",
+ "header": "Philips Google TV TA7 (TPV, PH3M_LT_T32 / device PH3M_AL_T32, MediaTek), Brazil\nGoogle TV 14 (API 34), build UTT1.250308.001. About 1.9 GB RAM, armeabi-v7a, UI 1920x1080 on a 4K panel.\nFingerprint: Philips/PH3M_LT_T32/PH3M_AL_T32:14/UTT1.250308.001/101000072000:user/release-keys\nVendor packages: TP Vision org.droidtv.* on a MediaTek base (com.mediatek.*, mediatek.factorymenu.ui).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/philips-google-tv-ta7/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/philips-google-tv-ta7/debloat.txt com.google.android.apps.tv.launcherx\nLauncher: TV_HOST=<tv ip> STOCK_LAUNCHER=com.google.android.apps.tv.launcherx HOME_KEY_SERVICE=1 launcher/build-and-install.sh\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nApplied in batches on 2026-10-20 with a screenshot after each, then the custom launcher installed;\nHome, HDMI 1 and Live TV, YouTube playback, HBO Max, Settings and every remote button were checked,\nand everything survived a reboot. Not yet lived with for days.\n\nStock launcher: com.google.android.apps.tv.launcherx. Home claimants: launcherx (priority 2),\nsetupwraith RecoveryActivity (1), com.android.tv.settings FallbackHome (-1000). While launcherx is\nenabled, set-home-activity to another launcher does not stick.\nLive TV app and HDMI player: com.mediatek.wwtv.tvcenter (TurnkeyUiMainActivity); the launcher's\ndefault live_tv_package already matches. HDMI 1-4 are listed by com.mediatek.tvinput.\n\nQuirks on this firmware, all checked on the TV:\n- Port 5555 was already open and the PC already authorised; ro.adb.secure=1.\n- `screencap -p` prints \"Init wrapper sys mutex successful. Pid:...\" before the PNG on stdout:\nstrip everything before the \\x89PNG signature.\n- The remote's Settings (gear) button is scancode 357 (KEY_OPTION) -> KEYCODE_SETTINGS (176), a\nglobal key routed to com.mediatek.tv.service's HotKey GlobalKeyReceiver, which forwarded it to the\nstock dashboard. With launcherx disabled it does nothing until HomeKeyService is on\n(HOME_KEY_SERVICE=1, no config needed for KEYCODE_SETTINGS). Input and app buttons keep working.\n- KEYCODE_GUIDE and KEYCODE_NOTIFICATION are global keys of launcherx; this remote does not send them.\n- setupwraith owned one old saved network (not the one in use), and only that entry was deleted.\n\nKept on purpose: org.droidtv (TPVTvService, sees every key press), org.droidtv.icp (persistent\nsign-on service, purpose unclear), org.droidtv.ambisvc (Ambilight/Lounge), org.droidtv.eum (user\nmanual; hidden in the launcher instead), com.mediatek.tv.service (hot keys, Netflix key, TV agent),\ncom.mediatek.tvinput, com.mediatek.wwtv.tvcenter, com.mediatek.wwtv.setupwizard (channel scan),\ncom.mediatek.wwtv.mediaplayer (USB media), com.mediatek.autopair (remote pairing), com.mediatek.tv.factory\nand mediatek.factorymenu.ui (factory menus), com.mediatek.android.leanbacklauncher.partnercustomizer\n(crash-loops tv.service on another MediaTek set), com.android.tv.ota and com.easy.oad (firmware\nupdates), com.google.android.katniss (Assistant), Play Store, Play Services, both keyboards.\nDisabled by the owner before this list and therefore not in it: cm.aptoide.pt, com.vscine.tv,\ncom.viki.android, fusion.android.tv.demo, com.google.android.apps.tv.dreamx (ambient mode),\ncom.android.adservices.api, com.android.ondevicepersonalization.services,\ncom.android.federatedcompute.services, com.android.tv.feedbackconsent, com.google.android.feedback\nand the two Health Connect packages.",
+ "sections": [
+  {
+   "title": "Batch 1: telemetry and attribution",
+   "apps": [
+    {
+     "pkg": "org.droidtv.candeebug",
+     "note": "TP Vision \"DAC\" analytics: CollectionService, boot receiver, ~55 MB resident"
+    },
+    {
+     "pkg": "org.droidtv.gel",
+     "note": "TP Vision metrics GatheringService, shares candeebug's cache provider"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner referrer / RLZ ping"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tpv.device",
+     "note": "Play auto-install of TPV partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: manufacturer content and popups",
+   "apps": [
+    {
+     "pkg": "com.mediatek.opapp",
+     "note": "European satellite operator apps (Canal Digitaal, HD+, Skylink...), unused in Brazil"
+    },
+    {
+     "pkg": "org.droidtv.consentcmpapp",
+     "note": "TP Vision ad-consent (CMP) screen"
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "disclaimer popup"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3: background extras",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "runs once at first setup"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "no calendar app on a TV"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 4: by owner's choice (not used)",
+   "apps": [
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV films/shop app"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in, ~75 MB resident"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 5",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "stock home. Disable only after the new launcher is installed (build-and-install.sh with STOCK_LAUNCHER does this). setupwraith goes first: its RecoveryActivity (HOME priority 1) otherwise takes Home. Check `dumpsys wifi | grep -o 'cname=[^ ]*'` first; on this TV it owned only an old, unused network."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 17
+}

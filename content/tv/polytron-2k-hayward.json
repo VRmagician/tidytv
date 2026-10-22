@@ -1,0 +1,34 @@
+{
+  "name": "Polytron 2K Android TV",
+  "brand": "Polytron",
+  "os": "Android TV 11",
+  "summary": "Polytron 2K Android TV ships with ads, silent installs and telemetry on a low-memory set. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This Polytron set runs a Hisense and CVTE board with about 930 MB of memory. It ships with ads and silent installs, telemetry, and unused system services. A second home claimant, the Google setup helper, also takes the Home button.",
+    "The list was tested on a set. Live TV, the USB media player, the Play Store and Google Play services are kept. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. The phone and TV need to be on the same Wi-Fi, and the TV asks you once to allow debugging."
+  ],
+  "keep": [
+    "Live TV (the MediaTek TV service)",
+    "The USB media player",
+    "The Play Store and Google Play services",
+    "The contacts provider"
+  ],
+  "notes": [
+    "The TV hops between the 2.4 GHz and 5 GHz networks of a dual-band router and gets a new address each time. Reserve one address for it on your router.",
+    "The tested set had these apps removed for the user. This list turns them off instead, with the same effect."
+  ],
+  "faq": [
+    {
+      "q": "Will Live TV and the USB player still work?",
+      "a": "Yes. Both are kept on purpose."
+    },
+    {
+      "q": "Why does the TV keep changing address?",
+      "a": "It hops between the two Wi-Fi bands of a dual-band router. Reserve one address for it on your router."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

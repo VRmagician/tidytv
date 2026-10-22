@@ -1,7 +1,7 @@
 {
  "id": "xiaomi-mitv-mosr4",
  "title": "Xiaomi MiTV-MOSR4 (codename irobot), Google TV / Android 11 (SDK 30), firmware RTM5.220609.003.1585",
- "header": "Xiaomi MiTV-MOSR4 (codename irobot), Google TV / Android 11 (SDK 30), firmware RTM5.220609.003.1585\nMediaTek chipset. Stock launcher: com.google.android.apps.tv.launcherx (NOT com.google.android.tvlauncher).\nLive TV app: com.mitv.livetv, which also owns .input.SelectInputActivity (the HDMI/source switcher).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mosr4/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mosr4/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED for user 0, not uninstalled. Comment out any line you want to keep.\n\nTested: all 27 packages below are disabled on this TV (`pm list packages -d` shows them) with the\nlauncher from launcher/ in place and owning Home. They went off in batches of 3-6, a screenshot was\ntaken after every batch and nothing crashed. Inputs (HDMI 1/2, AV, Live TV) reads correctly, the\nNetflix and SmartTube dock tiles both launch, and mitv.service / overseaservice / livetv stayed up.\nThat is a first-day report, not the few days of living with it that CONTRIBUTING.md asks for, so\ntreat the list as provisional.\n\nHOME on this build: com.gathin.tvhome owns Home only once com.google.android.tungsten.setupwraith is\ndisabled too - on the first run setupwraith/.RecoveryActivity took Home back and the install script's\nrollback re-enabled launcherx. Same story as examples/xiaomi-mitv-moor2.\n\nDO NOT DISABLE on this model, verified with dumpsys on the unit this list was written against:\ncom.mitv.livetv              owns .input.SelectInputActivity - the HDMI/source switcher lives\ninside the Live TV app, so disabling it costs you input switching\nmitv.service                 PERSISTENT; hosts .TvServer, .TvSettingService, remote key handling\ncom.mitv.overseaservice      PERSISTENT; hosts .netflixService (Netflix key on the remote) AND\n.overseaService - nothing here is telemetry, do not disable it\ncom.mediatek.network         network monitor\ncom.mediatek.tvinput         HDMI / tuner input framework\ncom.mediatek.tv.service      core TV service\ncom.mi.bluetooth             remote + Bluetooth pairing\ncom.google.android.tv.remote.service   phone-as-remote pairing\ncom.google.android.apps.mediashell     Chromecast built-in (kept by request)\ncom.google.android.katniss             Google Assistant / voice (kept by request)\ncom.netflix.ninja, org.smarttube.beta, com.live_streaming_tv.online_tv (BitTV)   in use",
+ "header": "Xiaomi MiTV-MOSR4 (codename irobot), Google TV / Android 11 (SDK 30), firmware RTM5.220609.003.1585\nMediaTek chipset. Stock launcher: com.google.android.apps.tv.launcherx (NOT com.google.android.tvlauncher).\nLive TV app: com.mitv.livetv, which also owns .input.SelectInputActivity (the HDMI/source switcher).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mosr4/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mosr4/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED for user 0, not uninstalled. Comment out any line you want to keep.\n\nTested: all 27 packages below are disabled on this TV (`pm list packages -d` shows them) with the\nlauncher from launcher/ in place and owning Home. They went off in batches of 3-6, a screenshot was\ntaken after every batch and nothing crashed. Inputs (HDMI 1/2, AV, Live TV) reads correctly, the\nNetflix and SmartTube dock tiles both launch, and mitv.service / overseaservice / livetv stayed up.\nThat is a first-day report, not the few days of living with it that CONTRIBUTING.md asks for, so\ntreat the list as provisional.\n\nHOME on this build: com.gathin.tvhome owns Home only once com.google.android.tungsten.setupwraith is\ndisabled too - on the first run setupwraith/.RecoveryActivity took Home back and the install script's\nrollback re-enabled launcherx. Same story as examples/xiaomi-mitv-moor2.\n\nSecond unit (EU firmware, same build). Details: docs/devices/xiaomi-mitv-mosr4.md\n- Disable setupwraith BEFORE launcherx. The other order left Home on RecoveryActivity, and a\nreboot there re-ran setup and factory-reset the TV.\n- The setup Wi-Fi belongs to setupwraith: forget it and re-join (reconnecting is not enough).\nThis switched USB debugging off.\n- mitvplus is re-enabled at every boot.\n- Input/Settings/YouTube/Netflix/Prime die (Xiaomi GlobalKeyReceiver crashes, \"process is bad\").\nFix: INPUT_KEY_SERVICE=1 HOME_KEY_SERVICE=1 build-and-install.sh, then theme.sh with config.json.\n\nDO NOT DISABLE on this model, verified with dumpsys on the unit this list was written against:\ncom.mitv.livetv              owns .input.SelectInputActivity - the HDMI/source switcher lives\ninside the Live TV app, so disabling it costs you input switching\nmitv.service                 PERSISTENT; hosts .TvServer, .TvSettingService, remote key handling\ncom.mitv.overseaservice      PERSISTENT; hosts .netflixService (Netflix key on the remote) AND\n.overseaService - nothing here is telemetry, do not disable it\ncom.mediatek.network         network monitor\ncom.mediatek.tvinput         HDMI / tuner input framework\ncom.mediatek.tv.service      core TV service\ncom.mi.bluetooth             remote + Bluetooth pairing\ncom.google.android.tv.remote.service   phone-as-remote pairing\ncom.google.android.apps.mediashell     Chromecast built-in (kept by request)\ncom.google.android.katniss             Google Assistant / voice (kept by request)\ncom.netflix.ninja, org.smarttube.beta, com.live_streaming_tv.online_tv (BitTV)   in use",
  "sections": [
   {
    "title": "Xiaomi telemetry / attribution",
@@ -21,6 +21,10 @@
     {
      "pkg": "com.google.android.partnersetup",
      "note": "Google RLZ attribution pings"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "feedback reporter (second unit)"
     }
    ],
    "optional": [],
@@ -75,13 +79,17 @@
     {
      "pkg": "android.autoinstalls.config.xiaomi.amelie",
      "note": "silent preload installer config"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.manualhelp",
+     "note": "on-screen manual (second unit only)"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "print spooler (second unit)"
     }
    ],
    "optional": [
-    {
-     "pkg": "com.xiaomi.mitv.manualhelp",
-     "note": "not on this model (there is no on-screen manual package)"
-    },
     {
      "pkg": "com.mitv.milinkservice",
      "note": "not on this model"
@@ -124,7 +132,12 @@
      "note": "Galeri"
     }
    ],
-   "optional": [],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient screensaver; set screensaver_components first"
+    }
+   ],
    "note": ""
   },
   {
@@ -160,5 +173,5 @@
  ],
  "kept": [],
  "stock_launcher": "com.google.android.apps.tv.launcherx",
- "count": 24
+ "count": 27
 }

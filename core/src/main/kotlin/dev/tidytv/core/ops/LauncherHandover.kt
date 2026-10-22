@@ -135,10 +135,8 @@ class LauncherHandover(
         // 2. Give it the dock apps. cleanyourtv reads config.json at start (tools/theme.sh);
         // tv-detox takes them as start extras below.
         if (app.dockByConfig) {
-            if (dockApps.isNotEmpty() && Parse.lines(tv.run(Commands.makeConfigDir(ourPkg))).contains("ok")) {
-                tv.push(Commands.dockConfig(dockApps).toByteArray(), Commands.configDir(ourPkg) + "/config.json")
-                tv.run(Commands.writeRevision(ourPkg, clock()))
-            }
+            // Through the launcher's own provider (LauncherLook): a file the shell creates can't be read on Android 14.
+            if (dockApps.isNotEmpty()) LauncherLook(tv, clock).writeDock(dockApps)
             tv.run(Commands.grantLocation(ourPkg)) // shows the Wi-Fi name; harmless if refused
         }
 

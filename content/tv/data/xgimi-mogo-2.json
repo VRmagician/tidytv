@@ -1,0 +1,63 @@
+{
+ "id": "xgimi-mogo-2",
+ "title": "XGIMI MoGo 2 projector (model MoGo, device xgimiapollo, product pokemon), Android TV 11 (SDK 30),",
+ "header": "XGIMI MoGo 2 projector (model MoGo, device xgimiapollo, product pokemon), Android TV 11 (SDK 30),\nbuild RTT0.211222.001 / 2.13.192 release-keys, security patch 2024-06-05.\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/xgimi-mogo-2/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/xgimi-mogo-2/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (not in this list: the launcher script disables it\nand restore.sh brings it back). Applied on a real unit on 2026-10-19/20 and rebooted twice; in daily\nuse for about a day when this was written, so treat it as a short-test list.\n\nNotes:\n- ADB: Developer options -> USB debugging AND Network debugging (both, or port 5555 stays closed).\n- Short list on purpose: only packages found on this firmware and actually disabled are here.\n- The XGIMI hardware and input services were all left enabled (auto keystone, ToF autofocus, HDMI\ninput player, Bluetooth remote, key handling), as on examples/xgimi-horizon-s-pro; see its header.\n- Voice (com.google.android.katniss) is NOT disabled here: the remote's mic button works with it.\n- The Play Store reports the Netflix TV app (com.netflix.ninja) as \"not compatible\" on this model.\nNetflix's regular Android app (com.netflix.mediaclient) installs and runs, browser-style.",
+ "sections": [
+  {
+   "title": "Telemetry, bug reports and feedback",
+   "apps": [
+    {
+     "pkg": "com.xgimi.datareporter",
+     "note": "XGIMI usage reporting"
+    },
+    {
+     "pkg": "com.xgimi.bugreportsender",
+     "note": "XGIMI bug report uploader"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloads",
+   "apps": [
+    {
+     "pkg": "com.ted.android.tv",
+     "note": "TED"
+    },
+    {
+     "pkg": "com.xgimi.doubanfm",
+     "note": "XGIMI music app, speaker-mode screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in; re-enable to cast from phones"
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": "Google phone-to-TV connect service"
+    },
+    {
+     "pkg": "com.xgimi.upgrade",
+     "note": "XGIMI firmware updater; re-enable to receive updates"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 8
+}

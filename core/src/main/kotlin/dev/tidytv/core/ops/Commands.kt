@@ -66,6 +66,48 @@ object Commands {
     fun configDir(pkg: String) = "/sdcard/Android/data/${PackageName.require(pkg)}/files"
     fun makeConfigDir(pkg: String) = "mkdir -p ${configDir(pkg)} && echo ok"
     fun writeRevision(pkg: String, revision: Long) = "printf '%s' '$revision' > ${configDir(pkg)}/theme_revision && echo ok"
+    // Looks for the Apple TV style home screen (see LauncherLook and upstream tools/theme.sh).
+    private val LOOK_FILE = Regex("^(wallpapers/)?[A-Za-z0-9_][A-Za-z0-9_.-]{0,63}$")
+    private fun lookFile(name: String): String { require(LOOK_FILE.matches(name)) { "bad file name" }; return name }
+    fun lookStage(name: String) = "/data/local/tmp/tidytv-look-" + lookFile(name).replace('/', '-')
+
+    /**
+     * Writes a staged file through the launcher's ThemeProvider, so the launcher owns it; falls back to cp.
+     * Android 8 and 9 print "Unsupported operation" for `content write` but exit 0, so that counts as failure.
+     */
+    fun lookPut(pkg: String, name: String): String {
+        val dir = configDir(pkg)
+        val f = lookFile(name)
+        val stage = lookStage(f)
+        val sub = if (f.startsWith("wallpapers/")) "mkdir -p $dir/wallpapers 2>/dev/null; " else ""
+        return "${sub}rm -f $dir/$f 2>/dev/null; { o=\$(content write --uri content://${PackageName.require(pkg)}.theme/$f < $stage 2>&1) && " +
+            "case \"\$o\" in *'Unsupported operation'*) false ;; esac; } || cp $stage $dir/$f 2>/dev/null; rm -f $stage; echo put"
+    }
+
+    fun lookDelete(pkg: String, name: String) =
+        "rm -f ${configDir(pkg)}/${lookFile(name)} 2>/dev/null; content delete --uri content://${PackageName.require(pkg)}.theme/${lookFile(name)} 2>/dev/null; echo deleted"
+
+    fun lookClearWallpapers(pkg: String): String {
+        val dir = configDir(pkg) + "/wallpapers"
+        return "mkdir -p $dir 2>/dev/null; rm -f $dir/*.jpg $dir/*.jpeg $dir/*.png $dir/*.webp 2>/dev/null; " +
+            "content delete --uri content://${PackageName.require(pkg)}.theme/wallpapers 2>/dev/null; echo cleared"
+    }
+
+    fun lookReadConfig(pkg: String) = "cat ${configDir(pkg)}/config.json 2>/dev/null; echo"
+
+    /**
+     * Restarts the home screen so it rereads its look (upstream tools/theme.sh). A force-stop drops the
+     * app's accessibility services from the enabled list, so the list is put back when it had them.
+     */
+    fun restartLook(pkg: String): String {
+        val p = PackageName.require(pkg)
+        return "a=\$(settings get secure enabled_accessibility_services); am force-stop $p; " +
+            "case \"\$(cmd package resolve-activity --brief $HOME_ARGS | tail -n 1)\" in $p/*) am start $HOME_ARGS >/dev/null ;; *) am start -n $p/.MainActivity >/dev/null ;; esac; " +
+            "case \"\$a\" in *$p*) sleep 1; settings put secure enabled_accessibility_services \"\$a\"; settings put secure accessibility_enabled 1; sleep 1; " +
+            "settings put secure enabled_accessibility_services ''; settings put secure accessibility_enabled 0; sleep 1; " +
+            "settings put secure enabled_accessibility_services \"\$a\"; settings put secure accessibility_enabled 1 ;; esac; echo restarted"
+    }
+
     fun grantLocation(pkg: String) = "pm grant ${PackageName.require(pkg)} android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo granted"
 
     /** config.json for the cleanyourtv home screen: the dock apps in order, everything else default. */

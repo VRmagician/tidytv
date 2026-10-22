@@ -1,0 +1,106 @@
+{
+ "id": "anker-nebula-d2426",
+ "title": "Anker Nebula projector, model D2426 (build name D2426_CapsuleIIIPro, device baekdu, SDMC board,",
+ "header": "Anker Nebula projector, model D2426 (build name D2426_CapsuleIIIPro, device baekdu, SDMC board,\nMediaTek m7632, ~1.7 GB RAM), Android TV 14 (SDK 34), build UKNV.260603.001.\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/anker-nebula-d2426/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/anker-nebula-d2426/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\n\nRe-enabled by the firmware at every boot (checked with one reboot on 2026-10-22): com.cltv.fast and\ncom.google.android.katniss come back as enabled=1. Disabling them again only lasts until the next boot.\nWith the stock launcher gone, the Free TV rows have nowhere to show anyway.\n\nStock launcher: com.google.android.tvlauncher (classic Android TV home, HOME priority 2). The setup wizard\n(setupwraith) does NOT claim HOME on this build, but it owns the Wi-Fi network saved during first setup,\nso it is deliberately not in this list. Wireless debugging is on from the factory and port 5555 was open.\nRemote global keys go to com.mediatek.tv.service, com.zhixin.nebulasmart, com.sdmc.btservice and\ncom.sdmc.projector (dumpsys window policy), none to the stock launcher.\nLauncher config: config.json in this folder (tools/theme.sh examples/anker-nebula-d2426). The installed Netflix\nis the phone app (com.netflix.mediaclient, no TV banner), so it was added to Home through the App library.\nHDMI 1 opens in com.google.android.tv.inputplayer from the Inputs menu; no tuner, so live_tv_package is \"\".\n\nDO NOT DISABLE on this model (projector hardware, inputs, remote):\ncom.mediatek.tvinput                  # HDMI input service\ncom.mediatek.tv.service               # TV service, global remote keys, Netflix key\ncom.google.android.tv.inputplayer     # HDMI passthrough player\ncom.oceanwing.receiver                # remote control, Nebula IME, accessibility, screen control\ncom.zhixin.nebulasmart                # remote events (GLOBAL_BUTTON), accessibility service\ncom.sdmc.btservice                    # Bluetooth remote auto-pairing, speaker\ncom.sdmc.projector                    # projector picture settings, brightness adaptation keys\ncom.sdmc.service                      # SDMC service manager, picture, USB OTA\ncom.oceanwing.nebulalinker            # device info, custom shutdown, eMMC, firmware update dispatch\ncom.zhixin.apphelper                  # McuHelper: package install helper, HTML viewer (purpose partly unclear)\ncom.google.android.tungsten.setupwraith  # owns the Wi-Fi saved during setup\nFactory tools left alone and never opened: com.nebula.factorytest, mediatek.factorymenu.ui, com.sdmc.keyburn",
+ "sections": [
+  {
+   "title": "--- Telemetry and feedback ---",
+   "apps": [
+    {
+     "pkg": "com.zhixin.logservice.nebula",
+     "note": "Nebula log collector/uploader (UPLOAD_LOG, runs at boot)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback"
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": "feedback consent prompt"
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Privacy Sandbox ad services"
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": "federated learning"
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": "on-device ad personalisation"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Content and ad services ---",
+   "apps": [
+    {
+     "pkg": "com.cltv.fast",
+     "note": "Anoki/iWedia \"Free TV\" FAST channels (ad-supported TV input, ACR)"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sdmc",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "RetailDisplay store demo"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Off by owner's choice (comment out to keep) --- Set the screensaver to com.android.dreams.basic/.Colors before disabling backdrop",
+   "apps": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient Mode screensaver"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search (mic button stops working)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Google Play Games"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack screen reader"
+    }
+   ],
+   "optional": [],
+   "note": "settings put secure screensaver_components com.android.dreams.basic/.Colors"
+  },
+  {
+   "title": "--- Stock home screen (only after the new launcher is installed",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "stock Android TV home: sponsored banner, \"Free TV\" and recommendation rows"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock home"
+    },
+    {
+     "pkg": "com.mediatek.android.leanbacklauncher.partnercustomizer",
+     "note": "partner rows/config for the stock home"
+    }
+   ],
+   "optional": [],
+   "note": "launcher/build-and-install.sh) ---"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 17
+}

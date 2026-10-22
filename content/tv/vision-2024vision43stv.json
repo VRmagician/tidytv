@@ -1,0 +1,34 @@
+{
+  "name": "Vision 2024VISION43STV",
+  "brand": "Vision",
+  "os": "Android 13",
+  "summary": "Vision 2024VISION43STV ships with ads and telemetry. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Vision TV runs CVTE's own home screen instead of Google TV, and ships with ads and telemetry, manufacturer content and ad services, and a skinned stock launcher. The list covers those and a few apps off by the tested owner's choice.",
+    "It was tested on one set for a day, and the clean home screen part is only half done. The TV has no Developer options, so the connection comes from a factory menu code on the remote. TidyTV saves a backup first. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The live TV UI: channel keys, number keys and info banner",
+    "The source menu",
+    "The CVTE TV service and DroidLogic input apps",
+    "The factory menu apps"
+  ],
+  "notes": [
+    "Developer options are not reachable. Turn on ADB from the factory menu with the remote, and do not touch factory reset, aging or panel items.",
+    "The build fingerprint is spoofed, so match by board name."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Vision 2024VISION43STV?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "How do I turn on debugging on this TV?",
+      "a": "Switch to a source, then on the remote press MENU 1 1 4 7 quickly, and choose DEBUG, ADB ENABLE, ON. Do not touch the factory reset items in that menu."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Vision 2024VISION43STV?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

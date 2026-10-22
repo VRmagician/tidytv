@@ -1,0 +1,148 @@
+{
+ "id": "ffalcon-65s585c-pro",
+ "title": "FFalcon (雷鸟) 鹤6 PRO 65S585C Pro (China), device tcl_mt5879_cn, MediaTek MT9653 (reported as mt5879),",
+ "header": "FFalcon (雷鸟) 鹤6 PRO 65S585C Pro (China), device tcl_mt5879_cn, MediaTek MT9653 (reported as mt5879),\nAndroid 11 (SDK 30), build RQ3A.210705.001 / 2026012200 (2026-01-22), 3.7 GB RAM, armeabi-v7a only.\nSame platform and the same firmware build as examples/tcl-q10g-pro/; read that list's notes first\n(ADB via 本机信息 + UP DOWN LEFT RIGHT, no third-party launcher, no sideloading).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/ffalcon-65s585c-pro/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/ffalcon-65s585c-pro/debloat.txt com.tcl.cyberui\n\nStock launcher: com.tcl.cyberui, the only HOME handler. Never disable it.\nNothing was disabled at the factory (`pm list packages -d` was empty).\ncom.tcl.bi from the tcl-q10g-pro list is not present on this unit.\n\nDO NOT DISABLE: com.tcl.cyberui, com.tcl.tv, com.tcl.settings, com.tcl.systemserver, com.tcl.ttvs,\ncom.tcl.TFDS.service (persistent factory service), com.sohu.inputmethod.sogou.tv (only keyboard),\ncom.tcl.appmarket2, com.tcl.guard, com.tcl.ui_mediaCenter, com.tcl.autopair (remote pairing),\ncom.tcl.tcl_bt_rcu_service, com.tcl.providers.config, com.tcl.initsetup, com.tvos.\n\nEvery group below is active. To keep a group, comment it out before running disable.sh. The recovery\nrecord keeps the state from before the first run and adds names that join the list later.\n\nTested 2026-10-20 on a real unit, then two full `reboot`s: Home, HDMI inputs and no crash-buffer\nentries, and all packages below stayed disabled.\nWait at least 10 seconds after disable.sh before rebooting: PackageManager writes the new states to\ndisk after a short delay, and a reboot inside that window brings the packages back enabled.",
+ "sections": [
+  {
+   "title": "Ad and telemetry reporting (tested on tcl-q10g-pro, same firmware)",
+   "apps": [
+    {
+     "pkg": "com.tcl.bootadservice",
+     "note": "full-screen ad before Home"
+    },
+    {
+     "pkg": "com.tcl.profilemanager",
+     "note": "audience / profile reporting"
+    },
+    {
+     "pkg": "com.tcl.xian.StartandroidService",
+     "note": "background reporting service"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log collection and upload"
+    },
+    {
+     "pkg": "com.tcl.recognize.service",
+     "note": "screen recognition; silent-install channel"
+    },
+    {
+     "pkg": "com.tcl.appreciate.art",
+     "note": "art-wallpaper / screensaver promo content"
+    },
+    {
+     "pkg": "com.tcl.atomic.servicecenter",
+     "note": "home-screen recommendation cards"
+    },
+    {
+     "pkg": "com.tcl.c2dm.client",
+     "note": "TCL push, long-lived connection"
+    },
+    {
+     "pkg": "com.tcl.wholenetsearch",
+     "note": "whole-net search with VOD promotions"
+    },
+    {
+     "pkg": "com.tcl.playskill",
+     "note": "\"tips\" promo app"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": "repair-guide app"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "user-agreement popup"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "first-boot auto-install of preloaded apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content apps with their own promo surfaces",
+   "apps": [
+    {
+     "pkg": "com.tcl.ffeducation",
+     "note": "kids / education content"
+    },
+    {
+     "pkg": "com.tcl.ffkaraoke",
+     "note": "karaoke"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "OPTIONAL: OTA. Re-enable when you want firmware updates.",
+   "apps": [
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "system OTA and app auto-update"
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "peripheral firmware OTA, ~200 MB resident"
+    },
+    {
+     "pkg": "com.snm.upgrade",
+     "note": "updateos, a second updater (not in tcl-q10g-pro; stayed disabled, updates not checked)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "OPTIONAL",
+   "apps": [
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "account. Re-enable to sign in to a TCL / FFalcon account or VIP."
+  },
+  {
+   "title": "OPTIONAL",
+   "apps": [
+    {
+     "pkg": "com.tcl.walleve",
+     "note": "iFlytek voice engine, ~230 MB resident"
+    }
+   ],
+   "optional": [],
+   "note": "voice. The remote's voice key does nothing afterwards."
+  },
+  {
+   "title": "OPTIONAL",
+   "apps": [
+    {
+     "pkg": "com.tcl.common.weather",
+     "note": "weather widget and its background service"
+    },
+    {
+     "pkg": "com.tcl.tvsmartalbum",
+     "note": "smart photo album"
+    },
+    {
+     "pkg": "com.tcl.weixin",
+     "note": "WeChat on TV"
+    },
+    {
+     "pkg": "com.tcl.videocall",
+     "note": "video calls"
+    }
+   ],
+   "optional": [],
+   "note": "small apps people often do not use (they stayed disabled; the apps themselves weren't tried)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.tcl.cyberui",
+ "count": 24
+}

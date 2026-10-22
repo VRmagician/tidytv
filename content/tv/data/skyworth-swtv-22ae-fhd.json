@@ -1,0 +1,109 @@
+{
+ "id": "skyworth-swtv-22ae-fhd",
+ "title": "Skyworth SWTV-22AE-FHD (codename umeda, MediaTek), Google TV / Android 14 (SDK 34),",
+ "header": "Skyworth SWTV-22AE-FHD (codename umeda, MediaTek), Google TV / Android 14 (SDK 34),\nfirmware UKNV.260211.001.\nLive TV app: com.mediatek.wwtv.tvcenter (set it as live_tv_package and hide it in launcher config.xml).\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh and build-and-install.sh:\nSTOCK_LAUNCHER=com.google.android.apps.tv.launcherx launcher/build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/skyworth-swtv-22ae-fhd/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/skyworth-swtv-22ae-fhd/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nKeep (TV needs them):\ncom.smartdevice.global.service (handles SkwGlobalKeyReceiver, OneKeyMenuDialog, remote keys)\ncom.skyworth.backligthadjust (backlight control)\ncom.smartdevice.bleconnectservice (SkyAutoPair bluetooth remote pairing)\ncom.mediatek.* (LiveTV, tuners, video player services)\ncom.google.android.katniss (Google Assistant - kept per user choice)\ncom.google.android.apps.mediashell (Chromecast built-in - kept per user choice)\ncom.google.android.inputmethod.latin (Gboard on-screen keyboard)",
+ "sections": [
+  {
+   "title": "Skyworth / Coocaa factory test & store demo apps",
+   "apps": [
+    {
+     "pkg": "com.coocaa.demonow.lightining",
+     "note": ""
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.factory",
+     "note": ""
+    },
+    {
+     "pkg": "mediatek.factorymenu.ui",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Skyworth telemetry, ads, recommendation rows",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.aftersale",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.recordactivation",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.dailymanage",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.dailyshortcut",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.recommendation",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.myapp",
+     "note": ""
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google feedback",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "RecoveryActivity claims Home with priority 1. Must be disabled to free Home and prevent crash loops on Google TV 14! Trade-off: disabling setupwraith gives Home back but costs casting (Chromecast built-in may stop working); re-enable it if you need casting."
+  },
+  {
+   "title": "Preloaded / unused apps (user opted out)",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 16
+}

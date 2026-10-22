@@ -1,0 +1,35 @@
+{
+  "name": "TCL 55C815",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 55C815 ships with TCL analytics, content feeds and recommendation rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Danish TCL runs Android TV 11 and ships with TCL analytics, partner app attribution and a Play auto-install stub. The home screen has a TCL Channel content feed, recommendation rows and a recommended apps showcase, and TCL adds a message and promo box and a shop-mode sticker. Google extras and setup helpers are listed too.",
+    "The list is short at eighteen apps. TidyTV turns them off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on. Several TCL system apps are kept on purpose so the remote and Wi-Fi keep working."
+  ],
+  "keep": [
+    "Live TV (the TCL TV app) and the tuner and HDMI service",
+    "The TCL guard system app",
+    "The partner customizer that runs the remote's keys",
+    "User agreement and shop-reset screens",
+    "The setup app, which holds a saved Wi-Fi network"
+  ],
+  "notes": [
+    "Some apps the factory already turned off, such as the UK catch-up apps, are left alone.",
+    "TCL's updater can turn the content feed back on after a restart. Hide it in the launcher too."
+  ],
+  "faq": [
+    {
+      "q": "Will TV updates still work?",
+      "a": "Yes. This list does not turn off TCL's firmware updater."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL content feed, the recommended apps showcase, the message and promo box and the recommendation rows."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}

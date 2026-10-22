@@ -1,0 +1,146 @@
+{
+ "id": "xiaomi-mitv-afmu1",
+ "title": "Xiaomi TV Stick 4K 2nd gen (MiTV-AFMU1, codename twilight, product adastra, Amlogic), Google TV 14 (SDK 34),",
+ "header": "Xiaomi TV Stick 4K 2nd gen (MiTV-AFMU1, codename twilight, product adastra, Amlogic), Google TV 14 (SDK 34),\nfirmware UKG3.250826.001 / V816.0.7.0.UZFAATK. 1.9 GB RAM; /system is full (100%), so nothing frees there.\nFingerprint: Xiaomi/adastra/twilight:14/UKG3.250826.001/V816.0.7.0.UZFAATK:user/release-keys\n\nOne list from two owners (#740 and #749) who reported the same stick: same board, product and firmware.\nEverything below was disabled on at least one of those units; where only one disabled it, or where the two\nchose differently, the line says so. Both ran it for a day, in batches with a reboot in between, so treat\nthe package set as provisional (CONTRIBUTING.md) until it has been used for a few days.\n\nApply:   TV_HOST=<stick ip> tools/disable.sh examples/xiaomi-mitv-afmu1/debloat.txt\nUndo:    TV_HOST=<stick ip> tools/restore.sh examples/xiaomi-mitv-afmu1/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nA streaming stick: no HDMI-in or tuner, so leave live_tv_package empty in config.xml.\nStock launcher: com.google.android.apps.tv.launcherx (build-and-install.sh disables it after Home moves).\n\nNotes from these sticks:\n- Shares the twilight board with the Xiaomi TV Box S 3rd gen (MiTV-AFMU0), but the product is adastra and\nXiaomi's local media apps (mimusic2, mediaexplorer, mitv.gallery) are not installed.\n- setupwraith's RecoveryActivity (HOME priority 1, launcherx priority 2) takes Home once launcherx is off,\nso setupwraith has to go too, and it has to go FIRST. Re-enable setupwraith to re-pair the remote.\n- Disabling setupwraith takes the stick off Wi-Fi if the network was saved during first setup: that network\nbelongs to setupwraith, and Android deletes it with the app. Forget the network and join it again in\nSettings > Network & Internet first; the re-joined network belongs to android.uid.system and survives\ndisabling launcherx and setupwraith.\nCheck before disabling: tools/tv.py \"dumpsys wifi\" | grep -o 'cname=[^ ]*'\n- Already disabled by the firmware before any change (not listed): Netflix, Prime Video, Mi channels\n(michannel, atv), Google calendar sync, partner setup, Talkback, Health Connect controller.\nRemoved for user 0 by the firmware after the first reboot (not listed): YouTube Music and Mi Plus.\n- Wireless debugging (port 41817, TLS) is not supported by tools/tv.py; use USB debugging on port 5555.\nNetwork debugging was off after a reboot on one unit (seen once); re-enable it before running the tools.\n- Keeping on purpose: Google Play Store, Play Services, TV input and remote services, Bluetooth, Droidlogic.\n- Leave alone: com.xiaomi.android.tvsetup.partnercustomizer, mitv.service, com.droidlogic*, and the YouTube\napp (com.google.android.youtube.tv stays enabled on both units).\n\nKept by choice - the two units disagreed here. One kept all of these, the other disabled them and saw no\nproblem; uncomment the ones you are happy to lose. The Assistant line costs voice search, and the four after\nit cost casting (Chromecast, Miracast and Mi Connect; phone casting was not tested on the second unit).\ncom.google.android.katniss            # Google Assistant voice search\ncom.google.android.apps.mediashell    # Chromecast built-in\ncom.xiaomi.mitv.smartshare            # Xiaomi screen share\ncom.xiaomi.wfdsinkhelperservice       # Miracast sink helper\ncom.xiaomi.mi_connect_service         # Mi Connect\ncom.google.android.tv.remote.service  # phone remote\ncom.google.android.apps.tv.dreamx     # Google ambient screensaver (switch to the Clock dream first)\n\nStreaming apps, kept enabled: uncomment the ones you never use (Netflix and Prime Video are already off at\nthe firmware level on this build).\ncom.netflix.ninja\ncom.google.android.youtube.tv        # stays enabled on both units\ncom.amazon.amazonvideo.livingroom",
+ "sections": [
+  {
+   "title": "Telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tvqs.overseas.y24",
+     "note": "Xiaomi quality-stats uploader and quick panel"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ad personalisation (Privacy Sandbox and on-device ad services)",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "one unit only"
+  },
+  {
+   "title": "PatchWall, content rows, promos, auto-installs",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "one unit only; already off at the firmware level on the other"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": "one unit only; already off at the firmware level on the other"
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "one unit only"
+    },
+    {
+     "pkg": "com.mitv.tvhome.oemtab",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "Xiaomi promo web pages"
+    },
+    {
+     "pkg": "android.autoinstalls.config.soc.amlogic",
+     "note": "Amlogic partner auto-installs"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services not needed on a stick",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "one unit only; the firmware removed it for user 0 after the first reboot"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "one unit only; already off at the firmware level on the other"
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": "Mi video player"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "printing"
+    },
+    {
+     "pkg": "com.netflix.tokenmanager",
+     "note": "Netflix sign-in token, Netflix itself is already off"
+    },
+    {
+     "pkg": "com.android.providers.contacts",
+     "note": "contacts, nothing on a TV uses it"
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "kept: firmware updates. One owner disabled it (no updates were offered); uncomment to do the same"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher and setup wizard, replaced by launcher/ (see notes above)",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "build-and-install.sh also disables it, after Home has moved"
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 24
+}

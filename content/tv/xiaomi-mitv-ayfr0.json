@@ -1,0 +1,34 @@
+{
+  "name": "Xiaomi TV Stick 4K",
+  "brand": "Xiaomi",
+  "os": "Android TV 14",
+  "summary": "Xiaomi TV Stick 4K ships with telemetry, attribution and PatchWall rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Xiaomi TV Stick 4K ships with Xiaomi and Google telemetry and attribution, PatchWall content rows, promos and auto-installs. It also has preloaded apps that a stick does not need. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It is a streaming stick with no HDMI-in or tuner. The setup wizard does not claim Home here, so it can stay on and Wi-Fi does not need re-joining. TidyTV saves a backup first and never deletes anything. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The stock Android TV home until a new one is chosen",
+    "The setup wizard",
+    "Remote pairing",
+    "Settings and the Play Store"
+  ],
+  "notes": [
+    "The Xiaomi update service is on the list. Re-enable it to check for firmware updates.",
+    "HDMI-CEC One Touch Play works."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi TV Stick 4K?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "How do I check for firmware updates?",
+      "a": "Switch the Xiaomi update service back on in the app, check for updates, then switch it off again if you like."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi TV Stick 4K?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

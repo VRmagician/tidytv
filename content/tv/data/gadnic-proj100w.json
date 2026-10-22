@@ -1,0 +1,137 @@
+{
+ "id": "gadnic-proj100w",
+ "title": "Gadnic PROJ100W (rebranded Skyworth HP4609-Skyworth, built-in \"4K Google TV Stick\"), Argentina.",
+ "header": "Gadnic PROJ100W (rebranded Skyworth HP4609-Skyworth, built-in \"4K Google TV Stick\"), Argentina.\nmanufacturer SkyworthDigital, device YYT, Amlogic (ro.board.platform HP46B), ~1.9 GB RAM.\nGoogle TV 14 (API 34), build UKG3.250518.001/C3.2.5_20260104. Same stick/chip family as\nexamples/wanbo-x5-pro and examples/byintek-t5-max; this list follows theirs closely.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/gadnic-proj100w/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/gadnic-proj100w/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nWi-Fi/setupwraith gotcha confirmed again on this unit, same as wanbo-x5-pro and byintek-t5-max:\ndumpsys wifi showed cname=com.google.android.tungsten.setupwraith (the network saved at first\nsetup), so disabling it or launcherx first drops Home to setupwraith's RecoveryActivity, which\nrestarts every ~60 ms. Fix: on the projector, Settings > Network & Internet > forget the saved\nWi-Fi network, then rejoin it from there (not from a script) - this re-saves it under\nandroid.uid.system. Only then disable setupwraith and launcherx and set the new launcher's Home.\ndisable.sh's own guard will skip setupwraith automatically while it still owns the network.\nDisabling setupwraith gives Home back but breaks casting (Chromecast built-in); comment out its\nline below if you want to keep casting.\n\nADB notes for this stick: USB debugging never opened port 5555 directly; paired once over\nWireless debugging (stock `adb pair`/`adb connect`), then `adb tcpip 5555` got a plaintext port\ntools/tv.py can use (adb_shell has no STLS/TLS support, and this firmware answers wireless\ndebugging's port in TLS only). `adb tcpip 5555` and the Wireless debugging toggle both reset on\nevery reboot; re-pair (or re-connect if still trusted) each time, then re-run `adb tcpip 5555`.\n\ncom.android.devicelockcontroller exists but pm disable-user is refused on this firmware family\n(confirmed on wanbo-x5-pro too); not attempted here.\n\nDone 2026-10-21, one unit, same session (not lived with for days): this list applied, then the\nDreamOS template installed as Home (dock: YouTube, Netflix, Disney+, Prime Video), screensaver\nswitched to the launcher's clock (`settings put secure screensaver_components\ncom.gathin.tvhome/.ClockDream` - com.google.android.apps.tv.dreamx itself was left enabled,\njust no longer invoked), dock apps compiled with `cmd package compile -m speed -f`, and animation\nscales set to 0.5. Reboot-checked: Home stayed com.gathin.tvhome, Wi-Fi stayed on\nandroid.uid.system. Idle metrics (REBOOT=1 metrics.sh, 150 s settle), same TV: MemAvailable 543 ->\n748 MB, swap used 456 -> 373 MB, CPU idle 281/400 -> 393/400. The debloat batches alone (before\nthe launcher) only moved CPU idle 281 -> 310/400; the launcher and screensaver swap accounted for\nmost of the idle-CPU win, not the debloat.\nOwner's choices: voice assistant unused -> katniss and TalkBack disabled. YouTube, Netflix and\nother streaming apps used -> kept enabled, not touched.",
+ "sections": [
+  {
+   "title": "Telemetry and remote management",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback reporter"
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": "feedback consent screen"
+    },
+    {
+     "pkg": "com.oemservice",
+     "note": "xCPE remote-management agent (boot receiver only)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads and personalization",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Privacy Sandbox ad services"
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory test apps",
+   "apps": [
+    {
+     "pkg": "com.oem.qa",
+     "note": "BoxFactoryTest"
+    },
+    {
+     "pkg": "com.sdt.producttest",
+     "note": "Skyworth product test, key check, USB command handler"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused on a projector stick",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.cameraextensions",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dynsystem",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.hotspot2.osulogin",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice assistant - owner does not use it",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack screen reader, unused"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock home, only for a replacement launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "first-run wizard; owns Wi-Fi saved at setup until rejoined"
+    }
+   ],
+   "optional": [],
+   "note": "Re-enable both before a factory reset or if you stop using a third-party launcher. See the Wi-Fi/setupwraith gotcha above before disabling these."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 20
+}

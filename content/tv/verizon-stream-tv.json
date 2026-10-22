@@ -1,0 +1,34 @@
+{
+  "name": "Verizon Stream TV",
+  "brand": "Verizon",
+  "os": "Android 12",
+  "summary": "Verizon Stream TV ships with telemetry and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This first-generation Verizon streaming box ships with telemetry, preloaded apps and the Verizon home screen. It has HDMI out only and no inputs, so the list focuses on tracking and apps you may not want. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was applied in small batches on 20 October with a screenshot after each, and a custom home screen was installed and the real remote pressed after every batch. It was not lived with for days yet. If something breaks, you can switch an app back on in the app. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Verizon home screen until you pick a new one",
+    "Settings",
+    "Pluto TV, which supplies Live TV channels",
+    "Remote and Bluetooth pairing"
+  ],
+  "notes": [
+    "The box has no HDMI or tuner inputs, so Live TV is empty unless an app such as Pluto TV provides channels.",
+    "It was not lived with for days yet."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Verizon Stream TV?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will Live TV still show channels?",
+      "a": "Only if an app like Pluto TV stays on. With Pluto switched off there are no live channels."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Verizon Stream TV?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

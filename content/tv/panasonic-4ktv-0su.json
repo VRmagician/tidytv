@@ -1,0 +1,34 @@
+{
+  "name": "Panasonic 4KTV-0SU",
+  "brand": "Panasonic",
+  "os": "Android TV 10",
+  "summary": "Panasonic 4KTV-0SU ships with a retail demo, shop promos and sponsored rows. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Panasonic set is built by Skyworth. It ships with a retail demo, shop promos, auto-installs and first-run leftovers, plus Skyworth content, ads and telemetry. The stock home screen showed a sponsored Daily Play row. The list is long, with 36 apps, and the storage was 90 percent full before the change.",
+    "It was checked after one batch with remote keys and screenshots. Stock home, Live TV, HDMI switching and YouTube playback all worked. It had only hours of real use, so treat it as a starting point. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the Inputs menu (Skyworth Live TV and the MediaTek input service)",
+    "HDMI 1 to 3, AV and the tuner",
+    "The setup helper, because it owns the saved Wi-Fi network"
+  ],
+  "notes": [
+    "The setup helper stays on. Switching it off would delete the saved Wi-Fi network and cut the connection.",
+    "USB debugging alone does not open the network port. The separate network debugging switch and a restart did.",
+    "The TV does not answer ping, so a failed ping does not mean it is off."
+  ],
+  "faq": [
+    {
+      "q": "Will Live TV and HDMI still work?",
+      "a": "Yes. Live TV, HDMI switching and the Inputs menu all kept working in testing."
+    },
+    {
+      "q": "Will it stop the sponsored row on the home screen?",
+      "a": "Yes. The sponsored Daily Play row went away in testing."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

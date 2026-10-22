@@ -225,7 +225,8 @@ class LauncherHandoverTest {
     @Test fun styledConfigIsWrittenBeforeTheLauncherStarts() = runTest {
         val tv = FakeTv.googleTv()
         styled(tv).run(apk, listOf("com.netflix.ninja"), sdk = 30)
-        val push = tv.commands.indexOfFirst { it.startsWith("push /sdcard/Android/data/com.gathin.tvhome") }
+        // Written through the launcher's provider, so it owns the file (Android 14 can't read a shell-made one).
+        val push = tv.commands.indexOfFirst { it.contains("content write --uri content://com.gathin.tvhome.theme/config.json") }
         val start = tv.commands.indexOfFirst { it.startsWith("am start -W") }
         assertTrue(push in 0 until start)
     }

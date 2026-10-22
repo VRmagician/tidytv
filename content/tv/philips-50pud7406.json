@@ -1,0 +1,34 @@
+{
+  "name": "Philips 50PUD7406",
+  "brand": "Philips",
+  "os": "Android TV 11",
+  "summary": "Philips 50PUD7406 ships with TPV telemetry, store and demo content and Google promos. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Philips set is made by TPV for Latin America. It ships with TPV and Philips telemetry, Philips content, a store and a demo mode, and Google recommendations, ambient mode and casting extras. The list also covers Google apps this owner does not use and preinstalled streaming apps.",
+    "Remote, Bluetooth, YouTube, Disney+, DirecTV GO and Zapping played normally, and the idle log showed no retry loops. HDMI inputs, antenna and cable channels and firmware updates were not tested yet. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and inputs (the MediaTek TV service)",
+    "The remote and Bluetooth",
+    "Firmware update and TV registration services, until you have checked HDMI, channels and a restart"
+  ],
+  "notes": [
+    "HDMI inputs, the Source key, antenna and cable channels and firmware updates were not tested. Two services are held back until they are.",
+    "The stock screensaver may need to be pointed at a new one before it is switched off.",
+    "The About screen shows a generic name. Check the sticker on the back for your exact model."
+  ],
+  "faq": [
+    {
+      "q": "Will Live TV and HDMI still work on my Philips?",
+      "a": "Live TV and inputs are kept. HDMI and antenna channels were not tested yet, so check them after you apply the list."
+    },
+    {
+      "q": "Will firmware updates still work?",
+      "a": "Two update-related services are held back for now, so updates should keep working."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

@@ -1,0 +1,109 @@
+{
+ "id": "anker-nebula-d2140",
+ "title": "Anker Nebula Cosmos projector, model D2140 (device D2140-Cosmos, SDMC board, Amlogic/droidlogic,",
+ "header": "Anker Nebula Cosmos projector, model D2140 (device D2140-Cosmos, SDMC board, Amlogic/droidlogic,\narmeabi-v7a, 2 GB RAM, 4 GB /data), Android TV 9 (SDK 28), build PI.20240530. Vietnam.\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/anker-nebula-d2140/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/anker-nebula-d2140/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (HOME priority 2, ~190 MB RAM). Only other HOME claimant is\ncom.android.tv.settings/.system.FallbackHome. Default IME is already Gboard.\nRemote global keys (keycodes 2000+) go to com.sdmc.GlobalKey (dumpsys window policy, mKeyMapping).\nHDMI 1 and 2 come from com.droidlogic.tvinput, so the launcher's Inputs pill lists them.\n/data was 90% full (411 MB free) out of the box; `pm trim-caches 999G` frees the app caches.\nNetflix: Play Store says \"not compatible\". The set has no ro.nrdp.* properties, so it is not Netflix\ncertified; the TV app (com.netflix.ninja) does not run. A certified stick on HDMI is the way round it.\n\nDO NOT DISABLE on this model (projector hardware, inputs, remote):\ncom.droidlogic.*                      # SoC services, HDMI inputs, Live TV, subtitles, OTA\ncom.droidlogic.keystone               # keystone (picture shape) correction\ncom.sdmc.GlobalKey                    # remote global keys\ncom.sdmc.bluetoothconnect             # Bluetooth remote pairing wizard\ncom.sdmc.bluetoothspeaker             # Bluetooth speaker mode\ncom.sdmc.oemprovisionservice          # OEM provisioning\ncom.oceanwing.receiver                # remote control, Nebula IME, screen control\ncom.oceanwing.nebulalinker            # Nebula Connect phone app, device info, update dispatch\ncom.oceanwing.ota                     # firmware updates (kept by owner's choice)\ncom.google.android.tungsten.setupwraith  # owns the Wi-Fi saved during setup\nLeft alone, purpose unclear: com.sdmc.leakbackcustomer, com.sdmc.cleardataservice",
+ "sections": [
+  {
+   "title": "--- Telemetry and feedback ---",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Content and ad services ---",
+   "apps": [
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.sdmc",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Preloaded apps ---",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": "found installed as a user app; may not be on every unit"
+    },
+    {
+     "pkg": "com.zhixin.atvchannel",
+     "note": "channel app, found installed as a user app (~200 MB with its data)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Off by owner's choice (comment out to keep) --- Set the launcher's clock screensaver before disabling backdrop",
+   "apps": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient Mode screensaver"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack screen reader"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "text-to-speech; re-enable if the Assistant stops speaking answers"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.contacts",
+     "note": ""
+    },
+    {
+     "pkg": "com.oceanwing.m1testsample",
+     "note": "Nebula factory test app"
+    }
+   ],
+   "optional": [],
+   "note": "settings put secure screensaver_components com.gathin.tvhome/.ClockDream"
+  },
+  {
+   "title": "--- Stock home screen (only after the new launcher is installed",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock home"
+    }
+   ],
+   "optional": [],
+   "note": "launcher/build-and-install.sh) ---"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 16
+}

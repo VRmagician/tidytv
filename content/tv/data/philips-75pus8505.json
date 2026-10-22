@@ -1,0 +1,152 @@
+{
+ "id": "philips-75pus8505",
+ "title": "Philips 75PUS8505/12 (75\" 4K UHD LED, 3-sided Ambilight, \"The One\", 2020 model), Czech Republic",
+ "header": "Philips 75PUS8505/12 (75\" 4K UHD LED, 3-sided Ambilight, \"The One\", 2020 model), Czech Republic\nAndroid TV 12 (API 31), firmware STT2.230526.001, security patch 2025-11-01\nro.product.model=TPM191E  ro.product.device=PH9M_EA_5599\nFingerprint: Philips/PH9M_EA_5599/PH9M_EA_5599:12/STT2.230526.001/4215:user/release-keys\nTP Vision build: MediaTek MT5887, 2 GB RAM, armeabi-v7a only. Vendor packages use the org.droidtv\nprefix. The 2020 sets got this Android 12 firmware (211.x) in 2025; nothing here was checked on\nthe earlier Android 9/10 firmware.\n\nSame board AND firmware build as examples/philips-tpm191e (identical fingerprint), with another\nowner's choices: DLNA stays here because Média binds it; Alexa, the e-sticker, Fitness Buddy and\nApple TV are off; and org.droidtv.fastip goes to DO NOT DISABLE, the SOURCES drawer dies without\nit. Every entry was checked on this TV with dumpsys package and dumpsys activity services. The\norg.droidtv layer is also shared with examples/philips-50pus8517 (PH1M_EA_9970A, Android 11).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/philips-75pus8505/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/philips-75pus8505/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher\nLive TV app:    org.droidtv.playtv\n\nAlready disabled out of the box on a Czech unit, so NOT in this list (restore.sh would turn them\non): Netflix, Prime Video, Play Games, org.droidtv.freeviewplayers and 15 uk.co.freeview.* apps.\n\nLauncher handover, two things that differ from the script's assumptions on this TV:\n1. The first cold start of the freshly installed, not yet compiled launcher takes longer than the\n10 s `am start -W` waits on this 32-bit MT5887, so build-and-install.sh stops with\n\"Status: timeout\" although the launcher came up fine (it was the resumed activity and drew its\nfirst screen). The remaining steps (pm grant, cmd package compile -m speed, set-home-activity)\nwere run by hand. Updating the already installed launcher later started in 2.2 s and the\nscript ran through on its own.\n2. The stock launcher's HOME filter has priority=2, a third-party launcher's always 0, and Android\npicks the higher priority before it looks at the preferred activity. So with the stock launcher\nstill enabled, set-home-activity succeeds and the HOME role moves to com.gathin.tvhome, yet the\nHome key still opens com.google.android.tvlauncher. The new launcher only takes over once the\nstock one is disabled, as note 3 in examples/philips-55oled707 found on the Android 11 board.\n\nAfter each batch: logcat -c, 30 s of an idle TV, logcat -d, then group lines by shape and look\nfor anything repeating several times a second (see quirk 5 in examples/philips-50pus8517). The\nonly loop on this TV before and after is adbd retrying the USB gadget about once a second while\nUSB debugging is on; it is not caused by the debloat.\nA soundbar on HDMI ARC that goes to standby on its own silence timer sends <Set System Audio Mode>\noff and <Terminate ARC>, and the TV shows \"TV reproduktory aktivní\" (TV speakers active). With\nHome on screen and nothing playing that happens during testing too; it is the soundbar, not the\ndebloat.",
+ "sections": [
+  {
+   "title": "TP Vision telemetry",
+   "apps": [
+    {
+     "pkg": "org.droidtv.candeebug",
+     "note": "\"DAC\" analytics uploader, INTERNET, ~40 MB resident"
+    },
+    {
+     "pkg": "org.droidtv.gel",
+     "note": "metrics collector sharing candeebug's process"
+    },
+    {
+     "pkg": "org.droidtv.usagelogger",
+     "note": "\"UsageLogger\": remote keypress logging (LogKeySvc), INTERNET, ~40 MB"
+    }
+   ],
+   "optional": [],
+   "note": "org.droidtv.gel runs inside the candeebug process. 17 TV components bind candeebug's CollectionService (channels, playtv, settings, tptvservice, tvpowermanagerservice, usbbreakin and others); none of them retried after it was disabled. Idle log unchanged, except that the storage monitor's 10-minute pass now logs \"TvStorageCULLogger: Binder NOT available\" once per channel source instead of handing the counts over."
+  },
+  {
+   "title": "Philips content promos and the app gallery",
+   "apps": [
+    {
+     "pkg": "org.droidtv.nettvrecommender",
+     "note": "\"Nejlepší tipy\" (Top Picks) content promotion row, INTERNET, ~35 MB"
+    },
+    {
+     "pkg": "org.droidtv.recommendation",
+     "note": "its headless backend, ~38 MB; disable the row above first"
+    },
+    {
+     "pkg": "org.droidtv.nettv.market",
+     "note": "\"Kolekce Philips TV\" (Philips TV Collection) app storefront, ~34 MB"
+    },
+    {
+     "pkg": "org.droidtv.android.fitness",
+     "note": "Fitness Buddy, a /data app; not running, removes the tile"
+    }
+   ],
+   "optional": [],
+   "note": "Nothing persistent binds these; nettvrecommender is only a client of epgdata, not the other way round. Idle log unchanged afterwards."
+  },
+  {
+   "title": "Retail demo",
+   "apps": [
+    {
+     "pkg": "org.droidtv.sticker",
+     "note": "e-sticker and shop banners, reacts to USB and inactivity events, ~32 MB"
+    },
+    {
+     "pkg": "org.droidtv.demome",
+     "note": "\"Nabídka Ukázky\" (Demo me) shop loop, ~33 MB"
+    }
+   ],
+   "optional": [],
+   "note": "Both run under org.droidtv.eum.* process names (eum.sticker, eum.demome) but are separate packages: org.droidtv.eum itself keeps running and must stay (see below). The persistent tptvservice storage monitor asks demome for the size of its clips every 30 s, and did so before too; with demome disabled it logs \"iDemo null\" at the same 30 s pace instead and its 10-minute pass still completes. The demo clips (~410 MB) stay on disk, disabling does not delete them."
+  },
+  {
+   "title": "Google telemetry and first-setup leftovers",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Market Feedback Agent: crash and feedback reports to Google"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner referrer / attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "runs once at first setup, nothing afterwards"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "Google Calendar sync; no calendar app on this TV"
+    }
+   ],
+   "optional": [],
+   "note": "None was running, so no memory is freed; they just stop starting. Nothing binds them. Idle log unchanged."
+  },
+  {
+   "title": "Voice assistants this owner does not use",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant and voice search, ~110 MB in two processes; kills the remote's mic button and voice search in YouTube and Play Store"
+    },
+    {
+     "pkg": "org.droidtv.amazonalexa",
+     "note": "Alexa bridge, ~33 MB; nothing bound it on this unit"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.phorus.playfi.tv",
+     "note": "\"play-fi\" app and its ProxyService, ~40 MB; re-enabled at boot, see above"
+    }
+   ],
+   "note": "Chromecast (com.google.android.apps.mediashell) is kept: katniss only binds into it as a client, mediashell kept running with the same PID afterwards, and casting from YouTube and a Chrome tab still worked. The default keyboard is Gboard, so typing is unaffected. Idle log unchanged. Disabling katniss makes Android clear secure voice_interaction_service and assistant to \"\", and restore.sh does not put them back; after a restore, either pick the Assistant again in Settings or settings put secure voice_interaction_service com.google.android.katniss/.search.serviceapi.KatnissVoiceInteractionService settings put secure assistant com.google.android.katniss/.search.serviceapi.KatnissVoiceInteractionService"
+  },
+  {
+   "title": "DTS Play-Fi, wireless multi-room speakers",
+   "apps": [
+    {
+     "pkg": "com.phorus.playfi.softap",
+     "note": "soft access point for setting up Play-Fi speakers, ~25 MB"
+    }
+   ],
+   "optional": [],
+   "note": "It holds MODIFY_AUDIO_SETTINGS and may capture audio playback, but nothing in the system binds it and dumpsys audio was identical before and after: output stayed on HDMI ARC (mMainType=0x8) to a soundbar, and sound and remote volume were checked by ear afterwards. Keep both if you own Play-Fi speakers. The app itself does not stay disabled: after the next reboot it was back at enabled=1, with \"AudioOutService: PlayFi Enabled\" logged during boot, as examples/philips-tpm191e and examples/philips-55oled707 also found. So it is commented out; the soft AP stayed disabled."
+  },
+  {
+   "title": "Preinstalled streaming apps this owner does not use",
+   "apps": [
+    {
+     "pkg": "com.apple.atve.androidtv.appletv",
+     "note": "Apple TV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "disabled by launcher/build-and-install.sh (or by hand) once the new launcher has started; ~140 MB resident"
+    }
+   ],
+   "note": "Both are system apps (factory copies in /system/product/app) with a Play Store update in /data, so Settings only offers \"uninstall updates\" and \"disable\"; disabling is enough, /data had 2.8 GB free."
+  },
+  {
+   "title": "Stock launcher and its content engine, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "\"Android TV Core Services\": recommendation rows, notification panel, ~65 MB"
+    }
+   ],
+   "optional": [],
+   "note": "ORDER MATTERS, as on examples/philips-50pus8517: disable the launcher FIRST, it holds a provider reference into tvrecommendations. After disabling tvlauncher, run set-home-activity again (Android drops the preference when the set of HOME apps changes); Home then resolved to com.gathin.tvhome, and both an injected KEYCODE_HOME and the remote's Home key landed there. tvrecommendations also owns the system notification panel, which is gone device-wide afterwards."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 19
+}

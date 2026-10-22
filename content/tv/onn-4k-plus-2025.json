@@ -1,0 +1,35 @@
+{
+  "name": "onn. 4K Plus Streaming (2025)",
+  "brand": "onn.",
+  "os": "Google TV 14",
+  "summary": "onn. 4K Plus Streaming (2025) ships with telemetry, privacy sandbox services and preloads. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This Walmart streaming box ships with telemetry and feedback services, Google Privacy Sandbox and federated learning services, preloaded apps and an ambient screensaver. The list also turns off a few apps off by choice on the tested box. Each app on the list has its own switch in the app, so you decide what goes.",
+    "Because it is a box, there are no HDMI inputs or Live TV to protect. The Google TV remote service is kept so the remote's mic button keeps working. TidyTV turns these off from your phone, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Google TV remote service, which carries the Bluetooth remote's mic",
+    "Voice search with Gemini",
+    "The Google setup helper, until Wi-Fi is checked"
+  ],
+  "notes": [
+    "Switching off the remote service makes the mic button do nothing at all. It stays on.",
+    "The YouTube and Free TV buttons stop working when the stock home screen is off. A key remap can bring them back.",
+    "Disney+ and Paramount+ buttons open the app, and for a switched-off app they may open its Play Store page.",
+    "If Wi-Fi was set up in the first-run wizard, forget it and join it again before the wizard is switched off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my onn. 4K Plus?",
+      "a": "Yes. The remote service that carries the mic is kept, and voice search keeps working with the stock home screen off."
+    },
+    {
+      "q": "Will the YouTube and Free TV buttons still work?",
+      "a": "Not once the stock home screen is off, unless you remap them. The Netflix, Disney+ and Paramount+ buttons open their apps."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

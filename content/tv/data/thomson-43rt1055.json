@@ -1,0 +1,148 @@
+{
+ "id": "thomson-43rt1055",
+ "title": "Thomson 43RT1055 FA Series, India, built by SPPL (ro.product.model \"SPPL 2K ANDROID TV\", product",
+ "header": "Thomson 43RT1055 FA Series, India, built by SPPL (ro.product.model \"SPPL 2K ANDROID TV\", product\nSPPL_2K_RT41, device sauve), Realtek RTD2841A (32-bit ARM), Android TV 14 (API 34), build UKRE.260524.055,\nfingerprint THOMSON/SPPL_2K_RT41/sauve:14/UKRE.260524.055/16101080:user/release-keys.\n1 GB RAM (about 210 MB available on the stock Home), 1080p panel drawn at 1280x720, density 213.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/thomson-43rt1055/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/thomson-43rt1055/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (plain Android TV, not Google TV; restore.sh and\nbuild-and-install.sh defaults work). The only other HOME claimants are com.realtek.systemservice's and\ncom.android.tv.settings' FallbackHome; setupwraith is installed but does not claim HOME, so no handover trap.\nLive TV app: com.realtek.tv (TvActivity has a leanback entry). HDMI 1-3 and AV come from\ncom.realtek.tv.passthrough, the tuners from com.realtek.dtv (Cable, Antenna) and com.realtek.tv.atv.\nlauncher/ config: config.json here (live_tv_package com.realtek.tv, its tile hidden).\nRemote: infrared (input device IR_HKIR), no Bluetooth remote bonded. Sideloading works: pm install accepts\na third-party APK that declares HOME.\n\nApplied and checked on a real unit on 2026-10-21, in small batches with a screenshot after each: Live TV,\nHDMI and AV still switch, YouTube plays, and with launcher/ installed the real remote's Home, Input,\nSettings, app buttons and mic work. A reboot afterwards re-enabled none of the packages below.\n\nKept on purpose, do not disable:\n- com.realtek.tv, com.realtek.tv.passthrough, com.realtek.dtv, com.realtek.dtmb, com.realtek.tv.atv,\ncom.realtek.tv.isdb, com.realtek.tv.atsc, com.android.providers.tv: Live TV, HDMI, AV and the tuners.\n- com.realtek.menu, com.realtek.slices, com.realtek.globalkeyhandler: the source menu and the remote's\nInput and Settings keys (on Input, globalkeyhandler opens com.realtek.tv/.SelectInputActivity).\n- com.realtek.systemservice, com.realtek.power, com.realtek.energymode, com.realtek.display.monitor.\n- com.realtek.connecteddevices: the Bluetooth \"Connected devices\" settings page.\n- com.android.bluetooth, com.google.android.tv.googletvremotepairer (and its customizationsample).\n- com.google.android.tv.remote.service: despite the name it holds AtvSearchAssistantService, which the\nmic button needs here too (as on tcl-c755-google-tv). Disabled, pressing the mic logged \"Unable to start\nservice ... AtvSearchAssistantService\" and nothing happened; re-enabling it brought voice search back.\n- Factory packages, never launched: com.hk.factorymenu (HikeenFactory), com.factory.factoryautomation\n(HikeenAutoTest).\n- com.realtek.mdnsoffload, com.android.tv.mdnsoffloadmanager, com.realtek.media.notification (codec notices).\n\nAlready disabled from the factory (stays disabled on restore): com.android.tv (an empty RtkLiveTv stub).\n\nQuirks on this firmware:\n- The apex packages below (adservices, ondevicepersonalization, federatedcompute) accepted pm disable-user.\n- TvInputManager reports every HDMI port as connected-standby (state 1) with or without a cable, so the\nlauncher shows no HDMI status; AV reports \"No device\" correctly.\n- launcher/'s Inputs menu switches HDMI and AV, but its Live TV row only reopens com.realtek.tv on the last\ninput while no channels are scanned: the TV app ignores the tuner's passthrough URI. The stock source\npicker (remote's Input key, then Antenna) opens the DVB channel scan instead.\n- Network ADB on port 5555 comes back by itself after a reboot while debugging is on: switch debugging off\nin Developer options and reboot to close it.",
+ "sections": [
+  {
+   "title": "Telemetry and ad services",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.anokiacroptin",
+     "note": "automatic content recognition (Anoki ACR)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content, promos and partner installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.rplus.device",
+     "note": "Play auto-installs of partner apps"
+    },
+    {
+     "pkg": "com.vewd.core.service",
+     "note": "Vewd HbbTV/operator-app engine and minidump uploader; India has no HbbTV"
+    },
+    {
+     "pkg": "com.realtek.retailmode",
+     "note": "store demo"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services",
+   "apps": [
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice on this unit (comment out what you use)",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.recisio.kfandroid",
+     "note": "KaraFun"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV (Play Movies)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.rtk.mediabrowser",
+     "note": "Media Player for USB drives"
+    },
+    {
+     "pkg": "com.cltv.fast",
+     "note": "Anoki \"TV\" free ad-supported channels; registers its own TV input"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.realsil.ota",
+     "note": "firmware updater for Bluetooth remotes; this remote is infrared"
+    },
+    {
+     "pkg": "com.google.android.tv.dfuservice",
+     "note": "remote firmware updates and Find my remote"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient screensaver, 58 MB while idle; pick another screensaver first"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "voice search and the mic button - kept"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "KEEP while voice search is used: the mic needs it (see header)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher and its partner rows",
+   "apps": [
+    {
+     "pkg": "com.realtek.leanbacklauncher.partnercustomizer",
+     "note": "only feeds tvlauncher's rows and Inputs button"
+    },
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Do this LAST, after launcher/ is installed and set as Home."
+  }
+ ],
+ "kept": [
+  "com.realtek.tv, com.realtek.tv.passthrough, com.realtek.dtv, com.realtek.dtmb, com.realtek.tv.atv,"
+ ],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 23
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Sony BRAVIA KD-43X80L",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Sony BRAVIA KD-43X80L ships with an ACR viewing tracker, ads and shop mode. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 2023 Sony set runs Google TV on Android 12. It ships with a viewing tracker that identifies what is on screen, telemetry, Sony content, ads and recommendations, and retail demo and shop mode. The list also covers hotel and business mode and Sony cloud and ambient services.",
+    "It was tested and lived with on a KD-43X80L. HDMI 1 to 4, eARC, the tuner, the remote and streaming apps such as Max and VLC all worked across restarts. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Sony input, Bravia Sync, tuner and system services",
+    "Firmware updates",
+    "The Sony settings apps",
+    "The MediaTek services behind Live TV and HDMI"
+  ],
+  "notes": [
+    "Switching off the Google TV setup wizard gives Home back, but it can break Chromecast built in. Leave that line on if you cast.",
+    "The voice assistant group removes the remote's mic search. Leave those three lines on if you use voice."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony KD-43X80L?",
+      "a": "Not if you apply the voice assistant group. Leave those three apps on to keep mic search."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes, unless you switch off the setup wizard, which can break Chromecast built in. Leave it on if you cast."
+    },
+    {
+      "q": "Will HDMI and Live TV still work?",
+      "a": "Yes. HDMI 1 to 4, eARC and the tuner worked across restarts in testing."
+    }
+  ]
+}

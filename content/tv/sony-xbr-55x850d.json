@@ -1,0 +1,36 @@
+{
+  "name": "Sony BRAVIA XBR-55X850D",
+  "brand": "Sony",
+  "os": "Android TV 8.0",
+  "summary": "Sony BRAVIA XBR-55X850D has a viewing tracker, Sony promo rows and device agents. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Sony runs Android TV 8.0 and ships with Samba TV, which recognises what is on screen. It also carries Sony and Google content rows, promotions and partner app installs, plus device agents for remote support and feedback. A few help, manual and media apps are listed too, marked to keep if you use them.",
+    "This is a short-term owner test, with a Roku supplying streaming. TidyTV turns the listed apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. Chromecast, DLNA, mirroring, the phone remote and Assistant were left on."
+  ],
+  "keep": [
+    "Live TV and HDMI playback app",
+    "Sony TV input providers and HDMI-CEC (BRAVIA Sync)",
+    "Remote pairing and the keyboard",
+    "Google services and the Play Store",
+    "Firmware updater, recovery and boot monitor",
+    "Chromecast, DLNA, mirroring, the phone remote and Assistant"
+  ],
+  "notes": [
+    "The TV's developer options call the switch ADB debugging.",
+    "This is a short test from one owner, not a long-term report."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony XBR-55X850D?",
+      "a": "Yes. Google Assistant was left on."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, DLNA and mirroring were left enabled."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the Sony and Google content rows and promotions, and the partner app installs. A clean replacement home screen is optional."
+    }
+  ]
+}

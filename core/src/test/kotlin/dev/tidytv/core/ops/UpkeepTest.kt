@@ -27,6 +27,15 @@ class UpkeepTest {
         assertEquals(3, r.stillOff)
     }
 
+    @Test fun theOldLauncherIsNotCountedAsAnAppStillOff() = runTest {
+        val (tv, log) = tidied()
+        // The home-screen switch turned the stock launcher off, as LauncherHandover does.
+        log.append(ActionRecord(2L, Op.DISABLE, Launchers.LAUNCHERX, Phase.DONE))
+        tv.run(Commands.disable(Launchers.LAUNCHERX))
+        val r = TvCheck(tv, log).run(bloat, installedAtBackup = tv.installed.toSet())
+        assertEquals("same count as the hub and Done screens", 3, r.stillOff)
+    }
+
     @Test fun firmwareUpdateTurningAppsBackOnIsFound() = runTest {
         val (tv, log) = tidied()
         val before = tv.installed.toSet()

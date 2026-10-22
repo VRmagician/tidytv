@@ -1,0 +1,130 @@
+{
+ "id": "dialog-viu-sei103dl",
+ "title": "Dialog ViU (SEI Robotics SEI103DL, device SEI103, Amlogic, NES operator middleware), Sri Lanka",
+ "header": "Dialog ViU (SEI Robotics SEI103DL, device SEI103, Amlogic, NES operator middleware), Sri Lanka\nAndroid TV 9 (SDK 28), build PI.4348, security patch 2023-09-05. 1 GB RAM, 720p. HDMI out only, no inputs.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/dialog-viu-sei103dl/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/dialog-viu-sei103dl/debloat.txt com.dialog.tv\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\nTested on one box the same day, including a reboot; not a multi-day soak.\n\nStock launcher: com.dialog.tv, which is also Dialog's IPTV and Catch-up app; disabling it removes Dialog's channels.\nThe installer does not know it, so install the launcher first with STOCK_LAUNCHER=none HOME_KEY_SERVICE=1, then apply\nthe last line. Dialog Play from Play Store (com.dialog.app.atv) is marked incompatible with this box and cannot replace it.\nHome claimants: com.dialog.tv and FallbackHome only; setupwraith and leanbacklauncher do not claim Home here, and the saved\nWi-Fi network belongs to the system uid, so both are left alone.\nYouTube, Prime Video or the preloads below may already be disabled on a box; `pm enable <package>` brings one back.\n\nNotes from this firmware:\n- USB debugging alone opens port 5555; ro.adb.secure=1, so each computer is accepted on screen. Sideloading works.\n- The Bluetooth remote's shortcut buttons are NES global keys from com.nes.tvglobalkeyhandler: Apps 5116, Prime Video 5119,\nCatch-up 5122 (it opens com.dialog.tv, so it does nothing once that is disabled). They reach the launcher's\nHomeKeyService, so `app_keys` can remap them, e.g. \"app_keys\": [\"5122:<package>\"]. Home is a normal HOME key.\n- Disabling the boot advertisement group restarts com.dialog.tv once; it comes back on its own.\n- AdGuard Private DNS (dns.adguard-dns.com) works.\n\nKept on purpose: com.nes.blerc (Bluetooth remote and pairing), com.nes.tvglobalkeyhandler (remote shortcut keys),\ncom.nes.daemonservice, com.nes.leanbacklauncher.partnercustomizer, com.droidlogic.* (Amlogic settings and overlays),\ncom.google.android.tungsten.setupwraith, com.google.android.inputmethod.latin (keyboard), Play Store, Play Services, Bluetooth.",
+ "sections": [
+  {
+   "title": "Telemetry and operator remote management",
+   "apps": [
+    {
+     "pkg": "com.nes.tvbugtracker",
+     "note": "NES bug tracker, starts at boot"
+    },
+    {
+     "pkg": "com.nes.tr069",
+     "note": "Dialog TR-069 remote management and statistics"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Boot advertisements, silent installs, recommendation services",
+   "apps": [
+    {
+     "pkg": "com.nes.skywayclient",
+     "note": "NES Skyway: boot ads, silent installs; likely OTA too, re-enable for updates"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sei",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory and phone leftovers",
+   "apps": [
+    {
+     "pkg": "com.utsmta.app",
+     "note": "NES factory test app (USB receiver)"
+    },
+    {
+     "pkg": "com.android.smspush",
+     "note": "WAP push manager, no SMS on a TV box"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "com.android.camera2",
+     "note": "Camera, no camera on this box"
+    },
+    {
+     "pkg": "com.android.gallery3d",
+     "note": "Gallery"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google voice search; the Voice button does nothing without it"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "offline speech engine for voice search"
+    },
+    {
+     "pkg": "com.nes.remoteota.six",
+     "note": "Bluetooth remote firmware updater (Nanosic); pairing stays in com.nes.blerc"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver; pick another one in Settings first, or the box has none"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock home",
+   "apps": [
+    {
+     "pkg": "com.dialog.tv",
+     "note": "Dialog home, IPTV and Catch-up; keep it if you watch Dialog's channels"
+    }
+   ],
+   "optional": [],
+   "note": "Disable only after the new launcher is installed and set as home."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.dialog.tv",
+ "count": 16
+}

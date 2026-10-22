@@ -1,0 +1,69 @@
+{
+ "id": "hisense-smarttv-4k-ffm-android11",
+ "title": "Hisense SmartTV 4K FFM (device songshan, product songshan_emH_FFM, board m7632, MediaTek),",
+ "header": "Hisense SmartTV 4K FFM (device songshan, product songshan_emH_FFM, board m7632, MediaTek),\nAndroid 11 / SDK 30, firmware RTT2.220118.001 / 01.00.05.04. The Android model string is\n\"SmartTV 4K FFM\".\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/hisense-smarttv-4k-ffm-android11/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/hisense-smarttv-4k-ffm-android11/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED with pm disable-user, never uninstalled.\n\nAndroid 11 sibling of examples/hisense-smarttv-4k-ffm/ (Android TV 10, device huangshan): same model\nstring, different board and firmware and a different package set (no evservice, no hotel mode, no\ntvrecommendations here). Applied in two batches with a reboot after; no crashes, normal boot.\n\nWARNING, shared with the huangshan FFM list: never disable com.hisense.tv.smartsense,\ncom.vt.tv.smartsense.ui or com.vt.tv.aiot. A version of the huangshan list that did sent the set to\nAndroid Recovery on the next boot (\"Can't load Android system\"). They are kept out below.\n\nKeep: com.mediatek.* (including com.mediatek.wwtv.tvcenter, the Live TV and HDMI app),\ncom.hisense.tv.hitvinput and com.mediatek.tv.service (they serve TvInputService and ask for\nTV_INPUT_HARDWARE, so the HDMI/AV/tuner inputs depend on them), com.hisense.tv.smartservice,\ncom.hisense.tv.customerlauncher, com.vt.tv.input, com.hisense.tv.protector.\nStock launcher: com.google.android.apps.tv.launcherx (the Google TV home). It is disabled by the\nlauncher install, not by this list; pass it to tools/restore.sh as the stock launcher.\nAlready disabled at the factory on this set: YouTube Music, Google TV Movies, Feedback, Play Games,\nHiBrowser, TalkBack, TTS, mediashell, basic dreams, calendar/contacts providers, Kika keyboard.\nLeft ON by choice here (deliberately not in this list): all streaming apps, voice assistant\n(katniss / tv.assistant / hisense.alexa), casting and mirroring, and the firmware updaters\n(hisense.tv.ota, hisense.remoteupgrade, vt.tv.usbota).",
+ "sections": [
+  {
+   "title": "Retail / store demo",
+   "apps": [
+    {
+     "pkg": "com.hisense.storemode",
+     "note": ""
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "First-time experience (setup already complete)",
+   "apps": [
+    {
+     "pkg": "com.hisense.fte",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google partner auto-install stub (silent partner app installs)",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "On-screen disclaimer app (removed from the app grid)",
+   "apps": [
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Its RecoveryActivity claims HOME and beats the new launcher once com.google.android.apps.tv.launcherx is disabled, so it has to go for a launcher swap. It also owns a saved Wi-Fi network, so check first: `dumpsys wifi | grep -o 'cname=[^ ]*'`. If the network the TV is actually connected to belongs to setupwraith, forget and re-join it in Settings before running this, or the disable deletes that network and takes the TV off Wi-Fi and ADB. On this set only an unused saved network belonged to it (the active one was owned by android.uid.system), so it was safe. Needs FORCE_SETUPWRAITH=1 to pass disable.sh's Wi-Fi guard."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 6
+}

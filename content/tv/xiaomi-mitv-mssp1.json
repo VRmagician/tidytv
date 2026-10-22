@@ -1,0 +1,32 @@
+{
+  "name": "Xiaomi MiTV-MSSP1",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Xiaomi MiTV-MSSP1 ships with Xiaomi telemetry and PatchWall add-ons. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Xiaomi TV ships with telemetry, PatchWall and Xiaomi content add-ons, and stock-home recommendation feeds. The list is short, only 8 apps. Each app has its own switch in the app, so you decide which ones to turn off. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "The new home screen survived a reboot and the owner confirmed streaming playback works. All eight apps stayed off, and none had to be switched back on. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI and tuner service",
+    "Firmware updates",
+    "Google Assistant and Chromecast",
+    "USB media",
+    "The Play Store and Play Services"
+  ],
+  "notes": [],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi MiTV-MSSP1?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will casting and voice still work?",
+      "a": "Yes. Google Assistant and Chromecast are kept on this list."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi MiTV-MSSP1?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "TCL 55EP640",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 55EP640 ships with TCL analytics, pushed content, gift box promos and voice helpers. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This Greek TCL runs Android TV 11 and ships with TCL analytics, home screen recommendation rows, partner app attribution and a partner app auto installer. TCL also pushes content to the home screen at boot, has a TCL Channel web feed, pushed messages and promos, a retail demo sticker and a TCL IoT dashboard with gift box promos.",
+    "The list was applied in five batches with a screenshot after each, then rebooted once: nothing came back on. The Inputs menu, Wi-Fi and every remote button worked. TidyTV saves a backup first and never deletes anything, so each app can be switched back on."
+  ],
+  "keep": [
+    "Live TV (the TCL TV app)",
+    "Tuner and HDMI (the TCL input service)",
+    "The setup app, which holds a saved Wi-Fi network",
+    "Settings and the remote's buttons"
+  ],
+  "notes": [
+    "Several music and utility apps are off by choice. Switch back on any you use.",
+    "Install a replacement home screen first before the stock one is turned off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55EP640?",
+      "a": "Not with the default list. It turns off Google Assistant, voice search, the TCL voice service and the microphone manager. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL content pushes, web content feed, messages and promos, recommendation rows and the gift box dashboard."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}

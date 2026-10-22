@@ -1,0 +1,33 @@
+{
+  "name": "Hisense E5Q Pro",
+  "brand": "Hisense",
+  "os": "VIDAA on Android 11",
+  "summary": "Hisense E5Q Pro ships with ads, telemetry and push messages. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This China-market Hisense E5Q Pro runs VIDAA on Android 11. It ships with Hisense advertising, telemetry, push messages, store, hotel and demo modes, preloaded content and gimmicks, a first-run setup and a screensaver of ambient photos. The list has 18 apps.",
+    "It was applied and used for a few days with no crashes and a normal boot. The inputs, HDMI-CEC and the Sogou keyboard kept working. The VIDAA home screen is left alone. TidyTV turns the rest off over Wi-Fi with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The VIDAA home screen and the tuner app",
+    "Firmware update services",
+    "The Sogou TV keyboard",
+    "HDMI inputs and HDMI-CEC"
+  ],
+  "notes": [
+    "There is an optional setting that blocks ads, which the list's header mentions as a bonus. It is not an app."
+  ],
+  "faq": [
+    {
+      "q": "Will the VIDAA home screen change?",
+      "a": "No. This list keeps the stock home screen and only removes the ad, telemetry, push and preloaded layer on top of it."
+    },
+    {
+      "q": "Will firmware updates still arrive?",
+      "a": "Yes. The update services are kept on purpose."
+    },
+    {
+      "q": "Do HDMI and HDMI-CEC still work?",
+      "a": "Yes. They kept working after a few days of use."
+    }
+  ]
+}

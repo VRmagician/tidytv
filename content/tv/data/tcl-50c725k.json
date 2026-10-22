@@ -1,0 +1,119 @@
+{
+ "id": "tcl-50c725k",
+ "title": "TCL 50C725K (reports as \"Smart TV Pro\", device BeyondTV4, product BeyondTV6, board RTD2851M, Realtek rtd288o), 2 GB RAM",
+ "header": "TCL 50C725K (reports as \"Smart TV Pro\", device BeyondTV4, product BeyondTV6, board RTD2851M, Realtek rtd288o), 2 GB RAM\nAndroid TV 11 (SDK 30) with the older com.google.android.tvlauncher, build RP1A.200622.001, fingerprint\nTCL/BeyondTV6/BeyondTV4:11/RP1A.200622.001/AR10:user/release-keys.\nSame BeyondTV4 device as examples/tcl-65c725 and examples/tcl-55c725 (that one runs launcherx).\nApplied on a real unit on 2026-10-20/21 with launcher/ as Home; the list below survived a reboot.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-50c725k/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-50c725k/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher; launcher/build-and-install.sh disables it, it is not listed.\nLive TV app: com.tcl.tv (kept; set live_tv_package to it in launcher config.xml). Inputs: com.tcl.tvinput (kept).\nNever disable (same platform as examples/tcl-43c645): com.tcl.providers.config com.tcl.initsetup\ncom.tcl.system.server com.tcl.tcl_bt_rcu_service com.tcl.autopair com.tcl.tvinput com.tcl.tv com.tcl.settings\ncom.tcl.inputmethod.international. Also kept: com.tcl.usercenter (TCL account), com.tcl.versionUpdateApp\n(firmware updater), com.tcl.miracast and com.google.android.apps.mediashell (Chromecast), com.tcl.MultiScreenInteraction_TV,\ncom.google.android.backdrop (screensaver), com.google.android.tungsten.setupwraith.\n\nTCL and Google content, ads, promos and telemetry",
+ "sections": [
+  {
+   "title": "Other apps",
+   "apps": [
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels"
+    },
+    {
+     "pkg": "com.tcl.overseasappshow",
+     "note": "promotes apps in the TCL menu"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "store demo sticker"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL notifications"
+    },
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL analytics"
+    },
+    {
+     "pkg": "com.tcl.notereminder",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "silent installs of preloaded apps"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services not needed",
+   "apps": [
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "stock quick-settings panel"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and by-choice extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.browser",
+     "note": "TCL browser; also the biggest of these (~180 MB with data)"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google voice assistant (~175 MB of RAM in use); off by choice"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "accessibility screen reader; off by choice"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "speech engine, only used by TalkBack"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": "streaming apps off by choice"
+    },
+    {
+     "pkg": "au.com.stan.and",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 22
+}

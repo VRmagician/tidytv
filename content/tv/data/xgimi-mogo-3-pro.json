@@ -1,0 +1,135 @@
+{
+ "id": "xgimi-mogo-3-pro",
+ "title": "XGIMI MoGo 3 Pro projector (model G0035, device altai, MediaTek), Google TV / Android 14 (SDK 34),",
+ "header": "XGIMI MoGo 3 Pro projector (model G0035, device altai, MediaTek), Google TV / Android 14 (SDK 34),\nbuild UKNV.260707.001.15802496.\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/xgimi-mogo-3-pro/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/xgimi-mogo-3-pro/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (HOME priority 2), with the setup wizard's\nRecoveryActivity at priority 1, so setupwraith is listed below (see docs/TROUBLESHOOTING.md, Google TV).\nWireless debugging is the way in: pair, then `adb tcpip 5555`. It turns itself off whenever the projector\nrejoins Wi-Fi. Already disabled from the factory: com.google.android.youtube.tvmusic.\n\nLauncher notes (applied and verified on a real unit on 2026-10-19/20):\n- Install with HOME_KEY_SERVICE=1, and put this in config.xml or a theme's config.json:\n\"live_tv_package\": \"\"                    no tuner\n\"settings_key_keycodes\": [83]            the gear button sends KEYCODE_NOTIFICATION\n\"app_keys\": [\"KEYCODE_F4:com.google.android.youtube.tv\",\n\"KEYCODE_F9:com.netflix.ninja\",\n\"KEYCODE_F8:com.amazon.amazonvideo.livingroom\"]\n\"stock_home_redirect\": \"com.google.android.apps.tv.launcherx\"\nXGIMI's xrmservice re-enables the disabled stock launcher on every one of its remote keys\n(docs/TROUBLESHOOTING.md). app_keys takes YouTube (F4), Netflix (F9) and Prime Video (F8) away from it.\nThe programmable button (F5, mute by default), the profile button (F6, whose chooser lived in the stock\nlauncher) and power (F11) still revive it: stock_home_redirect sends its home screen back, and\nre-applying this list disables it again.\n- HDMI 1 opens through com.google.android.tv.inputplayer from the Inputs menu, so no input_action is needed\n(unlike the Horizon S Pro).\n- The default Backdrop screensaver (dreamx) is disabled below: point the screensaver at\ncom.android.dreams.basic/.Colors first, or it has nothing to show.\n- Check who owns the saved Wi-Fi network before setupwraith is disabled (TROUBLESHOOTING, \"drops off Wi-Fi for\ngood\"): on this unit the network set up during first-run setup disappeared and had to be joined again.\n- Screenshots from `screencap -p` start with a vendor log line (\"Init wrapper sys mutex ...\"): strip\neverything before the PNG signature.\n\nDO NOT DISABLE on this model (projector hardware, inputs, mirroring):\ncom.xgimi.autokst                    # auto keystone correction\ncom.xgimi.windowsystem               # keystone/window service\ncom.xgimi.tof                        # ToF autofocus\ncom.xgimi.misckey                    # remote keys, focus/keystone shortcuts\ncom.xgimi.uiconfiguration            # global key receiver, power listener\ncom.xgimi.xrmservice                 # global remote keys, picture/sound adaptation (re-enables the stock launcher, see above)\ncom.xgimi.xgimiservice               # core XGIMI system service\ncom.xgimi.autoinstall                # purpose unclear (PermissionRequestActivity only): kept\ncom.xgimi.overseas.xgimiatvbootwizard  # first-boot wizard\ncom.mediatek.tvinput                 # HDMI input service\ncom.mediatek.tv.service              # TV service, Netflix key receiver\ncom.google.android.tv.inputplayer    # HDMI passthrough player and input switcher\ncom.nbcast.wirelessscreen            # MagiCast: the screen-mirroring receiver (\"Mogo3Pro\" in a phone's list)",
+ "sections": [
+  {
+   "title": "Store demo, factory and test tools",
+   "apps": [
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "RetailDisplay store demo"
+    },
+    {
+     "pkg": "com.xgimi.atvwifiverify",
+     "note": "factory Wi-Fi verification"
+    },
+    {
+     "pkg": "com.xgimi.minitvfactory",
+     "note": "factory menu, file transfer and burn-in services"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.xgimi.bugreportsender",
+     "note": "XGIMI bug report uploader"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard (claims HOME on Google TV 14; re-enable before a factory reset)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google content and preloads",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "Google TV Ambient / Backdrop screensaver"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack (accessibility)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps (off by choice)",
+   "apps": [
+    {
+     "pkg": "air.ITVMobilePlayer",
+     "note": "ITVX"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice, casting, phone remote (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / Gemini voice search"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "assistant LED service"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Google TV phone remote"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "XGIMI extras (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.xgimi.screensaver",
+     "note": "XGIMI Atmosphere screensaver / ambient scenes"
+    },
+    {
+     "pkg": "com.xgimi.ota.accessories",
+     "note": "firmware updates for remote, speaker, curtain"
+    },
+    {
+     "pkg": "com.xgimi.gimiplayer",
+     "note": "local video/photo player"
+    },
+    {
+     "pkg": "com.xgimi.doubanfm",
+     "note": "XGIMI music app, speaker-mode screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 19
+}

@@ -1,0 +1,175 @@
+{
+ "id": "tcl-55c725",
+ "title": "TCL 55C725 (reports as \"Smart TV Pro\", device BeyondTV4, product G03_4K_GB, Realtek rtd288o / R51MT05), 2 GB RAM",
+ "header": "TCL 55C725 (reports as \"Smart TV Pro\", device BeyondTV4, product G03_4K_GB, Realtek rtd288o / R51MT05), 2 GB RAM\nAndroid TV 11 (SDK 30) with the Google TV launcher, build RP1A.200622.001, software V8-R51MT05-LF1V620. Italy.\nSame software family as examples/tcl-43c645 (LF1V652) and the BeyondTV4 of examples/tcl-65c725, which shipped\nthe older com.google.android.tvlauncher; this unit runs launcherx.\nApplied and verified on a real unit on 2026-10-20/21 (Ethernet, Wi-Fi off), with launcher/ as Home and a reboot.\nNotes, remote keycodes and quirks: README.md in this folder.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-55c725/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-55c725/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx; launcher/build-and-install.sh disables it, it is not listed.\nNever disable (from examples/tcl-43c645, same platform): com.tcl.providers.config com.tcl.initsetup\ncom.tcl.system.server com.tcl.tcl_bt_rcu_service com.tcl.autopair com.tcl.tvinput com.tcl.tv com.tcl.settings\ncom.tcl.inputmethod.international. Also kept here: com.tcl.suspension (Quick panel / Input), com.tcl.micmanager,\ncom.google.android.tv.assistant (assistant LED), com.tcl.xian.StartandroidService (device authentication, purpose\nunclear, left alone).",
+ "sections": [
+  {
+   "title": "TCL and Google content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "\"TCL Channel\" content browser"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels"
+    },
+    {
+     "pkg": "com.tcl.overseasappshow",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "store demo sticker"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL analytics"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services not needed",
+   "apps": [
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "org.chromium.webview_shell",
+     "note": "AOSP WebView test browser"
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": "TCL WebView; TV Settings and TCL apps still work without it"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "re-enable to play media from USB drives"
+    },
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "TCL T-Cast (phone casting/remote, Firebase); Chromecast kept"
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV"
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "stock quick-settings panel; the gear key is remapped, see README.md"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode; set screensaver_components first, see README.md"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "TCL firmware updater"
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "screen mirroring"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Google TV phone remote; also carries the remote's mic on other TCL sets"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "console game-mode overlay"
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "\"Listen alone\": TV audio to Bluetooth headphones"
+    }
+   ],
+   "note": "claims Home once launcherx is disabled. On Ethernet there is no Wi-Fi to lose; on Wi-Fi, re-join every network it saved first (README.md, Brazilian unit)."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 28
+}

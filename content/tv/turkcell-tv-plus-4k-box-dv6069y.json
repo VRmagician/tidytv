@@ -1,0 +1,34 @@
+{
+  "name": "Turkcell TV+ 4K Box",
+  "brand": "Turkcell",
+  "os": "Android TV 10",
+  "summary": "Turkcell TV+ 4K Box ships with telemetry, recommendations and operator auto-installs. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This Turkcell operator streaming box is a Google-certified Android TV with a standard home screen. It ships with telemetry, log collection and factory test tools, recommendations, operator customisation and auto-installs, and a few preloaded apps. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was tested on one box the same day, including several reboots. It is a streaming box with no HDMI-in or tuner. Each computer is accepted on screen with a debugging prompt, and sideloading works. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The remote's app buttons, handled by the global key service",
+    "The Play Store and Play Services",
+    "The standard Android TV home screen",
+    "Bluetooth remote pairing"
+  ],
+  "notes": [
+    "Network debugging asks you to allow the connection on screen.",
+    "The remote's YouTube, Play Store and TV+ buttons are handled by one key service."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Turkcell TV+ 4K Box?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the remote's YouTube and TV+ buttons still work?",
+      "a": "Yes. They are handled by a key service that is kept on."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Turkcell TV+ 4K Box?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

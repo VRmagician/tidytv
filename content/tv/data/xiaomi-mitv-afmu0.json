@@ -58,12 +58,7 @@
      "note": ""
     }
    ],
-   "optional": [],
-   "note": ""
-  },
-  {
-   "title": "Personal choice",
-   "apps": [
+   "optional": [
     {
      "pkg": "com.google.android.katniss",
      "note": ""
@@ -71,7 +66,13 @@
     {
      "pkg": "com.google.android.tv.remote.service",
      "note": ""
-    },
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
     {
      "pkg": "com.xiaomi.mitv.smartshare",
      "note": ""
@@ -86,7 +87,7 @@
     }
    ],
    "optional": [],
-   "note": "voice assistant, phone remote, Mi cast/share (the mic button stops working)"
+   "note": "voice assistant, phone remote, Mi cast/share (the mic button stops working) KEPT ON here, measured on firmware V816.0.7.0.UZFAABX on two units: the mic button does NOT come back by re-enabling katniss alone. com.google.android.tv.remote.service, listed below, is the Google TV bridge for the physical remote: with it off, the remote's Bluetooth microphone never reaches the assistant, so the button opens the Assistant and it records silence. Re-enable both (`pm enable com.google.android.katniss`, then `pm enable com.google.android.tv.remote.service`; one package per command) and the mic works. Left commented so check.py does not report drift and re-applying the list does not break it again."
   },
   {
    "title": "Preloaded apps",
@@ -171,5 +172,5 @@
  ],
  "kept": [],
  "stock_launcher": null,
- "count": 27
+ "count": 25
 }

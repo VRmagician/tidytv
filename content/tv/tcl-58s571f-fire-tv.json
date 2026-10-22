@@ -1,0 +1,36 @@
+{
+  "name": "TCL 58S571F Fire TV",
+  "brand": "TCL",
+  "os": "Fire OS 8",
+  "summary": "TCL 58S571F Fire TV ships with ads, content recognition and telemetry. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL Fire TV runs Fire OS 8 and ships with Shop on Fire TV, content recognition that sees what is on screen including HDMI, sponsored rows, autoplaying previews and an advertising ID. It also uploads Wi-Fi and performance metrics and device logs, and carries extras such as an operator app, Luna, News, Gallery and a system status monitor.",
+    "Fire TV keeps Amazon's home screen, so this is a clean-up only. The list was lived with for several reboots, and Netflix, YouTube, Spotify, Stremio, AirPlay from an iPhone and a Mac, and Settings all worked. TidyTV saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Amazon's home screen, which also owns Settings",
+    "Live TV",
+    "AirPlay and Miracast",
+    "Software updates",
+    "The Silk browser and Quick Settings",
+    "Profile picker"
+  ],
+  "notes": [
+    "Alexa voice comes back at every boot, so the list does not include it.",
+    "Two Amazon services are protected, and one telemetry emitter keeps running even when turned off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 58S571F?",
+      "a": "Yes. Alexa voice stays on this list, and it turns itself back on at every boot."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. AirPlay and Miracast are kept and were tested."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off sponsored and recommendation rows, autoplaying previews and the advertising ID. Amazon's home screen itself stays."
+    }
+  ]
+}

@@ -1,0 +1,147 @@
+{
+ "id": "xiaomi-mitv-astr0",
+ "title": "Xiaomi Redmi Smart TV A Pro 55\" 2025 Energy-saving (MiTV-ASTR0, blueplanet, Amlogic",
+ "header": "Xiaomi Redmi Smart TV A Pro 55\" 2025 Energy-saving (MiTV-ASTR0, blueplanet, Amlogic\nAMLT963D4/T5M), China firmware OS3.0.106.0.USTAATV (HyperOS TV 3), Android 14 (SDK 34),\n3 GB RAM. Stock launcher com.mitv.tvhome (PatchWall) - its line at the bottom is\ncommented out by default: on this build the stock launcher was replaced through the\ncom.ts.launcher allowlist trampoline (see the PatchWall block and the device doc)\nbefore disabling it; uncomment that line only together with that setup.\nDisabled and lived with on 2026-10-22; the screensaver-ad package was verified live\n(resumed activity while the ad showed). See docs/devices/xiaomi-mitv-astr0-blueplanet.md\nfor the ad screensaver, the Home allowlist behavior and what must stay enabled.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-astr0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-astr0/debloat.txt com.mitv.tvhome\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- The standby/screensaver ads come from com.xiaomi.mitv.hyper.screensaver: a plain\nActivity with its own downloaded carousel, not a DreamService, so screensaver_enabled=0\ndoes not touch it. com.mitv.screensaver / com.xiaomi.mitv.advertise do not exist here.\n- Keep com.xiaomi.mitv.smartpanel enabled (Menu-button panel: source switcher +\nwireless tiles). Do NOT add it here; disabling it kills the Menu key.\n- ADB over TCP closes on every boot: Settings -> 账号与安全 -> ADB 调试.\n- No idle clock screensaver is possible: the idle timeout path is a hard panel-off\n(suspend), the AOSP dream never renders. Keep screen_off_timeout at 2147483647.",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry / ads / push",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": "TV usage statistics"
+    },
+    {
+     "pkg": "com.xiaomi.tvqs",
+     "note": "quality/performance reporting"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.tvpush.tvpushservice",
+     "note": "push ads/notifications"
+    },
+    {
+     "pkg": "com.mitv.overseaservice",
+     "note": "overseas service partner helper"
+    },
+    {
+     "pkg": "com.miui.hybrid.tv",
+     "note": "hybrid runtime container"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "webview container for promotions"
+    },
+    {
+     "pkg": "com.mitv.shoplugin",
+     "note": "TV Taobao shopping plugin"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.shop",
+     "note": "Xiaomi store"
+    },
+    {
+     "pkg": "com.duokan.videodaily",
+     "note": "short-video promos, bundles the Mi ad SDK"
+    },
+    {
+     "pkg": "com.xiaomi.gamecenter.sdk.service.mibox",
+     "note": "game center SDK"
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ext.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps (WPS cn.wps.moffice_i18n_TV kept at owner request)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.health",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.healthdiagnosis",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.karaoke.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.screenrecorder",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tweather",
+     "note": "weather provider; also feeds the Hyper screensaver"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tv.gallery",
+     "note": "\"Pictorial\" wallpaper app"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Mi Home + cleaner (owner confirmed unused; re-enable tvmanager if XiaoAI \"open app\" goes quiet)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.smarthome.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "cf. MFFU0: XiaoAI app-opening runs through its provider"
+    },
+    {
+     "pkg": "com.mitv.toolhouse",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Screensaver ads (verified",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.hyper.screensaver",
+     "note": "HyperOS screensaver Activity; see device doc"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.mitv.tvhome",
+     "note": ""
+    }
+   ],
+   "note": "resumed activity while the ad carousel showed, own cache)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 26
+}

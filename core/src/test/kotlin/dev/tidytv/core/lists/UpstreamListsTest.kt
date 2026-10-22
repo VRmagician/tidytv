@@ -50,6 +50,32 @@ class UpstreamListsTest {
         }
     }
 
+    @Test fun corePackagesThatCanStopABootAreProtected() {
+        for (p in listOf("com.android.ext.services", "com.google.android.ext.shared", "com.android.modulemetadata",
+            "com.google.android.modulemetadata", "com.android.phone", "com.google.android.overlay.modules.permissioncontroller",
+            "com.android.providers.telephony", "com.android.providers.media.module", "com.android.providers.downloads.ui"))
+            assertTrue(p, Protected.isProtected(p))
+        for (p in listOf("com.android.providers.calendar", "com.android.providers.contacts",
+            "com.android.providers.userdictionary", "com.android.providers.blockednumber"))
+            assertFalse("a TV can live without $p", Protected.isProtected(p))
+        assertTrue(Launchers.isHomeApp("com.cvte.tv.launcher.atv"))
+    }
+
+    @Test fun keptAppsFromUpstreamFixesAreNoLongerOffered() {
+        // Each was in a list we shipped and broke something on that TV (upstream fixes after 2.4).
+        val fixed = mapOf(
+            "nvidia-shield-tv-2019" to "com.google.android.tvrecommendations",
+            "nvidia-shield-tv-pro-2019" to "com.google.android.tvrecommendations",
+            "onn-4k-streaming-box-2023" to "com.google.android.apps.tv.dreamx",
+            "xiaomi-mitv-afmu0" to "com.google.android.tv.remote.service",
+            "xiaomi-tv-a-pro-2026" to "com.google.android.apps.mediashell",
+        )
+        for ((id, pkg) in fixed) {
+            val l = catalog.byId(id)!!
+            assertFalse("$id still offers $pkg", pkg in l.entries.map { it.pkg })
+        }
+    }
+
     @Test fun playServicesAndStoreAreNeverCandidates() {
         for (l in catalog.lists) {
             val all = (l.entries + l.optional).map { it.pkg }.toSet() + setOf("com.google.android.gms", "com.android.vending")

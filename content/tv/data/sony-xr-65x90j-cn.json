@@ -1,0 +1,202 @@
+{
+ "id": "sony-xr-65x90j-cn",
+ "title": "Sony XR-65X90J (2021, BRAVIA_VH2, MediaTek MT5895), China firmware",
+ "header": "Sony XR-65X90J (2021, BRAVIA_VH2, MediaTek MT5895), China firmware\nAndroid 10 (API 29), build BRAVIA_VH2_M_CN-user 10 QTG3.200305.006.S386 675461 release-keys,\nsecurity patch 2024-04-01, armeabi-v7a only, 3 GB RAM. HOME is an owner-supplied third-party\nlauncher (dxidev.sideloadchannel3) on this unit, not the reference launcher.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-xr-65x90j-cn/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-xr-65x90j-cn/debloat.txt com.dangbei.TVHomeLauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nFirst VH2 list on Android 10 (the other BRAVIA_VH2 / VH21 lists are Android 12) and the first\nChina-market VH2 build, so the package set differs from all of them: this firmware has no\ntv.samba.ssm, no com.sony.dtv.promos / sonyselect / sonytab, no com.google.android.feedback and no\nPlay Store, so there is no Sony ACR or recommendation row to remove here. The ad surfaces on a\nChina set are the Dangbei home and store and the preinstalled content apps.\n\nStock Home on this firmware is com.dangbei.TVHomeLauncher (ChinaHome). It is left enabled as the\nfallback, which is why restore.sh is given it rather than com.google.android.tvlauncher. Pass the\nowner's own launcher instead if that is what owns HOME on your unit. Live TV / player:\ncom.sony.dtv.tvx.\nKeep the com.sony.dtv.tvinput.* services, tvapi, sonysystemservice, sonyvendorservice,\nsettingsprovider, systemupdate/update, partnerkeycn (DRM), braviasync*, imeproxy, webapi.core,\nirbservice, devicecontrolservice, homenetwork, searchapp, notificationcenter, HappyCast\n(com.hpplay.happyplay.aw, the only casting path on a set without Google Cast), the Dangbei store\n(com.sony.dangbeimarket) and every com.mediatek.* package: they drive HDMI, the tuner, DRM, CEC,\nthe remote, OTA and casting. None of them is in this list.\n\nChecked on the TV over wired Ethernet with network ADB on 5555:\n- 47 packages are disabled on this set in total. The 13 that were already disabled at the factory\nor by an earlier session (setupwraith, mysony, iot, livingfit, smarthelp, eulaviewer, braviashow,\nsmartmediaapp, b2b.softap, b2b.vendorprotocol, screnmirroring.com, dreams.basic,\nproviders.contacts) are not in this list, so restore.sh leaves them as they were.\n- All 34 below survived `adb reboot` (pm list packages -d still showed them) and none had a process\nagain afterwards, including the PERSISTENT com.sony.dtv.b2b.hotelmode: unlike the X9000H Android\n12 report, system_server did not start it again on this build.\n- MemAvailable went from 1,053,752 kB to 1,092,224 kB without a reboot, and SwapFree from 49,404 kB\n(53 MB already swapped out) to 102,396 kB after the reboot. The processes below measured about\n103 MB of PSS together while they were still running. Most of the RAM on this set belongs to user\napps, not to anything in this list, so expect a smaller win than on a 1.5 GB set.\n- After the reboot HOME still resolved to the owner's launcher, the Home key returned to it, HDMI\n1-4 still enumerated, tvinput / sonysystemservice / tvx / webapi.core / systemupdate were still\nrunning, `logcat -b crash` had no new FATAL entry and a screenshot was a normal 1920x1080 frame.\n- `svc power reboot` is refused on this firmware (PowerManagerService.reboot, SecurityException);\n`adb reboot` works.\n- Applied and reboot-checked on 22 October 2026, not yet lived with for days. If something breaks,\nre-enable it with `pm enable <package>` and please report it.",
+ "sections": [
+  {
+   "title": "telemetry, device agents and remote support",
+   "apps": [
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": "Sony IDD usage-data agent; native iddd keeps running without root"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": "bug report uploader"
+    },
+    {
+     "pkg": "com.sony.dtv.usercontext",
+     "note": "viewing context providers used for recommendations and profiling"
+    },
+    {
+     "pkg": "com.sony.dtv.seeds.auth",
+     "note": "BRAVIA Connect / phone remote-start authorisation"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "help, support and unused Sony surfaces",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help / Support tile"
+    },
+    {
+     "pkg": "com.sony.dtv.customersupport.provider.res",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.helpguidecontents",
+     "note": "built-in help guide contents"
+    },
+    {
+     "pkg": "com.sony.dtv.distancealert",
+     "note": "viewing-distance warning"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "Sony music entry"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "BRAVIA CAM leftovers: this model has no camera",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sensingfusionservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sensingcamera.settings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sensingcamera.fwupdate",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.gestureapp",
+     "note": "BRAVIA CAM gesture control"
+    },
+    {
+     "pkg": "com.sony.dtv.videochatrecord",
+     "note": "BRAVIA CAM video chat recording"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "China promotion / IoT",
+   "apps": [
+    {
+     "pkg": "com.jd.smartservicetwo",
+     "note": "JD SmartService"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "always-running services, off by choice to free memory",
+   "apps": [
+    {
+     "pkg": "com.uei.quicksetsdk.sony",
+     "note": "UEI QuickSet: IR control of set-top boxes and soundbars; HDMI-CEC unaffected"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "commercial / hotel (b2b) packages, none used on a home set",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.b2b.hotelmode",
+     "note": "PERSISTENT, but the process did not return after a reboot here"
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.adminpassword",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.deviceadminsettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.frameworkextension",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.importexport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntime.normal",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntime.privilege",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntimeextension.bpk",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntimeextension.node_16_13_1",
+     "note": "node_20_11_1 on the newer VH21 builds"
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.prosettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.rs232csupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.webappruntimedrm",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "DLNA, off by choice; HappyCast (com.hpplay.happyplay.aw) is the casting path that is kept",
+   "apps": [
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 34
+}

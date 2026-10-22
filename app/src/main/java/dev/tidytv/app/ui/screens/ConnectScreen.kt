@@ -67,12 +67,12 @@ fun ConnectScreen(state: ConnectState, onEvent: (ConnectEvent) -> Unit, onShareL
         }
         is ConnectState.Pairing -> Pairing(state, onEvent)
         is ConnectState.TurnOnDebugging -> Help(
-            "Turn on Network debugging",
+            "Turn on Wireless debugging",
             "${state.tv.title} answered, but debugging over the network is off.",
             listOf(
                 "On the TV: Settings › System › Developer options.",
-                "Turn on Network debugging (some TVs call it ADB over network). Only see Wireless debugging? Turn that on instead.",
-                "Using Ethernet? Wireless debugging stays greyed out until the TV joins Wi-Fi. Turn on Network debugging, or switch the TV to Wi-Fi.",
+                "Turn on Wireless debugging. Some TVs call it Network debugging or ADB over network instead.",
+                "Greyed out? The TV is probably on Ethernet. Turn on the TV's Wi-Fi and join the same network as your phone, then turn on Wireless debugging.",
                 "Come back and tap Try again.",
             ),
             onEvent,

@@ -1,0 +1,131 @@
+{
+ "id": "hisense-e5q-pro",
+ "title": "Hisense E5Q Pro (internal model \"VIDAA_TV\", MediaTek MT9653), VIDAA on Android 11, firmware 02.02.70.01",
+ "header": "Hisense E5Q Pro (internal model \"VIDAA_TV\", MediaTek MT9653), VIDAA on Android 11, firmware 02.02.70.01\nSecurity patch 2022-09-05. China-market set: a VIDAA/Android hybrid with no Google TV launcher,\nso the stock home is com.jamdeo.tv.vod and the tuner app is com.jamdeo.tv.livetv; both are left\nalone here. The VIDAA UI keeps working; this list only removes the ad, telemetry, push and\npreloaded-content layer on top of it.\nSame VIDAA_TV / MT9653 / 02.02.70.01 build as examples/vidda-mt9653/, which goes further (it also\nswaps the launcher); this list is the conservative subset that keeps the stock home.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/hisense-e5q-pro/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/hisense-e5q-pro/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nApplied and lived with for a few days: no crashes, normal boot, and the inputs / HDMI-CEC and the\nSogou TV keyboard kept working. OTA (com.jamdeo.updateservice, com.hisense.usbupgrade,\ncom.hisense.playerupdate) is left enabled on purpose so firmware updates still arrive.\n\nAlso useful on this firmware, as an extra ad-block flag (not a package):\nsettings put global com.hisense.service.ad_block 1",
+ "sections": [
+  {
+   "title": "Hisense advertising",
+   "apps": [
+    {
+     "pkg": "com.hisense.business.ad",
+     "note": "ad SDK"
+    },
+    {
+     "pkg": "com.hisense.service.ad",
+     "note": "ad service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Hisense telemetry and reporting",
+   "apps": [
+    {
+     "pkg": "com.hisense.platformreport",
+     "note": ""
+    },
+    {
+     "pkg": "com.hisense.logupload",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Hisense push messages",
+   "apps": [
+    {
+     "pkg": "com.hisense.service.message",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Store, hotel and demo modes",
+   "apps": [
+    {
+     "pkg": "com.hisense.demonstrate",
+     "note": ""
+    },
+    {
+     "pkg": "com.hisense.hotelmenu",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded content and gimmicks",
+   "apps": [
+    {
+     "pkg": "com.hisense.electronictutorial",
+     "note": "electronic manual"
+    },
+    {
+     "pkg": "com.hisense.ar.baike",
+     "note": "AR encyclopedia"
+    },
+    {
+     "pkg": "com.vision.aibook",
+     "note": "AI picture book"
+    },
+    {
+     "pkg": "com.hisense.tv.foodmanage",
+     "note": "recipe app"
+    },
+    {
+     "pkg": "com.hisense.tv.fitmirror",
+     "note": "fitness mirror"
+    },
+    {
+     "pkg": "com.hisense.tv.videochat.social",
+     "note": "preloaded video chat"
+    },
+    {
+     "pkg": "com.hisense.tv.videoconference",
+     "note": "video conferencing"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "First-run setup and the ambience-photo screensaver",
+   "apps": [
+    {
+     "pkg": "com.jamdeo.tv.fte",
+     "note": ""
+    },
+    {
+     "pkg": "com.vt.ambiencephoto",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Weather and calendar",
+   "apps": [
+    {
+     "pkg": "com.hisense.tv.weather",
+     "note": ""
+    },
+    {
+     "pkg": "com.jamdeo.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 18
+}

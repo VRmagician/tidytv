@@ -1,0 +1,35 @@
+{
+  "name": "Hisense SmartTV 4K FFM (Google TV 12)",
+  "brand": "Hisense",
+  "os": "Google TV 12",
+  "summary": "Hisense SmartTV 4K FFM (Google TV 12) ships with telemetry and demo mode. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Hisense SmartTV 4K FFM from Mongolia runs Google TV 12. It ships with Hisense telemetry, Google tracking and feedback, preloaded apps, store and hotel demo mode, a first-time setup flow and streaming apps that can go. The list has 17 apps in groups.",
+    "It was applied in four batches with a restart and a screenshot after each, with a normal boot and no crashes. The HDMI input, Wi-Fi and the remote's buttons kept working. TidyTV turns these off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Google Assistant",
+    "Casting and mirroring through Chromecast, AirPlay, Miracast and DLNA",
+    "Software updates",
+    "Netflix, YouTube, Spotify and Twitch",
+    "Three Hisense smart services that the TV needs to boot"
+  ],
+  "notes": [
+    "Three Hisense services must never be turned off. Turning them off sent a sister model to Android Recovery.",
+    "The streaming apps and voice group is your choice. Keep the ones you use."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Hisense TV?",
+      "a": "Yes. Google Assistant is kept by choice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, AirPlay, Miracast and DLNA are all kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the Google TV home screen back in one tap."
+    }
+  ]
+}

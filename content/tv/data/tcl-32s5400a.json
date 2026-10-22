@@ -1,0 +1,104 @@
+{
+ "id": "tcl-32s5400a",
+ "title": "TCL 32S5400A (2023, 32\" FHD), unit with SonyLIV/YuppTV preloads: device C06, product C06_2K_GB,",
+ "header": "TCL 32S5400A (2023, 32\" FHD), unit with SonyLIV/YuppTV preloads: device C06, product C06_2K_GB,\nmodel \"Smart TV\". Android TV 11 (SDK 30), build AR2101 / AR14, TCL software V8-T221T05-LF1V005,\nsecurity patch 2022-01-05. MediaTek MT9221 (ro.board.platform mt5867), 1 GB RAM (low_ram=true).\nSame C06_2K_GB platform as the tested tcl-40s5400a list, on older firmware; that list is the\nfuller reference for this platform and explains the HOME-priority and TGuard behaviour.\n\nApply:  TV_HOST=<tv ip> tools/disable.sh examples/tcl-32s5400a/debloat.txt\nUndo:   TV_HOST=<tv ip> tools/restore.sh examples/tcl-32s5400a/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (the default; launcher/build-and-install.sh disables\nit after Home has moved). Live TV app: com.tcl.tv. Inputs: com.tcl.tvinput (2x HDMI, AV, tuner).\n\nDo not disable on this platform (kept; see tcl-40s5400a for the details):\ncom.tcl.tv (Live TV + HDMI), com.tcl.tvinput (HDMI/AV/tuner), com.tcl.tcl_bt_rcu_service\n(Bluetooth remote), com.tcl.system.server (remote-key plumbing), com.tcl.autopair (Bluetooth\nremote pairing), com.tcl.settings (picture/sound), com.tcl.dashboard (TCL HOME tile),\ncom.tcl.messagebox (carries the ttvs receiver), com.tcl.suspension (Quick Panel).\n\nApplied on 2026-10-20 and checked the same day (shorter than CONTRIBUTING.md asks; I will report\nback if anything breaks). The first pass also disabled com.tcl.system.server, com.tcl.autopair,\ncom.tcl.settings, com.tcl.messagebox and com.tcl.dashboard; after comparing with tcl-40s5400a they\nare not in this list, because the first three are remote/pairing/picture-sound plumbing. If an\nearlier guide disabled them on your set, re-enable them:\nfor p in com.tcl.system.server com.tcl.autopair com.tcl.settings com.tcl.messagebox com.tcl.dashboard; do\nTV_HOST=<tv ip> tools/tv.py \"pm enable $p\"; done\n(pm enable takes one package at a time.)\nChecked after the full list: a custom HOME app comes up after a reboot, YouTube opens, HDMI 1/2,\nAV and Live TV switch, Wi-Fi and Settings open, Play Store and Play Services stay enabled.\nNot tested: casting from a phone (the Cast receiver is kept), the physical remote's Input key,\nTCL picture/sound settings and Bluetooth re-pairing.\n\nQuirks on this firmware:\n- Stock tvlauncher declares HOME priority 2, so `cmd package set-home-activity` alone does not\ntake Home while it is enabled. Disable it after the replacement is running.\n- com.tcl.ttvs is the firmware updater, not text-to-speech. It is disabled below to stay on\nV8-T221T05-LF1V005; comment it out if you want OTA updates.\n- screencap writes an empty file while an HDMI input is on screen. Press Home first.\n- com.tcl.usercenter can be switched back on by the system at boot on some C06 units; it stays\nidle, so it is left in the list. Re-check `pm list packages -d` after a reboot.",
+ "sections": [
+  {
+   "title": "TCL account, promos and content",
+   "apps": [
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account; may be re-enabled by the system at boot"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard cleaner/support"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "promo rows on the stock home"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL web-video portal"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "store-demo sticker (already off on this unit)"
+    },
+    {
+     "pkg": "com.tcl.audioplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.imageplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.copydatatotv",
+     "note": "already off on this unit"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google extras",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Regional preloads not used on this unit",
+   "apps": [
+    {
+     "pkg": "com.sonyliv",
+     "note": ""
+    },
+    {
+     "pkg": "com.yupptv.scope.tvapp",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": ""
+    },
+    {
+     "pkg": "au.com.stan.and",
+     "note": ""
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 14
+}

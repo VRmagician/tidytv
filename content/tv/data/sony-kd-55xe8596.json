@@ -1,0 +1,228 @@
+{
+ "id": "sony-kd-55xe8596",
+ "title": "Sony BRAVIA KD-55XE8596 (2017, model string \"BRAVIA 4K GB\", product BRAVIA_ATV2_EU, MediaTek MT5891), UK",
+ "header": "Sony BRAVIA KD-55XE8596 (2017, model string \"BRAVIA 4K GB\", product BRAVIA_ATV2_EU, MediaTek MT5891), UK\nAndroid TV 9 (API 28), firmware Sony/BRAVIA_ATV2_EU/BRAVIA_ATV2:9/PTT1.190515.001.S52/672101:user/release-keys,\nsecurity patch 2022-01-05 (Sony has stopped updating it). 2 GB RAM, about 8 GB /data.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-kd-55xe8596/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-kd-55xe8596/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nSame product and platform as examples/sony-bravia-4k-gb (that list is firmware S54; this one is the older S52\nbuild, on the UK retail model). The package set matches. The difference is in the choices: this owner\nkept Chromecast, mirroring, DLNA, USB media, the Assistant and the phone remote, and also disabled the\nhotel/pro-mode b2b packages, the old leanback launcher and the print spooler.\nApplied 2026-10-19 (most of the list) and 2026-10-20 (Samba TV, agents, feeds). Not lived with for days\nyet, and not yet checked across a reboot. Checked after every batch: Home, Netflix, Jellyfin, live TV\nand the HDMI inputs all still work, and there are no new crashes. Re-enable anything that breaks with `pm enable <package>`.\n\nStock launcher: com.google.android.tvlauncher (restore.sh's default). Its HOME filter has priority 2,\nso `cmd package set-home-activity` reports Success but does nothing until it is disabled.\ncom.google.android.leanbacklauncher is also installed, but it has no HOME activity here.\nLive TV / input app: com.sony.dtv.tvx. Keep it: it plays every HDMI input too. On this UK firmware Live\nTV hands over to YouView (com.sony.dtv.youview + com.sony.dtv.youview.servicehost, Freeview Play),\nwhich has no leanback entry of its own: launch com.sony.dtv.tvx, not youview. Keep both, and keep\ncom.vewd.core.integration.dia (HbbTV / red button). Hide only its \"Internet Browser\" tile.\nKeep: com.sony.dtv.tvinput.*, braviasync* (HDMI-CEC), remotepairing, rcpowerkey, uinputservice,\nimeproxy, sonysystemservice, settingsprovider, all com.mediatek.* and mtktvapi.agent, timers,\nwebapi.core and remoteaccess (Sony IP control, used by Home Assistant's Bravia TV integration).\n\nNotes from this firmware:\n- The launcher works: built from launcher/, installed with `adb install`, and Home switched by hand. Inputs\nlists HDMI 2, HDMI 3/ARC, HDMI 4 and Live TV, with the input labels set in Sony's settings and the CEC\ndevice name in place of the port name, and real per-port \"Connected\" / \"No device\" status. config.xml:\nlive_tv_package com.sony.dtv.tvx; put com.sony.dtv.tvx in dock_apps if you want a TV tile.\n- /data was down to 1.5 GB free, nearly all of it app caches. `pm trim-caches 8G` took it to 2.8 GB, so\nrun it before installing anything.\n- The `uiautomator dump` of a launcher with an animated wallpaper never finishes, so use screencaps there.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony and Google content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app store/promo tile"
+    },
+    {
+     "pkg": "com.sony.dtv.sonyselect.overlay",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": "My BRAVIA promos"
+    },
+    {
+     "pkg": "com.sony.dtv.discovery",
+     "note": "Sony Discover content bar"
+    },
+    {
+     "pkg": "com.sony.dtv.bivlinfo",
+     "note": "BIVL content service list (feeds Discover)"
+    },
+    {
+     "pkg": "com.sony.dtv.tvlaunchercustomizer",
+     "note": "Sony tweaks to the stock home rows"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher; other"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "launchers' Watch Next and channel rows still fill",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demomode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry, remote support and feedback",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony device agent / remote support"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "Node.js SDDP broadcaster for Control4-style home automation;"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Hotel / professional mode (unused in a home; the sony-bravia-4k-gb list leaves these alone)",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.b2b.hotelmode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.prosettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.importexport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.rs232csupport",
+     "note": "RS-232C control; re-enable if something drives the TV over serial"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and leftovers",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.imanual",
+     "note": "i-Manual"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher",
+     "note": "old Android TV launcher, no HOME activity on this build"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "printing, nothing to print to"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": "Help"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthomesettings",
+     "note": "\"Works with Alexa\" setup (Amazon login, runs at boot)"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "Android TV phone-app remote (and Home Assistant's Android TV Remote)"
+    },
+    {
+     "pkg": "com.sony.dtv.smartmediaapp",
+     "note": "Media Player, plays files from USB"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "plays music from USB"
+    },
+    {
+     "pkg": "screnmirroring.com",
+     "note": "Screen mirroring (Miracast)"
+    },
+    {
+     "pkg": "com.sony.dtv.networkapp.wifidirect",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": "DLNA renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 28
+}

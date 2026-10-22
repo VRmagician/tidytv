@@ -1,0 +1,34 @@
+{
+  "name": "TCL / FFalcon MT9655 (China 2026)",
+  "brand": "TCL",
+  "os": "Android 14 (China)",
+  "summary": "TCL / FFalcon MT9655 (China 2026) ships with ad and telemetry reporting. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This China-market TCL, also sold under the FFalcon name, reports ad and telemetry data and carries optional home widgets and content apps. The list covers those, plus a few optional extras you can leave on. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "This model is harder to set up than others. It has no Developer options screen and no Wireless debugging row, because TCL replaced the Settings app. TidyTV needs the TV's own ADB switch, which opens a secure connection on a random port each time. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The TV's own settings app",
+    "Remote pairing and the remote keys",
+    "Live TV and HDMI inputs",
+    "The home screen unless you pick a new one"
+  ],
+  "notes": [
+    "There is no Developer options screen. The only switch is under General Settings, More, ADB, and it picks a new port every time.",
+    "Because of that secure connection, setup may not work with the phone app the same way as on other TVs."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my TCL / FFalcon MT9655?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Can TidyTV connect to this TV?",
+      "a": "Possibly not the usual way. This firmware has no Wireless debugging screen, and its ADB switch opens a secure connection on a random port, so setup is harder than on other models."
+    },
+    {
+      "q": "Does TidyTV delete anything on my TCL / FFalcon MT9655?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "OK. AI PONT",
+  "brand": "OK.",
+  "os": "Android TV 11",
+  "summary": "OK. AI PONT ships with Homwee vendor apps, content recognition and rows of promos. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Changhong-built set ships with a Homwee vendor layer and content recognition from Anoki, which tracks what you watch. The list also covers ad and recommendation rows on the home screen and preloaded vendor apps. It is a low-memory set with about 0.9 GB.",
+    "It was tested on one set, the same day and through two restarts. Every app stayed off. HDMI 1, HDMI 2, AV, Live TV and YouTube and Netflix playback all worked, and so did the remote's Input, Settings and app buttons. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Firmware update services and remote key handling",
+    "Live TV, inputs, remote pairing and picture settings (the MediaTek services)",
+    "The Google connectivity helper",
+    "The factory service"
+  ],
+  "notes": [
+    "The firmware update app crashes at every start. That is a problem in the firmware, not caused by the list.",
+    "The setup helper stays on because it owns the set's saved Wi-Fi network.",
+    "This was tested for one day, not a long soak."
+  ],
+  "faq": [
+    {
+      "q": "Do the remote's buttons still work?",
+      "a": "Yes. The Input, Settings, Netflix, YouTube and Prime Video buttons all kept working in testing."
+    },
+    {
+      "q": "Does the set stop tracking what I watch?",
+      "a": "The list turns off the Anoki content recognition and the Homwee telemetry services."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

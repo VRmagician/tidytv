@@ -1,0 +1,35 @@
+{
+  "name": "Compac ATV R2",
+  "brand": "Compac",
+  "os": "Android TV 9",
+  "summary": "Compac ATV R2 ships with telemetry, content rows and auto-installs. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Compac ATV R2 ships with telemetry and feedback services and content rows with promos that install apps by themselves. It also has background services, duplicate apps and some preloaded apps and casting tools. There are 16 apps on the list. It uses the same platform as the Sanyo ATV R2.",
+    "Google Assistant, FastCast screen sharing, firmware updates, Spotify and YouTube Music are kept. So are the TV inputs, tuner and remote. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Google Assistant",
+    "FastCast screen sharing",
+    "Firmware updates",
+    "Spotify, YouTube Music, Play Movies and Play Games",
+    "The TV inputs and tuner",
+    "The remote and Bluetooth pairing"
+  ],
+  "notes": [
+    "Two apps are left alone because it is unclear what they do. One is an overlay that may be store-demo stickers, the other is a hearing profile app."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Compac ATV R2?",
+      "a": "Yes. Google Assistant is kept."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. The FastCast screen sharing app is kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back in one tap."
+    }
+  ]
+}

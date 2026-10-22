@@ -1,0 +1,35 @@
+{
+  "name": "Sony BRAVIA KD-55XF8096",
+  "brand": "Sony",
+  "os": "Android TV 9",
+  "summary": "Sony BRAVIA KD-55XF8096 ships with an ACR viewing tracker, Sony ads and a retail demo. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 2018 Sony set from Spain runs Android TV 9 and Sony has stopped updating it. It ships with a viewing tracker that identifies what is on screen, Sony and Google content, ads and promos, smart home and voice assistant setup, a retail demo, and hotel and business mode.",
+    "It was applied and checked after a restart on 22 October 2026. Home, live TV, the HDMI inputs, DLNA, the IR remote and the HbbTV red button all kept working. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Sony input, Bravia Sync, remote pairing and tuner services",
+    "Sony IP control for Home Assistant",
+    "The DLNA renderer",
+    "The IR universal remote service",
+    "HbbTV, the red button"
+  ],
+  "notes": [
+    "The stock home screen ignores a new home screen setting until it is switched off.",
+    "One Sony home screen ad app was removed for good on the test set. That is not in this list, since removing it cannot be undone."
+  ],
+  "faq": [
+    {
+      "q": "Will the red button still work?",
+      "a": "Yes. The HbbTV layer is kept, and it worked after a restart."
+    },
+    {
+      "q": "Will DLNA and Home Assistant still work?",
+      "a": "Yes. The DLNA renderer and Sony IP control are both kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

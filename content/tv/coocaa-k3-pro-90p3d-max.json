@@ -1,0 +1,35 @@
+{
+  "name": "Coocaa K3 Pro 90P3D Max",
+  "brand": "Coocaa",
+  "os": "Coocaa OS (Android 11)",
+  "summary": "Coocaa K3 Pro 90P3D Max ships with vendor content and preinstalled apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Skyworth Coocaa K3 Pro runs the China-market Coocaa OS on Android 11. It ships with vendor content and preinstalled apps. The list has 23 apps in two groups and is the first China-market Coocaa list here. It shares nothing with Skyworth's Google TV sets.",
+    "The Coocaa home screen is never turned off, because the TV hangs on its logo and needs a factory reset if it is. TidyTV leaves it on. It turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Coocaa home screen, which the boot depends on",
+    "The TV app and local media",
+    "The TV manager and settings",
+    "The remote"
+  ],
+  "notes": [
+    "Never turn off the Coocaa home screen. Doing so hung the TV on the logo and the remote stopped working, and only a factory reset fixed it.",
+    "This firmware hides Developer options. Debugging comes from a secret factory menu and switches off again at every restart.",
+    "Almost no app shows on the home grid, so the apps need adding by hand."
+  ],
+  "faq": [
+    {
+      "q": "What happens if the Coocaa home screen is turned off?",
+      "a": "The TV hangs on the Coocaa logo and the remote stops working, and only a factory reset fixes it. TidyTV keeps it on."
+    },
+    {
+      "q": "Why does debugging switch itself off?",
+      "a": "This firmware turns it off at every restart. You switch it on again from the factory menu."
+    },
+    {
+      "q": "Can I get everything back if I change my mind?",
+      "a": "Yes. Restore everything turns every app TidyTV turned off back on in one tap."
+    }
+  ]
+}

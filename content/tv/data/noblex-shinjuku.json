@@ -1,0 +1,112 @@
+{
+ "id": "noblex-shinjuku",
+ "title": "Noblex NoblexTV (Skyworth-built, codename shinjuku, MediaTek m5621), Argentina, Android TV 11 (API 30), firmware RTO9.230812.001",
+ "header": "Noblex NoblexTV (Skyworth-built, codename shinjuku, MediaTek m5621), Argentina, Android TV 11 (API 30), firmware RTO9.230812.001\narmeabi-v7a (4x Cortex-A53 @ 1.3 GHz, 32-bit userspace), UI at 1280x720, about 0.9 GB RAM, ro.config.low_ram=true.\nClassic Android TV home, not Google TV: the stock launcher is com.google.android.tvlauncher.\nSame firmware family as examples/panasonic-th-40hs550k (shibuya); this list starts from that one.\n\nStock launcher:  com.google.android.tvlauncher\nLive TV app:     com.mediatek.wwtv.tvcenter  (Live TV and the input panel; keep it)\nNever disable any com.mediatek.* package except testpq: they are the tuner, input and HDMI stack.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/noblex-shinjuku/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/noblex-shinjuku/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nDisabled before this debloat, so not listed (restore.sh would turn them ON):\ncom.google.android.marvin.talkback, com.google.android.videos.\n\nStatus: disabled in three batches on one TV on 2026-10-21, with a Home screenshot after each batch, then\nlauncher/ installed as Home, a reboot and a standby/wake check. Hours of use when submitted, not days:\ntreat it as a starting point.\n\nQuirks on this firmware, all checked on the TV:\n- Disabling com.smartdevice.leanbacklauncher.customizer removes the Inputs and Wi-Fi icons from the stock\nlauncher's top bar (same as partnercustomizer on the Panasonic); irrelevant once launcher/ is home.\n- disable.sh skips com.mediatek.wwtv.mediaplayer (it asks for TV_INPUT_HARDWARE); left on.\n- The remote's power button suspends: waking returns to the app that was on screen. Only a cold boot\n(reboot, power cut) comes up on Live TV (tvcenter resumes the last source).\n- About 0.9 GB of RAM and the cause of the lag when switching apps: after a reboot Netflix (~120 MB),\nMax, YouTube and Play Store start on their own. This list plus launcher/ took MemAvailable from about\n230 MB to about 300 MB; `cmd appops set <pkg> RUN_ANY_IN_BACKGROUND ignore` on the streaming apps took\nit to about 330-360 MB. The apps still open normally; `... allow` undoes it, restore.sh does not.\n- The load average reads ~95 at idle with the CPU 80% idle: about 98 MStar driver threads (DMX_Filt_Task,\nVMon_Task...) sit in D state. Not real load.",
+ "sections": [
+  {
+   "title": "--- Batch 1",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.skyworth",
+     "note": "Play Auto Installs config for preloaded apps"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "Skyworth retail demo service, starts at boot"
+    },
+    {
+     "pkg": "com.smartdevice.common.demonow",
+     "note": "\"Demo Now\" store demo app"
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "disclaimer screen used only by the first-run setup"
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual (E-Manual)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": "Google background data service, starts at boot"
+    },
+    {
+     "pkg": "com.mediatek.testpq",
+     "note": "MediaTek picture-quality test tool, starts at boot"
+    }
+   ],
+   "optional": [],
+   "note": "Skyworth auto-installs, shop demo, setup leftovers, telemetry"
+  },
+  {
+   "title": "--- Batch 2: recommendation rows, voice, ambient screensaver",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": "Skyworth's partner config for the stock launcher"
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search; the mic button stops working"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient photo screensaver; use the launcher's Clock instead"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "--- Batch 3: not used (by choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.mubi",
+     "note": ""
+    },
+    {
+     "pkg": "com.airoha.ble.ota",
+     "note": "\"RC Upgrade\": remote firmware updater; pairing still works"
+    },
+    {
+     "pkg": "com.android.providers.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.mediatek.wwtv.mediaplayer",
+     "note": "USB media player; disable.sh skips it here (asks for TV_INPUT_HARDWARE), kept"
+    },
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "launcher/build-and-install.sh disables it itself, after Home has moved"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 18
+}

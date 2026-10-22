@@ -1,0 +1,36 @@
+{
+  "name": "TCL 55P8LS",
+  "brand": "TCL",
+  "os": "Google TV (Android 12)",
+  "summary": "TCL 55P8LS QD-Mini LED ships with the Samba TV tracker switched on, plus TCL ads. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This Vietnamese TCL QD-Mini LED runs Google TV on Android 12, and nothing was turned off at the factory. Samba TV, which tracks what is on screen, the TCL analytics service and log capture all ship switched on. It also carries TCL content feeds, Live FAST channels, push messages, hotel mode, retail demo apps and a memory cleaner.",
+    "The list was applied in five batches with a screenshot between them, and all 29 apps stayed off after a reboot. A second reboot kept all 32 off. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and HDMI (the TCL TV app)",
+    "The Input picker, remote pairing and keyboard",
+    "AirPlay and Chromecast",
+    "Google Assistant on the mic button",
+    "The USB media player",
+    "Sound settings and accessibility"
+  ],
+  "notes": [
+    "Re-enable the game mode overlay if you play on a console, and the soundbar updater if you update a TCL soundbar.",
+    "Vietnamese tab names on the Google TV home are changed by a TCL app on the list."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55P8LS?",
+      "a": "Yes. Google Assistant on the mic button is kept."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast and AirPlay are kept."
+    },
+    {
+      "q": "Will TV updates still work?",
+      "a": "The analytics service is on the list. Turn it back on in the app if firmware updates stop arriving."
+    }
+  ]
+}

@@ -1,0 +1,35 @@
+{
+  "name": "Dialog ViU (SEI103DL)",
+  "brand": "Dialog",
+  "os": "Android TV 9",
+  "summary": "Dialog ViU (SEI103DL) ships with operator tracking, boot ads and silent installs. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Dialog ViU box from Sri Lanka has operator telemetry and remote management, and ads that play at boot. It also has silent installs, recommendation services, factory and phone leftovers and preloaded apps. It has HDMI out only, no inputs. The list has 16 apps.",
+    "It was tested on one box on one day, including a restart. The stock home screen is also Dialog's own IPTV and catch-up app, so turning it off removes Dialog's channels. TidyTV turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Dialog's channels and catch-up, until you choose to turn the stock home screen off",
+    "The system Wi-Fi settings",
+    "The remote's shortcut key handler",
+    "Sideloading, which works on this box"
+  ],
+  "notes": [
+    "The stock home screen is Dialog's IPTV and catch-up app. Turning it off removes Dialog's channels, and the Catch-up button then does nothing.",
+    "The Dialog Play app in the Play Store is marked incompatible with this box, so it cannot replace it.",
+    "Turning off the boot ads restarts Dialog's app once. It comes back on its own."
+  ],
+  "faq": [
+    {
+      "q": "Will I lose Dialog's channels?",
+      "a": "Only if you turn off the stock home screen, which is also Dialog's IPTV and catch-up app. It is the last item on the list and your choice."
+    },
+    {
+      "q": "Do the remote's shortcut buttons still work?",
+      "a": "Most do. The Catch-up button opens Dialog's app, so it does nothing once that app is off."
+    },
+    {
+      "q": "Will it stop the boot ads?",
+      "a": "Yes. The boot advertisement group is on the list. Dialog's app restarts once and then comes back on its own."
+    }
+  ]
+}

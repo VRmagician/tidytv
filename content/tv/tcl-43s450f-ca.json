@@ -1,0 +1,36 @@
+{
+  "name": "TCL 43S450F-CA Fire TV",
+  "brand": "TCL",
+  "os": "Fire OS 8",
+  "summary": "TCL 43S450F-CA Fire TV ships with Amazon telemetry, sponsored rows and promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL S4 Fire TV Edition ships with Amazon metrics and usage reporting, sponsored Sneak Peek previews, the advertising ID, recommendation rows, upgrade promos and Shop on Fire TV. It also reports what is on screen and uploads Wi-Fi passwords to Amazon. Preloaded apps such as Silk, Amazon Photos and Kids add to the load.",
+    "Fire TV keeps Amazon's home screen, so this is a clean-up only, with no replacement launcher. TidyTV turns the listed apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. Each app can be switched back on in the app."
+  ],
+  "keep": [
+    "Live TV and the tuner",
+    "Alexa voice, Prime Video, Amazon Music and Luna",
+    "AirPlay, Miracast and Amazon's casting services",
+    "Software updates (OTA)",
+    "Netflix, YouTube, Tubi, Pluto TV and Spotify",
+    "Amazon's Appstore, settings and the remote"
+  ],
+  "notes": [
+    "Amazon signs the input-switching service, so HDMI switching stays with Amazon's own apps.",
+    "Several preloads are off by the owner's choice, such as Silk, Crave and Paramount+. Switch back on any you use."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 43S450F-CA?",
+      "a": "Yes. The owner kept Alexa and its voice services."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the sponsored rows, Sneak Peek previews, upgrade promos, the advertising ID and Shop on Fire TV. Amazon's home screen itself stays."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. AirPlay, Miracast and Amazon's casting services are kept."
+    }
+  ]
+}

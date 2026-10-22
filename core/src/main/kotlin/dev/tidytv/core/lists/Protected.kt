@@ -41,6 +41,14 @@ object Protected {
         "com.android.provision",
         "com.android.keychain",
         "com.android.certinstaller",
+        // Core modules: an original Mi TV Stick never booted again after these were disabled
+        // (upstream cleanyourtv #884).
+        "com.android.ext.services",
+        "com.android.ext.shared",
+        "com.google.android.ext.shared",
+        "com.android.modulemetadata",
+        "com.google.android.modulemetadata",
+        "com.android.phone",
     ) + HomeApp.entries.map { it.pkg } // TidyTV's own home screens, once installed.
 
     /** Substrings that mark TV-input, tuner, keyboard and remote-pairing packages. */
@@ -51,10 +59,17 @@ object Protected {
         "networkstack", "permissioncontroller", "packageinstaller",
     )
 
+    /** Android's own content providers, except the few a TV can live without (upstream PROMPT.md). */
+    private val SPARE_PROVIDERS = setOf("calendar", "contacts", "userdictionary", "blockednumber")
+
+    private fun isCore(pkg: String) =
+        pkg.startsWith("com.google.android.overlay.modules") ||
+            (pkg.startsWith("com.android.providers.") && pkg.removePrefix("com.android.providers.").substringBefore('.') !in SPARE_PROVIDERS)
+
     fun reason(pkg: String, live: Set<String> = emptySet(), listKeep: Set<String> = emptySet()): String? {
         val lower = pkg.lowercase()
         return when {
-            pkg in EXACT -> "needed by Android"
+            pkg in EXACT || isCore(pkg) -> "needed by Android"
             pkg in live -> "in use by your TV right now"
             pkg in listKeep -> "the list for this TV says to keep it"
             PATTERNS.any { lower.contains(it) } -> "needed for TV inputs, remote or keyboard"
@@ -114,5 +129,11 @@ object Launchers {
 
     /** Never part of the clean-up: Home owners and the Google TV setup app that can take Home over. */
     fun isHomeApp(pkg: String) = pkg in KNOWN_STOCK || pkg == SETUPWRAITH || HomeApp.of(pkg) != null ||
-        pkg == "com.amazon.tv.launcher"
+        pkg == "com.amazon.tv.launcher" || pkg.startsWith(CVTE_LAUNCHER)
+
+    /**
+     * CVTE boards' own launcher stays on: a JVC set hung on its boot animation with ADB gone after it was
+     * disabled (upstream cleanyourtv #741).
+     */
+    const val CVTE_LAUNCHER = "com.cvte.tv.launcher"
 }

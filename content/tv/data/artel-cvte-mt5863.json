@@ -1,0 +1,71 @@
+{
+ "id": "artel-cvte-mt5863",
+ "title": "Artel smart TV (CVTE board TP.MT5510S.PB782, product cvt_mt5863_eu, model SMART_TV, MediaTek MT5863),",
+ "header": "Artel smart TV (CVTE board TP.MT5510S.PB782, product cvt_mt5863_eu, model SMART_TV, MediaTek MT5863),\nAndroid 7.0 (API 24), firmware 20190423_144224, Uzbekistan. More properties: ro.build.fingerprint\nAndroid/cvt_mt5863_eu:7.0/NRD90M/builde04231459:userdebug/release-keys, about 800 MB RAM, 1920x1080.\nStock launcher: com.cvte.tv.launcher. Live TV: com.cvte.tv.androidsetting/.TvSettingActivity (the tuner has\nno leanback entry; set live_tv_package to that component, see launcher/app/src/main/res/values/config.xml).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/artel-cvte-mt5863/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/artel-cvte-mt5863/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nGetting ADB on this firmware:\n- There are no Developer options and no stock Android Settings app.\n- ADB is \"Debug > ADB Enable\" in the full CVTE factory menu. Contrast + 9735 on the remote opens only a\nshort factory menu without it. The full menu opens by starting the exported service\ncom.cvte.fac.menu/.app.TvMenuWindowManagerService with the extra\ncom.cvte.fac.menu.commmand=com.cvte.fac.menu.commmand.factory_menu (three m's, as shipped).\n- The \"Allow USB debugging\" prompt appears only after a reboot.\n- ADB comes back on at every boot (persist.sys.usb.config=mtp,adb).\n\nDO NOT DISABLE com.talents.huanclientauth. With it disabled the boot never completes. It was recovered\nby re-enabling the package over ADB.\n\nThe firmware re-enables these on every boot, so disabling them has no effect and they are not listed:\ncom.cvte.tv.systemupgrade, com.tcl.update, cn.tcl.odm.android.vstoresubclient (Zeasn store),\ncom.tcl.sticker, com.example.user.myapplication (FallbackHome). Hide them in the launcher's hidden_apps instead.\n\nThe channel list was lost once during a boot that hung; Auto search in the TV's own menu restored it.",
+ "sections": [
+  {
+   "title": "Preinstalled streaming and video apps",
+   "apps": [
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "net.megogo.tv",
+     "note": "Megogo"
+    },
+    {
+     "pkg": "uz.allplay.apptv",
+     "note": "Allplay"
+    },
+    {
+     "pkg": "uz.i_tv.player",
+     "note": "i-TV"
+    },
+    {
+     "pkg": "ag.kinom",
+     "note": "Kinom"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preinstalled games and clients",
+   "apps": [
+    {
+     "pkg": "com.fgl27.twitch",
+     "note": "Twitch client"
+    },
+    {
+     "pkg": "com.fgol.HungrySharkEvolution",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Accessibility and voice services that are not used",
+   "apps": [
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack, re-enable if you need a screen reader"
+    },
+    {
+     "pkg": "com.svox.pico",
+     "note": "Pico text-to-speech"
+    },
+    {
+     "pkg": "com.google.android.voicesearch",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.cvte.tv.launcher.",
+ "count": 10
+}

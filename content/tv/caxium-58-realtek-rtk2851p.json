@@ -1,0 +1,35 @@
+{
+  "name": "Caxium 58\" UHD Smart TV",
+  "brand": "Caxium",
+  "os": "Android TV 9",
+  "summary": "Caxium 58\" UHD Smart TV ships with ads, auto-installs and background services. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Caxium 58-inch TV uses the TopTech and Zeasn platform. It ships with content and ads that install apps by themselves, a telemetry and update check, background services nobody needs, unused preloaded apps and a voice assistant. The list has 9 apps.",
+    "The Netflix and YouTube apps, Chrome, the cast receiver and the USB media browser are kept. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each app can be switched back on. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Netflix, YouTube, YouTube Music and Chrome",
+    "The cast receiver for AirPlay, DLNA and screen sharing",
+    "The USB media browser",
+    "The Zeasn app store",
+    "The TV core and the source menu"
+  ],
+  "notes": [
+    "On this Android 9 TV, USB debugging may let anyone on your Wi-Fi get in while it is on. Turn debugging off when you are done.",
+    "The voice assistant is on the list. If you turn it off, the remote's microphone button stops working."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Caxium TV?",
+      "a": "Not if you switch off the voice assistant, which is on the list. The mic button then stops working. Leave that one on if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. The cast receiver that handles AirPlay and DLNA is kept."
+    },
+    {
+      "q": "Is debugging a safety problem?",
+      "a": "On this TV the debugging port may be open to anyone on your Wi-Fi while it is on, so turn debugging off when TidyTV is finished."
+    }
+  ]
+}

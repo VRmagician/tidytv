@@ -1,0 +1,36 @@
+{
+  "name": "Amazon Fire TV (AFTEU014)",
+  "brand": "Amazon",
+  "os": "Fire OS 7",
+  "summary": "Amazon Fire TV (AFTEU014) ships with Amazon telemetry, ads and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Amazon Fire TV smart TV sells in Germany and ships with Amazon telemetry, metrics and usage reporting. It also shows ads, promos, notices and tutorials, and has Amazon apps, Alexa voice, the Silk browser and printing services that most owners never use. The list sorts these into groups so you can pick.",
+    "The list was applied in four batches with a screenshot after each, then the TV was restarted. Thirty-four of 35 stayed off. Home, live TV with DVB channels, Netflix, Joyn, ZDF and ARD Mediathek still opened. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Amazon's home screen",
+    "Firmware updates",
+    "Live TV and the DVB tuner",
+    "HDMI inputs",
+    "Netflix and other streaming apps"
+  ],
+  "notes": [
+    "Amazon's Alexa voice service turns itself back on at every restart. It is on the list, but it does not stay off.",
+    "Two update services are protected by Fire OS, so firmware updates keep arriving.",
+    "The Amazon hero banner on the home screen is not removed. A private DNS ad blocker was tried and did not remove it."
+  ],
+  "faq": [
+    {
+      "q": "Will it remove the big banner on the home screen?",
+      "a": "No. The hero banner comes from Amazon's protected home screen. Private DNS was tried and the banner stayed."
+    },
+    {
+      "q": "Does Alexa stay off?",
+      "a": "Not reliably. Alexa voice turns itself back on at every restart, so use Check my TV to switch it off again."
+    },
+    {
+      "q": "Will firmware updates still arrive?",
+      "a": "Yes. The two update services cannot be turned off on this build, so updates keep coming."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "AIWA AI PONT SA",
+  "brand": "AIWA",
+  "os": "Google TV 14",
+  "summary": "AIWA AI PONT SA ships with a screen-watching tracker, ad installs and a store. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This AIWA set ships with a content recognition service that reports what is on screen, an ambient screensaver and partner apps that install themselves. It also has a vendor store, a help app, an app updater and screen sharing, plus preloaded apps and a first-run wizard that you no longer need.",
+    "The list was tested on one set in a single day, and the apps stayed off after a power cycle. With a clean home screen in place, moving around the home screen with the remote, live TV and the main streaming apps all worked. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the TV input service",
+    "Google Play Store and Play Services",
+    "The remote and Bluetooth pairing",
+    "Settings and the TV inputs"
+  ],
+  "notes": [
+    "The remote's source button sends an unusual key, so it may not open the input list on the clean home screen yet.",
+    "This list was tested on one set in one day, not over several weeks."
+  ],
+  "faq": [
+    {
+      "q": "Will the Input button still work on my AIWA AI PONT SA?",
+      "a": "It may not. The source button on this remote sends an unusual key, so it does not reliably open the input list on the clean home screen yet."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the Google TV home screen back in one tap."
+    },
+    {
+      "q": "Does live TV still work?",
+      "a": "Yes. The TV's live TV app is kept, and the clean home screen can open it."
+    }
+  ]
+}

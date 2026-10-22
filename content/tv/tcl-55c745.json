@@ -1,0 +1,36 @@
+{
+  "name": "TCL 55C745",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "TCL 55C745 ships with TCL promos, pushed content and ad and privacy services. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 2023 TCL runs Google TV on Android 14. It ships with TCL pushed messages and promos, a retail demo sticker, content pushed to the home screen at boot, TCL Live FAST channels, a TCL account and a cleaner. Android 14 adds Privacy Sandbox services, and the TV also has log capture and many extras.",
+    "The list was tested on one set. All 50 apps stayed off through two reboots, and YouTube, Live TV, the HDMI list, the Source key panel and the remote's Home and Input buttons worked. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and HDMI (the TCL TV app)",
+    "The Input key and Quick Panel",
+    "Remote pairing and the keyboard",
+    "Google voice search",
+    "Miracast and MagicConnect mirroring",
+    "Chromecast, the Play Store and Play Services"
+  ],
+  "notes": [
+    "Some apps are left alone because what they do is unclear, including one system-level agent that must not be turned off.",
+    "AirPlay and several streaming apps are off by the owner's choice. Switch back on any you use."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55C745?",
+      "a": "Yes. Google voice search is kept."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast, Miracast and MagicConnect mirroring are kept. AirPlay is on the list and is switched off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Google TV home screen back."
+    }
+  ]
+}

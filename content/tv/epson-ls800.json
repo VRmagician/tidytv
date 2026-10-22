@@ -1,0 +1,35 @@
+{
+  "name": "Epson EpiqVision Ultra LS800",
+  "brand": "Epson",
+  "os": "Android TV 14",
+  "summary": "Epson EpiqVision Ultra LS800 ships with telemetry, ad services and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Epson LS800 laser projector has an Android TV module with telemetry, ad and content services and preloaded apps. The list has 9 apps in three batches and keeps the Android side that runs the projector itself. It uses the classic Android TV home, not Google TV.",
+    "It was verified with screenshots on one unit. The projector's own controls, such as auto focus and keystone, picture modes and warning screens, stay on. TidyTV turns the rest off from your phone with a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The projector control app, including auto focus and keystone",
+    "The projector menu, picture modes and installation tools",
+    "Lamp and temperature warnings",
+    "The log collection app, which also owns the Information screen",
+    "HDMI inputs and the sleep timer",
+    "Firmware updates"
+  ],
+  "notes": [
+    "The log collection app stays on, because turning it off crashes Projector Settings when you open the Information screen. You can opt out of logs on that screen instead."
+  ],
+  "faq": [
+    {
+      "q": "Will the projector controls still work on my Epson LS800?",
+      "a": "Yes. Focus, keystone, picture modes and warnings are all kept."
+    },
+    {
+      "q": "Why is the log collection app kept?",
+      "a": "Turning it off crashes Projector Settings when you open the Information screen. You can opt out of operation logs there instead."
+    },
+    {
+      "q": "Do firmware updates still arrive?",
+      "a": "Yes. The Epson, Droidlogic and Askey update apps are kept by choice."
+    }
+  ]
+}

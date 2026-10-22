@@ -1,7 +1,7 @@
 {
  "id": "xiaomi-mitv-aesp0",
  "title": "Xiaomi MiTV-AESP0 (codename aquaman), Android TV 9 (SDK 28), firmware PI.2055.",
- "header": "Xiaomi MiTV-AESP0 (codename aquaman), Android TV 9 (SDK 28), firmware PI.2055.\nStock launcher: com.google.android.tvlauncher (disabled by launcher/build-and-install.sh).\nLive TV app: none (no tuner/HDMI inputs); com.google.android.tv is Live Channels.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-aesp0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-aesp0/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Default IME is already Gboard, so the Mi TV 4A missing-keyboard quirk doesn't apply.\n- The remote's Home button sends KEYCODE_ALL_APPS (284), not HOME. Android 9 sends that key only\nto the system launcher, so with tvlauncher disabled Home does nothing. Fix: install with\nHOME_KEY_SERVICE=1 TV_HOST=<tv ip> launcher/build-and-install.sh\nwhich enables the launcher's HomeKeyService. Android switches it off on every reinstall,\nso always pass HOME_KEY_SERVICE=1.\n`input keyevent 284` over adb skips the accessibility filter; test with the real remote.\n- No HDMI/AV inputs: the launcher hides its Inputs pill by itself on this stick.\n- Kept on this set: voice assistant (katniss/pumpkin), Chromecast (mediashell),\nMi Cast (com.mitv.milinkservice) and firmware updates (com.xiaomi.mitv.updateservice).",
+ "header": "Xiaomi MiTV-AESP0 (codename aquaman), Android TV 9 (SDK 28), firmware PI.2055.\nStock launcher: com.google.android.tvlauncher (disabled by launcher/build-and-install.sh).\nLive TV app: none (no tuner/HDMI inputs); com.google.android.tv is Live Channels.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-aesp0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-aesp0/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Default IME is already Gboard, so the Mi TV 4A missing-keyboard quirk doesn't apply.\n- The remote's Home button sends KEYCODE_ALL_APPS (284), not HOME. Android 9 sends that key only\nto the system launcher, so with tvlauncher disabled Home does nothing. Fix: install with\nHOME_KEY_SERVICE=1 TV_HOST=<tv ip> launcher/build-and-install.sh\nwhich enables the launcher's HomeKeyService. Android switches it off on every reinstall,\nso always pass HOME_KEY_SERVICE=1.\n`input keyevent 284` over adb skips the accessibility filter; test with the real remote.\n- No HDMI/AV inputs: the launcher hides its Inputs pill by itself on this stick.\n- Kept on this set: voice assistant (katniss/pumpkin), Chromecast (mediashell),\nMi Cast (com.mitv.milinkservice) and firmware updates (com.xiaomi.mitv.updateservice).\n\nSecond verified set (Indonesia-region unit, same firmware PI.2055, in daily use since\n21 Oct 2026 with Netflix / Jellyfin / SmartTube / Vidio): the groups marked\n\"second set\" below are disabled on that stick on top of the original list.\nRegion note: the ID unit has only the misspelled autoinstalls package below, and\nnone of the preloaded apps in the original list (DAZN, Red Bull TV, Duo, TCL browser).",
  "sections": [
   {
    "title": "Xiaomi + Google telemetry",
@@ -83,9 +83,187 @@
    ],
    "optional": [],
    "note": ""
+  },
+  {
+   "title": "Xiaomi services (second set)",
+   "apps": [
+    {
+     "pkg": "mitv.service",
+     "note": "MiTV service framework for the rows removed above"
+    },
+    {
+     "pkg": "com.mitv.download.service",
+     "note": "PatchWall download service"
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": "stock Mi video player; comment out if you use it"
+    },
+    {
+     "pkg": "com.xiaomi.android.tvsetup.partnercustomizer",
+     "note": "partner customisation that seeds partner apps at setup"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.xiaomi.mitv.updateservice",
+     "note": "firmware updates; the original set keeps it, uncomment to stop OTAs"
+    },
+    {
+     "pkg": "com.mitv.milinkservice",
+     "note": "Mi Cast receiver; the original set keeps it, uncomment if you never cast"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Google TV plumbing this stick does not need (second set)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tv",
+     "note": "Live Channels; the stick has no tuner or HDMI input"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "(com.android.providers.tv, the TV content provider, stays enabled",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music TV"
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "setup wizard: gives Home back, costs casting (comment out to keep casting)"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.onetimeinitializer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "the repo never disables it)"
+  },
+  {
+   "title": "Accounts, backup and printing plumbing (second set; nothing on a TV uses these)",
+   "apps": [
+    {
+     "pkg": "com.android.providers.contacts",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.providers.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.contacts",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backuptransport",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.backupconfirm",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.sharedstoragebackup",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.wallpaperbackup",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.settings.intelligence",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.se",
+     "note": "secure element; the stick has no NFC"
+    },
+    {
+     "pkg": "com.android.cts.ctsshim",
+     "note": "CTS test shims, not user features"
+    },
+    {
+     "pkg": "com.android.cts.priv.ctsshim",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.android.companiondevicemanager",
+     "note": "kept: Bluetooth companion pairing, no list on main disables it"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Screensavers (second set; that stick runs always-on with its own home screen)",
+   "apps": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dreams.basic",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.dream",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "voice search; the voice stack barely works on this firmware"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "text-to-speech; keep it if anything reads text aloud"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "accessibility; only disable if nobody uses TalkBack"
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "kept enabled: phone-as-remote and the remote's mic bridge"
+    }
+   ],
+   "note": ""
   }
  ],
  "kept": [],
  "stock_launcher": "com.google.android.tvlauncher",
- "count": 15
+ "count": 42
 }

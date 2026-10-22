@@ -1,0 +1,218 @@
+{
+ "id": "sony-xr-65a80j",
+ "title": "Sony XR-65A80J (65-inch OLED, 2021, device BRAVIA_VH2, model string \"BRAVIA 4K VH2\"), EU firmware",
+ "header": "Sony XR-65A80J (65-inch OLED, 2021, device BRAVIA_VH2, model string \"BRAVIA 4K VH2\"), EU firmware\nAndroid 12 (Google TV, API 31), build BRAVIA_VH2_EU-user 12 STT2.230505.001.S136 682241 release-keys\n\nApply: TV_HOST=<tv ip> tools/disable.sh examples/sony-xr-65a80j/debloat.txt\nUndo:  TV_HOST=<tv ip> tools/restore.sh examples/sony-xr-65a80j/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED with pm disable-user --user 0, never uninstalled.\nComment out any package whose feature you use; AirPlay, DLNA and HbbTV are optional choices below.\n\nBased on the same-platform sony-bravia-4k-vh2 and sony-kd-65x80j lists, checked against this TV.\nStock launcher: com.google.android.apps.tv.launcherx/.home.HomeActivity.\nLive TV / tuner and Sony input app: com.sony.dtv.tvx. USB media: com.sony.dtv.smartmediaapp.\nTested with the separate Cosy Home-based launcher com.cosyhome.tv, not the reference launcher.\nThe stock launcher was disabled separately after the new launcher was installed and Home verified.\nDo not disable launcherx before a working replacement is installed.\n\nKeep TV/input services (com.sony.dtv.tvinput.*, tvapi, sonysystemservice, settingsprovider),\nall com.mediatek.* and mtktvapi.agent, the keyboard, Play Store and Play Services.\nKeep Bravia Sync/HDMI-CEC and eARC services: com.sony.dtv.braviasync*, HomeTheatreControl,\naudiooutput, audiosysteminfoprovider and com.dolby.android.audio.service.\nKept by choice: voice assistant (katniss, voicesearch, assistantadapter), Chromecast (mediashell),\nMiracast, firmware updates (systemupdate/update), Ambient mode (dreamx), Living Decor (livingfit),\nremote/Bluetooth services, Netflix partner service, and streaming apps except the old MTV app below.\n\nAlready disabled in the baseline and deliberately omitted: my5/itv/ard/all4/iplayer/sounds launchers,\ncom.sony.dtv.homekit, de.hdplus.tvapp.androidtv, com.sony.dtv.promos, com.sony.dtv.seeds.iot,\ncom.vewd.core.integration.dia, com.apple.atve.sony.appletv, com.youview.poa,\ncom.google.android.youtube.tvmusic, com.sony.dtv.b2b.vendorprotocol and com.sony.dtv.b2b.softap.\n\nValidation: owner reports a few days of use on Ethernet; batches 1-7 were reboot-checked.\nSaved snapshots confirm all 38 listed packages disabled, plus launcherx separately.\nEthernet was used. End-to-end casting and Wi-Fi reconnection are not confirmed by the snapshots.\nSource setup and before/after snapshots: https://github.com/samipuro/tv-launcher",
+ "sections": [
+  {
+   "title": "Batch 1: tracking and telemetry",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV, fingerprints what's on screen (ACR)"
+    },
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": ""
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony device agent / remote support"
+    },
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": "Sony usage-data agent"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: home-screen ads and promos",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select promo tile"
+    },
+    {
+     "pkg": "com.sony.dtv.sonytab",
+     "note": "Sony tab content on the Google TV home"
+    },
+    {
+     "pkg": "com.sony.dtv.launcherxcustomizer",
+     "note": "Sony config for the Google TV home"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3: retail demo and help",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 4: setup leftovers and unused services",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "calendar sync; also carries Google's GrowthKit promo framework"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "RLZ install-attribution provider"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "runs once after first setup"
+    },
+    {
+     "pkg": "com.sony.dtv.QuickSetupCustomizer",
+     "note": "partner customisation for first setup"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 5: hotel / pro mode (not a hotel TV)",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.b2b.hotelmode",
+     "note": "always-running service"
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntime.normal",
+     "note": "Node.js runtime for hotel apps"
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntime.privilege",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntimeextension.bpk",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntimeextension.node_20_11_1",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 6",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.airplayapp",
+     "note": "AirPlay"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": "DLNA renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.hbbtvplayer",
+     "note": "HbbTV red-button player for broadcast channels"
+    }
+   ],
+   "optional": [],
+   "note": "mirroring duplicates and HbbTV, off by owner's choice (Chromecast and Miracast stay)"
+  },
+  {
+   "title": "Batch 7",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.gestureapp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.distancealert",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sensingcamera.fwupdate",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sensingcamera.settings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.notificationcenter",
+     "note": "\"BRAVIA notifications\" inbox"
+    },
+    {
+     "pkg": "fi.mtv.svod",
+     "note": "old MTV app (v1.0.56, last updated 2024-01); MTV Katsomo is fi.mtvkatsomo"
+    }
+   ],
+   "optional": [],
+   "note": "BRAVIA CAM (not owned), notifications app, old MTV app"
+  },
+  {
+   "title": "Batch 8",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "setup wizard; disable only after a replacement launcher is installed Claims HOME once launcherx is disabled. Re-enable before a factory reset. Ethernet was used; the saved Wi-Fi owner was android.uid.system:1000. Wi-Fi reconnection after disabling setupwraith was not tested."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 38
+}

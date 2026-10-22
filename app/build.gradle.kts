@@ -15,8 +15,8 @@ android {
         applicationId = "com.appfactory.tidytv"
         minSdk = 26
         targetSdk = 36
-        versionCode = 5
-        versionName = "0.5.0"
+        versionCode = 6
+        versionName = "0.6.0"
     }
 
     // Release signing comes from keys/signing.properties, a git-ignored folder in the repo.
@@ -63,11 +63,22 @@ val copyLists by tasks.registering(Copy::class) {
     }
     into(layout.buildDirectory.dir("generated/lists"))
 }
-tasks.named("preBuild") { dependsOn(copyLists) }
+// Looks for the Apple TV style home screen (cleanyourtv themes/, MIT): config, wallpapers and a preview.
+val copyThemes by tasks.registering(Copy::class) {
+    from(rootProject.file("upstream/cleanyourtv/themes")) {
+        include("default/**", "aurora/**", "glass/**", "scenes/**")
+        exclude("**/*.md")
+    }
+    into(layout.buildDirectory.dir("generated/lists/themes"))
+}
+tasks.named("preBuild") { dependsOn(copyLists, copyThemes) }
 
 dependencies {
     implementation(project(":adb"))
     implementation(project(":core"))
+    // Kadb's Wireless debugging pairing needs TLS 1.3 keying material that the platform Conscrypt hides.
+    // Bundling Conscrypt makes Kadb use its own copy, so the hidden-API bypass it also ships is never needed.
+    implementation(libs.conscrypt.android)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)
@@ -87,6 +98,15 @@ dependencies {
     testImplementation(platform(libs.androidx.compose.bom))
     testImplementation(libs.androidx.compose.ui.test.junit4)
     debugImplementation(libs.androidx.compose.ui.test.manifest)
+}
+
+// Kadb pulls in a hidden-API bypass for the platform Conscrypt; Play flags it and it is unused with the bundled one.
+configurations.configureEach { exclude(group = "org.lsposed.hiddenapibypass") }
+
+// The Android Conscrypt jar has no JNI for the desktop JVM and would shadow Robolectric's own copy,
+// so unit tests run without it (the app itself is unchanged).
+configurations.matching { it.name.endsWith("UnitTestRuntimeClasspath") }.configureEach {
+    exclude(group = "org.conscrypt", module = "conscrypt-android")
 }
 
 // Screenshot and view model tests run once, on the debug variant.

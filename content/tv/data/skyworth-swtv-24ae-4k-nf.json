@@ -1,0 +1,163 @@
+{
+ "id": "skyworth-swtv-24ae-4k-nf",
+ "title": "Skyworth SWTV-24AE-4K NF (device eleonas, product SW10_NA_NF, MediaTek mt5896), South Africa/Global",
+ "header": "Skyworth SWTV-24AE-4K NF (device eleonas, product SW10_NA_NF, MediaTek mt5896), South Africa/Global\nGoogle TV 14 (API 34), build UKN6.260116.056, security patch 2026-04-01. ~1 GB RAM, armeabi-v7a.\nro.product.model=\"SWTV-24AE-4K NF\". Same eleonas platform as examples/skyworth-swtv-24na-4k-nf;\nthe NA variant reports ro.product.vendor.model=SWTV-24AE-4K, confirming the shared board.\n\nApply:   $env:TV_HOST=\"<tv ip>\"; tools\\disable.ps1 examples\\skyworth-swtv-24ae-4k-nf\\debloat.txt\nUndo:    $env:TV_HOST=\"<tv ip>\"; tools\\restore.ps1 examples\\skyworth-swtv-24ae-4k-nf\\debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Re-enable any line with `pm enable --user 0 <package>`.\n\nApplied 2026-10-21 in batches with a screenshot after each, then custom launcher installed.\nHome, Inputs (HDMI 1/2/3/Composite), Settings and the app grid all verified on the day.\n\nDisabled from the factory on this unit, so NOT listed here (restore.sh would turn them ON):\ncom.cltv.hybrid, com.cltv.mal (iWedia CanaliTV Live TV - no tuner in use on this unit)\ncom.app.mlounge, com.mediatek.tv.retaildemo, com.mediatek.opapp\ncom.mediatek.dtv.tvinput.atsctuner, com.mediatek.dtv.tvinput.isdbtuner\n\nQuirks on this firmware, all verified on the TV:\n- Only Wireless debugging: port 5555 stays closed. Pair once with the stock adb:\nadb pair 192.168.1.122:<pairing port> <code>\nadb connect 192.168.1.122:<connect port>\nadb -s 192.168.1.122:<connect port> tcpip 5555\nPort 5555 closes on every reboot; repeat `adb connect` + `adb tcpip 5555` each session.\n- Android switches Wireless debugging off on every reboot; turn it back on in Developer options.\n- All Wi-Fi networks owned by android.uid.system (not setupwraith) on this unit - safe to disable.\n- Chromecast (mediashell) verified NOT using setupwraith's CastInfoProvider on this build;\ndisabling setupwraith does not break casting.\n- All disables survived a full reboot (firmware does not auto-re-enable on this build).\n- Display: 3840x2160 physical, 1920x1080 override (normal for this SoC), density 320, no forced override.\n\nStock launcher:   com.google.android.apps.tv.launcherx\nSetup wizard:     com.google.android.tungsten.setupwraith (RecoveryActivity claims HOME at priority 1)\nHDMI/AV inputs:   com.mediatek.tis\nLive TV / tuner:  com.cltv.hybrid (iWedia CanaliTV) — already disabled from factory on this unit\nRemote service:   com.smartdevice.global.service (BLE, battery, find-my-remote, hot keys)\n\nKept on purpose: com.mediatek.tis (HDMI/AV input driver), com.mediatek.tv.agent (hot keys, Netflix key),\ncom.mediatek.autopair (remote pairing), com.smartdevice.global.service (BLE remote),\ncom.smartdevice.dailyshortcut (quick menu), com.smartdevice.duplebluetooth, com.smartdevice.factory,\norg.liskovsoft.androidtv.rukeyboard + com.google.android.inputmethod.latin (keyboards),\ncom.google.android.apps.mediashell (Chromecast), com.google.android.katniss (Assistant),\ncom.google.android.apps.tv.dreamx (screensaver), Play Store, Play Services.\nKept by owner's choice: com.netflix.ninja, com.google.android.youtube.tv, com.crunchyroll.crunchyroid,\ncom.spotify.tv.android, com.streamflixreborn.streamflix, com.sportzx.live, com.internet.tvbrowser.",
+ "sections": [
+  {
+   "title": "Skyworth telemetry and activation",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recordactivation",
+     "note": "records first activation; boot + network receivers"
+    },
+    {
+     "pkg": "com.smartdevice.aftersale",
+     "note": "\"after-sale\" service: can silently install APKs"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Android ad and personalisation services",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Skyworth content rows and analytics",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recommendation",
+     "note": "Coocaa recommendation rows; bundles Sensors Data analytics"
+    },
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": "partner config that injects rows into the home screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Regional broadcast extras (neither used in ZA/Global market)",
+   "apps": [
+    {
+     "pkg": "tv.mopa.ginga",
+     "note": "Brazilian Ginga interactive TV"
+    },
+    {
+     "pkg": "org.obs.mhegservice",
+     "note": "UK MHEG interactive TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Not needed on a TV",
+   "apps": [
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual"
+    },
+    {
+     "pkg": "com.smartdevice.dailymanage",
+     "note": "TV Guard / cleaner"
+    },
+    {
+     "pkg": "com.smartdevice.myapp",
+     "note": "Daily Key / app manager"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps disabled by owner's choice (not used)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.dstvmobile.android",
+     "note": ""
+    },
+    {
+     "pkg": "tv.sabcplus.vod",
+     "note": ""
+    },
+    {
+     "pkg": "com.stremio.one",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.dtv.icast",
+     "note": "Miracast / DLNA screen mirroring"
+    },
+    {
+     "pkg": "com.mediatek.tv.systemupdater",
+     "note": "automatic OTA firmware updates"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock home — disabled LAST, after the new launcher is installed and verified as Home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "RecoveryActivity claims HOME at priority 1"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "WARNING: check `dumpsys wifi | grep -o 'cname=[^ ]*'` first — if it names setupwraith, forget the network and re-join it in Settings before disabling setupwraith (on THIS unit it was android.uid.system)."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 26
+}

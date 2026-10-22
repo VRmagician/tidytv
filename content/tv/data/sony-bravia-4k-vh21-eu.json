@@ -1,0 +1,170 @@
+{
+ "id": "sony-bravia-4k-vh21-eu",
+ "title": "Sony BRAVIA 4K VH21 (XR-55A80K, 2022 OLED, device BRAVIA_VH21, MediaTek mt5895), EU firmware",
+ "header": "Sony BRAVIA 4K VH21 (XR-55A80K, 2022 OLED, device BRAVIA_VH21, MediaTek mt5895), EU firmware\nAndroid 12 (Google TV, API 31), build BRAVIA_VH21_EU-user 12 STT2.230505.001.S136 682241, 3 GB RAM\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-vh21-eu/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-vh21-eu/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nSame device and build as sony-bravia-4k-vh21 (Australia); the EU firmware differs in its preloads\n(ARD, All 4, ITV, My5, iPlayer launchers, YouView, HD+, YouTube Music: all already disabled at the factory\non this set, so not in this list) and has no AU broadcaster apps.\nStock launcher: com.google.android.apps.tv.launcherx (Google TV). build-and-install disables it.\nLive TV / tuner app: com.sony.dtv.tvx. Keep the com.sony.dtv.tvinput.* services, tvapi, sonysystemservice,\nsonyvendorservice, imeproxy, settingsprovider, systemupdate/update, braviasync* and all com.mediatek.*:\nthey drive HDMI, the tuner, the Input overlay, Bravia Sync, updates and the remote's app buttons.\nKept by owner's choice: Netflix, YouTube, Apple TV, Chromecast built-in (mediashell), AirPlay/HomeKit,\nfirmware updates, and Sony IP control (com.sony.dtv.webapi.core): Home Assistant's Sony Bravia integration\nand other IP remotes need it; with it disabled HA reports the TV as off and every command fails.\ninteractivetvutil kept: it holds a TokenProvider other Sony apps may read.\n\nRemote: the Netflix, YouTube, Prime Video and Disney+ buttons are routed by Sony's sonyvendorservice, not by\nthe Google TV launcher, so they keep working after launcherx is disabled. YouTube, Prime Video and Disney+\nall arrive as keycode 196 (scancodes 485, 490, 491), so remapping one of them needs a scancode entry in\napp_keys (scan:490:<package>) with HOME_KEY_SERVICE=1; a keycode remap (or a keycode-only remapper app)\ntakes all three. KEYCODE_SETTINGS does nothing once launcherx is off; HomeKeyService brings it back.\nKEYCODE_TV_INPUT opens Sony's own input overlay, so INPUT_KEY_SERVICE is not needed here.\n\nsetupwraith owned the Wi-Fi network saved during first setup: forget and re-join it in Settings before\ndisabling setupwraith, or the TV drops off Wi-Fi. Other networks it still owns are deleted when it is disabled.\nReboot-checked: everything below stayed disabled. Applied 21 Oct 2026. If something breaks,\n`pm enable <package>` and please report it.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    },
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "telemetry and remote support",
+   "apps": [
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": "Sony IDD usage-data agent"
+    },
+    {
+     "pkg": "com.sony.dtv.usercontext",
+     "note": "user context providers, boot receiver only"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "remote-support session service"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony ads and recommendations",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": "Sony Select app recommendations"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "voice assistant (off by choice; the remote's mic button stops working)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.voicesearch",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.assistantadapter",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "preloaded apps (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV movies (loses access to purchases in it)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.vewd.core.service",
+     "note": "Vewd (its integration package is already disabled at the factory)"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "features not used (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.hbbtvplayer",
+     "note": "HbbTV / red button"
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": "DLNA media server/renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.huey.dlna.renderersettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.uei.quicksetsdk.sony",
+     "note": "UEI QuickSet: IR control of cable boxes/soundbars; HDMI-CEC unaffected"
+    },
+    {
+     "pkg": "com.sony.dtv.gestureapp",
+     "note": "BRAVIA CAM gestures (no camera attached)"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "Google text-to-speech: TalkBack and read-aloud stop working"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "with launcherx disabled its RecoveryActivity takes Home. Re-enable before a factory reset. See the Wi-Fi note above first."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 26
+}

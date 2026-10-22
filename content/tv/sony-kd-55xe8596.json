@@ -1,0 +1,37 @@
+{
+  "name": "Sony BRAVIA KD-55XE8596",
+  "brand": "Sony",
+  "os": "Android TV 9",
+  "summary": "Sony BRAVIA KD-55XE8596 ships with an ACR viewing tracker, Sony ads and a retail demo. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 2017 UK Sony set runs Android TV 9 and Sony has stopped updating it. It ships with a viewing tracker that identifies what is on screen, Sony and Google content, ads and promos, a retail demo, telemetry and remote support, and hotel and business mode.",
+    "Home, Netflix, Jellyfin, Live TV and the HDMI inputs all kept working after every batch, and no new crashes appeared. It has not been lived with for days or checked across a restart. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Chromecast, mirroring and DLNA",
+    "USB media",
+    "Google Assistant and the phone remote",
+    "Live TV and the YouView layer for Freeview Play",
+    "HbbTV, the red button",
+    "HDMI-CEC, remote pairing and the TV inputs"
+  ],
+  "notes": [
+    "Live TV on this UK set hands over to YouView. Open the Sony TV app, not YouView, and keep both on.",
+    "The home screen can ignore a new home screen setting until the stock one is switched off.",
+    "The Internet Browser tile is the only part of the HbbTV layer that is hidden."
+  ],
+  "faq": [
+    {
+      "q": "Will the red button still work?",
+      "a": "Yes. The HbbTV layer is kept, and only its Internet Browser tile is hidden."
+    },
+    {
+      "q": "Will the voice button and casting still work?",
+      "a": "Yes. Google Assistant, Chromecast, mirroring and DLNA are kept on this set."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

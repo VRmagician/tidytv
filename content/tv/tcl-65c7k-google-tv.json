@@ -1,0 +1,36 @@
+{
+  "name": "TCL 65C7K",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "TCL 65C7K QD-Mini LED ships with a Samba TV viewing tracker and TCL promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Brazilian TCL runs Google TV on Android 14. It ships with Samba TV, which tracks what is on screen, TCL analytics, log upload and account sign-in nags. It also has TCL Live FAST channels, content pushed to the home screen at boot, push messages and promos, retail demo and hotel mode apps, and a cleaner.",
+    "The list was applied and verified on a real unit on the same day: HDMI switching, broadcast TV and the new home screen worked over Wi-Fi. Chromecast was not tested yet. TidyTV saves a backup first, never deletes anything and lets you switch any app back on."
+  ],
+  "keep": [
+    "Live TV and HDMI (the TCL TV app)",
+    "Ginga, the Brazilian broadcast TV software",
+    "The Input button's source panel",
+    "The keyboard and the remote service",
+    "Dolby audio services",
+    "The ambient screensaver, which the owner likes"
+  ],
+  "notes": [
+    "Wireless debugging switches on only over Wi-Fi. On Ethernet the toggle flips back off, so use Wi-Fi when pairing.",
+    "Wi-Fi saved during first setup may belong to the setup app. Forget and rejoin it in Settings first."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 65C7K?",
+      "a": "Not with the default list, which turns off Google Assistant voice by the owner's choice. Switch it back on in the app if you use it."
+    },
+    {
+      "q": "Does broadcast TV still work?",
+      "a": "Yes. Ginga, the Brazilian broadcast TV software, is kept, and it was checked."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL Live FAST channels, content pushed at boot, TCL tweaks to the home rows and the push messages and promos."
+    }
+  ]
+}

@@ -1,0 +1,34 @@
+{
+  "name": "Xiaomi Mi TV 4A 32-inch",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Xiaomi Mi TV 4A 32-inch ships with Xiaomi telemetry and promotional feeds. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 32-inch Mi TV ships with Xiaomi telemetry and a bug-report uploader, promotional content and stock-home recommendation feeds. The list is short, 11 apps. Each app has its own switch in the app, so you decide which ones to turn off. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was applied on 19 October and the apps were still off on 21 October. Home, the clock and navigation were checked on the TV. Live TV, the TV input services, the keyboard, Bluetooth and update settings stay on. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the TV input services",
+    "Gboard and Bluetooth",
+    "The phone remote service",
+    "Firmware update settings"
+  ],
+  "notes": [
+    "Assistant, Gallery and the media browser are off by owner choice. Keep them on if you use them.",
+    "Install the new home screen and set its clock screensaver before switching off the old photo screensaver."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi Mi TV 4A 32-inch?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the voice button still work?",
+      "a": "Not with this list. Assistant is off by the owner's choice, so switch it back on in the app."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi Mi TV 4A 32-inch?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

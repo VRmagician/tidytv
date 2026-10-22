@@ -1,0 +1,36 @@
+{
+  "name": "Artel smart TV (MT5863)",
+  "brand": "Artel",
+  "os": "Android 7",
+  "summary": "Artel smart TV (MT5863) ships with preinstalled apps and games. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Artel smart TV runs an older Android 7 build from the CVTE firmware family. It ships with preinstalled streaming and video apps, games and game clients, and accessibility and voice services that most owners never use. The list is short, at 10 apps.",
+    "The set has no Developer options, so debugging is switched on from a hidden factory menu. The TV then asks for permission after a restart. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Live TV and TV settings app",
+    "The sign-in service the boot depends on",
+    "The vendor home screen",
+    "The remote and TV inputs"
+  ],
+  "notes": [
+    "There are no Developer options on this TV. Debugging is turned on from the full factory menu, and it comes back on at every restart.",
+    "One sign-in service must never be turned off, because the TV then fails to finish starting.",
+    "The firmware switches some vendor update and store apps back on at every boot, so they are not on the list. Hide them in the home screen instead.",
+    "This firmware has no Live TV entry of its own, so the clean home screen opens the TV settings app for the tuner."
+  ],
+  "faq": [
+    {
+      "q": "Is there anything I must not turn off on this Artel TV?",
+      "a": "Yes. The sign-in service that the boot depends on. With it off, the TV never finished starting. TidyTV keeps it on."
+    },
+    {
+      "q": "Why do some vendor apps come back?",
+      "a": "The firmware switches a few update and store apps back on at every restart, so turning them off has no effect. They are left off the list."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the vendor home screen back in one tap."
+    }
+  ]
+}

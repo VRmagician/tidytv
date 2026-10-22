@@ -1,0 +1,161 @@
+{
+ "id": "tcl-50p615",
+ "title": "TCL 50P615, Greece (ro.product.model BeyondTV, board RTD2851 / platform rtd285o), Android TV 11 (API 30),",
+ "header": "TCL 50P615, Greece (ro.product.model BeyondTV, board RTD2851 / platform rtd285o), Android TV 11 (API 30),\nbuild PPR1.180610.011 AR05, fingerprint TCL/BeyondTV/BeyondTV:11/PPR1.180610.011/AR05, 32-bit (armeabi-v7a).\nSame series as examples/tcl-43p615 (AR06) and the same firmware as examples/tcl-beyondtv2-android-11\n(AR05): that list's boot re-enable notes apply. Unlike the 43P615, com.tcl.tv.tclhome_master ships here.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-50p615/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-50p615/debloat.txt\nInstall the launcher BEFORE disabling the stock launcher (launcher/build-and-install.sh).\nStock launcher: com.google.android.tvlauncher. Other HOME claimants are only fallbacks:\ncom.tcl.keycustomfunctionservice/.FallbackHome and com.android.tv.settings FallbackHome.\nThe saved Wi-Fi network belongs to android.uid.system, not setupwraith.\nLive TV app: com.tcl.tv. Tuner and HDMI: com.tcl.tvinput (never disable either).\n\nAlready disabled when we started, left alone: the 14 uk.co.freeview.* apps, au.com.stan.and,\ncom.tcl.gallery, com.tcl.notereminder, com.tcl.smartalexa, tv.wuaki.apptv,\ncom.google.android.apps.nbu.smartconnect.tv, com.google.android.videos, com.google.android.play.games.\n\nTested 2026-10-21 on a real unit: applied in five batches with a screenshot after each (29/29 disabled at first,\nplus the stock launcher via launcher/build-and-install.sh), then rebooted once: nothing came back\nenabled. After the changes Settings, Wi-Fi, the launcher's Inputs menu (HDMI 1-3, AV, Live TV via\nTvInputManager; Live TV opens com.tcl.tv/.TVActivity), app tiles, and every button on the real remote\n(Home, Input, Settings, app buttons, Back) worked. The set powers on to the last source, so after a\nreboot from Live TV it shows Live TV, not Home. Not yet lived with for days.\n\nAirPlay from an iPhone: Android TV has no built-in receiver; AirScreen (com.ionitech.airscreen) does it\nwith nothing installed on the phone. Kept.\n\nDO NOT DISABLE (load-bearing on this firmware):\ncom.tcl.tv com.tcl.tvinput                          # Live TV, tuner, HDMI\ncom.tcl.keycustomfunctionservice                    # remote key handling, fallback home\ncom.tcl.inputmethod.international                   # default keyboard\ncom.tcl.settings com.tcl.initsetup com.tcl.factory.view com.tcl.providers.config\ncom.tcl.xian.StartandroidService                    # device authentication\ncom.tcl.partnercustomizer                           # carries the remote's TKey activity\ncom.tcl.systemserver com.tcl.autopair               # system service, BT remote pairing\ncom.tvos                                            # tvos framework resources\ncom.google.android.apps.mediashell                  # Chromecast (kept by choice)\ncom.tcl.miracast com.tcl.MultiScreenInteraction_TV  # Miracast / MagiConnect (kept by choice)\ncom.tcl.versionUpdateApp                            # TCL OTA updater (kept by choice)\ncom.google.android.tv.remote.service                # Google TV phone-app remote (kept by choice;\n# disabled at first, re-enabled later)",
+ "sections": [
+  {
+   "title": "1. Telemetry, analytics and attribution",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL BI analytics"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "\"send feedback\""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "home-screen recommendation rows"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "one-time setup leftovers"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "partner-app auto installer"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "2. TCL content, promos and background extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.overseasappshow",
+     "note": "promo/app-show service; re-enables partner packages at boot"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_master",
+     "note": "TCL's alternate home (StartUpActivity, message receivers)"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content onto the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "\"TCL Channel\" web content feed"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "pushed messages and promos"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo energy-label sticker"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard cleaner / device-use tracking (green shield tile)"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account"
+    },
+    {
+     "pkg": "com.tcl.copydatatotv",
+     "note": "phone-to-TV data migration"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "end-user agreement screens"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media centre (only an LED strip on USB)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "Assistant LED service"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL voice service"
+    },
+    {
+     "pkg": "com.tcl.micmanager",
+     "note": "TCL microphone manager"
+    }
+   ],
+   "optional": [],
+   "note": "Voice, off by choice. The mic button goes dead. Comment out to keep the assistant."
+  },
+  {
+   "title": "4. Apps, off by choice. Reinstall or re-enable as wanted.",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.hbo.hbonow",
+     "note": "old HBO Max app (Max, com.wbd.stream, kept)"
+    },
+    {
+     "pkg": "cm.aptoidetv.pt",
+     "note": "Aptoide TV store"
+    },
+    {
+     "pkg": "com.tiktok.tv",
+     "note": "TikTok"
+    },
+    {
+     "pkg": "tunein.player",
+     "note": "TuneIn"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "printing service"
+    },
+    {
+     "pkg": "com.android.dreams.basic",
+     "note": "stock \"colors\" screensaver"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "5. After the launcher is installed",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "stock launcher, replaced by launcher/"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 29
+}

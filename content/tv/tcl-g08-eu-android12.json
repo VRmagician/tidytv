@@ -1,0 +1,34 @@
+{
+  "name": "TCL Smart TV Pro (G08, Europe)",
+  "brand": "TCL",
+  "os": "Google TV (Android 12)",
+  "summary": "TCL Smart TV Pro (G08, Europe) ships with TCL promo, push messages and demo apps. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "The European TCL Smart TV Pro on Android 12 ships with TCL promo and push-message apps, help and demo apps and a log capture tool. There are also duplicate web view components, leftover MediaTek casting and tracking apps, and a few Google store and extras apps.",
+    "The list was tested on one set. All 24 apps are off, and the TV boots, plays HDMI and Live TV and opens the source menu normally. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and HDMI (the TCL TV app and input service)",
+    "Google Assistant, so the mic button keeps working",
+    "Play Services and the Dolby audio apps",
+    "The main web view component"
+  ],
+  "notes": [
+    "Three apps on this list are marked as load-bearing and are not touched.",
+    "This is the older Android 12 firmware, and the list only covers what exists on it."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my TCL Smart TV Pro?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the voice button still work on my TCL Smart TV Pro?",
+      "a": "Yes. Google Assistant is kept on this list, so the mic button on the remote keeps working."
+    },
+    {
+      "q": "Does TidyTV delete anything on my TCL Smart TV Pro?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

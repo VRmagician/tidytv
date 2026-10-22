@@ -60,8 +60,12 @@ class WizardViewModelTest {
 
     @After fun tearDown() = Dispatchers.resetMain()
 
+    private val glassLook = dev.tidytv.core.ops.LookFiles("glass", """{"dock_apps": ["com.sample.app"], "wallpaper": true, "dock_glass": true}""", wallpaper = byteArrayOf(7, 7))
+    private val photo = dev.tidytv.app.data.WallpaperImage(ByteArray(310_000), 1920, 1080, originalBytes = 4_200_000)
+
     private fun vm(demo: DemoBackend) =
-        WizardViewModel(Store(dir), Trace(File(dir, "logs")), { NoNetwork }, demo, { catalog }, { home -> home.pkg.toByteArray() })
+        WizardViewModel(Store(dir), Trace(File(dir, "logs")), { NoNetwork }, demo, { catalog }, { home -> home.pkg.toByteArray() },
+            looks = { id -> if (id == "glass") glassLook else null }, photoWallpaper = { photo }, imageWork = dispatcher)
 
     /** Connects to the Demo TV, which lands on the My TV hub; [tidy] then opens Tidy up. */
     private fun TestScope.connectToDemo(vm: WizardViewModel, tidy: Boolean = true) {
@@ -386,5 +390,48 @@ class WizardViewModelTest {
         assertTrue((vm.ui.value.done.restore as RestoreUi.Finished).ok)
         assertTrue("we never uninstall what we didn't install", dev.tidytv.core.lists.HomeApp.PROJECTIVY.pkg in tv.installed)
         assertTrue(!tv.home()!!.startsWith(dev.tidytv.core.lists.HomeApp.PROJECTIVY.pkg))
+    }
+
+    @Test fun looksAndYourOwnPhotoGoOnTheAppleTvStyleHomeScreen() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv = demo.tv
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        vm.startTidy(); advanceUntilIdle()
+        vm.chooseHome(dev.tidytv.core.lists.HomeApp.STYLED)
+        vm.installHome(); advanceUntilIdle()
+        val installed = vm.ui.value.home
+        assertEquals(HomeState.Installed(dev.tidytv.core.lists.HomeApp.STYLED), installed)
+        val dir = "/sdcard/Android/data/com.gathin.tvhome/files"
+        val dock = String(tv.pushed["$dir/config.json"]!!)
+
+        vm.openLook()
+        vm.applyLook(LookId.GLASS); advanceUntilIdle()
+        var look = (vm.ui.value.home as HomeState.Look).look
+        assertTrue(look.message!!.message, look.message!!.ok)
+        assertEquals("glass", look.current)
+        val config = String(tv.pushed["$dir/config.json"]!!)
+        assertTrue(config, config.contains("dock_glass") && !config.contains("com.sample.app"))
+        assertTrue("the owner's dock stays", dock.contains("com.netflix.ninja") && config.contains("com.netflix.ninja"))
+        assertEquals(1, tv.lookRestarts)
+
+        vm.applyPhoto(PickedFile("IMG_2041.jpg", 4_200_000) { java.io.ByteArrayInputStream(ByteArray(0)) }); advanceUntilIdle()
+        look = (vm.ui.value.home as HomeState.Look).look
+        assertEquals("photo", look.current)
+        assertEquals(310_000, tv.pushed["$dir/wallpaper.jpg"]!!.size)
+        assertEquals("Your photo is on your TV. Sent at 1920×1080, 303 KB, from 4.0 MB.", look.message!!.message)
+
+        vm.applyLook(LookId.CLASSIC); advanceUntilIdle()
+        assertTrue("Classic takes the wallpaper away", tv.pushed["$dir/wallpaper.jpg"] == null)
+
+        assertTrue(vm.back())
+        assertEquals("Back leaves the look picker, not the step", installed, vm.ui.value.home)
+        assertEquals(Step.HOME_SCREEN, vm.ui.value.wizard.step)
+
+        vm.homeContinue(); advanceUntilIdle()
+        vm.toHub(); advanceTimeBy(100)
+        vm.openHomeScreen(); advanceUntilIdle()
+        assertTrue("the hub offers the look when that home screen is on", (vm.ui.value.home as HomeState.Offer).styledIsHome)
     }
 }

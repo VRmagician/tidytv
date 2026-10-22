@@ -1,0 +1,34 @@
+{
+  "name": "OnePlus TV Y1 43",
+  "brand": "OnePlus",
+  "os": "Android TV 11",
+  "summary": "OnePlus TV Y1 ships with Skyworth auto-installs, demo mode and ad rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This OnePlus Y Series 43 inch set is built by Skyworth. It ships with Skyworth auto-installs, a retail demo mode and setup leftovers, telemetry and background services, and recommendation rows on the home screen. The list also covers factory test tools and unused streaming apps.",
+    "It was lived with for about two days after the change. Stock home, Live TV, HDMI switching, the Bluetooth voice remote and audio all kept working. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Google Assistant, so the voice remote still works",
+    "Chromecast built in",
+    "Google Play Services",
+    "The Bluetooth remote and the Gboard keyboard",
+    "The Live TV tuner and HDMI input panel"
+  ],
+  "notes": [
+    "The factory testing tools are turned off here and caused no trouble over several days."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my OnePlus TV?",
+      "a": "Yes. Google Assistant is kept, and the Bluetooth voice remote kept working in testing."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built in is kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

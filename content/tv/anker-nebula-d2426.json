@@ -1,0 +1,35 @@
+{
+  "name": "Anker Nebula Capsule 3 Pro (D2426)",
+  "brand": "Anker",
+  "os": "Android TV 14",
+  "summary": "Anker Nebula Capsule 3 Pro ships with telemetry and content services. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Anker Nebula projector (model D2426) sends telemetry and feedback and runs content and ad services such as free TV rows. The classic Android TV home screen is also on the list, to be turned off once a new one is in place.",
+    "The list was checked with one restart. Two apps, a free TV service and Google's voice search, turn themselves back on at every boot. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The HDMI input service",
+    "The TV service, global remote keys and the Netflix key",
+    "The setup wizard, which keeps your saved Wi-Fi",
+    "Projector controls",
+    "Bluetooth remote pairing"
+  ],
+  "notes": [
+    "Two apps are switched back on by the firmware at every restart, so turn them off again with Check my TV.",
+    "Wireless debugging is on from the factory on this projector."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Nebula?",
+      "a": "Google's voice search is on the list, but it turns itself back on at every restart anyway. Switch it off in the app only if you do not use voice."
+    },
+    {
+      "q": "Why do some apps come back after a restart?",
+      "a": "The firmware switches two of them back on at every boot. Turning them off again only lasts until the next restart."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the stock home screen back in one tap."
+    }
+  ]
+}

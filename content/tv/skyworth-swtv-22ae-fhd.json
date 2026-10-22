@@ -1,0 +1,35 @@
+{
+  "name": "Skyworth SWTV-22AE-FHD",
+  "brand": "Skyworth",
+  "os": "Google TV 14",
+  "summary": "Skyworth SWTV-22AE-FHD ships with factory test apps, store demos, ads and telemetry. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This Skyworth set runs Google TV on Android 14. It ships with Skyworth and Coocaa factory test and store demo apps, telemetry, ads and recommendation rows, and Google feedback. The list also covers the Google TV setup wizard and a few preloaded apps this owner opted out of.",
+    "The list keeps what the TV needs: remote keys, backlight, Bluetooth remote pairing and the Live TV services. TidyTV turns the rest off from your phone, saves a backup first and never deletes anything. The phone and TV need to be on the same Wi-Fi, and the TV asks you once to allow debugging."
+  ],
+  "keep": [
+    "The remote keys and menu service",
+    "Backlight control",
+    "Bluetooth remote pairing",
+    "The MediaTek Live TV, tuner and video services",
+    "Google Assistant and Chromecast",
+    "The Gboard keyboard"
+  ],
+  "notes": [
+    "Switch off the stock Google TV home screen only after a new home screen is in place."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Skyworth?",
+      "a": "Yes. Google Assistant is kept by choice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built in is kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

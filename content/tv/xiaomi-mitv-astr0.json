@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi Redmi Smart TV A Pro 55 (2025)",
+  "brand": "Xiaomi",
+  "os": "Android 14 (China)",
+  "summary": "Xiaomi Redmi Smart TV A Pro 55 (2025) ships with standby screensaver ads, telemetry and push. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This Redmi Smart TV from China ships with Xiaomi telemetry, ads and push, preloaded apps, Mi Home and a cleaner. Its standby screensaver also shows a carousel of ads downloaded from the internet. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was disabled and lived with on 22 October, and the screensaver-ad app was seen running while an ad showed. TidyTV saves a backup first and never deletes anything. The stock launcher stays on, since it was replaced by a special setup. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Menu-button panel with the source switcher and wireless tiles",
+    "The stock home (PatchWall) line is off by default",
+    "WPS Office, kept at the owner's request"
+  ],
+  "notes": [
+    "The screensaver ads are a plain app with their own carousel, so the usual screensaver setting does not stop them.",
+    "Re-enable the TV manager if the voice assistant stops opening apps."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi Redmi Smart TV A Pro 55?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will it stop the screensaver ads?",
+      "a": "Yes. The app that shows them is on the list and was checked while an ad was showing."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi Redmi Smart TV A Pro 55?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

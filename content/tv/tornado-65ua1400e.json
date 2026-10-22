@@ -1,0 +1,34 @@
+{
+  "name": "Tornado 65UA1400E",
+  "brand": "Tornado",
+  "os": "Android TV 11",
+  "summary": "Tornado 65UA1400E ships with Skyworth ads, a viewing tracker and auto-installs. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This Tornado TV, sold by El Araby in Egypt, is built by Skyworth. It ships with ads, a viewing tracker and partner auto-installs, plus background services nobody needs on a TV. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "The list was built in four batches on this firmware. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. The Live TV app and the input service are left on so channels and HDMI keep working. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Skyworth Live TV and its input on-screen display",
+    "The MediaTek input service for HDMI",
+    "The classic Android TV home screen",
+    "The TV's setup wizard, which nothing on the list needs gone"
+  ],
+  "notes": [
+    "Updates live in Settings. There is no separate firmware-update app to worry about.",
+    "One unwanted store app was already off from the factory."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Tornado 65UA1400E?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Does the TV still get firmware updates?",
+      "a": "Yes. Updates are handled in Settings, and TidyTV does not touch them."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Tornado 65UA1400E?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

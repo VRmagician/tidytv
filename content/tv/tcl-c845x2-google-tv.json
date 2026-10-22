@@ -1,0 +1,34 @@
+{
+  "name": "TCL 75C845X2",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "TCL 75C845X2 ships with a Samba TV viewing tracker and TCL promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This UK and Europe TCL runs Google TV on Android 14 and ships with Samba TV, which tracks what is on screen, TCL analytics, log upload and account sign-in nags. It also has TCL Live FAST channels, content pushed at boot, push messages and promos, retail demo and hotel mode apps, an e-manual and a cleaner.",
+    "The list was applied on a real 75 inch set. Home, the new launcher and its dock apps worked afterwards. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each app can be switched back on. Chromecast, AirPlay and the game bar were kept."
+  ],
+  "keep": [
+    "Chromecast, AirPlay and the game bar",
+    "Live TV and HDMI (the TCL TV app)",
+    "The Input source panel and the TCL dashboard",
+    "The remote's service and keyboard"
+  ],
+  "notes": [
+    "This owner uses SmartTube, so YouTube and Google Play Movies are on the list. Keep them on if you use them.",
+    "Switching the stock home off empties the Accounts and profiles list. The accounts stay stored."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 75C845X2?",
+      "a": "This list does not mention turning off the voice assistant, so the mic button is left as it is."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast and AirPlay are kept. Miracast and TCL's T-Cast phone mirroring are on the list and are switched off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Google TV home screen back."
+    }
+  ]
+}

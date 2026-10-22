@@ -1,0 +1,34 @@
+{
+  "name": "Skyworth 65A3F",
+  "brand": "Skyworth",
+  "os": "Android 13 (CCOS)",
+  "summary": "Skyworth 65A3F ships with boot and shutdown ads and promos. TidyTV is a free phone app that turns the ad service off, with a backup and one-tap undo.",
+  "intro": [
+    "This is a Skyworth set with the Chinese Coocaa firmware, without Google apps. It shows an ad at startup and another at shutdown, from an ad service that also hosts the ad landing pages. The list is short, with nine apps.",
+    "Switching off the ad service removed both ads, checked across a restart. The list never turns off the Skyworth home app. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. The phone and TV need to be on the same Wi-Fi, and the TV asks you once to allow debugging."
+  ],
+  "keep": [
+    "The Skyworth home app, which must stay on",
+    "The remote and Bluetooth pairing",
+    "The Play Store, Play Services and keyboards, where the set has them"
+  ],
+  "notes": [
+    "Never switch off the home app on this TV. Doing so left a set stuck on the Skyworth logo and needed a factory reset from Recovery.",
+    "Network debugging here needs no pairing, so anyone on your Wi-Fi could open a shell. Turn it off when you are done.",
+    "A new home screen cannot own the boot screen on this firmware."
+  ],
+  "faq": [
+    {
+      "q": "Will it remove the boot ad?",
+      "a": "Yes. Switching off the ad service removed both the boot ad and the shutdown ad, checked across a restart."
+    },
+    {
+      "q": "Is it safe to switch off the home app?",
+      "a": "No. It stays on. Switching it off left one set stuck on the logo until a factory reset."
+    },
+    {
+      "q": "Can I undo it?",
+      "a": "Yes. Restore everything turns every app back on in one tap. Nothing is deleted."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+ "id": "vision-2024vision43stv",
+ "title": "Vision 2024VISION43STV (CVTE TP.T950D4T.PB751, Amlogic T950D4), Android 13 (SDK 33), Europe.",
+ "header": "Vision 2024VISION43STV (CVTE TP.T950D4T.PB751, Amlogic T950D4), Android 13 (SDK 33), Europe.\n1 GB RAM, 1920x1080 at 240 dpi (1280x720 dp UI). Not Google TV: CVTE's own launcher\n(com.cvte.tv.launcher.space, \"LauncherSpace4\") and CVTE settings (com.cvte.settings); no stock\nAndroid settings, so Developer options are unreachable. Build fingerprint is spoofed\n(google/shamu/...), so don't use it to match your set; match the board name instead.\nTested on one set for a day, not yet a few days; launcher half done too.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/vision-2024vision43stv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/vision-2024vision43stv/debloat.txt\nEverything is DISABLED, not uninstalled. Kept on purpose: com.cvte.tv.api.impl (TIF player, hotkeys),\ncom.cvte.tv.setting (the live-TV UI: CH+/-, number keys, info banner), com.cvte.tv.globalui (source\nmenu), com.cvte.tvservice, com.droidlogic.* (tvinput, dtvkit), com.cvte.fac.menu, com.cvte.factory.*.\n\nADB: factory menu. Switch to a source first (TV or HDMI; it does not open from the launcher), then on\nthe remote (H620DF-DS) press MENU 1 1 4 7 quickly -> DEBUG -> ADB ENABLE -> ON. Don't touch SHIPPING\nINIT / BOARD INIT (factory reset), AGING MODE, PANEL SETTING, EMC SETTING or SW UPGRADE. Network ADB\non 5555 then has NO authorisation (ro.adb.secure empty, no prompt) and survives reboots until it is\nswitched OFF in the same menu.\n\nScreenshots: screencap returns 0 bytes (\"FB is protected\") whenever a TV SurfaceView is on screen,\nand that includes the stock launcher, which embeds a live-TV preview. Open Settings for real ones.\npm disable state is written to disk with a delay: wait ~30 s before rebooting.\n\nSTOCK LAUNCHER - READ BEFORE DISABLING IT. This firmware has no FallbackHome. At boot the user is still\nlocked (FBE) and only a direct-boot-aware Home can start; the stock launcher is one, a normal launcher\nis not. With the stock launcher disabled and a non-direct-boot-aware Home, boot never completes: black\nscreen, LED on, remote and power key dead, no Wi-Fi (sys.boot_completed empty, dumpsys user shows\nState: BOOTING, \"No home screen found for Intent { act=MAIN cat=[HOME,COMMON_HOME] }\").\nThe new Home needs android:directBootAware=\"true\" on the activity (application-level alone did not\nmark it), prefs in createDeviceProtectedStorageContext(), and a reload on ACTION_USER_UNLOCKED.\nRecovery: LAN cable straight into a laptop. Android's Ethernet asks for DHCP; answer it from the\nlaptop's 169.254.x.x address (only for the TV's MAC) and adb connects. Then pm enable the stock\nlauncher and am start -a android.intent.action.MAIN -c android.intent.category.HOME\n-c android.intent.category.COMMON_HOME.\n\nLauncher notes for this firmware (the stock launcher did these jobs):\n- Home key sends MAIN + HOME + COMMON_HOME (CvteHomeManager, ro.CVT_EN_COMMON_HOME_INTENT=1):\nthe new launcher needs a second intent-filter with android.intent.category.COMMON_HOME.\n- Inputs: no standard passthrough handler. Use\nam start -a com.cvte.intent.ACTION_TIF_PLAYER\n-n com.cvte.tv.api.impl/com.cvte.tv.api.vendor.common.base.tif.TvSupportActivity\n--ez tune true --ei sourceId N --es toActivity com.cvte.tv.setting.TvSettingActivity\nN is the number after /HW in dumpsys tv_input: DTV (DTVKit, the scanned DVB-T channels) 19,\nHDMI1/2/3 5/6/7, AV 1. 16 (ADTV) is a second tuner with no channels.\nsys.current.source.name does not update; check dumpsys tv_input | grep -A2 sessionStateMap.\n- Channel keys and numbers are handled by com.cvte.tv.setting/.TvSettingActivity, not the player.\nWithout toActivity, CH+/- do nothing. At power-on CVTE starts only the player, so an accessibility\nservice opens the TV UI when TvSupportActivity comes up on its own (same intent with tune=false).\n- Input/Source key: an accessibility key filter maps KEYCODE_TV_INPUT to\ncom.cvte.tv.globalui/.InputSourceActivity. Injected keys bypass the filter; test the real remote.\n- Wi-Fi network belongs to android.uid.system (cname=android.uid.system:1000), so the setup wizard\n(com.droidlogic.setupwizard) is not a Wi-Fi risk; it did not claim Home once setup was done.\n- Boot logo and animation can't be turned off without root.",
+ "sections": [
+  {
+   "title": "Ads and telemetry",
+   "apps": [
+    {
+     "pkg": "com.cvte.gaia.ad.service",
+     "note": "ad service, Google Mobile Ads, SensorsData analytics, Sentry"
+    },
+    {
+     "pkg": "com.cvte.wonder.cloud.service",
+     "note": "\"UniAdService\", Firebase, Sentry"
+    },
+    {
+     "pkg": "com.cvte.industries",
+     "note": "push messenger (ACTION_INDUSTRY_MESSENGER) + AdReceiver"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Manufacturer content and ad services",
+   "apps": [
+    {
+     "pkg": "com.zeasn.services.general",
+     "note": "Zeasn search / content service, boots with the TV"
+    },
+    {
+     "pkg": "com.cvte.tv.pictorial",
+     "note": "screensaver with ads; switch to com.android.dreams.basic Colors"
+    },
+    {
+     "pkg": "com.cvte.tv.weather",
+     "note": ""
+    },
+    {
+     "pkg": "com.cvte.tv.steward",
+     "note": "\"cleaner\" with scheduled \"optimisation\""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher and its skin",
+   "apps": [
+    {
+     "pkg": "com.cvte.tv.launcher.space",
+     "note": "ads, SensorsData, Sentry, Firebase; also a live-TV preview"
+    },
+    {
+     "pkg": "com.cvte.tv.launcher.space.skin",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "ONLY with a direct-boot-aware replacement Home (see header)"
+  },
+  {
+   "title": "Off by choice on the tested set (keep what you use)",
+   "apps": [
+    {
+     "pkg": "com.netflix.mediaclient",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.avod.thirdpartyclient",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.amazon.rialto.cordova.webapp.webapp2660c968ef8949678398aeb6fd6cb036",
+     "note": "preloaded Amazon web app"
+    },
+    {
+     "pkg": "com.tiktok.tv",
+     "note": ""
+    },
+    {
+     "pkg": "deezer.android.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.ted.android.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 16
+}

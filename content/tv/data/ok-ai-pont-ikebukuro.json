@@ -1,0 +1,131 @@
+{
+ "id": "ok-ai-pont-ikebukuro",
+ "title": "OK. \"AI PONT\" (Changhong, device ikebukuro), Android TV 11 (API 30), firmware RTO2.250804.001,",
+ "header": "OK. \"AI PONT\" (Changhong, device ikebukuro), Android TV 11 (API 30), firmware RTO2.250804.001,\n1280x720 panel, about 0.9 GB RAM (MemTotal 929000 kB). Vendor layer Homwee (com.homwee.*), content\nrecognition from Anoki. Same platform family as examples/chiq-ai-pont.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/ok-ai-pont-ikebukuro/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/ok-ai-pont-ikebukuro/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher. Live TV: com.mediatek.wwtv.tvcenter.\nTested the same day on one set and through two reboots, not a multi-day soak. Every package stayed\ndisabled after both reboots. Then launcher/build-and-install.sh set com.gathin.tvhome as Home (checked with\nmFocusedApp after Home and after a reboot) and tools/theme.sh pushed config.json (dock: Netflix, YouTube,\nPrime Video, RaiPlay). Checked: D-pad across the dock, grid and top bar; Inputs lists HDMI 1, HDMI 2,\nAV and Live TV, and Live TV opens tvcenter; a video plays (YouTube or Netflix) with AdGuard Private DNS on; the real\nremote's Input, Settings, Netflix, YouTube and Prime Video buttons all still work without tvlauncher.\nOnly com.google.android.tvlauncher and com.android.tv.settings/.system.FallbackHome answer HOME, so\nsetupwraith is left alone (one saved Wi-Fi network belongs to it).\ncom.homwee.dmt.upgrade crashes at every start (NullPointerException in readProjectID), also with every\nHomwee package and Anoki re-enabled, so it is the firmware, not this list.\nShipped disabled: com.cltv.fast (FAST channels), com.google.android.marvin.talkback.\n\nKEEP: com.google.android.leanbacklauncher.partnercustomizer (see examples/chiq-ai-pont),\ncom.homwee.dmt.upgrade (firmware updates), com.homwee.synckey (remote keys), com.homwee.factory,\ncom.mediatek.* (Live TV, inputs, remote pairing, picture), com.mstar.android.tv.disclaimercustomization,\ncom.google.android.apps.nbu.smartconnect.tv (Google connectivity helper, left alone).",
+ "sections": [
+  {
+   "title": "Batch 1: telemetry, ads and recommendation rows",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.controller",
+     "note": "Anoki automatic content recognition"
+    },
+    {
+     "pkg": "com.homwee.aipont",
+     "note": "AI PONT brand portal and its recommendation channels"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.homwee",
+     "note": "partner-app auto-installs"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: vendor and preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.homwee.store",
+     "note": ""
+    },
+    {
+     "pkg": "com.homwee.help",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google Play Movies & TV"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant (the mic button stops working)"
+    },
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.homwee.multiscreenshare",
+     "note": "Miracast mirroring"
+    },
+    {
+     "pkg": "com.homwee.mmp.screenshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient screensaver, replaced by the launcher's Clock"
+    }
+   ],
+   "optional": [],
+   "note": "personal choice, not used on this set: comment out what you use"
+  },
+  {
+   "title": "Batch 4",
+   "apps": [
+    {
+     "pkg": "com.disney.disneyplus",
+     "note": ""
+    },
+    {
+     "pkg": "it.mediaset.infinitytv",
+     "note": ""
+    },
+    {
+     "pkg": "tv.pluto.android",
+     "note": ""
+    },
+    {
+     "pkg": "com.tiktok.tv",
+     "note": ""
+    },
+    {
+     "pkg": "it.radioplayer.android",
+     "note": ""
+    },
+    {
+     "pkg": "tv.arte.plus7",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "note": "personal choice, preloaded streaming apps not used on this set (kept: Netflix, YouTube, Prime Video, RaiPlay, Max). Comment out what you use."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 22
+}

@@ -1,0 +1,33 @@
+{
+  "name": "Motorola SWTV-24AE-FHD",
+  "brand": "Motorola",
+  "os": "Google TV 14",
+  "summary": "Motorola SWTV-24AE-FHD ships with Skyworth telemetry, ads and bundled apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Motorola set is built by Skyworth. It ships with Skyworth telemetry and activation services, Android ad and personalisation services, and Skyworth content and recommendations. The list also covers cleaners, manuals and other bundled apps nobody needs on a TV.",
+    "On this firmware the Google TV home screen and the setup wizard are only turned off after a new home screen is in place. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Live TV app and the HDMI and tuner inputs",
+    "The Google Play Store and Google services",
+    "The stock Google TV home screen, until you choose a new one"
+  ],
+  "notes": [
+    "If you set up Wi-Fi during the first-run wizard, the TV may lose its saved network when the wizard is switched off. Forget the network and join it again in Settings first.",
+    "The remote's Settings button needs a small helper service to work once the stock home screen is off."
+  ],
+  "faq": [
+    {
+      "q": "Will the remote's Settings button still work?",
+      "a": "Only with the helper service on, once the stock home screen is off. TidyTV can turn it on for you."
+    },
+    {
+      "q": "Could I lose my Wi-Fi when the setup wizard is turned off?",
+      "a": "Possibly, if the wizard owns your saved network. Forget the network and join it again in Settings before you start."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

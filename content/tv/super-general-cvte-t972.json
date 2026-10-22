@@ -1,0 +1,35 @@
+{
+  "name": "Super General 55\" 4K Smart TV",
+  "brand": "Super General",
+  "os": "Android 9",
+  "summary": "Super General 55 inch 4K smart TV has pushed ads and adware. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Super General set uses CVTE's own software on Android 9, not Google TV. It ships with an adware cleaner app, ad services that the firmware's cloud pushes silently, and an ad screensaver. It also has a CVTE assistant, a weather app, the Stark app store and a few preloaded browsers.",
+    "The list was tested on one set for a day and checked after a reboot. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. The CVTE source menu and TV settings were kept so inputs keep working."
+  ],
+  "keep": [
+    "The CVTE source menu and TV settings",
+    "The TV player and the remote's hotkey service",
+    "The CVTE TV service",
+    "TV input, Bluetooth remote and Miracast (Droidlogic)",
+    "Factory menus, which are never touched"
+  ],
+  "notes": [
+    "Google Play Services shipped turned off by the system on this set. It needs switching on for Google Play to work.",
+    "The TV has 1 GB of memory, and the CVTE home screen was replaced with a third-party one in the owner's test."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads?",
+      "a": "It turns off the adware app, the CVTE ad services and the ad screensaver, which are the ad sources on this list."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Miracast is kept. The AirScreen casting app is on the list and is switched off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the CVTE home screen back."
+    }
+  ]
+}

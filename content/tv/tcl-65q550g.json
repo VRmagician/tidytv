@@ -1,0 +1,34 @@
+{
+  "name": "TCL 65Q550G",
+  "brand": "TCL",
+  "os": "Google TV 11",
+  "summary": "TCL 65Q550G ships with TCL analytics, a use-tracking cleaner and home screen promos. TidyTV is a free phone app that turns them off, with undo.",
+  "intro": [
+    "This TCL runs Google TV on Android 11 and ships with TCL analytics, awareness and identifier services, and a TGuard app that tracks device use and health info. The Google TV home has TCL rows, pushed messages and promos, a TCL Home panel with a gift box, and retail demo stickers. Preloaded apps are also listed.",
+    "The list was tested on one unit over Ethernet. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on. Chromecast and Miracast were kept."
+  ],
+  "keep": [
+    "Chromecast and Miracast",
+    "Live TV and HDMI inputs",
+    "Play Store and Play Services",
+    "The remote and settings"
+  ],
+  "notes": [
+    "On this firmware the default keyboard points at an app that is not installed, so no keyboard appears in search fields. Set Gboard as the keyboard.",
+    "The setup app owns saved Wi-Fi and claims Home. It was turned off over Ethernet, so do not turn it off over Wi-Fi."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 65Q550G?",
+      "a": "Not with the default list. Google Assistant, the TCL voice service and Alexa are on it. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes for Chromecast and Miracast, which are kept. AirPlay is on the list and is switched off."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL rows on the Google TV home, the pushed messages and promos and the TCL Home panel with the gift box."
+    }
+  ]
+}

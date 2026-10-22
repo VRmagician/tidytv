@@ -1,0 +1,112 @@
+{
+ "id": "byintek-u4",
+ "title": "BYINTEK Love U4, 1080P version (Skyworth board RG_HS352_D1E8_SW_B10, HiSilicon Hi3751V350)",
+ "header": "BYINTEK Love U4, 1080P version (Skyworth board RG_HS352_D1E8_SW_B10, HiSilicon Hi3751V350)\nAndroid 9, firmware 1.01.08 (Hi3751V352F_DMO-userdebug, build 2025-09), 1 GB RAM\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/byintek-u4/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/byintek-u4/debloat.txt com.zeasn.whale.saas\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.zeasn.whale.saas (Zeasn \"Whale\"); Android's FallbackHome is the only other HOME.\nKeep com.sdt.app.skysettings (all projector settings, input sources, and the ADB switch: see README),\ncom.sdt.projectionservice (keystone and focus), every com.hisilicon.* package (TV service, HDMI input,\nMiracast, media), com.skyworthdigital.*, and the factory test apps, which may hold calibration data.\nKeep com.android.toofifi too: it is the AirPlay, Chromecast and DLNA receiver (\"tranScreen\").",
+ "sections": [
+  {
+   "title": "Zeasn ads and store The ad service is a persistent system app with permission to install apps silently",
+   "apps": [
+    {
+     "pkg": "com.zeasn.deviceportal.asdprovider.skyworth_hisi352",
+     "note": "ad/portal service for the Whale launcher"
+    },
+    {
+     "pkg": "zeasn.open.technical.tv.store",
+     "note": "Zeasn app store; Google Play stays"
+    }
+   ],
+   "optional": [],
+   "note": "Android starts it at boot even when disabled. Hiding it (optional, needs root, see README) is what keeps it from running."
+  },
+  {
+   "title": "Preloads",
+   "apps": [
+    {
+     "pkg": "cn.wps.moffice_i18n_TV",
+     "note": "WPS Office"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "RuStore is a normal app, but /system/bin/sk_install_yingke_apps.sh reinstalls it from /system/bak at every boot when it is missing (YouTube, Netflix and Chrome too)",
+   "apps": [
+    {
+     "pkg": "ru.vk.store.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Disabled, it stays installed and the script leaves it alone; uninstalled, it is back after the next restart."
+  },
+  {
+   "title": "Phone and setup leftovers",
+   "apps": [
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.carriersetup",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.simappdialog",
+     "note": "SIM toolkit"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.contacts",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.pixelmigrate",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.wallpaperbackup",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.sharedstoragebackup",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Wired phone casting (USB); wireless AirPlay/Chromecast/Miracast stay",
+   "apps": [
+    {
+     "pkg": "com.toofifi.lineserver",
+     "note": ""
+    },
+    {
+     "pkg": "com.mphotool.usbcastserver",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google extras",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.bips",
+     "note": "default print service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.zeasn.whale.saas",
+ "count": 15
+}

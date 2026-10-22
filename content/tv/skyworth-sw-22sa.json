@@ -1,0 +1,37 @@
+{
+  "name": "Skyworth SW-22SA",
+  "brand": "Skyworth",
+  "os": "Android TV 14",
+  "summary": "Skyworth SW-22SA ships with Skyworth ads, demos and after-sale push apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Skyworth set runs Google TV on Android TV 14. It ships with Skyworth content, ads, demos and preloads, telemetry and an after-sale app that can push APKs at start, plus Android ad services. The list also covers casting and local media apps that this owner does not use.",
+    "It was checked on the TV in October 2026. Live TV, HDMI, Chromecast and Assistant are kept on. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. The phone and TV need to be on the same Wi-Fi, and the TV asks you once to allow debugging."
+  ],
+  "keep": [
+    "Live TV and the HDMI inputs",
+    "Bluetooth remote pairing and the quick menu",
+    "Chromecast built in",
+    "Google Assistant",
+    "YouTube and Netflix",
+    "Dolby audio",
+    "The Play Store and Play Services"
+  ],
+  "notes": [
+    "Network debugging can close on its own and show as offline. Reconnect to the TV if it drops.",
+    "If you forget and re-join Wi-Fi, the TV may get a new address."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Skyworth SW-22SA?",
+      "a": "Yes. Google Assistant is kept on purpose."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept. The unused local media apps are turned off."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

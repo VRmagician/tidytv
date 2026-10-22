@@ -1,0 +1,34 @@
+{
+  "name": "Gadnic PROJ100W",
+  "brand": "Gadnic",
+  "os": "Google TV 14",
+  "summary": "Gadnic PROJ100W ships with telemetry, ads and unused stick apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Gadnic PROJ100W projector from Argentina has a built-in 4K Google TV stick. It ships with telemetry and remote management, ads and personalization, factory test apps, extras that do not belong on a projector stick, and a voice assistant. The list has 20 apps.",
+    "On this unit the setup wizard holds the saved Wi-Fi, and turning it off too early drops the projector's Home. Forgetting and rejoining the network first fixes that. TidyTV turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The setup wizard, until your Wi-Fi is rejoined",
+    "Chromecast built-in casting",
+    "Google Play Store and Play Services",
+    "The remote and Bluetooth"
+  ],
+  "notes": [
+    "Turning off the setup wizard gives the home screen back but breaks casting with Chromecast built-in.",
+    "If the setup wizard holds your Wi-Fi, forget and rejoin the network in Settings before turning it off."
+  ],
+  "faq": [
+    {
+      "q": "Will casting still work on my Gadnic projector?",
+      "a": "Yes, unless you turn off the setup wizard. That one gives back the home screen but breaks Chromecast built-in casting."
+    },
+    {
+      "q": "Will my Wi-Fi drop?",
+      "a": "Not if you forget and rejoin the network in Settings first. Turning off the setup wizard early deletes a network saved during first setup."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the stock home screen back in one tap."
+    }
+  ]
+}

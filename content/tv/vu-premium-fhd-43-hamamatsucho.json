@@ -1,0 +1,34 @@
+{
+  "name": "Vu Premium FHD 43-inch",
+  "brand": "Vu",
+  "os": "Android TV 9",
+  "summary": "Vu Premium FHD 43-inch ships with preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Vu Premium 43-inch from India is a short list of five preloaded apps on Android TV 9. It targets the extras and leaves the core TV parts alone. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was checked on 20 October and stayed usable after the apps were switched off. The list deliberately excludes core TV, network, input, Play Store, casting, streaming and Assistant apps. TidyTV saves a backup first and never deletes anything. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The core TV and Live TV app",
+    "Network and input apps",
+    "The Play Store",
+    "Casting and streaming apps",
+    "Google Assistant"
+  ],
+  "notes": [
+    "Turn off the stock home screen only after a replacement is installed and chosen as Home."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Vu Premium FHD 43-inch?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will casting still work?",
+      "a": "Yes. Casting apps are left out of the list on purpose."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Vu Premium FHD 43-inch?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

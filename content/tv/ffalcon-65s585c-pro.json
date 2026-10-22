@@ -1,0 +1,35 @@
+{
+  "name": "FFalcon 65S585C Pro",
+  "brand": "FFalcon",
+  "os": "Android 11 (China)",
+  "summary": "FFalcon 65S585C Pro ships with ad and telemetry reporting and promo apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This FFalcon 65S585C Pro is a China-market TV on TCL's platform. It ships with ad and telemetry reporting and content apps with their own promo screens. There are also optional groups, including firmware updates. The list has 24 apps and uses the same firmware as the TCL Q10G Pro.",
+    "It was tested on a real unit with two full restarts. The home screen and HDMI inputs worked and the apps stayed off. TidyTV turns these off from your phone over Wi-Fi with a backup first and never deletes anything. Wait ten seconds before restarting."
+  ],
+  "keep": [
+    "The TCL home screen, TV app, settings and system service",
+    "The Sogou keyboard, which is the only one",
+    "The app market and remote pairing",
+    "The factory service and device setup"
+  ],
+  "notes": [
+    "No third-party home screen can be installed on this firmware, so the TCL home screen stays.",
+    "Wait at least ten seconds after the apps are turned off before you restart the TV. A restart too soon brings them back on.",
+    "The firmware update group is optional. Turn it back on when you want updates."
+  ],
+  "faq": [
+    {
+      "q": "Can I install a new home screen on my FFalcon TV?",
+      "a": "No. This firmware does not allow it, so the TCL home screen stays. TidyTV only turns off the ad and telemetry apps."
+    },
+    {
+      "q": "Will firmware updates still arrive?",
+      "a": "The update group is optional and off by default in the list. Turn it back on in the app when you want updates."
+    },
+    {
+      "q": "Why did the apps come back after I restarted straight away?",
+      "a": "The TV writes the new settings to storage after a short delay. Wait at least ten seconds before restarting."
+    }
+  ]
+}

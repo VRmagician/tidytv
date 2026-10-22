@@ -27,7 +27,7 @@ It contains a [prompt](https://github.com/Gathin23/cleanyourtv/blob/main/PROMPT.
 
 ## How many lists are there?
 
-Counting the model folders in the repository's `examples` directory on October 20, 2026 gives 93. Each folder holds a `debloat.txt` for one TV model. Early write-ups gave slightly different figures, so treat the number as a snapshot that will grow.
+Counting the model folders in the repository's `examples` directory on October 22, 2026 gives 232. Each folder holds a `debloat.txt` for one TV model. Early write-ups gave slightly different figures, so treat the number as a snapshot that will grow.
 
 The project describes these lists as starting points. Packages are grouped and commented, and you are meant to comment out anything you use. The notes show how model-specific TVs are. Typical entries mention ad and tracking services, retail demo modes and store or hotel modes. Several say one setup app must be turned off together with the stock launcher, or Home falls back to a recovery screen. Others say a particular service must stay, or the Input key stops working. Those are the kind of details a generic list would miss.
 

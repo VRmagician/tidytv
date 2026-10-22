@@ -1,0 +1,35 @@
+{
+  "name": "TCL 50P615",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 50P615 ships with TCL analytics, pushed content and promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Greek set runs Android TV 11 and ships with TCL analytics, home screen recommendation rows, partner app attribution and a partner app auto installer. TCL also pushes content onto the home screen at boot, runs a TCL Channel web feed, sends messages and promos and has a retail demo sticker. Google Assistant and voice helpers are also listed.",
+    "The list was applied in five batches with a screenshot after each. After one reboot nothing came back on. Settings, Wi-Fi, the Inputs menu, app tiles and every button on the real remote worked. TidyTV saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV (the TCL TV app)",
+    "Tuner and HDMI (the TCL input service)",
+    "The Play Store",
+    "Wi-Fi and Settings",
+    "Remote buttons including Home, Input and Settings"
+  ],
+  "notes": [
+    "Apps already switched off at the factory, such as the UK catch-up apps, are left alone.",
+    "Install a replacement home screen first, then turn off the stock one."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 50P615?",
+      "a": "Not with the default list. It turns off Google Assistant, voice search and the TCL voice service. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL content pushes, the web content feed, the pushed messages and promos and the recommendation rows."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}

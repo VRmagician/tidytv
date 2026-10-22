@@ -1,0 +1,34 @@
+{
+  "name": "TCL 50P735",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 50P735 ships with TCL analytics, promo rows and Google extras. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL runs Android TV 11 and ships with TCL analytics and logging, plus content, promo and recommendation rows. TCL partner customizers, an overseas app show, a store demo sticker and a channel service push content in. Google extras such as videos, games and a music app, and a cleaner, game bar and hearing aid app are also listed.",
+    "This list was shared by one owner, so treat it as provisional. The build and a reboot check were not reported. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on."
+  ],
+  "keep": [
+    "Live TV and the TCL input service",
+    "The remote and system services",
+    "Your Wi-Fi and Settings",
+    "The Play Store and Play Services"
+  ],
+  "notes": [
+    "This list is provisional. It comes from one owner and was not checked after a reboot.",
+    "This owner turned off TCL's firmware updater. Turn it back on in the app to take an update."
+  ],
+  "faq": [
+    {
+      "q": "Will TV updates still work?",
+      "a": "Not with this list, which turns off TCL's firmware updater. Switch it back on in the app when you want to take an update."
+    },
+    {
+      "q": "Is this list well tested?",
+      "a": "It was shared by one owner without a reboot check, so it is marked provisional. The backup and one-tap undo are there in case anything looks wrong."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back."
+    }
+  ]
+}

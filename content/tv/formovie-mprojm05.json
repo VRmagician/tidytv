@@ -1,0 +1,35 @@
+{
+  "name": "Formovie MiProjM05",
+  "brand": "Formovie",
+  "os": "Android TV 9",
+  "summary": "Formovie MiProjM05 ships with telemetry, auto-installs and recommendations. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Formovie (Fengmi) MiProjM05 projector sends telemetry, auto-installs partner apps, and pushes recommendations and content. It also has preloaded apps and unused system apps. The classic Android TV home is on the list to be turned off once a new one is in place. The list has 20 apps.",
+    "Focus, keystone and auto keystone, the projector settings and the app drawer are kept, along with Live Channels and the Play Store. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Focus and keystone, including auto keystone",
+    "The projector settings, voice key and USB",
+    "The Formovie app drawer",
+    "The Droidlogic services and Live Channels",
+    "Play Store and Play Services"
+  ],
+  "notes": [
+    "The remote's gear button needs the old home screen to open anything. Mapping it to Settings with a helper stops a held Volume Up from ramping.",
+    "This projector has one HDMI port and no tuner."
+  ],
+  "faq": [
+    {
+      "q": "Will auto keystone still work on my Formovie projector?",
+      "a": "Yes. It still works, even with the camera service off."
+    },
+    {
+      "q": "What does the gear button on the remote do?",
+      "a": "With the old home screen turned off it does nothing. A helper can map it to Settings, but then a held Volume Up changes one step per press."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back in one tap."
+    }
+  ]
+}

@@ -1,7 +1,7 @@
 {
  "id": "xiaomi-tv-a-pro-2026",
  "title": "Xiaomi TV A Pro 75\" 2026 (MiTV-MZTU0, codename river, MediaTek), Google TV / Android 14 (SDK 34),",
- "header": "Xiaomi TV A Pro 75\" 2026 (MiTV-MZTU0, codename river, MediaTek), Google TV / Android 14 (SDK 34),\nfirmware UKN1.240806.017.V816.0.25.3.10.URTMIXM. Likely a good start for other 2024+ Xiaomi Google TVs.\nLive TV app: com.mitv.livetv (set it as live_tv_package and hide it in launcher config.xml).\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh and build-and-install.sh:\nSTOCK_LAUNCHER=com.google.android.apps.tv.launcherx launcher/build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-tv-a-pro-2026/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-tv-a-pro-2026/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nKeep (TV needs them): mitv.service and com.mitv.overseaservice (remote keys, Netflix button, BT remote),\ncom.mediatek.* (extservice, tv.agent, tis, tuners, airplay), com.mitv.livetv, com.mi.bluetooth,\ncom.mitv.setup, com.xiaomi.android.tvsetup.partnercustomizer, com.xiaomi.mitv.scenemode (game mode).\nAlready disabled at the factory: com.xiaomi.floatingframe, com.iwedia.tvinput, atsc/isdb tuners.\nDefault IME is Gboard, no keyboard quirk. 1.8 GB RAM.\n\nGoogle TV 14 quirk (the important one): HOME is resolved by intent priority here and the saved\n\"default home\" is ignored. launcherx has priority 2, the setup wizard's RecoveryActivity priority 1,\na sideloaded launcher 0. Disable launcherx alone and Home lands on RecoveryActivity, which\ncrash-loops system_server (soft reboots every ~60 s, Wi-Fi drops). Shell may not disable that one\nactivity, so the whole setup wizard package is disabled below; it is only used for first-time setup.\nRe-enable it (and launcherx) before a factory reset or to get the Google home back: restore.sh does.\nThe firmware re-enables com.netflix.ninja by itself (Netflix button), so don't bother disabling it.",
+ "header": "Xiaomi TV A Pro 75\" 2026 (MiTV-MZTU0, codename river, MediaTek), Google TV / Android 14 (SDK 34),\nfirmware UKN1.240806.017.V816.0.25.3.10.URTMIXM. Likely a good start for other 2024+ Xiaomi Google TVs.\nLive TV app: com.mitv.livetv (set it as live_tv_package and hide it in launcher config.xml).\nStock launcher: com.google.android.apps.tv.launcherx (pass it to restore.sh and build-and-install.sh:\nSTOCK_LAUNCHER=com.google.android.apps.tv.launcherx launcher/build-and-install.sh).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-tv-a-pro-2026/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-tv-a-pro-2026/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nKeep (TV needs them): mitv.service and com.mitv.overseaservice (remote keys, Netflix button, BT remote),\ncom.mediatek.* (extservice, tv.agent, tis, tuners, airplay), com.mitv.livetv, com.mi.bluetooth,\ncom.mitv.setup, com.xiaomi.android.tvsetup.partnercustomizer, com.xiaomi.mitv.scenemode (game mode).\nKeep (apps, on this model): com.google.android.apps.mediashell. Stremio on Android TV plays\nthrough it; disabling it leaves the Stremio server \"online\" but no video ever plays.\nAlready disabled at the factory: com.xiaomi.floatingframe, com.iwedia.tvinput, atsc/isdb tuners.\nDefault IME is Gboard, no keyboard quirk. 1.8 GB RAM.\n\nGoogle TV 14 quirk (the important one): HOME is resolved by intent priority here and the saved\n\"default home\" is ignored. launcherx has priority 2, the setup wizard's RecoveryActivity priority 1,\na sideloaded launcher 0. Disable launcherx alone and Home lands on RecoveryActivity, which\ncrash-loops system_server (soft reboots every ~60 s, Wi-Fi drops). Shell may not disable that one\nactivity, so the whole setup wizard package is disabled below; it is only used for first-time setup.\nRe-enable it (and launcherx) before a factory reset or to get the Google home back: restore.sh does.\nThe firmware re-enables com.netflix.ninja by itself (Netflix button), so don't bother disabling it.",
  "sections": [
   {
    "title": "Xiaomi + Google telemetry",
@@ -88,19 +88,13 @@
      "note": ""
     }
    ],
-   "optional": [],
-   "note": "only its RecoveryActivity matters after setup, see the quirk above. Disable it before build-and-install.sh, or Home may crash-loop when launcherx goes away."
-  },
-  {
-   "title": "Personal choice",
-   "apps": [
+   "optional": [
     {
      "pkg": "com.google.android.apps.mediashell",
      "note": ""
     }
    ],
-   "optional": [],
-   "note": "Chromecast built-in (AirPlay, Miracast and Mi Cast kept)"
+   "note": "only its RecoveryActivity matters after setup, see the quirk above. Disable it before build-and-install.sh, or Home may crash-loop when launcherx goes away."
   },
   {
    "title": "Preloaded apps",
@@ -144,5 +138,5 @@
  ],
  "kept": [],
  "stock_launcher": "com.google.android.apps.tv.launcherx",
- "count": 20
+ "count": 19
 }

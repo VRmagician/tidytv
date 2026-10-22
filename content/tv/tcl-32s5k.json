@@ -1,0 +1,36 @@
+{
+  "name": "TCL 32S5K",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 32S5K ships with TCL promos, a cleaner app and silent partner installs. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 32 inch TCL QLED has under 1 GB of memory, so the extra apps matter. It ships with a TCL account app, a TGuard cleaner and support app, promo rows on the stock home, a TCL web video portal and a partner app auto installer. Google extras like games and a music app add more.",
+    "The list was checked package by package on this unit, applied in three rounds and tested after reboots, including the undo and a re-apply. Netflix and YouTube played, HDMI switching worked and Wi-Fi survived. TidyTV saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV, which also plays HDMI",
+    "The TCL input service",
+    "Picture and sound settings",
+    "The firmware update check",
+    "The screensaver, unless you turn it off yourself"
+  ],
+  "notes": [
+    "The TCL account app can be turned back on by the TCL service. Check the app list after a restart.",
+    "On this unit free memory rose by about 56 MB with the stock home and 84 MB with a clean home screen.",
+    "Several extras, such as Google search, text-to-speech and the USB media player, are marked off by choice. Switch back on any you use."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 32S5K?",
+      "a": "Not with the full list, which turns off Google search and voice. Leave those switches on in the app if you use voice."
+    },
+    {
+      "q": "Does the undo really work?",
+      "a": "Yes. The full list was restored and applied again on this TV to test it."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL promo rows, the web video portal and the Google recommendation rows."
+    }
+  ]
+}

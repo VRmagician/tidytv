@@ -113,6 +113,10 @@ fun HomeScreenStep(
     onContinue: () -> Unit,
     onShareLogs: () -> Unit,
     onCancelPlayStore: () -> Unit = {},
+    onOpenLook: () -> Unit = {},
+    onCloseLook: () -> Unit = {},
+    onApplyLook: (dev.tidytv.app.LookId) -> Unit = {},
+    onApplyPhoto: (dev.tidytv.app.PickedFile) -> Unit = {},
 ) {
     when (s) {
         is HomeState.Offer -> ScreenFrame(bottom = {
@@ -120,6 +124,10 @@ fun HomeScreenStep(
             TextLink("No thanks, keep my home screen", onSkip)
         }) {
             SafetyBanner("$disabledCount apps turned off")
+            if (s.styledIsHome) Outline {
+                Text("Your Apple TV style home screen is on. Change its look: wallpaper, dock and colours.", style = MaterialTheme.typography.bodyLarge, color = Tidy.Ink)
+                TextLink("Change the look", onOpenLook)
+            }
             Title("Want a cleaner home screen?")
             Body("Just your apps: no ads and no rows of suggestions. Your old home screen comes back with Restore everything.")
             for (app in s.available) HomeOption(app, selected = app == s.app) { onChoose(app) }
@@ -143,7 +151,11 @@ fun HomeScreenStep(
             Bubble("Setting up your new home screen…") { Spinner(26.dp) }
             Body("This takes about 30 seconds. Please don't press buttons on the remote.")
         }
-        is HomeState.Installed -> ScreenFrame(bottom = { BigButton("Continue", onContinue) }) {
+        is HomeState.Look -> LookScreen(s.look, onCloseLook, onApplyLook, onApplyPhoto)
+        is HomeState.Installed -> ScreenFrame(bottom = {
+            if (s.app == HomeApp.STYLED) BigButton("Pick a look", onOpenLook, color = Tidy.BlueSoft, textColor = Tidy.Ink)
+            BigButton("Continue", onContinue)
+        }) {
             HeroMascot(mood = Mood.HAPPY)
             Bubble("New home screen is on", color = Tidy.GreenSoft, textColor = Tidy.GreenInk) { Check(Tidy.Green, 30.dp) }
             HomePreview(s.app)
@@ -186,7 +198,7 @@ val HomeApp.title: String get() = when (this) {
 
 private val HomeApp.blurb: String get() = when (this) {
     HomeApp.SIMPLE -> "One calm screen with your apps, your HDMI inputs and a clock. Tiny (37 KB). Move apps around on the TV with the remote."
-    HomeApp.STYLED -> "A dock of your favourite apps with a glass highlight, a big clock and an inputs menu. About 330 KB, Android 8 or newer."
+    HomeApp.STYLED -> "A dock of your favourite apps with a glass highlight, a big clock and an inputs menu. About 480 KB, Android 8 or newer."
     HomeApp.PROJECTIVY -> "A popular free launcher with rows you arrange yourself. Installed from the Play Store on your TV, so you always get the latest version."
 }
 

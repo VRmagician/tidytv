@@ -1,0 +1,180 @@
+{
+ "id": "tcl-55p8ls",
+ "title": "TCL 55P8LS QD-Mini LED, Vietnam (device G10, product G10_4K_GB_32BIT, model \"Smart TV Pro\", Realtek rtd6748, 1.8 GB)",
+ "header": "TCL 55P8LS QD-Mini LED, Vietnam (device G10, product G10_4K_GB_32BIT, model \"Smart TV Pro\", Realtek rtd6748, 1.8 GB)\nAndroid 12 (Google TV), firmware STT2.230203.001 AS50, software V8-R75PT01-LF1V543\nSame G10 platform and build as tcl-g10-google-tv/ and tcl-55p7k/, with nothing disabled at the factory:\nSamba TV ACR, logkit and ttvs all ship ENABLED. No regional streaming preloads (FPT Play was a user install).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-55p8ls/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-55p8ls/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\nApplied 2026-10-21 in five batches with a screenshot between them, then rebooted: all 29 stayed\ndisabled. The launcher section went after the reference launcher was installed as Home; a second\nreboot kept all 32 disabled, Home on the new launcher and its key services bound.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV / HDMI app: com.tcl.tv.\nKeep: com.tcl.tv, com.tcl.tvinput, com.tcl.suspension (the Input picker), com.tcl.dashboard,\ncom.tcl.autopair, com.tcl.systemserver, com.tcl.providers.config, com.tcl.initsetup, com.tcl.factory.view,\ncom.tcl.useragreement, com.tcl.globalkeyoverlay, com.tcl.inputmethod.international (the keyboard),\ncom.tcl.hearaid (sound settings and accessibility), com.tcl.android.webview, all com.realtek.* and com.tvos.\nKept by choice on this TV: com.tcl.ui_mediaCenter (USB), com.tcl.airplay2 + com.realtek.airplay2,\ncom.google.android.apps.mediashell (Chromecast), com.google.android.tv.remote.service and\ncom.google.android.katniss (Assistant on the mic button), Netflix, YouTube.\n\nKnown quirks on this firmware:\n- The saved Wi-Fi network belonged to setupwraith (`dumpsys wifi | grep -o 'cname=[^ ]*'`). Forget the\nnetwork and join it again in Settings first; afterwards it belongs to android.uid.system and\nsetupwraith can be disabled without the TV dropping off Wi-Fi.\n- The Vietnamese tab names on the stock Google TV home (\"Màn hình chính\", \"Ứng dụng\") and its TCL tab come\nfrom com.tcl.partnercustomizer, not from the system locale (en-US here): with it disabled the stock home\nshows \"Home\" and \"Apps\".\n- Signing in to a Google account right after the list made Play Store install VTV Go, HBO Max and iQIYI\n(installer com.android.vending). They are ordinary apps: uninstall them, and turn off auto-update in\nPlay Store settings.\n- TclAppBoot leaves the launcher's key services unbound until `appops set com.gathin.tvhome\nAPP_AUTO_START allow` followed by `appops write-settings` (docs/TROUBLESHOOTING.md).\n- Disabling dreamx: set screensaver_components to com.gathin.tvhome/.ClockDream first.\n- Remote buttons with launcherx disabled, checked on the real remote: same codes as the C69B in\ntcl-g10-google-tv/. With INPUT_KEY_SERVICE=1 and HOME_KEY_SERVICE=1, settings_key_keycodes 83 and\napp_keys 4065:com.google.android.youtube.tv, 4062:com.netflix.ninja, Home, Input, Settings, YouTube,\nNetflix and the mic (Assistant) all work.",
+ "sections": [
+  {
+   "title": "TCL / third-party tracking and analytics",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": "Samba TV ACR viewing tracking (enabled at the factory here)"
+    },
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "TCL analytics; re-enable if firmware updates stop arriving"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log capture and upload"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL Channel / content feed"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tab and Vietnamese tab names on the Google TV home, see quirks"
+    },
+    {
+     "pkg": "com.tcl.interactive",
+     "note": "TCL TIAS background service"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL push messages and promos"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "silently installs partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo / hotel mode",
+   "apps": [
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and services",
+   "apps": [
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard memory \"cleaner\""
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "re-enable for the console game-mode overlay"
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "re-enable to update a TCL soundbar"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa"
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "T-Solo \"listen alone\""
+    },
+    {
+     "pkg": "com.tcl.magiconnectfree",
+     "note": "MagiConnect / T-Cast phone app companion"
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "screen mirroring from Android phones"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Needed for a custom launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient mode screensaver, see quirks"
+    }
+   ],
+   "optional": [],
+   "note": "Disable only AFTER the new launcher is installed, and setupwraith only after the Wi-Fi network has been re-joined (see quirks)."
+  },
+  {
+   "title": "Disabled by choice on this TV (unused streaming apps)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "comment out the ones you watch"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 32
+}

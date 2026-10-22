@@ -1,0 +1,36 @@
+{
+  "name": "BenQ GV32",
+  "brand": "BenQ",
+  "os": "Google TV 14",
+  "summary": "BenQ GV32 ships with telemetry, ads and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The BenQ GV32 portable projector ships with telemetry, ads and partner services that install apps. It also has unused preloaded apps. The list is short, at 8 apps, and splits them into a first batch of tracking and ads and a second batch of apps that are your choice.",
+    "Projector features such as auto focus, auto keystone, zoom and eye protection run through a service that TidyTV keeps on. Turning off the setup wizard can give back the home screen but can break Chromecast built-in casting. TidyTV turns the rest off from your phone with a backup first. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Auto focus, auto keystone and zoom",
+    "Bluetooth remote pairing and remote updates",
+    "The remote's input method",
+    "The Input key handler",
+    "Live TV, HDMI inputs and the TV service",
+    "Factory and test packages, never opened"
+  ],
+  "notes": [
+    "Turning off the setup wizard gives back the home screen but can break casting with Chromecast built-in. Keep it if you cast.",
+    "The factory test apps are kept and are never opened."
+  ],
+  "faq": [
+    {
+      "q": "Will auto focus and keystone still work on my BenQ GV32?",
+      "a": "Yes. The services that run them are kept on purpose."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes by default. Only turning off the setup wizard can break Chromecast built-in casting, so leave that one on if you cast."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the Google TV home screen back in one tap."
+    }
+  ]
+}

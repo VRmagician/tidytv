@@ -1,0 +1,34 @@
+{
+  "name": "Noblex NoblexTV",
+  "brand": "Noblex",
+  "os": "Android TV 11",
+  "summary": "Noblex NoblexTV ships with recommendation rows, a screensaver and unused apps on a low-memory set. TidyTV is a free phone app, with a backup and undo.",
+  "intro": [
+    "This Skyworth-built Noblex set sells in Argentina with about 0.9 GB of memory and the classic Android TV home screen. The list switches off telemetry, the recommendation rows, the ambient screensaver and several apps that go unused. Each app on the list has its own switch in the app, so you decide what goes.",
+    "It was applied in three batches on one set, with a screenshot after each, then a restart and a standby and wake check. It has had hours of use, not days, so treat it as a starting point. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the input panel (the MediaTek TV service)",
+    "The tuner, input and HDMI services",
+    "The USB media player"
+  ],
+  "notes": [
+    "Switching off one launcher helper removes the Inputs and Wi-Fi icons from the stock home screen. It does not matter once you use a new home screen.",
+    "The remote's power button puts the set on standby. Only a full restart brings it back on Live TV.",
+    "Netflix, Max, YouTube and the Play Store start on their own after a restart and use much of the memory. That is the main cause of lag on this set."
+  ],
+  "faq": [
+    {
+      "q": "Will it make my Noblex faster?",
+      "a": "A little. In testing, free memory went from about 230 MB to about 300 MB. The set still has very little memory to spare."
+    },
+    {
+      "q": "Will Live TV and HDMI still work?",
+      "a": "Yes. The Live TV and input services are kept. The set was checked after a restart and a standby cycle."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

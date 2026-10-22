@@ -1,0 +1,34 @@
+{
+  "name": "Tele System TS ON T2/HD",
+  "brand": "Tele System",
+  "os": "Android TV 11",
+  "summary": "Tele System TS ON T2/HD ships with SDMC vendor bloat and diagnostics. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Italian DVB-T2 set-top box ships with SDMC vendor apps and diagnostics, plus Google TV and Android TV extras you do not use. The list is short, 12 apps, so it leaves the tuner and remote parts alone. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "The replacement home screen installs cleanly and takes over Home without problems, and the connection works with USB debugging on. The list leaves out the tuner app, the HDMI and tuner input service, Bluetooth remote pairing, the remote hotkeys and the firmware updater. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Live TV tuner app",
+    "The HDMI and tuner input framework",
+    "Bluetooth remote pairing",
+    "The remote's hotkey handler",
+    "The firmware updater"
+  ],
+  "notes": [
+    "The connection port opens once USB debugging is on in Developer options."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Tele System TS ON T2/HD?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will digital TV channels still work?",
+      "a": "Yes. The tuner app and its input framework are kept on purpose."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Tele System TS ON T2/HD?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

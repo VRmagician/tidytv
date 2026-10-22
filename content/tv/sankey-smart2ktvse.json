@@ -1,0 +1,33 @@
+{
+  "name": "Sankey SMART2KTVSE",
+  "brand": "Sankey",
+  "os": "Android 13 (Whale OS)",
+  "summary": "Sankey SMART2KTVSE ships with Whale OS bloat, ad services and factory apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Sankey set runs Whale OS on Android 13. It ships with Whale OS services, factory and test apps, a voice assistant, Android ad services and system updaters that can bring the bloat back. The list turns these off. Each app on the list has its own switch in the app, so you decide what goes.",
+    "It was tested and working for several days, and nothing broke. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. The phone and TV need to be on the same Wi-Fi, and the TV asks you once to allow debugging."
+  ],
+  "keep": [
+    "The Play Store and Google Play Services",
+    "Keyboards, TV inputs, the remote and Bluetooth pairing",
+    "Settings and setup apps"
+  ],
+  "notes": [
+    "The usual MENU and 1147 code does not open developer options on this model. Install the Activity Launcher app, open it, and go to Settings, then Developer options.",
+    "The stock home screen is switched off only after a new one is installed."
+  ],
+  "faq": [
+    {
+      "q": "How do I turn on debugging on a Sankey SMART2KTVSE?",
+      "a": "The usual code does not work. Install the Activity Launcher app, open Settings then Developer options from it, and turn on USB debugging."
+    },
+    {
+      "q": "Will the updaters bring the bloat back?",
+      "a": "The list also switches off the system updaters, so the bloat is less likely to come back."
+    },
+    {
+      "q": "Can I undo it?",
+      "a": "Yes. Restore everything turns every app back on in one tap."
+    }
+  ]
+}

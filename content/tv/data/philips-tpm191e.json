@@ -1,0 +1,134 @@
+{
+ "id": "philips-tpm191e",
+ "title": "Philips TPM191E (TP Vision, device PH9M_EA_5599, MediaTek mt5887), Europe",
+ "header": "Philips TPM191E (TP Vision, device PH9M_EA_5599, MediaTek mt5887), Europe\nAndroid TV 12 (API 31), firmware STT2.230526.001, security patch 2025-11-01.\nFingerprint: Philips/PH9M_EA_5599/PH9M_EA_5599:12/STT2.230526.001/4215:user/release-keys\nAbout 2 GB RAM, armeabi-v7a. Vendor packages use the org.droidtv prefix.\n\nNot the same board as examples/philips-50pus8517 (PH1M_EA_9970A, Android 11) or\nexamples/philips-55pus7503 (TPM171E, Android 8); entries shared with those lists were checked\nagainst this TV's own `pm list packages`.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/philips-tpm191e/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/philips-tpm191e/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher\nThe uk.co.freeview.* packages and org.droidtv.freeviewplayers are disabled from the factory on\nthis unit, so they are not listed (restore.sh would turn them ON).\n\nKept on purpose: org.droidtv.amazonalexa (Alexa power on/off), com.google.android.apps.mediashell\n(Chromecast), org.droidtv.oad and com.easy.oad (firmware updates), org.droidtv.eum (see the\nphilips-50pus8517 list: xtv retries forever without it and the sources drawer dies).",
+ "sections": [
+  {
+   "title": "Batch 1: telemetry and retail demo",
+   "apps": [
+    {
+     "pkg": "org.droidtv.candeebug",
+     "note": "\"DAC\" analytics uploader"
+    },
+    {
+     "pkg": "org.droidtv.gel",
+     "note": "metrics collector sharing candeebug's process"
+    },
+    {
+     "pkg": "org.droidtv.usagelogger",
+     "note": "boot stats, remote keypress counts, panel telemetry"
+    },
+    {
+     "pkg": "org.droidtv.demome",
+     "note": "\"Demo me\" retail demo mode"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Market Feedback Agent"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner referrer / attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "runs once at first setup, nothing afterwards"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "Google Calendar sync; no calendar app installed"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: Philips promotions",
+   "apps": [
+    {
+     "pkg": "org.droidtv.nettvrecommender",
+     "note": "\"Top Picks\" content promotion row"
+    },
+    {
+     "pkg": "org.droidtv.recommendation",
+     "note": "its headless backend; listed after the row on purpose"
+    },
+    {
+     "pkg": "org.droidtv.nettv.market",
+     "note": "\"Smart TV Collection\" app storefront; the Play Store stays"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3: apps this owner does not use",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Assistant and voice search; the remote's mic button and \"Hey Google\" stop. Alexa is separate"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.google.android.music",
+     "note": "Google Play Music, discontinued service"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack screen reader; keep if anyone needs it"
+    },
+    {
+     "pkg": "org.droidtv.dlna",
+     "note": "DLNA/UPnP server and renderer"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.phorus.playfi.tv",
+     "note": "DTS Play-Fi: does NOT stay disabled. Back to enabled=1 after a reboot"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "# (AudioOutService logs \"PlayFi Enabled\" at boot), so left enabled",
+   "apps": [
+    {
+     "pkg": "com.phorus.playfi.softap",
+     "note": "DTS Play-Fi soft access point"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 4",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "\"Android TV Core Services\": recommendation rows, notification panel"
+    }
+   ],
+   "optional": [],
+   "note": "after launcher/build-and-install.sh has moved Home and disabled com.google.android.tvlauncher. The stock launcher holds a stable provider reference into this package, so disabling it first would kill the live launcher. It is also the only handler for the notification side panel (OPEN_NOTIFICATIONS_PANEL, TOGGLE_NOTIFICATION_HANDLER_PANEL) on this firmware: that panel goes too."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 21
+}

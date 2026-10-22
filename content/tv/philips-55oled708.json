@@ -1,0 +1,35 @@
+{
+  "name": "Philips 55OLED708",
+  "brand": "Philips",
+  "os": "Google TV 12",
+  "summary": "Philips 55OLED708 ships with a Samba TV viewing tracker, promos and demo apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Philips OLED runs Google TV and ships with a Samba TV viewing tracker, TP Vision telemetry, Philips and Google promos, a retail demo and first-setup leftovers. The list also covers Philips features this owner does not use and preinstalled apps in the user app area.",
+    "It was applied in small batches, with a screenshot and a 30 second idle-log check after each. No retry loop appeared. Home, HDMI 2 with a PS5, Live TV, Settings and YouTube kept working. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV (Philips PlayTV)",
+    "HDMI, component and composite inputs (the MediaTek TV input service)",
+    "AirPlay",
+    "Google Assistant",
+    "Firmware updates"
+  ],
+  "notes": [
+    "Forget and re-join your Wi-Fi first. The setup wizard may own the saved network and Android deletes it when the wizard is switched off.",
+    "Casting this owner does not use is off, but AirPlay is kept."
+  ],
+  "faq": [
+    {
+      "q": "Does the Samba TV tracker get turned off?",
+      "a": "Yes. The Samba TV viewing tracker, which comes preinstalled, is on the list."
+    },
+    {
+      "q": "Will Google Assistant still work?",
+      "a": "Yes. Google Assistant is kept on purpose, and so are AirPlay and firmware updates."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

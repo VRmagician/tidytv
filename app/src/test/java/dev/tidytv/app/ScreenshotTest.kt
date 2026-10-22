@@ -145,6 +145,11 @@ class ScreenshotTest {
         app = dev.tidytv.core.lists.HomeApp.PROJECTIVY, available = dev.tidytv.core.lists.HomeApp.entries)))
     @Test fun homeWaitingForPlayStore() = shoot("5f_home_waiting_play_store", Step.HOME_SCREEN, UiState(
         home = HomeState.WaitingForPlayStore(dev.tidytv.core.lists.HomeApp.PROJECTIVY)))
+    @Test fun lookPicker() = shoot("5g_home_look", Step.HOME_SCREEN, UiState(home = HomeState.Look(LookState(current = "glass",
+        message = RestoreUi.Finished("Glass is on your TV.", ok = true)))))
+    @Test fun lookSendingPhoto() = shoot("5g2_home_look_photo", Step.HOME_SCREEN, UiState(home = HomeState.Look(LookState(applying = "photo", current = "aurora"))))
+    @Test fun offerWhenStyledIsHome() = shoot("5c4_home_offer_change_look", Step.HOME_SCREEN, UiState(home = HomeState.Offer(
+        app = dev.tidytv.core.lists.HomeApp.STYLED, available = dev.tidytv.core.lists.HomeApp.entries, styledIsHome = true)))
     @Test fun doneOneBackOn() = shoot("6c_done_one_back_on", Step.DONE, UiState(tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
         done = DoneState(freedMb = 140, newHome = true, debugging = DebugCheck.OFF,
             records = records + ActionRecord(1_700_000_090_000, Op.ENABLE, order.first().pkg, Phase.DONE),

@@ -53,7 +53,7 @@ Projectivy Launcher is a third home screen choice. TidyTV opens its page in the 
 <td align="center" width="25%"><img src="docs/media/screens/06-tidying.png" width="190" alt="Apps being turned off one by one"><br><b>4. Tidy</b><br><sub>One app at a time, each one checked</sub></td>
 </tr>
 <tr>
-<td align="center"><img src="docs/media/screens/08-styled-pick.png" width="190" alt="Choose a clean home screen"><br><b>5. Clean home screen</b><br><sub>Optional: Simple, Apple TV style or Projectivy</sub></td>
+<td align="center"><img src="docs/media/screens/08-styled-pick.png" width="190" alt="Choose a clean home screen"><br><b>5. Clean home screen</b><br><sub>Optional: Simple, Apple TV style or Projectivy. Pick a look or use your own photo</sub></td>
 <td align="center"><img src="docs/media/screens/09-home-on.png" width="190" alt="New home screen is on"><br><b>6. Done</b><br><sub>Rolls back if Home doesn't land</sub></td>
 <td align="center"><img src="docs/media/screens/11-share-card.png" width="190" alt="Share card"><br><b>7. Share it</b><br><sub>A card with what you tidied</sub></td>
 <td align="center"><img src="docs/media/screens/10-done.png" width="190" alt="Done screen with Restore everything"><br><b>8. Undo anytime</b><br><sub>Restore everything, one tap</sub></td>
@@ -67,7 +67,7 @@ Projectivy Launcher is a third home screen choice. TidyTV opens its page in the 
 | 🧷 **Backup first, every time** | Apps, settings and home screen are saved before any change. It can't be skipped. |
 | 🔕 **Turned off, never deleted** | Uses Android's own `pm disable-user`. Nothing is uninstalled. |
 | 🛡️ **Protected apps stay on** | Play Store, Play Services, keyboards, TV inputs, the remote, Bluetooth, Settings and setup apps are never touched, checked again before every command. |
-| 📺 **Tested lists for 93 models** | From [cleanyourtv](https://github.com/Gathin23/cleanyourtv), each tried on a real TV. [See yours →](https://tidytv.winkle.dev/tv/) |
+| 📺 **Tested lists for 232 models** | From [cleanyourtv](https://github.com/Gathin23/cleanyourtv), each tried on a real TV. [See yours →](https://tidytv.winkle.dev/tv/) |
 | ↩️ **Undo survives anything** | Every change is logged on the TV and the phone *before* it happens, so Restore works even after a Wi-Fi drop or a lost phone. If the TV gets stuck after a change, "TV stuck after a change?" on the first screen keeps trying for up to 10 minutes and turns everything back on as soon as the TV answers. |
 
 ## Works with

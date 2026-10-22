@@ -1,0 +1,36 @@
+{
+  "name": "Hisense Fire TV (AFTCIBFBD1)",
+  "brand": "Hisense",
+  "os": "Fire OS 8",
+  "summary": "Hisense Fire TV (AFTCIBFBD1) ships with ads, telemetry and Alexa voice. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Hisense Fire TV Edition from the US ships with ads, shopping and content recognition, telemetry and metrics, tutorials and preloaded apps. Alexa voice and casting are optional groups. The list has 30 apps. It is the first Fire OS 8 TV in this set of lists.",
+    "It was lived with from 19 October through several restarts. Netflix, YouTube, Prime Video, Spotify, Settings, Live TV settings and the HDMI inputs worked. TidyTV turns these off from your phone with a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Amazon's home screen, which is protected",
+    "The Live TV app",
+    "HDMI inputs, switched by the Input button",
+    "Netflix, YouTube, Prime Video and Spotify",
+    "Remote and Bluetooth"
+  ],
+  "notes": [
+    "Alexa voice turns itself back on at every restart. Everything else stays off, so run the list again after a restart.",
+    "Two Amazon services are protected and cannot be turned off.",
+    "Input switching is reserved for Amazon, so use the remote's Input button."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Hisense Fire TV?",
+      "a": "Alexa voice is an optional group. It comes back on at every restart anyway, so the button works unless you switch it off again."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It stops the third-party ad in the hero banner when a private DNS ad blocker is used. Amazon's own promos stay, because they come from the protected home screen."
+    },
+    {
+      "q": "Can I get a different home screen?",
+      "a": "No. Amazon's home screen is protected on Fire TV and cannot be turned off."
+    }
+  ]
+}

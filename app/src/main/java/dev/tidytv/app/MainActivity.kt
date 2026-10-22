@@ -47,6 +47,8 @@ class MainActivity : ComponentActivity() {
                     launcherApk = { home -> runCatching { app.assets.open("launcher/${home.asset}").use { it.readBytes() } }.getOrNull() },
                     iconFromApk = dev.tidytv.app.data.ApkIcons(app, store)::iconFromApk,
                     updates = dev.tidytv.app.data.UpdateCheck(store.updateFile, BuildConfig.VERSION_NAME, ::httpGet),
+                    looks = { id -> dev.tidytv.app.data.Looks.load(app.assets, id) },
+                    photoWallpaper = { f -> dev.tidytv.app.data.Wallpaper.fromPhoto(f.size) { f.open() } },
                 )
             }
         }

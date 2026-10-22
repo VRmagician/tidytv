@@ -1,0 +1,34 @@
+{
+  "name": "Nokia Streaming Box 8010",
+  "brand": "Nokia",
+  "os": "Android TV 14",
+  "summary": "Nokia Streaming Box 8010 ships with ad tech, content rows and a preloaded app that runs at boot. TidyTV is a free phone app, with a backup and undo.",
+  "intro": [
+    "This Nokia box ships with ad tech, telemetry and feedback services, content rows and partner auto-installs, plus leftover factory and test apps. It also carries a preinstalled app called Hoppr that runs from start-up and asks for access to the microphone, contacts and location.",
+    "Unlike the Nokia 8000, this model accepts the normal switch-off. The list was checked after two restarts: every app stayed off, and Home and all your apps still worked. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Google Play Store and Play Services",
+    "Your streaming apps, which play as normal",
+    "Any app you leave switched on, since each has its own switch"
+  ],
+  "notes": [
+    "Network debugging stays on after a restart here, so switch it off when you are done.",
+    "This is the 8010. The Nokia Streaming Box 8000 behaves differently and has its own list.",
+    "The stock home screen is replaced by a new one, so pick a clean home screen in the app first."
+  ],
+  "faq": [
+    {
+      "q": "What is Hoppr and does TidyTV turn it off?",
+      "a": "It is a preinstalled app that runs from start-up and asks for the microphone, contacts and location. Yes, the list turns it off."
+    },
+    {
+      "q": "Will my streaming apps still play?",
+      "a": "Yes. In testing, all apps played after the list was applied and after two restarts."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

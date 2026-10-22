@@ -1,0 +1,34 @@
+{
+  "name": "Xiaomi L55M7-EA (MiTV-ASTP0)",
+  "brand": "Xiaomi",
+  "os": "Android TV 9",
+  "summary": "Xiaomi L55M7-EA (MiTV-ASTP0) ships with telemetry, push, ads and shopping. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This China-market Xiaomi TV, used in Vietnam, ships with telemetry, push and cloud-control, ads, promoted content and shopping, plus background services and unused preloaded apps. It also has casting, phone remote and voice assistant parts. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "The list is based on a sister set minus what this build lacks. It was applied on a real set. TidyTV saves a backup first and never deletes anything, and the core Xiaomi TV service is left alone. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The core Xiaomi TV service",
+    "The stock PatchWall home screen",
+    "AirPlay casting",
+    "YouTube and Google voice the owner sideloaded"
+  ],
+  "notes": [
+    "Network debugging closes on every reboot. Turn it back on under Account and Security after each power cycle.",
+    "Wi-Fi sleeps in standby, so the TV drops off the network until it is woken."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi L55M7-EA?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Why can't my phone find the TV after a restart?",
+      "a": "Network debugging closes on every reboot, so turn it back on in Settings, Account and Security, ADB debugging. Wi-Fi also sleeps in standby."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi L55M7-EA?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

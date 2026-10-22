@@ -1,0 +1,35 @@
+{
+  "name": "Philips 75PUS8505",
+  "brand": "Philips",
+  "os": "Android TV 12",
+  "summary": "Philips 75PUS8505 ships with TP Vision telemetry, promos and a retail demo. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 75 inch Philips set from 2020 runs Android TV 12 and ships with TP Vision telemetry, Philips content promos and an app gallery, a retail demo and Google first-setup leftovers. The list also covers voice assistants and Play-Fi speaker apps this owner does not use.",
+    "Every entry was checked on this TV before it went on the list. The set has little memory, and its home screen can be replaced by a lighter one. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV (Philips PlayTV)",
+    "The Sources drawer service, which breaks if it is switched off",
+    "The DLNA media player, which the Media app uses",
+    "Firmware updates"
+  ],
+  "notes": [
+    "The very first start of a new home screen can be slow on this set. Give it a minute before trying again.",
+    "The Sources drawer stops working if its service is switched off. TidyTV keeps it on.",
+    "Netflix, Prime Video and Freeview apps are already off from the factory on a Czech unit."
+  ],
+  "faq": [
+    {
+      "q": "Will the Sources button still work?",
+      "a": "Yes. The service behind the Sources drawer is kept, because the drawer stops working without it."
+    },
+    {
+      "q": "Do I need to keep Play-Fi apps?",
+      "a": "The list switches off one Play-Fi part, the speaker setup helper. If you use DTS Play-Fi wireless speakers, switch it back on in the app."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

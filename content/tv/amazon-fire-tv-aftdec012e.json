@@ -1,0 +1,36 @@
+{
+  "name": "Amazon Fire TV (AFTDEC012E)",
+  "brand": "Amazon",
+  "os": "Fire OS 8",
+  "summary": "Amazon Fire TV AFTDEC012E shows ads and tracks usage. TidyTV is a free phone app that turns these off, with a backup and one-tap undo.",
+  "intro": [
+    "This Amazon Fire TV model shows ads, runs content recognition and pushes shopping. It also sends usage and telemetry reports to Amazon and comes with tutorials, promos and Amazon content apps preloaded. The list covers these three groups of apps.",
+    "It was tested on one unit running Android 11 without Google services. Amazon's own home screen cannot be turned off or replaced, so TidyTV leaves it in place. It turns off the ad, telemetry and preload apps from your phone over Wi-Fi, saves a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Alexa",
+    "Software updates",
+    "Casting for Netflix and YouTube",
+    "Netflix, YouTube and Prime Video",
+    "Voice search",
+    "Amazon's home screen"
+  ],
+  "notes": [
+    "Fire TV keeps Amazon's home screen. TidyTV only turns off apps, so no new home screen is installed.",
+    "Miracast, MiniTV, Disney+ and Tubi are left on for you to decide."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Fire TV?",
+      "a": "Yes. Alexa and voice search are kept on purpose."
+    },
+    {
+      "q": "Can I get a different home screen?",
+      "a": "No. Amazon's home screen is protected on Fire TV and cannot be turned off. TidyTV removes the ads, telemetry and preloads around it."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Netflix and YouTube casting keep working. Miracast is left on too, and you can switch it off in the app if you want."
+    }
+  ]
+}

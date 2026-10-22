@@ -1,0 +1,53 @@
+{
+ "id": "skyworth-65a3f",
+ "title": "Skyworth 65A3F (7T641_A3F, MediaTek MT9633), China, Android 13 (API 33), build 10.01.250328",
+ "header": "Skyworth 65A3F (7T641_A3F, MediaTek MT9633), China, Android 13 (API 33), build 10.01.250328\nChinese Coocaa/CCOS firmware, no GMS. Stock home is com.coocaa.aigc.home\n(com.coocaa.aigc.home.home.rootpage.HomeActivity): it is launched at boot and it also takes the\nremote's HOME key, although the only HOME-category activity is the third-party launcher.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/skyworth-65a3f/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/skyworth-65a3f/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\ncom.coocaa.aigc.home must stay ENABLED. Tried on the TV 2026-10-21:\n- `pm disable-user` restarts the framework and the package comes back enabled by itself.\n- `pm suspend` brings up com.coocaa.os.control/.ui.QrActivity, a WeChat QR unlock screen.\n- `pm hide`, component-level disables and `su` are all refused; with no root /system/xbin/su\nfails with \"setgid failed: Operation not permitted\".\n- Disabling it and rebooting leaves the TV with no home: it hangs on the SKYWORTH logo, the\nnetwork stack never starts and 5555 disappears. Recovery was a factory reset from Recovery\n(power off, hold the hidden touch button under the logo while plugging the set back in,\nwipe data/factory reset).\n\nAds on this firmware: com.tianci.ad BootService draws the boot ad, its PowerOffActivity the\nshutdown ad, and the same package hosts the ad landing pages. Disabling it removed both;\nchecked across a reboot with zero logcat hits for the package.\n\nQuirks, all checked on the TV:\n- 5555 opens without pairing (ro.adb.secure=0), so any host on the LAN gets a shell.\n- adbd's stdout wrapper corrupts `exec-out screencap -p` here as well; screencap to a file on\nthe TV and pull it.\n- `tools/tv.py --push` is for small files. b64push.py needed roughly 20 minutes for a 17 MB\nAPK. Faster: hold an adb shell running `toybox nc -l -p 9999 > /data/local/tmp/x.apk` and\nsend from the computer with `nc <tv ip> 9999 < x.apk` (about 100 s; verify with md5sum, the\nadb_shell read timeout can fire at 120 s even when the file arrived intact).\n\nA third-party launcher cannot own the boot screen:\n- boot_start_tv_source only picks the input source (DEFAULT/REMEMBER, HOME, CHANNEL); there is\nno \"launch an app\" value, and HOME changes nothing.\n- Two one-press routes work. (1) The remote's colour key:\ncom.skyworth.setting/.module.device.shortcutkey.ShortcutKeySetActivity lists the installed\nlauncher and the binding sticks — press the colour key, the launcher opens. (2) The stock\nhome's dock: com.coocaa.aigc.home/.dockedit.DockEditActivity, after a reboot the launcher sits\nin the left rail. `cmd package set-home-activity` also succeeds and the launcher does become\nthe default HOME, but the boot screen and the HOME key still go to aigc.home.\n\nKept on purpose: com.coocaa.aigc.home, com.skyworth.setting, com.tianci.system, com.coocaa.os.*\n(including com.coocaa.os.control and com.coocaa.os.softsettings), com.coocaa.safelauncher,\ncom.tianci.movieplatform, input methods, voice/mic, casting and audio/PQ packages.\ncom.overseas.store.appstore is absent after a factory reset; the line is harmless there.",
+ "sections": [
+  {
+   "title": "Other apps",
+   "apps": [
+    {
+     "pkg": "com.tianci.ad",
+     "note": ""
+    },
+    {
+     "pkg": "com.coocaa.screensaver",
+     "note": ""
+    },
+    {
+     "pkg": "com.coocaa.guide",
+     "note": ""
+    },
+    {
+     "pkg": "com.coocaa.NewStoreSystem",
+     "note": ""
+    },
+    {
+     "pkg": "com.tianci.appstore",
+     "note": ""
+    },
+    {
+     "pkg": "com.overseas.store.appstore",
+     "note": ""
+    },
+    {
+     "pkg": "com.skyworth.performance.monitors",
+     "note": ""
+    },
+    {
+     "pkg": "com.skyworth.testtime",
+     "note": ""
+    },
+    {
+     "pkg": "com.coocaa.os.upgrade",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 9
+}

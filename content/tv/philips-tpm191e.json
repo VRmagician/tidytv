@@ -1,0 +1,34 @@
+{
+  "name": "Philips TPM191E",
+  "brand": "Philips",
+  "os": "Android TV 12",
+  "summary": "Philips TPM191E ships with TP Vision telemetry, a retail demo and Philips promos. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This European Philips set runs Android TV 12 and ships with telemetry, a retail demo and Philips promotions. The list also covers apps this owner does not use. Entries shared with other Philips lists were checked against this TV. Each app on the list has its own switch in the app, so you decide what goes.",
+    "The list leaves Alexa power on and off, Chromecast and firmware updates alone. The Freeview apps come switched off from the factory on this unit. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Alexa power on and off",
+    "Chromecast built in",
+    "Firmware update services",
+    "The service behind the Sources drawer, which breaks without it",
+    "The Wi-Fi speaker audio service, left on"
+  ],
+  "notes": [
+    "The Sources drawer stops working if the TV's base service is switched off, so TidyTV keeps it on."
+  ],
+  "faq": [
+    {
+      "q": "Does casting still work on my Philips TPM191E?",
+      "a": "Yes. Chromecast built in is kept."
+    },
+    {
+      "q": "Will Alexa still turn my TV on and off?",
+      "a": "Yes. That Alexa service is kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

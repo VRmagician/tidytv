@@ -1,0 +1,35 @@
+{
+  "name": "Skyworth 8R40_K5C",
+  "brand": "Skyworth",
+  "os": "Android 8",
+  "summary": "Skyworth 8R40_K5C ships with boot ads and Coocaa bloatware. TidyTV is a free phone app that turns them off, with a backup and undo. Read the warnings first.",
+  "intro": [
+    "This is a mainland China Skyworth and Coocaa set with 1 GB of memory, running Android 8. It ships with boot ads and an autostart queue, an account service, and commercial bloatware and unused features. Each app on the list has its own switch in the app, so you decide what goes.",
+    "This model has real traps. Three apps must stay on or the About page crashes and debugging cannot be turned back on. The home app is fixed in read-only system files, so switching it off gives a black screen. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The stock home app (Skyworth movie platform), which must stay on",
+    "The Skyworth TV and System UI service",
+    "Three apps the About page needs, so debugging can be turned on again"
+  ],
+  "notes": [
+    "Before you start, install Activity Launcher and check you can open the factory settings page. The debugging switch is only in the About page.",
+    "Never switch off the home app. A black screen at start is the result.",
+    "Do not touch the home page properties. Changing one stopped debugging from starting on one set.",
+    "The boot ad is turned off with one command, not by switching off an app."
+  ],
+  "faq": [
+    {
+      "q": "Why must some apps stay on for my Skyworth 8R40_K5C?",
+      "a": "If three particular apps are off, the About page crashes, and that is the only place debugging can be turned on. A factory reset is then the only way out."
+    },
+    {
+      "q": "Will it remove the boot ad?",
+      "a": "Yes. The boot ad is turned off with one command that survives a restart."
+    },
+    {
+      "q": "Can I undo it?",
+      "a": "Yes. Restore everything turns every app back on in one tap. Nothing is deleted."
+    }
+  ]
+}

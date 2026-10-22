@@ -1,0 +1,34 @@
+{
+  "name": "Philips Google TV TA7",
+  "brand": "Philips",
+  "os": "Google TV 14",
+  "summary": "Philips Google TV TA7 ships with ad attribution, maker content and popups. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Philips set sells in Brazil and runs Google TV. It ships with telemetry and ad attribution, manufacturer content and popups, and background extras. The list also covers apps this owner does not use. Each app on the list has its own switch in the app, so you decide what goes.",
+    "It was applied in batches with a screenshot after each. Home, HDMI 1, Live TV, YouTube and HBO Max played, every remote button worked and everything survived a restart. It has not been lived with for days. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI player (MediaTek Live TV)",
+    "HDMI 1 to 4 inputs",
+    "The remote's Input and app buttons"
+  ],
+  "notes": [
+    "With the stock home screen off, the remote's Settings button does nothing until a small helper service is on. TidyTV can turn it on.",
+    "While the stock home screen is on, another home screen will not stay set.",
+    "This list has not been lived with for days."
+  ],
+  "faq": [
+    {
+      "q": "Will the remote's buttons still work?",
+      "a": "Mostly. The Input and app buttons keep working. The Settings button needs the helper service once the stock home screen is off."
+    },
+    {
+      "q": "Will Live TV and HDMI still work?",
+      "a": "Yes. Live TV and HDMI 1 were checked, and everything survived a restart."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

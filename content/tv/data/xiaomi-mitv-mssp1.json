@@ -1,0 +1,63 @@
+{
+ "id": "xiaomi-mitv-mssp1",
+ "title": "Xiaomi MiTV-MSSP1 (codename nino), Android TV 9 (SDK 28), firmware PI.5925 release-keys.",
+ "header": "Xiaomi MiTV-MSSP1 (codename nino), Android TV 9 (SDK 28), firmware PI.5925 release-keys.\n\nApply: TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mssp1/debloat.txt\nUndo:  TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mssp1/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher. It is not listed here;\nlauncher/build-and-install.sh handles its cutover after the replacement Home is installed.\nLive TV: com.mediatek.wwtv.tvcenter; HDMI/tuner service: com.mediatek.tvinput. Both kept enabled.\nAlso kept enabled: com.xiaomi.mitv.updateservice (firmware updates), Google Assistant,\nChromecast, com.xiaomi.mitv.mediaexplorer (USB media), Play Store and Play Services.\n\nChecks on this set: the replacement Home survived reboot; the owner confirmed streaming-app\nplayback. All eight packages below remain disabled.\nNo package from this list had to be re-enabled during those checks.\nThis is nino / PI.5925, not the MSSP0 (amelie), MSSP2 (volver) or MSSP3 (machuca) firmware.",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall and Xiaomi content add-ons",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.floatingframe",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock-home recommendation feeds",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 8
+}

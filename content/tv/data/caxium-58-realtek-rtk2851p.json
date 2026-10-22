@@ -1,0 +1,81 @@
+{
+ "id": "caxium-58-realtek-rtk2851p",
+ "title": "Caxium 58\" 147 cm UHD Smart TV (Realtek RTD285O, TopTech + Zeasn platform), Android TV 9 (API 28),",
+ "header": "Caxium 58\" 147 cm UHD Smart TV (Realtek RTD285O, TopTech + Zeasn platform), Android TV 9 (API 28),\nbuild RTK2851P (Realtek/RealtekATV/RealtekATV:9/RTK2851P, userdebug), 1.5 GB RAM.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/caxium-58-realtek-rtk2851p/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/caxium-58-realtek-rtk2851p/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher is cn.zeasn.launcher.vstoresubclient.toptech (Zeasn). It is not in this list: disable it only\nonce a replacement Home is installed (launcher/build-and-install.sh with STOCK_LAUNCHER=<that package>).\ncom.android.tv.settings has a FallbackHome as the last resort. There is no Live TV app with a leanback entry.\n\nNotes from this TV:\n- Sideloading works: pm install of a package declaring category HOME succeeds (no verifier block).\n- The TV is Android 9 with the plain adb binary: it reported ro.adb.secure unset and ro.vendor.rtk.force_usb_adb=1,\nso port 5555 may give a shell to anyone on the LAN while ADB is on. Turn debugging off when done.\n- Inputs menu: nothing on this TV answers ACTION_VIEW on a passthrough input URI. com.toptech.tvmenu/.MainActivity\nanswers com.toptech.tv.action.TUNE, but only for an intent without a MIME type, and Android types a content: URI\nby asking its provider. A launcher intent that carries the type never matches; an explicit component does.\n- Kept in use: Netflix (the phone build, com.netflix.mediaclient), YouTube, YouTube Music, Chrome, EShare\ncast/AirPlay/DLNA (com.ecloud.*), the USB media browser (com.rtk.mediabrowser, com.hitv.explore), the Aptoide\nstore (Zeasn vstoresubclient).\n- Leave alone: com.toptech.tv.service (TV core, persistent), com.toptech.tvmenu (source/input menu),\ncom.toptech.tvfactory and factorytools (factory menus), all com.realtek.* (inputs, tuner, providers),\ncom.android.tv.settings, Play Store and Play Services, and com.mgoogle.android.gms (microG, runs next to them).\n- The saved Wi-Fi network belongs to android.uid.system, not to a setup wizard, so nothing here deletes it.\n- Netflix for TV (com.netflix.ninja) is not offered by Play on this build. Official 7.3.1 and 8.3.11 open but fail\nwith ui-800-3 / -121, and 13.2.1 crashes natively in libgibbon.so; the firmware is not Netflix-certified.",
+ "sections": [
+  {
+   "title": "Content, ads and auto-installs",
+   "apps": [
+    {
+     "pkg": "com.zeasn.services.general",
+     "note": "Zeasn services: SHOW_AD action, weather, YouTube/search shortcuts"
+    },
+    {
+     "pkg": "android.autoinstalls.config.realtek.device",
+     "note": "Play auto-installs of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and update check",
+   "apps": [
+    {
+     "pkg": "com.zeasn.deviceportal.asdprovider.toptech",
+     "note": "Zeasn device portal; also OTA_PULL_CHECK, so no firmware update notices"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services not needed",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps the owner does not use",
+   "apps": [
+    {
+     "pkg": "com.amazon.avod.thirdpartyclient",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.disney.disneyplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.spotify.tv.android",
+     "note": ""
+    },
+    {
+     "pkg": "com.facebook.katana",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice assistant (owner does not use it; the remote's microphone button stops working)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 9
+}

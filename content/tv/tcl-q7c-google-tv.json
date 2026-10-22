@@ -1,0 +1,34 @@
+{
+  "name": "TCL Q7C QD-Mini LED",
+  "brand": "TCL",
+  "os": "Google TV (Android 14)",
+  "summary": "TCL Q7C QD-Mini LED ships with TCL promos, push messages and store demo content. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "The TCL Q7C ships with TCL promos, push messages, content rows and a store demo mode. It also has telemetry, Android 14 ad and privacy services, and several streaming apps preloaded for the German-speaking market. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was tested on one set from 21 October, switched off by hand in five batches with a screenshot after each. The first 35 apps stayed off after a reboot, and YouTube, Live TV and the HDMI input list were checked afterwards. TidyTV does the same from your phone, with a backup first. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI input list",
+    "The Input key and its input menu",
+    "Remote pairing",
+    "YouTube and the other streaming apps you use"
+  ],
+  "notes": [
+    "The list also turns off voice, AirPlay, mirroring and several streaming apps by the owner's choice. Switch any back on in the app.",
+    "The set was set up on Ethernet."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my TCL Q7C QD-Mini LED?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the voice button still work on my TCL Q7C?",
+      "a": "Not with this list. Voice is switched off by the owner's choice, so switch it back on in the app if you use it."
+    },
+    {
+      "q": "Does TidyTV delete anything on my TCL Q7C QD-Mini LED?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

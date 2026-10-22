@@ -1,0 +1,34 @@
+{
+  "name": "Thomson T32RTL6000",
+  "brand": "Thomson",
+  "os": "Android TV 9",
+  "summary": "Thomson T32RTL6000 ships with telemetry, recommendation rows and preinstalled stores. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This Thomson set ships with telemetry, analytics and recommendation rows, a data consent agent, and content and promo rows that install partner apps. It also carries preinstalled stores, factory and demo utilities, and a Google Assistant that takes memory. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "The list is cross-checked against a sister set on the same Realtek platform. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so the tuner and remote stay as they were. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Realtek live TV tuner, or channels disappear",
+    "The remote and Bluetooth pairing apps",
+    "The FastCast Miracast receiver",
+    "Google Play, Play Services, the web view and keyboard"
+  ],
+  "notes": [
+    "The system channel database stays empty on this firmware, so launcher channel rows do nothing until a firmware update fills it.",
+    "Google Assistant is on the list. Turning it off kills the remote's mic button."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Thomson T32RTL6000?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the voice button still work on my Thomson?",
+      "a": "Not with the default list. It turns off Google Assistant, which the mic button uses. Switch it back on in the app if you use voice."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Thomson T32RTL6000?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

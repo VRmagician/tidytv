@@ -1,0 +1,34 @@
+{
+  "name": "Thomson SPPL 4K Google TV",
+  "brand": "Thomson",
+  "os": "Android TV 14",
+  "summary": "Thomson SPPL 4K Google TV ships with telemetry, after-sale push and Skyworth ads. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This Skyworth-built Thomson 4K TV ships with telemetry and after-sale push services, Android ad and personalisation services, and Skyworth content, ads, demos and preloads. A few apps are also not needed on a TV at all. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was applied in batches with a screenshot after each. Live TV, HDMI, YouTube and Hotstar kept working, and after a reboot the list of switched-off apps matched exactly, because this firmware re-enables nothing at boot. TidyTV saves a backup first and never deletes anything. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV (the Skyworth live TV app) and HDMI 1 to 3 and AV",
+    "The remote's Input, YouTube, Netflix, Prime Video and mic buttons",
+    "The main web view and Play Services",
+    "Remote pairing"
+  ],
+  "notes": [
+    "The settings button needs a small setting if you use a clean home screen.",
+    "The setup wizard owns the saved Wi-Fi network on some sets, so forget and rejoin it first."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Thomson SPPL 4K Google TV?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will the remote's app buttons still work?",
+      "a": "Yes. Input, YouTube, Netflix, Prime Video and the mic button all worked in testing."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Thomson SPPL 4K Google TV?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

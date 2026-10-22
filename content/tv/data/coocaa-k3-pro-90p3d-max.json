@@ -1,0 +1,116 @@
+{
+ "id": "coocaa-k3-pro-90p3d-max",
+ "title": "Skyworth Coocaa K3 Pro 90P3D Max (system board 8R145_P3DM, Realtek RTD2885N),",
+ "header": "Skyworth Coocaa K3 Pro 90P3D Max (system board 8R145_P3DM, Realtek RTD2885N),\nAndroid 11 (SDK 30), build eng.www-da.20231205.132148, China-market Coocaa OS.\nFirst China-market Coocaa (Realtek) list in this repo. The export Skyworth lists in\nthis folder (com.skyworth.* Google TV builds) share nothing with this firmware: here\nthe namespace is com.coocaa.* / com.tianci.* and the stock launcher is\ncom.tianci.movieplatform.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/coocaa-k3-pro-90p3d-max/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/coocaa-k3-pro-90p3d-max/debloat.txt\nEverything is DISABLED (pm disable-user --user 0), not uninstalled. Comment out any\nline you want to keep.\n\n⚠ CRITICAL: NEVER disable com.tianci.movieplatform (the Coocaa launcher). The 8R145\nboot flow hard-depends on it: disabling it hangs the TV on the COOCAA logo, the remote\nbecomes unresponsive, and the only recovery is a factory reset from recovery mode\n(verified the hard way). It is deliberately absent from the list below.\n\nADB: this firmware hides Developer options. ADB is toggled from the Coocaa factory\nmenu (a secret key sequence), not from stock Settings, and ro.adb.secure is set, so\nthe TV still shows the \"Allow USB debugging?\" prompt. The ADB toggle resets on every\nreboot - re-enable it from the factory menu after rebooting.\n\nLauncher notes (for anyone porting cleanyourtv to this set):\n1. Almost no app declares a leanback entry on this firmware: the Home grid starts\nnearly empty (only the app store resolves LEANBACK_LAUNCHER). The TV app\n(com.skyworth.tv), local media (com.tianci.localmedia), TV manager\n(com.coocaa.tvmanager) and settings (com.coocaa.os.softsettings) only resolve the\nplain LAUNCHER category - they need the app-library mechanism to appear on\nHome/dock.\n2. The launcher needs a plain CATEGORY_LAUNCHER intent-filter on MainActivity so it\nshows up in the Coocaa launcher's \"My Apps\" list (that list only queries LAUNCHER).\n3. The Home key is hard-coded by the firmware to bring up com.tianci.movieplatform;\nthe accessibility HomeKeyService cannot intercept a standard Home key press\n(Android platform limitation), so no launcher can own the Home button here. The\nlauncher is set as the default Home (cmd package set-home-activity) and reached\nfrom the stock \"My Apps\" list.\n4. The firmware never broadcasts standard boot events (BOOT_COMPLETED,\nQUICKBOOT_POWERON) to third-party apps, so auto-start on boot is not possible\nwithout root.\n5. \"Boot source\" is also hard-coded: \"Signal source\" on boot launches\ncom.skyworth.tv (TV app) via firmware logic - there is no app-selection option.\n\nVerified: 23 packages disabled with pm disable-user --user 0, then a full reboot.\nHome, the source panel, local media, TV manager, app store, casting, settings and the\nremote all still work. Fully reversible with restore.sh.\n\n=============================================================================\nAds / telemetry / tracking",
+ "sections": [
+  {
+   "title": "Other apps",
+   "apps": [
+    {
+     "pkg": "com.tianci.ad",
+     "note": "Coocaa ad SDK: boot/shutdown/screensaver/landing ads"
+    },
+    {
+     "pkg": "com.skyworth.aisense",
+     "note": "ACR content recognition (pushes ads)"
+    },
+    {
+     "pkg": "com.coocaa.sysreport",
+     "note": "system telemetry reporting"
+    },
+    {
+     "pkg": "com.tianci.push",
+     "note": "push channel (can remotely launch apps / ads)"
+    },
+    {
+     "pkg": "com.dstv.ad1",
+     "note": "bundled third-party ad app"
+    },
+    {
+     "pkg": "com.coocaa.tvpi",
+     "note": "TV+ streaming (bundled UMeng push ad component)"
+    },
+    {
+     "pkg": "com.tianci.autoinstaller",
+     "note": "silent auto-install service (remote app pushing)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Vendor content / preinstalled bloat",
+   "apps": [
+    {
+     "pkg": "com.coocaa.sport",
+     "note": "Coocaa Sports"
+    },
+    {
+     "pkg": "com.coocaa.educate",
+     "note": "Coocaa Education"
+    },
+    {
+     "pkg": "com.coocaa.lifeassistant",
+     "note": "Life Assistant"
+    },
+    {
+     "pkg": "com.coocaa.app_browser",
+     "note": "App Browser"
+    },
+    {
+     "pkg": "com.coocaa.teampresent",
+     "note": "Team Presentation"
+    },
+    {
+     "pkg": "com.coocaa.mitee.tv",
+     "note": "Kids content"
+    },
+    {
+     "pkg": "com.coocaa.miitee.guard",
+     "note": "Kids guard"
+    },
+    {
+     "pkg": "com.tianci.family.photograph",
+     "note": "Family photo album"
+    },
+    {
+     "pkg": "com.coocaa.os.thememanager",
+     "note": "Theme manager"
+    },
+    {
+     "pkg": "com.coocaa.theme_package_ccos_nine",
+     "note": "Theme package"
+    },
+    {
+     "pkg": "com.coocaa.theme_package_ccos_seven",
+     "note": "Theme package"
+    },
+    {
+     "pkg": "com.coocaa.os.customerservice",
+     "note": "Online customer service"
+    },
+    {
+     "pkg": "com.coocaa.messageprovider",
+     "note": "Message provider"
+    },
+    {
+     "pkg": "com.coocaa.playtvskill",
+     "note": "TV skill"
+    },
+    {
+     "pkg": "com.coocaa.guide",
+     "note": "First-boot guide"
+    },
+    {
+     "pkg": "com.itwgame.mota.nearme.gamecenter",
+     "note": "Bundled third-party game center"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 23
+}

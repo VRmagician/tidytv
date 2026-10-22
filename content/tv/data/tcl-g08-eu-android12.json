@@ -1,0 +1,139 @@
+{
+ "id": "tcl-g08-eu-android12",
+ "title": "TCL Smart TV Pro (G08, G08_4K_GB, MediaTek), Europe/UK firmware, Android 12",
+ "header": "TCL Smart TV Pro (G08, G08_4K_GB, MediaTek), Europe/UK firmware, Android 12\nModel \"Smart TV Pro\", device G08, fingerprint TCL/G08_4K_GB/G08:12/STT2.221228.001/AS34:user/release-keys.\nSame G08 board family as the C755/QM6K/85RM7L/US lists, but this is the older Android 12 EU firmware:\nno Samba-ACR ttvs build, no AirplayAPK, no hotelmenu/channelplus/e-sticker/TV+/usercenter, no Android 14\nad services. The US list (examples/tcl-g08-us-google-tv) applies only partially here; this list is the\nsubset that exists on this build, applied by hand with `pm disable-user --user 0`.\n\nTested 21 October 2026 on one set. All 24 packages below are disabled on that set and it boots, plays\nHDMI/Live TV and opens the source menu normally.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-g08-eu-android12/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-g08-eu-android12/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (left enabled here, no custom launcher installed\non this set). Live TV / HDMI app: com.tcl.tv. Left enabled on purpose: com.tcl.tv, com.tcl.tvinput,\ncom.tcl.globalkeyoverlay, com.tcl.tv.tclhome_passive, com.google.android.katniss (voice), Play Services,\ncom.dolby.*; the three packages marked DO NOT DISABLE below are load-bearing, see comments.",
+ "sections": [
+  {
+   "title": "TCL promo, push messages, help/demo apps and log capture",
+   "apps": [
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "home-screen push messages"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": "store demo mode"
+    },
+    {
+     "pkg": "com.tcl.hearaid",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "onboarding/tips overlay"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log collection"
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": "TCL light browser (Google WebView stays)"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.eva",
+     "note": "TCL voice assistant layer (Katniss handles voice without it)"
+    },
+    {
+     "pkg": "com.tcl.magiconnectfree",
+     "note": "MagicConnect pairing promo"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "peripheral firmware helper"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Duplicate webviews on this firmware (com.google.android.webview is the active one)",
+   "apps": [
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.iplayer.android.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.support.webview",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Mediatek casting/telemetry leftovers",
+   "apps": [
+    {
+     "pkg": "com.mediatek.airplaydaemon",
+     "note": "AirPlay daemon; the AirplayAPK frontend is not on this firmware"
+    },
+    {
+     "pkg": "com.mediatek.backgrounddetection",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.network",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google storefront and extras",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies storefront"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": "TTS (left on purpose if you use voice TTS screens)"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "photo screensaver"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 24
+}

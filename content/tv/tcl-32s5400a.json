@@ -1,0 +1,36 @@
+{
+  "name": "TCL 32S5400A",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 32S5400A ships with a TCL account app, promo rows and regional preloads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 32 inch TCL has only about 1 GB of memory and ships with a TCL account center, a TGuard cleaner, promo rows on the home screen and a TCL web video portal. The unit tested also carried regional preloads, SonyLIV and YuppTV, plus Google extras such as games, Play Movies and a music app.",
+    "It was applied and checked on the same day. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on. Several TCL system apps are kept on purpose so the remote and inputs keep working."
+  ],
+  "keep": [
+    "Live TV and HDMI (TCL TV app) and the input service",
+    "Bluetooth remote service and remote pairing",
+    "Remote key service",
+    "Picture and sound settings",
+    "The TCL Home tile and Quick Panel",
+    "The service that carries firmware updates"
+  ],
+  "notes": [
+    "The TCL account app may be turned back on by the system at boot.",
+    "The test was shorter than the project asks for. The owner will report back if anything breaks."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 32S5400A?",
+      "a": "This list does not turn off Google Assistant, so the mic button is left as it is."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL promo rows on the stock home and the TCL promotional apps."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock home screen back."
+    }
+  ]
+}

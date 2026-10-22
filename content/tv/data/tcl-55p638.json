@@ -1,0 +1,205 @@
+{
+ "id": "tcl-55p638",
+ "title": "TCL 55P638 (reports \"Smart TV\", device BeyondTV4), Android TV 11.",
+ "header": "TCL 55P638 (reports \"Smart TV\", device BeyondTV4), Android TV 11.\nBuild RP1A.200622.001 release-keys.\nPackage persistence and CleanYourTV Home verified after reboot on 2026-10-21.\nBrowseHere was disabled afterward; the owner confirmed normal TV operation.\n\nApply: TV_HOST=<tv ip> tools/disable.sh examples/tcl-55p638/debloat.txt\nRestore: TV_HOST=<tv ip> tools/restore.sh examples/tcl-55p638/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out anything you use.\nDisable setupwraith before launcherx; launcher replacement works on this TV.\nThis list leaves launcherx enabled; launcher/build-and-install.sh handles the Home switch.\nCheck saved Wi-Fi ownership before disabling setupwraith on another TV.",
+ "sections": [
+  {
+   "title": "Google TV home and setup",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "launcher/build-and-install.sh disables it after the new launcher starts"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "TCL analytics, logging, content feeds, promos and optional vendor services",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.overseasappshow",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.notereminder",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "firmware-dependent TCL service; inherited disabled state"
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": "optional private-listening feature"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice assistants — off by choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google extras / preload configuration",
+   "apps": [
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "disabled by owner choice; not proven telemetry-only"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "Google calendar sync"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused streaming apps — off by choice",
+   "apps": [
+    {
+     "pkg": "au.com.stan.and",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Optional apps — off by choice",
+   "apps": [
+    {
+     "pkg": "com.tcl.browser",
+     "note": "BrowseHere; disabled and owner-tested"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "screen reader; no accessibility service was active"
+    },
+    {
+     "pkg": "com.tcl.magiconnectfree",
+     "note": "MagiConnect / T-Cast phone integration"
+    },
+    {
+     "pkg": "org.chromium.webview_shell",
+     "note": "test browser, NOT the system WebView provider"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": "TCL gallery"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 37
+}

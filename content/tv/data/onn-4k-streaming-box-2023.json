@@ -38,18 +38,11 @@
      "note": "re-enable if you need the screen reader"
     }
    ],
-   "optional": [],
-   "note": ""
-  },
-  {
-   "title": "Google ambient mode screensaver (replaced by the launcher's Clock screensaver)",
-   "apps": [
+   "optional": [
     {
      "pkg": "com.google.android.apps.tv.dreamx",
      "note": ""
-    }
-   ],
-   "optional": [
+    },
     {
      "pkg": "com.google.android.apps.tv.launcherx",
      "note": ""
@@ -71,5 +64,5 @@
  ],
  "kept": [],
  "stock_launcher": "com.google.android.apps.tv.launcherx.",
- "count": 8
+ "count": 7
 }

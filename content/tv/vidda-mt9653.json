@@ -1,0 +1,34 @@
+{
+  "name": "Vidda VIDAA_TV (MT9653)",
+  "brand": "Vidda",
+  "os": "Android TV 11",
+  "summary": "Vidda VIDAA_TV (MT9653) ships with Hisense telemetry, ads and shopping rows. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Vidda TV, Hisense's youth brand sold in China, ships with Hisense telemetry and push, ads, shopping and operator rows on the home screen. It also has retail, hotel and factory leftovers and a screensaver that is an ad surface. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "The list goes further than the smaller Hisense lists because it replaces two vendor home screens. TidyTV turns the apps off from your phone, saves a backup first and never deletes anything. Casting stacks are deliberately kept. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The vendor source panel and its tile animation service",
+    "Chromecast and the other casting stacks",
+    "Remote pairing",
+    "Live TV and HDMI"
+  ],
+  "notes": [
+    "Network debugging opens without a prompt on this TV. Switch it off when you are done, or keep the TV on a trusted network.",
+    "One app with a transition-sounding name is kept because the source panel needs it. Without it, picking HDMI does nothing."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Vidda VIDAA_TV?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Is it safe to leave debugging on?",
+      "a": "No. This TV does not ask for approval, so any device on your network could connect. Turn debugging off when you are done."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Vidda VIDAA_TV?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

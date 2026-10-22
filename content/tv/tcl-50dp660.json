@@ -1,0 +1,37 @@
+{
+  "name": "TCL 50DP660",
+  "brand": "TCL",
+  "os": "Android TV 8.0",
+  "summary": "TCL 50DP660 ships with recommendation rows, T-Channel tiles and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This European TCL runs Android TV 8.0. The stock home carries recommendation rows and T-Channel content tiles. It also has TCL's MagiConnect mirroring, an Alexa bridge, an app store, a media centre and start-up service, factory test leftovers, and Google extras such as Play Movies and games.",
+    "The list was applied on a real TV and survived several reboots. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on. The Live TV, tuner, HDMI and AV apps are kept."
+  ],
+  "keep": [
+    "Live TV, the tuner input, HDMI and AV",
+    "The on-screen keyboard",
+    "TCL settings, remote pairing and virtual keys",
+    "Wi-Fi and tuner services",
+    "Google Cast receiver",
+    "The ambient screensaver"
+  ],
+  "notes": [
+    "This set has no microphone, so Assistant and voice search are on the list.",
+    "Never use the factory menu's NVM reset. It wipes the Wi-Fi address and Netflix identity, and only a full firmware reflash fixes it.",
+    "The stock home has priority on this firmware, so a replacement home screen only takes over once the stock one is off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 50DP660?",
+      "a": "This set has no microphone, so there is no voice button to lose."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Chromecast is kept. MagiConnect screen mirroring is on the list and is switched off."
+    },
+    {
+      "q": "Will TV updates still work?",
+      "a": "The TCL OTA updater is on the list. Turn it back on in the app when you want to check for a firmware update."
+    }
+  ]
+}

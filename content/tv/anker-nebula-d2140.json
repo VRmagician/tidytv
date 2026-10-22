@@ -1,0 +1,36 @@
+{
+  "name": "Anker Nebula Cosmos (D2140)",
+  "brand": "Anker",
+  "os": "Android TV 9",
+  "summary": "Anker Nebula Cosmos ships with telemetry, ad services and preloads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Anker Nebula Cosmos projector sends telemetry and feedback and runs content and ad services in the background. It also carries preloaded apps, and its stock home screen is heavy, using about 190 MB of memory. The list groups these and leaves the projector's own controls alone.",
+    "The storage on this model was about 90 percent full out of the box. The list keeps the projector hardware, inputs and remote working. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Projector hardware services, including keystone correction",
+    "HDMI inputs and Live TV",
+    "The remote's global keys",
+    "Bluetooth remote pairing and speaker mode",
+    "The Nebula Connect phone app service",
+    "Firmware updates"
+  ],
+  "notes": [
+    "Netflix says it is not compatible in the Play Store, because this projector is not Netflix certified. A certified stick on HDMI is the way round it.",
+    "The storage was nearly full from the factory."
+  ],
+  "faq": [
+    {
+      "q": "Will Netflix work after cleaning my Nebula Cosmos?",
+      "a": "The Netflix TV app does not run on this projector, with or without TidyTV, because it is not Netflix certified. A certified stick on HDMI works."
+    },
+    {
+      "q": "Will the remote and keystone still work?",
+      "a": "Yes. The projector and remote services are kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back in one tap."
+    }
+  ]
+}

@@ -35,11 +35,12 @@ Write `content/tv/<id>.json` (NOT inside data/), valid JSON, exactly these keys:
 
 ## Facts about TidyTV you may use
 - A free, open-source Android phone app. No computer and no AI needed. The phone must be on the same Wi-Fi as the TV.
-- On the TV you turn on developer options and USB/Network debugging once. The TV asks "Allow debugging?" once.
+- On the TV you turn on developer options and Wireless debugging (some TVs call it Network debugging) once. On Ethernet the TV needs its Wi-Fi on for this. The TV asks "Allow debugging?" once.
 - It saves a backup first, turns apps off with Android's own setting (it never uninstalls), checks each one, and stops if anything looks wrong.
 - Restore everything turns every app back on and puts the old home screen back, in one tap.
 - Play Store, Play Services, keyboards, TV inputs, the remote and Bluetooth pairing, Settings and setup apps are always kept.
-- Optional clean home screens: Simple (any Android TV) or Apple TV style (Android 8 and newer). Fire TV keeps Amazon's home screen.
+- Optional clean home screens: Simple (any Android TV), Apple TV style (Android 8 and newer) or Projectivy Launcher from the TV's own Play Store. Fire TV keeps Amazon's home screen.
+- Also in the app: a phone remote, sending files to the TV, and Check my TV, which finds apps a TV update turned back on.
 - Each app has a switch in the app, so the owner decides.
 
 ## Rules

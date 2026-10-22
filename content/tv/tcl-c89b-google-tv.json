@@ -1,0 +1,34 @@
+{
+  "name": "TCL C89B 85-inch",
+  "brand": "TCL",
+  "os": "Google TV (Android 14)",
+  "summary": "TCL C89B 85-inch ships with TCL analytics, content rows and promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL set ships with TCL tracking and analytics services, content rows and promos on the home screen, and a retail demo mode. It also carries preloaded apps and services, an ambient screensaver that shows promos, and the usual Android 14 ad and privacy services from Google.",
+    "The list was checked on one set on Ethernet, with screenshots between batches. Home, the inputs menu (HDMI 1 to 4 and Live TV), Chromecast, AirPlay, Miracast and the remote's gear, Netflix, Prime Video and YouTube buttons all kept working, also after a reboot. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI 1 to 4 inputs",
+    "Chromecast, AirPlay and Miracast",
+    "The remote's gear, Netflix, Prime Video and YouTube buttons",
+    "Remote pairing and the TV's own system services"
+  ],
+  "notes": [
+    "The test was about one day of use, not weeks.",
+    "Wireless debugging switches itself off on Ethernet. On this set, USB debugging alone opens the connection."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my TCL C89B 85-inch?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Do the remote's Netflix and YouTube buttons still work?",
+      "a": "Yes. They worked in testing, including after a reboot."
+    },
+    {
+      "q": "Does TidyTV delete anything on my TCL C89B 85-inch?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

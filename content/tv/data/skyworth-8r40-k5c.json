@@ -1,0 +1,95 @@
+{
+ "id": "skyworth-8r40-k5c",
+ "title": "Skyworth / Coocaa 8R40_K5C (Realtek rtd285x, 1 GB RAM, 32-bit), Android 8.0 (API 26), build OPR6.170623.012",
+ "header": "Skyworth / Coocaa 8R40_K5C (Realtek rtd285x, 1 GB RAM, 32-bit), Android 8.0 (API 26), build OPR6.170623.012\nMainland China domestic firmware (com.tianci.* / com.coocaa.* family), NOT the Google-TV\nSkyworth in examples/skyworth-sw-22sa (that one is com.smartdevice.*, Android 14).\nStock launcher: com.tianci.movieplatform (hardcoded in /system/pcfg, DO NOT DISABLE).\nLive TV / System UI: com.skyworth.tv (DO NOT DISABLE).\nIf you pass package names to tools/restore.sh or launcher/build-and-install.sh, use the two above.\n\nApply:    TV_HOST=<tv ip> tools/disable.sh examples/skyworth-8r40-k5c/debloat.txt\nUndo:     TV_HOST=<tv ip> tools/restore.sh examples/skyworth-8r40-k5c/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nCRITICAL SAFETY TRAPS (READ BEFORE USING). Full details: docs/devices/skyworth-8r40-k5c.md\n1. The ONLY ADB toggle lives inside Settings > 基本设置 > 设备信息 (About this TV) > 更多信息.\nThat page crashes if any of these are disabled:\ncom.tianci.de\ncom.skyworthdigital.stb.dataprovider\ncom.coocaa.sky.ccapi\nA crashed About page means ADB can never be re-enabled: factory reset is the only way out.\nBEFORE debloating, install Activity Launcher (de.szalkowski.activitylauncher.oss) and confirm you\ncan open com.tianci.setting/.factorysetting.FactorySetting (action coocaa.intent.action.TIANCI_FACTORY).\nApply in small batches and re-open the About page after each batch.\n2. DO NOT DISABLE com.tianci.movieplatform (stock launcher) or any other current launcher.\nHOME is hardcoded in read-only /system/pcfg and no package declares category HOME, so disabling\nthe launcher gives a black screen on boot (sys.boot_completed never set).\n3. Do not touch persist.service.homepage.* props. Setting persist.service.homepage.switch 0 stopped\nadbd from starting after reboot on the reporter's unit.\n\nBoot ad (not a package, run once over ADB, survives reboot):\ntools/tv.py 'setprop persist.sys.bootvideo.time 1'",
+ "sections": [
+  {
+   "title": "Boot ads and autostart queue (disabled from the factory on many units, zero risk)",
+   "apps": [
+    {
+     "pkg": "com.tianci.ad",
+     "note": "Coocaa ad engine (boot ad, started by bootQueue.xml at ~5 s)"
+    },
+    {
+     "pkg": "com.tianci.push",
+     "note": "Boot push notifications (bootQueue.xml, ~1.2 s)"
+    },
+    {
+     "pkg": "com.tianci.appstore",
+     "note": "Coocaa App Store"
+    },
+    {
+     "pkg": "com.tianci.ipc",
+     "note": "Tianci IPC helper"
+    },
+    {
+     "pkg": "com.tianci.autoinstaller",
+     "note": "Background APK auto-install service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Account service",
+   "apps": [
+    {
+     "pkg": "com.tianci.user",
+     "note": "Account management"
+    }
+   ],
+   "optional": [],
+   "note": "Verified safe in one batch, BUT the reporter saw the About page crash after disabling com.coocaa.sky.ccapi \"and/or\" this package. Disable it LAST and re-check About."
+  },
+  {
+   "title": "Commercial bloatware and unused features",
+   "apps": [
+    {
+     "pkg": "com.baidu.oases",
+     "note": "Baidu Oases / security scanner"
+    },
+    {
+     "pkg": "com.coocaa.mall",
+     "note": "Shopping portal"
+    },
+    {
+     "pkg": "com.coocaa.activecenter",
+     "note": "Activity / promotions center"
+    },
+    {
+     "pkg": "com.coocaa.app_browser",
+     "note": "Built-in lightweight web browser"
+    },
+    {
+     "pkg": "com.coocaa.messageprovider",
+     "note": "System message popups"
+    },
+    {
+     "pkg": "com.coocaa.tvpitv",
+     "note": "PiTV aggregation service"
+    },
+    {
+     "pkg": "com.coocaa.theme.child",
+     "note": "Children's mode theme"
+    },
+    {
+     "pkg": "com.icoolme.tv.weather",
+     "note": "Weather preload"
+    },
+    {
+     "pkg": "com.skyworth.blockchain",
+     "note": "Blockchain preload"
+    },
+    {
+     "pkg": "com.skyworth.smarthome_tv",
+     "note": "Smart home dashboard"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.tianci.movieplatform",
+ "count": 16
+}

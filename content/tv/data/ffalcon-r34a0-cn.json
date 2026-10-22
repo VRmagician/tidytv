@@ -1,0 +1,105 @@
+{
+ "id": "ffalcon-r34a0-cn",
+ "title": "FFALCON (雷鸟) r34a0, China firmware V8-A920T01-LF1V147, Amlogic T920, 1 GB RAM,",
+ "header": "FFALCON (雷鸟) r34a0, China firmware V8-A920T01-LF1V147, Amlogic T920, 1 GB RAM,\nAndroid 5.1.1 (SDK 22), 8 GB storage (5.44 GB user). Tested 2026-10-21.\nADB: Settings → System → System Info page, press UP DOWN LEFT RIGHT on the remote\n(repeat 2-3 times until the ADB toggle appears at the bottom). Persists across reboots.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/ffalcon-r34a0-cn/debloat.txt\n(tools/disable.sh uses pm disable-user, which this firmware DENIES — see INSTALL\nBLOCKER below; swap to `pm hide` as disable.sh does not know the difference yet)\nUndo:    NOT tools/restore.sh — its pm enable cannot undo a hide on this firmware.\nRun `pm unhide <package>` for each package listed below instead.\n\nINSTALL BLOCKER, read first: `pm disable-user` is denied on this firmware\n(SecurityException: Permission Denial ... uid=2000 → uid=1000). Use `pm hide` instead;\non Android 5.1 hidden state persists across reboots and `pm unhide` restores.\n\nadb install is blocked with \"install apk has be disabled from pm by system default\".\nUnlock with (both persist, shell has permission on this old build):\nsetprop persist.tcl.debug.installapk 1\nsetprop persist.tcl.installapk.enable 1\nNon-HOME apks then install fine. Any APK declaring android.intent.category.HOME is refused\nwith INSTALL_PARSE_FAILED_INCONSISTENT_CERTIFICATES even for a never-installed package name\n— the launcher signature gate, disguised as a cert error (same gate as tcl-ak30a5/Q10G Pro).\nA HOME-free build of com.gathin.tvhome installs but crashes instantly on this Android 5.1\nand logd is disabled, so it cannot be debugged. Conclusion: debloat only, stock CyberUI\nlauncher stays. (uninstall of the test app also failed with DELETE_FAILED_INTERNAL_ERROR;\n`pm hide <pkg>` removes it from the user-facing list.)\n\nBoot ad: com.tcl.bootadservice. Push-ad popups: com.tcl.c2dm.client + com.android.tcl.messagebox.\nKept on purpose: TVBox (com.github.tvbox.osc.tk), 云视听小电视 (com.xiaodianshi.tv.yst),\n千寻 (com.tv.qx), 电视卫士 (com.tcl.tvweishi), app store (com.tcl.appmarket2) — user's choice;\ncyberui (the only HOME handler), com.tcl.tv (DTV/HDMI), sourcemananger, sogou IME (the keyboard),\ndroidlogic platform services, local media players.",
+ "sections": [
+  {
+   "title": "Other apps",
+   "apps": [
+    {
+     "pkg": "com.tcl.bootadservice",
+     "note": "full-screen ad before Home"
+    },
+    {
+     "pkg": "com.tcl.c2dm.client",
+     "note": "TCL push channel (ad popups)"
+    },
+    {
+     "pkg": "com.android.tcl.messagebox",
+     "note": "image-message popup receiver"
+    },
+    {
+     "pkg": "com.tcl.bi",
+     "note": "analytics/behaviour reporting"
+    },
+    {
+     "pkg": "com.tcl.usagestats",
+     "note": "usage statistics"
+    },
+    {
+     "pkg": "com.tcl.tvhealthcheck",
+     "note": "diagnostics uploader"
+    },
+    {
+     "pkg": "com.tcl.xian.StartandroidService",
+     "note": "background reporting service"
+    },
+    {
+     "pkg": "com.tcl.vod",
+     "note": "TCL VOD"
+    },
+    {
+     "pkg": "com.tcl.waterfall.resource",
+     "note": "waterfall content feed (home wall tiles)"
+    },
+    {
+     "pkg": "com.tcl.tshop",
+     "note": "TV shopping mall"
+    },
+    {
+     "pkg": "com.tcl.gamecenter",
+     "note": "game center"
+    },
+    {
+     "pkg": "com.tcl.ffeducation",
+     "note": "education preload"
+    },
+    {
+     "pkg": "com.pptv.tvsports.preinstall",
+     "note": "PPTV sports preload"
+    },
+    {
+     "pkg": "com.tencent.qqmusictv",
+     "note": "QQ Music TV preload"
+    },
+    {
+     "pkg": "com.tcl.weixin",
+     "note": "TV WeChat"
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": "TV browser"
+    },
+    {
+     "pkg": "com.iflytek.xiri",
+     "note": "iFlytek voice"
+    },
+    {
+     "pkg": "com.iflytek.xiri.recorder.svc",
+     "note": "iFlytek recorder"
+    },
+    {
+     "pkg": "com.iflytek.xiri2.hal",
+     "note": "iFlytek HAL"
+    },
+    {
+     "pkg": "com.iflytek.xiri2.system",
+     "note": "iFlytek system service"
+    },
+    {
+     "pkg": "com.tcl.walleve",
+     "note": "小T AI / smart-home settings (voice framework)"
+    },
+    {
+     "pkg": "com.tcl.versionUpdateApp",
+     "note": "system updater (user choice; snm.upgrade untouched)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 22
+}

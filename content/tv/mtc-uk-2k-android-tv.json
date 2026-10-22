@@ -1,0 +1,33 @@
+{
+  "name": "MTC UK 2K Android TV",
+  "brand": "MTC",
+  "os": "Android TV 11",
+  "summary": "MTC UK 2K Android TV ships with Google ads, ambient promos and junk apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This MediaTek-based set shares its firmware family with JVC UK sets. It ships with Google launcher ad and recommendation services, Google telemetry and ambient screensaver ads, and a layer of preloaded junk. The list also covers a calendar app and the voice assistant, which are off by choice.",
+    "The firmware limits what Android will report about the set, so checks rely on package lists and screenshots. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. The phone and TV need to be on the same Wi-Fi, and the TV asks you once to allow debugging."
+  ],
+  "keep": [
+    "The Play Store and Google Play Services",
+    "Keyboards, TV inputs, the remote and Bluetooth pairing",
+    "Settings and setup apps"
+  ],
+  "notes": [
+    "This firmware hides much of the set's status from Android, so a few checks work differently than on other TVs.",
+    "The list includes the Freeview Play app layer. Leave those lines on in the app if you watch Freeview Play."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my MTC UK 2K?",
+      "a": "Not with the default list, because the voice assistant is turned off by choice. Switch it back on in the app if you use voice."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Mostly. It turns off the Google launcher ad and recommendation services and the ambient ads."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

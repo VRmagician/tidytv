@@ -1,0 +1,35 @@
+{
+  "name": "TCL BeyondTV2",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL BeyondTV2 ships with TCL analytics, pushed content and a use-tracking cleaner. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This TCL runs Android TV 11 and ships with TCL analytics and telemetry, content pushed to the home screen at boot, and a TCL web content feed. A TGuard app tracks device use and health info. It also has pushed messages and promos, a retail demo sticker, a promo home screen and a notes widget.",
+    "The list was applied in four batches with a reboot after each. After the last reboot every app was still off, Wi-Fi was up, and the Inputs menu and Live TV worked. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV (the TCL TV app)",
+    "Tuner and HDMI 1 to 3 (the TCL input service)",
+    "The remote's key service",
+    "The physical remote",
+    "The setup app, which does not own the saved Wi-Fi here"
+  ],
+  "notes": [
+    "One factory promo service turns partner apps back on, so it is the key entry on the list.",
+    "Install the replacement home screen before the stock one is turned off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL BeyondTV2?",
+      "a": "Not with the default list. It turns off Google Assistant, voice search, the TCL voice service and the microphone manager. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Miracast and the MagiConnect companion are on the list and are switched off. Switch them back on if you use them."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}

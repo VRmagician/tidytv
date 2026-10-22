@@ -1,0 +1,153 @@
+{
+ "id": "thomson-sppl-4k-sw6h",
+ "title": "Thomson SPPL 4K Google TV (ro.product.model \"SPPL 4K GSmartTV FF\", product SW6H_Thomson, device SW6H,",
+ "header": "Thomson SPPL 4K Google TV (ro.product.model \"SPPL 4K GSmartTV FF\", product SW6H_Thomson, device SW6H,\nSkyworth-built, MediaTek, 32-bit ARM), Android TV 14 (API 34), build UTT1.250517.001, ~1.9 GB RAM.\nSame board and build as skyworth-sw-22sa. 4K panel drawn at 1920x1080 (wm size override from the factory).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/thomson-sppl-4k-sw6h/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/thomson-sppl-4k-sw6h/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock Home: com.google.android.apps.tv.launcherx; setupwraith's RecoveryActivity also claims HOME, and the\nfirst build-and-install.sh run rolled back because RecoveryActivity took Home. The saved Wi-Fi network\nbelonged to setupwraith: forgotten + re-joined in Settings (then cname=android.uid.system), setupwraith\ndisabled, build-and-install.sh run again: mFocusedApp = com.gathin.tvhome/.MainActivity.\nLive TV app: com.smartdevice.livetv; launcher Inputs menu lists HDMI 1-3, AV, Live TV and switches through it.\nRemote: Input, YouTube, Netflix, Prime Video, mic all work without launcherx. The Settings/dashboard\nbutton sends keycode 83 (KEYCODE_NOTIFICATION, scancode 240 KEY_UNKNOWN, HID 0c009f), which only launcherx\nanswered: settings_key_keycodes [83] in config.json here + HOME_KEY_SERVICE=1, checked with the real remote.\nlauncher/ config: config.json here (live_tv_package com.smartdevice.livetv, its tile hidden, Settings key).\nSideloading and a third-party HOME app install fine (pm install -r).\n\nApplied on 2026-10-21 in batches with a screenshot after each; Live TV, HDMI, YouTube and Hotstar checked.\nAfter a reboot `pm list packages -d` matched exactly: this firmware re-enables nothing at boot.\n\nDisabled from the factory, so not listed (restore.sh would turn them ON): com.netflix.ninja.\n\nOff on this unit by the owner's choice but left out of the list, since keyboards stay enabled:\norg.liskovsoft.androidtv.rukeyboard (a Russian soft keyboard, not the active IME; Gboard is).\n\nKept on purpose: com.smartdevice.livetv + overlay_SANLUX, com.mediatek.tvinput, com.mediatek.tv.service,\ncom.mediatek.android.tv.globalkeyoverlay (Live TV, HDMI, hot keys), com.smartdevice.dailyshortcut (quick\nmenu), com.smartdevice.duplebluetooth + bleconnectservice (BLE remote pairing), com.smartdevice.factory and\nmediatek.factorymenu.ui (never launched), com.tianci.localmedia, Play Store + Play Services, keyboard,\nkatniss + tv.assistant + tv.remote.service (voice, by choice), mediashell (Chromecast, by choice),\ncom.smartdevice.dtv.icast + com.mediatek.androidbox (Miracast/DLNA, by choice), Prime Video and YouTube\nMusic (by choice).",
+ "sections": [
+  {
+   "title": "Telemetry and after-sale push",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.aftersale",
+     "note": "boot + network receivers, can install APKs"
+    },
+    {
+     "pkg": "com.smartdevice.dailymanage",
+     "note": "\"Daily Manage\" boot service, no documented purpose"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Android ad and personalisation services",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Skyworth content, ads, demos and preloads",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recommendation",
+     "note": "Coocaa recommendation rows; bundles Sensors Data analytics"
+    },
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": "partner config that injects rows into the home screen"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "Play auto-installs of partner apps"
+    },
+    {
+     "pkg": "com.smartdevice.epopplayer",
+     "note": "ePop shop demo player"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "shop demo player"
+    },
+    {
+     "pkg": "com.coocaa.demonow.lightining",
+     "note": "\"Demo Now\" retail mode"
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual"
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "retail legal-disclaimer dialogs"
+    },
+    {
+     "pkg": "com.smartdevice.myapp",
+     "note": "Skyworth \"My App\" shortcut page"
+    },
+    {
+     "pkg": "com.smartdevice.setupwraith",
+     "note": "Skyworth first-run/privacy wizard; setup is finished"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Not needed on a TV",
+   "apps": [
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "org.liskovsoft.androidtv.rukeyboard",
+     "note": "Russian soft keyboard: keyboards stay on (see header)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Off by owner's choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV (Play Movies)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Handover, only once launcher/ owns Home (build-and-install.sh does launcherx itself)",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "stock Google TV home"
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "RecoveryActivity otherwise steals Home"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 24
+}

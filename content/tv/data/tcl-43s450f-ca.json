@@ -1,0 +1,247 @@
+{
+ "id": "tcl-43s450f-ca",
+ "title": "TCL 43S450F-CA (TCL S4 Fire TV Edition, Amazon model AFTDEC012E, codename ginza), Fire OS 8.1.8.5 (RS8185/3885),",
+ "header": "TCL 43S450F-CA (TCL S4 Fire TV Edition, Amazon model AFTDEC012E, codename ginza), Fire OS 8.1.8.5 (RS8185/3885),\nAndroid 11 (SDK 30), MediaTek, ATSC tuner, 1.8 GB RAM, Canada. Spanish UI.\nSame firmware line as hisense-fire-tv-aftcibfbd1 (Fire OS 8.0 TV) and amazon-fire-tv-stick-4k-2023 (Fire OS 8.1.8.5).\n\nFIRE OS: DEBLOAT ONLY. Home is com.amazon.tv.launcher/.ui.HomeActivity_vNext (priority 950), with\ncom.amazon.firehomestarter (priority 1) behind it; both are protected on Fire OS 8, so launcher/ does not take Home.\nHDMI input switching is reserved to Amazon-signed apps (com.amazon.tv.permission.TUNE_INPUT).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-43s450f-ca/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-43s450f-ca/debloat.txt com.amazon.tv.launcher\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\n\nKept on purpose (owner's choice): Prime Video (com.amazon.firebat, tv.support, imp, ottssocompanionapp), Amazon Music\n(bueller.music), Luna (gamehub), Alexa voice and its services (vizzini, aria, alexa*, aca, aiondec, audiohome,\nrtcsessioncontroller, spotify.mediabrowserservice, androidskillconnectioncapability), AirPlay, Miracast (cast.sink),\nDIAL casting (dialservice, whisperplay, whisperlink, awvflingreceiver), OTA updates (device.software.ota*,\ntv.forcedotaupdater.v2), Tubi, Pluto TV, Netflix, YouTube, Spotify, Stremio, Nuvio, NordVPN, Downloader.\nAlways kept: Live TV and tuner (tv.livetv, mediatek.livetv, mediatek.dtv.tvinput.*, tv.channelscan, franktvinput),\nsettings, quick settings, IME, remote/Bluetooth, Appstore (venezia), com.amazon.tv.oobe, com.amazon.tv.matter\n(Matter casting), com.amazon.providers.contentsupport (switches the TTS engine Alexa uses), accessibility (logan).\nApplied 2026-10-21 in four batches with a screenshot after each, then rebooted: all 45 stayed disabled, Home and\nYouTube work. Alexa was kept, so nothing came back at boot.\nThe hero banner on Home is the launcher's own feed and stays; the recommendation rows under it are gone.\nLooked at and left alone, role unclear: com.amazon.ale, katoch, spiderpork, tv.arc, securitysyncclient, device.details,\ntv.fss, neodelegate, sharingservice proxy, cpl, tifobserver, connectivitydiag, neopactservice, dpcclient, mediatek.*.",
+ "sections": [
+  {
+   "title": "Amazon telemetry, metrics, logs, usage reporting",
+   "apps": [
+    {
+     "pkg": "com.amazon.client.metrics.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva.logcat",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wirelessmetrics.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfcollection",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfc",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ceviche",
+     "note": "data collection pipelines"
+    },
+    {
+     "pkg": "com.amazon.tv.developer.dataservice",
+     "note": "content personalization data for third-party apps"
+    },
+    {
+     "pkg": "com.amazon.device.telemetry.emitter",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.livedeviceservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.privacypassservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wifilocker",
+     "note": "uploads Wi-Fi passwords to Amazon"
+    },
+    {
+     "pkg": "com.amazon.tv.acr",
+     "note": "Automatic Content Recognition (what is on screen, HDMI included)"
+    },
+    {
+     "pkg": "com.amazon.audiolatencymeasurer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads, sponsored rows, recommendations, promos, shopping",
+   "apps": [
+    {
+     "pkg": "com.amazon.kso.blackbird",
+     "note": "launcher ad sync / bidding"
+    },
+    {
+     "pkg": "com.amazon.sneakpeek",
+     "note": "sponsored \"Sneak Peek\" autoplay previews"
+    },
+    {
+     "pkg": "com.amazon.hybridadidservice",
+     "note": "advertising ID"
+    },
+    {
+     "pkg": "com.amazon.media.recommendations",
+     "note": "sponsored and recommendation rows"
+    },
+    {
+     "pkg": "com.amazon.tv.easyupgrade",
+     "note": "\"upgrade your Fire TV\" promos"
+    },
+    {
+     "pkg": "com.amazon.shoptv.client",
+     "note": "Shop on Fire TV"
+    },
+    {
+     "pkg": "com.amazon.hedwig",
+     "note": "Fire TV Channels"
+    },
+    {
+     "pkg": "com.amazon.tv.democontent.provider",
+     "note": "retail demo content"
+    },
+    {
+     "pkg": "com.amazon.systemnotices",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.releasenotes",
+     "note": "\"what's new\" popups"
+    },
+    {
+     "pkg": "com.amazon.uxnotification",
+     "note": "UX notification popups"
+    },
+    {
+     "pkg": "com.amazon.tv.earlyaccess",
+     "note": "early-access / preview program stub"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps and tutorials (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": "Amazon Photos"
+    },
+    {
+     "pkg": "com.amazon.tahoe",
+     "note": "Amazon Kids"
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": "miniTV stub"
+    },
+    {
+     "pkg": "com.amazon.cloud9",
+     "note": "Silk browser"
+    },
+    {
+     "pkg": "com.amazon.tv.website_launcher",
+     "note": "opens websites in Silk"
+    },
+    {
+     "pkg": "com.amazon.naatyam",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": "remote tutorial"
+    },
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": "remote app tutorial"
+    },
+    {
+     "pkg": "ca.bellmedia.cravetv",
+     "note": "Crave"
+    },
+    {
+     "pkg": "com.cbs.ca",
+     "note": "Paramount+ / CBS"
+    },
+    {
+     "pkg": "com.wbd.stream",
+     "note": "Max"
+    },
+    {
+     "pkg": "com.apple.atve.amazon.appletv",
+     "note": "Apple TV app (AirPlay is separate and stays)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Other Amazon devices, smart home, screensaver (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.whisperjoin.middleware.v2.np",
+     "note": "frustration-free setup of other Amazon devices"
+    },
+    {
+     "pkg": "com.amazon.tv.ffsprovisioneeclient",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ods.kindleconnect",
+     "note": "\"show on Fire TV\" from Echo / Fire tablet"
+    },
+    {
+     "pkg": "com.amazon.smarthomemapviewapp",
+     "note": "smart home dashboard"
+    },
+    {
+     "pkg": "com.amazon.tv.mattercohost",
+     "note": "Matter smart-home controller (com.amazon.tv.matter stays for casting)"
+    },
+    {
+     "pkg": "com.amazon.ftv.screensaver",
+     "note": "Amazon Photos screensaver"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.device.metrics",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.device.logmanager",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.device.crashmanager",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.diode",
+     "note": ""
+    },
+    {
+     "pkg": "com.fireos.usagestats.proxy",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ftvads.deeplinking",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.csapp",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 45
+}

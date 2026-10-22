@@ -1,0 +1,297 @@
+{
+ "id": "amazon-fire-tv-stick-4k-2023",
+ "title": "Amazon Fire TV Stick 4K, 2nd gen 2023 (AFTKM, codename karat), Fire OS 8.1.8.5 (RS8185.3891N, build 0033018557316),",
+ "header": "Amazon Fire TV Stick 4K, 2nd gen 2023 (AFTKM, codename karat), Fire OS 8.1.8.5 (RS8185.3891N, build 0033018557316),\nAndroid 11 (SDK 30), Brazil. The first Fire OS 8 list here: it starts from amazon-fire-tv-stick-lite-2020/ and\namazon-fire-tv-stick-4k-2018/, and every package new in Fire OS 8 was checked with `dumpsys package` before listing.\n\nFIRE OS: DEBLOAT ONLY. Home is com.amazon.tv.launcher/.ui.HomeActivity_vNext (priority 950); launcher/ does not apply.\n\nApply:   TV_HOST=<stick ip> tools/disable.sh examples/amazon-fire-tv-stick-4k-2023/debloat.txt\nUndo:    TV_HOST=<stick ip> tools/restore.sh examples/amazon-fire-tv-stick-4k-2023/debloat.txt com.amazon.tv.launcher\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\nADB on Fire OS 8: Settings > My Fire TV > About > press select 7 times on the device name, back > Developer Options >\nADB Debugging. Port 5555, accept the prompt on the TV (ro.adb.secure=1).\n\nApplied 2026-10-20 in four batches with a screenshot after each, then rebooted: all 57 stayed disabled, Home, Prime\nVideo, Netflix, Globoplay and Disney+ open, Wi-Fi validates.\nProtected on this build (pm disable-user: \"Cannot disable a protected package\"), so commented out below, the same set\nas Fire OS 7 plus the help app: com.amazon.device.metrics, com.amazon.device.logmanager, com.amazon.device.crashmanager,\ncom.amazon.diode, com.fireos.usagestats.proxy, com.amazon.ftvads.deeplinking, com.amazon.tv.csapp.\n\nKept on purpose: com.amazon.tv.launcher, com.amazon.firehomestarter, com.amazon.tv.settings.*, com.amazon.venezia and\ncom.amazon.tigris (Appstore), com.amazon.tv.ime, remote/Bluetooth services, OTA updates (device.software.ota*,\ntv.forcedotaupdater.v2), Alexa voice search, Prime Video (com.amazon.firebat, com.amazon.tv.support), casting and\nmirroring (cast.sink, dialservice, awvflingreceiver, whisperplay, whisperlink, com.amazon.tv.matter for Matter\ncasting), Amazon sign-in for apps (com.amazon.tv.ottssocompanionapp, com.amazon.imp), profiles, com.amazon.tv.oobe\n(needed for a factory reset), the screensaver, accessibility (com.amazon.logan), notification center.\ncom.amazon.imp confirmed load-bearing on a second AFTKRT unit (same karat board, Fire OS 8.1.8.5): disabling it\ntogether with shoptv.client, shoptv.firetv.client, media.recommendations, sneakpeek, systemnotices, tv.earlyaccess\nand tv.acr left HomeActivity_vNext resumed and the remote fully responsive, but painted nothing -- confirmed black\non the physical TV. Re-enabling just those eight (imp included) fixed it within seconds, no reboot needed; the\nother seven were not re-tested standalone, so this list's existing success with them already disabled stands.\nFire OS 8 packages looked at and left alone: com.amazon.adep (package verification / security events),\ncom.amazon.platform.fdra (package allowlisting), com.amazon.tv.turnstile (PIN sign-in), com.amazon.tv.consents,\ncom.amazon.ssm / ssmsys (captive portal, error codes), com.amazon.tiramisubootsupport, com.amazon.d3 (has a demo\ncontent provider but also OOBE and provisioning receivers).\n\nWhat the list cannot remove: the hero banner, the \"Patrocinados\" (Sponsored) row and the Luna tile in \"Your apps\"\ncome from the launcher's own feed. Point the stick's DNS at a blocker for those (Pi-hole, or Private DNS\ndns.adguard-dns.com on Android 11). Also turn off Settings > Preferences > Privacy Settings (Device Usage Data,\nCollect App Usage Data, Interest-based Ads) and Featured Content autoplay in the menus: those values sync with the\nAmazon account, so the menu is the place to change them, not `settings put`.\nPrime Video registers only LEANBACK_LAUNCHER, so `monkey -p com.amazon.firebat 1` does nothing; start\ncom.amazon.firebat/com.amazon.pyrocore.IgnitionActivity with `am start -n` to test it.\nLeave the animation scales at 1.0 on this build. At 0.5 (window, transition and animator) every entry in the\nside menu (☰: Settings, Appstore, My Stuff...) closes the menu and goes back to Home without opening anything:\nNavigationActivity logs \"onStop with slideoutState=false, finishing to prevent stuck menu\" before the navigation\nrequest is sent. Back at 1.0, Settings opens again with all 57 packages still disabled.",
+ "sections": [
+  {
+   "title": "Amazon telemetry, metrics, logs, usage and location reporting",
+   "apps": [
+    {
+     "pkg": "com.amazon.client.metrics.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva.logcat",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wirelessmetrics.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfcollection",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfc",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ceviche",
+     "note": "data collection pipelines"
+    },
+    {
+     "pkg": "com.amazon.tv.developer.dataservice",
+     "note": "content personalization data for third-party apps"
+    },
+    {
+     "pkg": "com.amazon.device.telemetry.emitter",
+     "note": "new in Fire OS 8, no components of its own"
+    },
+    {
+     "pkg": "com.amazon.livedeviceservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.privacypassservice",
+     "note": "privacy pass token service"
+    },
+    {
+     "pkg": "com.amazon.wifilocker",
+     "note": "uploads Wi-Fi passwords to Amazon"
+    },
+    {
+     "pkg": "com.amazon.tv.acr",
+     "note": "Automatic Content Recognition"
+    },
+    {
+     "pkg": "com.amazon.ftvspatial",
+     "note": "presence and indoor-location sensing (SensorDataReceiver, IlsProximityReceiver)"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.device.metrics",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.amazon.device.logmanager",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.amazon.device.crashmanager",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.amazon.diode",
+     "note": "protected by Fire OS"
+    },
+    {
+     "pkg": "com.fireos.usagestats.proxy",
+     "note": "protected by Fire OS"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Ads, sponsored rows, recommendations, promos, shopping",
+   "apps": [
+    {
+     "pkg": "com.amazon.kso.blackbird",
+     "note": "launcher ad sync / bidding (aps.GetBidService)"
+    },
+    {
+     "pkg": "com.amazon.sneakpeek",
+     "note": "sponsored \"Sneak Peek\" previews"
+    },
+    {
+     "pkg": "com.amazon.hybridadidservice",
+     "note": "advertising ID service"
+    },
+    {
+     "pkg": "com.amazon.media.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.providers.contentsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.easyupgrade",
+     "note": "\"upgrade your Fire TV\" promos"
+    },
+    {
+     "pkg": "com.amazon.shoptv.client",
+     "note": "Amazon Shopping on TV"
+    },
+    {
+     "pkg": "com.amazon.shoptv.firetv.client",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.hedwig",
+     "note": "Fire TV Channels"
+    },
+    {
+     "pkg": "com.amazon.tv.livetv",
+     "note": "Live tab and guide (no tuner on a stick; Pluto TV and the like still open as apps)"
+    },
+    {
+     "pkg": "com.amazon.franktvinput",
+     "note": "live TV input feeding the Live tab"
+    },
+    {
+     "pkg": "com.amazon.systemnotices",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.releasenotes",
+     "note": "\"what's new\" release notes"
+    },
+    {
+     "pkg": "com.amazon.uxnotification",
+     "note": "UX notification popups"
+    },
+    {
+     "pkg": "com.amazon.tv.earlyaccess",
+     "note": "early-access / preview program stub"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.ftvads.deeplinking",
+     "note": "protected by Fire OS"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Preloaded Amazon apps and setup helpers (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.gamehub",
+     "note": "Amazon Luna / Game Hub"
+    },
+    {
+     "pkg": "com.amazon.bueller.music",
+     "note": "Amazon Music"
+    },
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": "Amazon Photos"
+    },
+    {
+     "pkg": "com.amazon.cloud9",
+     "note": "Silk browser"
+    },
+    {
+     "pkg": "com.amazon.tv.website_launcher",
+     "note": "opens websites in Silk"
+    },
+    {
+     "pkg": "com.amazon.tahoe",
+     "note": "Amazon Kids (FreeTime)"
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": "miniTV stub"
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": "remote tutorial"
+    },
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": "remote app tutorial"
+    },
+    {
+     "pkg": "com.amazon.whisperjoin.middleware.v2.np",
+     "note": "frustration-free setup of other Amazon devices"
+    },
+    {
+     "pkg": "com.amazon.tv.ffsprovisioneeclient",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ods.kindleconnect",
+     "note": "\"show on Fire TV\" from Echo / Fire tablet"
+    },
+    {
+     "pkg": "com.amazon.tv.ftvambient",
+     "note": "Ambient Experience (the plain screensaver, com.amazon.ftv.screensaver, stays)"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.tv.csapp",
+     "note": "protected by Fire OS (customer support / help app)"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Alexa extras (voice search on the remote mic stays",
+   "apps": [
+    {
+     "pkg": "com.amazon.tv.alexaalerts",
+     "note": "alarms, timers, reminders"
+    },
+    {
+     "pkg": "com.amazon.tv.alexanotifications",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.alexa.externalmediaplayer.fireos",
+     "note": "Alexa music playback"
+    },
+    {
+     "pkg": "com.amazon.alexamediaplayer.runtime.ftv",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.aiondec",
+     "note": "Alexa skill connections"
+    },
+    {
+     "pkg": "com.amazon.firetv.androidskillconnectioncapability",
+     "note": "Alexa skill connections / Alexa+ events, new in Fire OS 8"
+    },
+    {
+     "pkg": "com.amazon.spotify.mediabrowserservice",
+     "note": "Spotify for Alexa (stub; the Spotify app is separate)"
+    },
+    {
+     "pkg": "com.amazon.audiohome",
+     "note": "Alexa Home Theater"
+    },
+    {
+     "pkg": "com.amazon.whad",
+     "note": "whole-home audio (multi-room music)"
+    },
+    {
+     "pkg": "com.amazon.whasettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.aca",
+     "note": "Alexa hints/cues providers"
+    },
+    {
+     "pkg": "com.amazon.rtcsessioncontroller",
+     "note": "Alexa calling / Drop In sessions"
+    },
+    {
+     "pkg": "com.amazon.smarthomemapviewapp",
+     "note": "smart home dashboard (cameras, lights)"
+    },
+    {
+     "pkg": "com.amazon.tv.mattercohost",
+     "note": "Matter smart-home controller (com.amazon.tv.matter, Matter casting, stays)"
+    }
+   ],
+   "optional": [],
+   "note": "vizzini, aria, cardinal, tcomm, ivona TTS, alexa.datastore, alexadirectivebrokerservice are not listed)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 57
+}

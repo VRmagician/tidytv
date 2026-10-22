@@ -1,0 +1,206 @@
+{
+ "id": "tcl-g09-google-tv",
+ "title": "TCL Smart TV Pro, UK firmware (device G09, product G09_4K_GB, Amlogic T5M), used in Brazil",
+ "header": "TCL Smart TV Pro, UK firmware (device G09, product G09_4K_GB, Amlogic T5M), used in Brazil\nAndroid 12 (Google TV), firmware STT2.230203.001 AS24, 2 GB RAM\nSame firmware family as examples/tcl-g10-google-tv.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-g09-google-tv/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-g09-google-tv/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV app: com.tcl.tv (also owns HDMI playback).\nKeep com.tcl.tvinput, com.tcl.suspension (Input/source menu), com.tcl.dashboard, com.tcl.autopair,\ncom.tcl.systemserver (mic hotkeys) and com.tcl.providers.config. com.tcl.initsetup is in the list\nbelow (it also owns channel installation) - comment it out if you still need to scan channels.\nFirmware updates come through Play Services (gms SystemUpdatePanoActivity); there is no TCL OTA package.",
+ "sections": [
+  {
+   "title": "TCL telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.ttvs",
+     "note": "TCL BI/awareness/identifier services"
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log capture and upload"
+    },
+    {
+     "pkg": "com.tcl.interactive",
+     "note": "TCL TIAS background service"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.graymatrix.did",
+     "note": "device analytics (data app; on the AS23 unit)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "com.mirakulo.astrotv.service is Ginga, the ISDB-Tb broadcast interactive-TV engine (AstroTVService, com.tcl.tv.ginga.PERMISSION), not analytics",
+   "apps": [
+    {
+     "pkg": "com.mirakulo.astrotv.service",
+     "note": "Ginga (ISDB-Tb broadcast apps), not analytics"
+    }
+   ],
+   "optional": [],
+   "note": "TvSettings reads Enable_ginga=false on this set, so it frees nothing here; where Ginga is on, disabling it turns broadcasters' interactive apps off."
+  },
+  {
+   "title": "TCL content, ads and promos",
+   "apps": [
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live FAST channels, also removes them from Live TV"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL content \"waterfall\" recommendations"
+    },
+    {
+     "pkg": "com.tcl.tv.tclhome_passive",
+     "note": "pushes TCL content to the home screen at boot"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL tweaks to Google TV home rows"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL pushed messages and promos"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "partner auto-installs"
+    },
+    {
+     "pkg": "com.tcl.smartlink.core",
+     "note": "bundles a silent app installer"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Background services",
+   "apps": [
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TGuard: device-use tracking, memory cleaner"
+    },
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa client (AS23 unit; keep it if you use Alexa)"
+    },
+    {
+     "pkg": "com.tcl.useragreement",
+     "note": "EULA/privacy screens (AS23 unit)"
+    },
+    {
+     "pkg": "com.tcl.initsetup",
+     "note": "TCL first-run setup incl. SambaTV ACR hooks; re-enable before rescanning channels"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in"
+    },
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": "store demo"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "store demo stickers"
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": "hotel mode"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "com.google.android.tv.remote.service pairs phone remote apps (_androidtvremote2._tcp, 6466 pairing, 6467 remote) and bridges the physical remote's mic (docs/TROUBLESHOOTING.md)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": "phone remote apps and the mic too; pm enable restores it"
+    }
+   ],
+   "optional": [],
+   "note": "A phone's virtual-remote.kl has no Settings/Info/Guide/Menu or channel keys: those presses arrive as KEYCODE_UNKNOWN."
+  },
+  {
+   "title": "Preloaded apps",
+   "apps": [
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": "re-enable for the console game-mode overlay"
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "re-enable to update a TCL soundbar"
+    },
+    {
+     "pkg": "com.tcl.hearaid",
+     "note": "hearing test / volume adaptation"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies storefront"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "ambient screensaver; use the launcher's Clock screensaver"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in"
+    },
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media player"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Second Home claimant",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "setup wizard, claims HOME after launcherx is disabled"
+    }
+   ],
+   "optional": [],
+   "note": "disable it once the new launcher is Home (disable.sh checks the Wi-Fi owner first)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 35
+}

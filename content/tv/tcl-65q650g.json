@@ -1,0 +1,34 @@
+{
+  "name": "TCL 65Q650G",
+  "brand": "TCL",
+  "os": "Google TV (Android 11)",
+  "summary": "TCL 65Q650G ships with TCL analytics, silent app installs and nags. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This US TCL runs Google TV on Android 11. It ships with TCL analytics, silent installs of partner apps, TCL account sign-in nags and an agreement screen. It also has TCL Live FAST channels, a TCL TV+ content app, a web video portal, a memory cleaner, Works with Alexa and an e-manual.",
+    "The list was applied in three batches on a real unit. Home, the remote's Input panel and Live TV with all four HDMI ports kept working. After a reboot every app stayed off. TidyTV saves a backup first and never deletes anything, so each app can be switched back on."
+  ],
+  "keep": [
+    "Live TV and all four HDMI ports",
+    "The Input panel",
+    "The remote's Input button and mic",
+    "The remote's Bluetooth pairing"
+  ],
+  "notes": [
+    "Once the stock home is off, the remote's Netflix, YouTube and Prime Video buttons do nothing until key remaps are set up.",
+    "Check which service owns your saved Wi-Fi before turning off the setup app."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 65Q650G?",
+      "a": "Yes. The mic button keeps working with the stock home screen off."
+    },
+    {
+      "q": "Will the remote's Netflix button still work?",
+      "a": "Not by default once the stock home is off. The remote's Netflix, YouTube and Prime Video buttons need key remaps."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Google TV home screen back."
+    }
+  ]
+}

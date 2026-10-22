@@ -1,0 +1,153 @@
+{
+ "id": "amazon-fire-tv-afttiff43",
+ "title": "Amazon Fire TV 50\" 4K smart TV (AFTTIFF43, codename brandenburg; panel AMZ_K24NE5_4K50M600A),",
+ "header": "Amazon Fire TV 50\" 4K smart TV (AFTTIFF43, codename brandenburg; panel AMZ_K24NE5_4K50M600A),\nFire OS 7.7.1.7 / Android 9 (SDK 28), build PS7717.5741N, MediaTek, armeabi-v7a. US.\nDone remotely over Tailscale through a Synology NAS as subnet router (docs/REMOTE.md, option B).\n\nFIRE OS: DEBLOAT ONLY. Home stays com.amazon.tv.launcher/.ui.HomeActivity_vNext (priority 950);\nthe shared launcher does not apply. Same build line as toshiba-fire-tv-aftha004, and the list\nstarts from it plus the ad and tracking packages from insignia-ns55f301na25.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/amazon-fire-tv-afttiff43/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/amazon-fire-tv-afttiff43/debloat.txt com.amazon.tv.launcher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nProtected (pm disable-user refused with \"Cannot disable a protected package\"), so left out:\ncom.fireos.usagestats.proxy, com.amazon.device.crashmanager, com.amazon.device.metrics,\ncom.amazon.ftvads.deeplinking.\n\nKept on purpose: Alexa core (com.amazon.vizzini, alexadirectivebrokerservice, alexa.datastore;\nthe Alexa and Fire TV phone apps control the TV through it, and voice only listens while the mic\nbutton is held), casting (AirPlay com.apple.airplay.amazon.airplay, Miracast com.amazon.cast.sink,\nDIAL/whisperplay), OTA updates, Live TV and channel scan, Silk (com.amazon.cloud9) and the website\nlauncher, account and sync services, Appstore, HDMI inputs (com.mediatek.tvinput), remote and\nBluetooth.\n\nShips with only YouTube installed (com.amazon.firetv.youtube); the Netflix/Prime/Disney+ tiles are\nplaceholders that install on first open. The Amazon-hosted hero banner on Home is not affected by\nthis list; Private DNS (dns.adguard-dns.com) works on this build (private_dns_mode hostname) and\nblocks doubleclick.net and amazon-adsystem.com, but not YouTube ads.\n\nadb exec-out screencap -p prints \"Init wrapper sys mutex successful\" before the PNG data on this\nset (docs/TROUBLESHOOTING.md).",
+ "sections": [
+  {
+   "title": "Content recognition, telemetry and metrics",
+   "apps": [
+    {
+     "pkg": "com.amazon.tv.acr",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.fw.metrics",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neo.minerva.logcat",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.wirelessmetrics.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfcollection",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.perfc",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.hybridadidservice",
+     "note": "advertising ID"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads, shopping, retail demo, tutorials",
+   "apps": [
+    {
+     "pkg": "com.amazon.sneakpeek",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.democontent.provider",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.shoptv.client",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.shoptv.firetv.client",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Amazon apps (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.bueller.music",
+     "note": "Amazon Music"
+    },
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": "Amazon Photos"
+    },
+    {
+     "pkg": "com.amazon.tv.localgallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.gamehub",
+     "note": "Luna / Game Hub"
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.naatyam",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tahoe",
+     "note": "Amazon Kids"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Alexa extras (Alexa core kept)",
+   "apps": [
+    {
+     "pkg": "com.amazon.tv.alexaalerts",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.alexanotifications",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.audiohome",
+     "note": "Alexa Home Theater"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Screensaver (screensaver_enabled was already 0; idle screen comes from these)",
+   "apps": [
+    {
+     "pkg": "com.amazon.tv.ftvambient",
+     "note": "Ambient Experience"
+    },
+    {
+     "pkg": "com.amazon.ftv.screensaver",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 27
+}

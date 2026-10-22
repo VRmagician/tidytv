@@ -1,0 +1,133 @@
+{
+ "id": "nokia-streaming-box-8010",
+ "title": "Nokia Streaming Box 8010 (Sagemcom/NES, product SEI804NK, device YYJ, Amlogic), ~3.5 GB RAM",
+ "header": "Nokia Streaming Box 8010 (Sagemcom/NES, product SEI804NK, device YYJ, Amlogic), ~3.5 GB RAM\nAndroid TV 14 (SDK 34), build UKG3.250803.001, 32-bit (armeabi-v7a)\nFingerprint: Nokia/SEI804NK/YYJ:14/UKG3.250803.001/7475:user/release-keys\n\nApply:   launcher/build-and-install.sh first (this list disables the stock launcher), then\nTV_HOST=<box ip> tools/disable.sh examples/nokia-streaming-box-8010/debloat.txt\nUndo:    TV_HOST=<box ip> tools/restore.sh examples/nokia-streaming-box-8010/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\nReboot-checked twice: every package stays disabled, Home and the remote's Home key land on the new\nlauncher, all apps play.\n\nNot the 8000: the Nokia Streaming Box 8000 (SEI600NK4, PR #326) refuses every `pm disable*`. This\n8010 build accepts `pm disable-user --user 0` for everything below, so the normal tools/disable.sh\nand launcher/build-and-install.sh work and no suspend or Home redirect is needed. Check\n`getprop ro.product.model` before picking a list.\n\nConnecting: Developer options > USB debugging and Network debugging. Port 5555 opens without pairing,\nbut ro.adb.secure=1, so the computer has to be accepted on screen once. The box advertises _adb._tcp\nover mDNS. Unlike the 8000, network debugging survives a reboot here: switch it off when done.\n\nLauncher: the stock home is com.google.android.tvlauncher (classic Android TV, HOME priority 2, with\nShop and Discover tabs); the only other HOME candidate is Settings' FallbackHome. setupwraith does not\nclaim HOME, and the saved Wi-Fi belongs to Play services (com.google.android.gms), not setupwraith.\nLocation is off (location_mode=0), so the network pill reads \"Wi-Fi\", not the network name.\nScreensaver: backdrop is the default dream. Point it at the launcher's clock before disabling it:\nsettings put secure screensaver_components com.gathin.tvhome/.ClockDream\n\nHoppr: com.hoppr.androidtv.thumper.prodtv (4.6.0.30, /system/priv-app/Hoppr_Newest) is preinstalled\nand runs from boot as a foreground service. It holds RECORD_AUDIO, READ_CONTACTS,\nACCESS_BACKGROUND_LOCATION, BLUETOOTH_SCAN and READ_TV_LISTINGS, requests AD_ID, ad attribution,\nPACKAGE_USAGE_STATS and QUERY_ALL_PACKAGES, and its code has ShowAdvertActionImpl, AnalyticsManager,\nRemoteKeyEventActionImpl, LogcatEventProducer and an AccessibilityController. AdGuard DNS does not\nblock it (hopprtv.com, hoppr.com.au resolve), so disabling it is the only way to stop it.\n\nPrivate DNS with dns.adguard-dns.com works (Android 14), see PROMPT.md.\n\nKept on purpose (load-bearing or wanted, checked with dumpsys package):\ncom.nes.blerc                  Bluetooth remote service\ncom.standard.irtvcontrol       IR control of the TV from the box remote\ncom.nes.tvglobalkeyhandler     remote app buttons\ncom.nes.recents                recent-apps screen\ncom.nes.remoteota.*            remote firmware updates\ncom.nes.coreservice            front LED, OTA messages and an analytics receiver mixed together\ncom.nes.skywayclient           NES device manager: firmware check, privacy agreement\ncom.nes.sound.daemon           persistent audio/HDMI daemon\ncom.sei.hdmi.services          persistent HDMI-CEC service\ncom.nes.seiserialportrouter    serial port service, not running, left alone\ncom.droidlogic.*               Amlogic vendor (Settings, TV inputs, CEC, picture)\norg.dtvkit.inputsource, com.android.providers.tv, Play Store/Services, Gboard,\ncom.google.android.tv.remote.service (phone remote), com.google.android.apps.mediashell (Chromecast),\ncom.google.android.tvsetup.partnercustomizer, Netflix\nShipped disabled: com.android.tv.frameworkpackagestubs, com.nes.seilivetv, com.google.android.tv.axel.",
+ "sections": [
+  {
+   "title": "Ad tech, telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.hoppr.androidtv.thumper.prodtv",
+     "note": "Hoppr ad and analytics engine, see header"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "Google RLZ partner attribution pings"
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Privacy Sandbox ad services"
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": "ad personalisation"
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": "federated ad/usage learning"
+    },
+    {
+     "pkg": "com.nes.bugreportsender",
+     "note": "NES bug report mailer (INTERNET, GET_ACCOUNTS)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content rows and partner auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    },
+    {
+     "pkg": "com.nes.leanbacklauncher.partnercustomizer",
+     "note": "Nokia's Shop/Discover row config for the stock launcher"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sei",
+     "note": "Play auto-install of partner apps"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver, set ClockDream first (header)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher, replaced by launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory/test leftovers and preloads nobody uses on a TV",
+   "apps": [
+    {
+     "pkg": "com.nes.dvb.playtest",
+     "note": "DVB factory play test"
+    },
+    {
+     "pkg": "com.utsmta.app",
+     "note": "factory test, listens for USB sticks"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "re-enable if you need the screen reader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant: the remote's mic button stops working"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "replaced by SmartTube"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 22
+}

@@ -79,3 +79,4 @@ tv-detox home screen, restore everything. Everything below comes later.
   no leanback entry (launch via `monkey -p`), touchscreen-only apps.
 - GPL, ideas only: aShellYou (good remote file-browser UX), App Manager, SAI.
 - Size: send file ~450 LOC; browse TV files ~700; APK/split sideload ~1,000; send phone app ~400.
+- Done in 0.6.0: looks for the Apple TV style home screen (Classic, Aurora, Glass, Scenes from upstream themes/) and your own photo as the wallpaper, shrunk to 1920x1080 JPEG on the phone first. Add-ons (Photo Prints, Weather) deferred.

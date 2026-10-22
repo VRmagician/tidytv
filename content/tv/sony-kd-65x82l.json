@@ -1,0 +1,36 @@
+{
+  "name": "Sony BRAVIA KD-65X82L",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Sony BRAVIA KD-65X82L comes with a viewing tracker, Sony promos and demo mode. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Sony set ships with Samba TV, which watches what is on screen, plus Sony and Qterics usage agents and a remote-support service. The home screen carries Sony Select app tips and content rows, and the TV includes retail demo mode, help tiles, music and games apps, and Sony's BRAVIA Connect link to phones.",
+    "The list was applied in three batches with a screenshot and crash check after each, then checked again after a reboot: everything switched off stayed off. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each one can be switched back on."
+  ],
+  "keep": [
+    "Live TV and HDMI inputs (Sony TV service)",
+    "Sony TV input, BRAVIA Sync and the remote's helper services",
+    "Google Assistant and Chromecast",
+    "Sony software updates",
+    "The Apple TV app and Google TV movies",
+    "Possible ambient light sensor service, left alone because its use is unclear"
+  ],
+  "notes": [
+    "Switching the stock Google TV home off makes the remote's gear button stop working until a key fix is set up. The tested fix brought it back.",
+    "The TV shows only one debugging switch, called ADB debugging, and asks you to allow it the first time."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony KD-65X82L?",
+      "a": "Yes. The owner kept Google Assistant and voice search on, so the mic button is unaffected."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept, and so are AirPlay and HomeKit."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old Google TV home screen back in one tap."
+    }
+  ]
+}

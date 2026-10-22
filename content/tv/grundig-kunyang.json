@@ -1,0 +1,36 @@
+{
+  "name": "Grundig Android UHD TV",
+  "brand": "Grundig",
+  "os": "Android TV 14",
+  "summary": "Grundig Android UHD TV ships with telemetry, manufacturer ads and leftovers. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Grundig Android UHD TV, built by Arcelik for Turkey, ships with telemetry and install tracking, plus manufacturer content, ads and leftovers. The list also has apps you may not use. There are 24 apps on it and the TV uses the classic Android TV home.",
+    "The list was checked with a restart. The same packages stayed off and nothing turned back on. The Input key, the remote, Bluetooth pairing and the backlight keep working. TidyTV turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Input key handler, which looks like retail demo mode",
+    "The remote service and Bluetooth pairing",
+    "Backlight control",
+    "Live TV, HDMI and the source menu",
+    "The TV settings apps",
+    "The setup wizard, which holds a saved Wi-Fi network",
+    "Factory packages, never opened"
+  ],
+  "notes": [
+    "The TV service crashes if one MediaTek home screen widget helper is turned off, so it stays on."
+  ],
+  "faq": [
+    {
+      "q": "Will the Input button still work on my Grundig TV?",
+      "a": "Yes. The app that handles it looks like bloat, but TidyTV keeps it on."
+    },
+    {
+      "q": "Do the apps come back after a restart?",
+      "a": "No. The same apps were still off after a restart on this TV."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back in one tap."
+    }
+  ]
+}

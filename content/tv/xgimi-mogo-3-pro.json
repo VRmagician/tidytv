@@ -1,0 +1,34 @@
+{
+  "name": "XGIMI MoGo 3 Pro",
+  "brand": "XGIMI",
+  "os": "Google TV (Android 14)",
+  "summary": "XGIMI MoGo 3 Pro ships with store demo content, telemetry and preloads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This XGIMI projector ships with a store demo mode, factory and test tools, telemetry and feedback, and Google content and preloads. The list also covers streaming apps, voice, casting and XGIMI extras off by the owner's choice. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was applied and checked on a real unit. The projector has no tuner. Its gear button needs a small setting if you use a clean home screen. TidyTV saves a backup first and never deletes anything. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The projector's hardware and input services",
+    "The remote's gear and app buttons, with a clean home screen",
+    "Settings and Play Services"
+  ],
+  "notes": [
+    "Wireless debugging turns itself off whenever the projector rejoins Wi-Fi.",
+    "XGIMI's service can re-enable the old home screen, so a small extra setting keeps the new one in place.",
+    "The setup wizard is switched off, so re-enable it before a factory reset."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my XGIMI MoGo 3 Pro?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Do I need to do anything before a factory reset?",
+      "a": "Yes. Switch the setup wizard back on first, because it is turned off here."
+    },
+    {
+      "q": "Does TidyTV delete anything on my XGIMI MoGo 3 Pro?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

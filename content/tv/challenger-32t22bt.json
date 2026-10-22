@@ -1,0 +1,33 @@
+{
+  "name": "Challenger 32T22 BT",
+  "brand": "Challenger",
+  "os": "Android 7",
+  "summary": "Challenger 32T22 BT ships with factory tools, cleaners and third-party stores. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Challenger 32-inch budget TV has only 1 GB of memory and 8 GB of storage. It ships with factory test and diagnostic tools, cleaner apps, third-party stores, background services, duplicate media apps and extra system apps and browsers. The list has 21 apps.",
+    "Turning these apps off freed memory for a new home screen and for streaming apps on the one TV it was tested on. Live TV, HDMI and the tuner keep working. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The TV service and settings app",
+    "The tuner agent that HDMI and TV channels need",
+    "The vendor home screen until you pick a new one",
+    "The remote"
+  ],
+  "notes": [
+    "The vendor home screen is only turned off after a new home screen is in place."
+  ],
+  "faq": [
+    {
+      "q": "Will HDMI and live TV still work on my Challenger TV?",
+      "a": "Yes. The TV service and the tuner agent that they need are kept."
+    },
+    {
+      "q": "Will it help a slow TV?",
+      "a": "It was tested on this TV and freed memory for a new home screen and for streaming apps. The header gives no speed numbers."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the vendor home screen back in one tap."
+    }
+  ]
+}

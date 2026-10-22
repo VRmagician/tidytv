@@ -1,0 +1,157 @@
+{
+ "id": "tcl-g08-au-android12",
+ "title": "TCL Smart TV Pro (G08, G08_4K_GB, MediaTek), Australian firmware, Android 12 (Google TV, Basic TV mode)",
+ "header": "TCL Smart TV Pro (G08, G08_4K_GB, MediaTek), Australian firmware, Android 12 (Google TV, Basic TV mode)\nModel \"Smart TV Pro\", device G08, fingerprint TCL/G08_4K_GB/G08:12/STT2.221228.001/AS34:user/release-keys,\n32-bit userspace (armeabi-v7a), about 2.4 GB RAM.\nSame fingerprint as examples/tcl-g08-eu-android12, but the Australian set also ships Stan, AirPlay\n(com.tcl.airplay2 + com.mediatek.AirplayAPK), TCL Channel (com.tcl.waterfall.overseas), TCL Live free\nchannels (com.tcl.channelplus), com.tcl.esticker, com.tcl.hotelmenu and com.tcl.guard, and has no Google\nCast (mediashell) and no voice assistant (katniss). com.tcl.browser, com.tcl.messagebox,\ncom.tcl.smartalexa and com.google.android.videos from the EU list are not on it.\n\nTested 22 October 2026 on one set, applied with tools/disable.sh in five batches with screenshots between\nthem. All 28 packages stayed disabled across a reboot (pm list packages -d compared before and after);\nthe Source key panel, HDMI 1/2 switching, SmartTube and Plex were checked afterwards (AirPlay and Miracast\nsessions were not), and the launcher was installed with launcher/build-and-install.ps1 -HomeKeyService\n(HOME_KEY_SERVICE=1 launcher/build-and-install.sh on macOS or Linux).\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-g08-au-android12/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-g08-au-android12/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx. Live TV / HDMI app: com.tcl.tv.\nAlready disabled before this list on the tested set, by Google TV Basic TV mode: com.netflix.ninja,\ncom.google.android.youtube.tv, au.com.stan.and (the recovery record keeps them disabled on undo).\nLeft enabled on purpose: com.tcl.tv, com.tcl.tvinput, com.tcl.systemserver, com.tcl.ui_mediaCenter (USB\nmedia player), com.tcl.partnercustomizer (its TKeyFree \"TCL Channel\" tile shows up as an app once launcherx\nis off; hide it with hidden_apps instead), com.tcl.useragreement, tv.mopa.ginga, the keyboards,\nPlay Store and Play Services, plus the DO NOT DISABLE lines below.\nKept by the owner's choice: AirPlay (com.tcl.airplay2, com.mediatek.AirplayAPK, com.mediatek.airplaydaemon -\nthe EU list disables the daemon, AirPlay needs it) and screen mirroring (com.tcl.miracast).",
+ "sections": [
+  {
+   "title": "TCL promo, demo and help",
+   "apps": [
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "home-screen push messages"
+    },
+    {
+     "pkg": "com.tcl.exhibit",
+     "note": "store demo mode"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail-demo sticker"
+    },
+    {
+     "pkg": "com.tcl.hotelmenu",
+     "note": "hotel-mode portal"
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "onboarding/tips overlay"
+    },
+    {
+     "pkg": "com.tcl.repairguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.logkit",
+     "note": "log collection"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "TCL extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.hearaid",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.t_solo",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.eva",
+     "note": "TCL voice assistant layer"
+    },
+    {
+     "pkg": "com.tcl.magiconnectfree",
+     "note": "MagicConnect pairing promo"
+    },
+    {
+     "pkg": "com.tcl.gamebar",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.UpdatePeripheral",
+     "note": "peripheral firmware helper"
+    },
+    {
+     "pkg": "com.tcl.guard",
+     "note": "cleaner / \"permission shield\""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Duplicate webviews (com.google.android.webview stays the active one), MediaTek leftovers, Google extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.iplayer.android.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.support.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.backgrounddetection",
+     "note": ""
+    },
+    {
+     "pkg": "com.mediatek.network",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "photo screensaver; the basic one takes over"
+    },
+    {
+     "pkg": "com.google.android.tts",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content apps",
+   "apps": [
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "TCL Channel"
+    },
+    {
+     "pkg": "com.tcl.channelplus",
+     "note": "TCL Live free channels - see the README: with no aerial this is all Live TV has"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video, off by choice"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Home takeover for launcher/",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "stock Google TV home"
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "setup wizard; its RecoveryActivity takes Home when launcherx is off"
+    }
+   ],
+   "optional": [],
+   "note": "On the tested set the saved Wi-Fi belonged to com.android.tv.settings, so the setup wizard could go; disable.sh skips it by itself when the network belongs to setupwraith."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx.",
+ "count": 28
+}

@@ -1,0 +1,198 @@
+{
+ "id": "sony-x9000h-cn",
+ "title": "Sony BRAVIA X9000H (China), device BRAVIA_VH1_CN / product BRAVIA_VH1, MediaTek MT5895",
+ "header": "Sony BRAVIA X9000H (China), device BRAVIA_VH1_CN / product BRAVIA_VH1, MediaTek MT5895\nAndroid 12 (Android TV, API 31), build BRAVIA_VH1_CN-user 12 STT2.230505.001.S89 625561 release-keys\nChina firmware (ro.com.google.clientidbase=android-sonyfy20-tv): no GMS, no Play Store and no\nGoogle TV launcher. 2.9 GB RAM, armeabi-v7a only, security patch 2025-09-01.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-x9000h-cn/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-x9000h-cn/debloat.txt com.dangbei.TVHomeLauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher/Home:\ncom.dangbei.TVHomeLauncher/com.dangbei.leard.leradlauncher.ui.sony.main.MainActivity\n(当贝桌面 \"电视桌面\"; system priv-app /system/system_ext/priv-app/ChinaHome.apk)\nIt is NOT in build-and-install.sh's KNOWN_STOCK_LAUNCHERS, so install the reference launcher with\nSTOCK_LAUNCHER=none and leave Dangbei enabled as the fallback; `cmd package set-home-activity` was\nused explicitly. Home survived a reboot.\nLive TV / tuner app: com.sony.dtv.tvx (.MainActivity). Keep com.sony.dtv.tvinput.*, tvapi,\nsonysystemservice, sonyvendorservice, settingsprovider, systemupdate/update, braviasync*,\npartnerkeycn (enclave/DRM keys), preinappfiltering and all com.mediatek.*: they drive HDMI, the\ntuner, DRM, OTA, CEC and the remote.\nKept by owner's choice: com.sony.dangbeimarket (应用中心, the Dangbei app store),\ncom.hpplay.happyplay.aw (乐播投屏/HappyCast, the only casting path without Google Cast) and\ncom.dangbei.TVHomeLauncher (fallback Home). Preinstalled content apps (银河奇异果, 芒果TV,\nNewTV极光, 央视频TV, CIBN酷喵, 油桃TV) are not listed either; disable them individually if unused.\nAlready disabled at the factory: com.sony.dtv.mysony, livingfit, iot, b2b.vendorprotocol, b2b.softap.\n\nQuirks on this firmware:\n- There is no tv.samba.ssm, no com.google.android.feedback and no\ncom.sony.dtv.promos/sonyselect/sonytab. The Sony ACR/ad-ID stack is absent on this China build;\nad surfaces are the Dangbei home/store, HappyCast and the preinstalled content apps.\n- com.sony.dtv.b2b.hotelmode is PERSISTENT: pm disable-user marks it disabled and its components\nstop, but system_server still starts the process at boot (~6 MB PSS). Reboot-checked.\n- com.sonyericsson.idd.agent can be disabled, but the native iddd / idd-logreader daemons\n(vendor.semc.system.idd) keep running; only root stops them.\n- KEYCODE_TV_INPUT opens the system input panel without the launcher's InputKeyService.\n- ro.product.model / ro.product.device report \"BRAVIA VH1\"/\"BRAVIA_VH1\"; only the fingerprint and\nbuild display id carry the _CN suffix.\n- Reboot-checked and used for several days without issues. If something breaks,\n`pm enable <package>` and please open an issue.",
+ "sections": [
+  {
+   "title": "telemetry and remote support",
+   "apps": [
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "remote-support session service"
+    },
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": "Sony IDD usage-data agent"
+    },
+    {
+     "pkg": "com.sony.dtv.usercontext",
+     "note": "user context providers, boot receiver only"
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": "Sony bug-report/log uploader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "help content: the Settings help tiles disappear",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.helpguidecontents",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "no camera on this model (BRAVIA CAM / sensing camera)",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.gestureapp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sensingcamera.fwupdate",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sensingcamera.settings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sensingfusionservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.videochatrecord",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "features the owner did not use",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.distancealert",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.ecodashboard",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "China-only bloat",
+   "apps": [
+    {
+     "pkg": "com.jd.smartservicetwo",
+     "note": "JD SmartService"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "hotel / B2B mode (consumer set; 13 packages)",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.b2b.adminpassword",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.deviceadminsettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.frameworkextension",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.hotelmode",
+     "note": "PERSISTENT process survives a reboot; components disabled"
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.importexport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.ipcontrolsettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntime.normal",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntime.privilege",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntimeextension.bpk",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.noderuntimeextension.node_20_11_1",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.prosettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.rs232csupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.webappruntimedrm",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "kids profile",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.kidsprofileadapter",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 33
+}

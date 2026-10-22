@@ -1,0 +1,174 @@
+{
+ "id": "freebox-player-pop",
+ "title": "Freebox Player POP (Free, France; codename fbx8am, Amlogic, 2 GB RAM), Android TV 10 (API 29)",
+ "header": "Freebox Player POP (Free, France; codename fbx8am, Amlogic, 2 GB RAM), Android TV 10 (API 29)\nTested on build QTT8.201201.002.v10.5.66.\n\nApply:   TV_HOST=<player ip> tools/disable.sh examples/freebox-player-pop/debloat.txt\nUndo:    TV_HOST=<player ip> tools/restore.sh examples/freebox-player-pop/debloat.txt net.oqee.launcher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nConnecting: Settings > Device Preferences > About > Build x7, then Developer options > USB debugging.\nPort 5555 opens with that alone (no separate Network debugging switch). ro.adb.secure=1, so each\ncomputer still has to be accepted on screen. macOS: the Command Line Tools Python is blocked by Local\nNetwork privacy (\"No route to host\" while nc reaches the port); a uv-managed Python works:\nuv venv --python 3.12 --managed-python tools/venv && uv pip install --python tools/venv/bin/python -r tools/requirements.txt\n\nSideloading works. A test reinstall of a Play-installed app answered INSTALL_FAILED_VERIFICATION_FAILURE,\nbut logcat showed Play Protect blocking it for \"missing splits\" (base.apk pushed without its splits),\nnot a firmware gate; a normal single APK installs fine.\n\nLauncher: the stock home is OQEE (net.oqee.launcher, HOME priority 3). com.stremio.tv.boot also claims\nHOME (priority 0) when Stremio is installed. Run launcher/build-and-install.sh with\nSTOCK_LAUNCHER=net.oqee.launcher; it disables OQEE after the swap.\nsetupwraith is not a HOME candidate here, but it owns a Wi-Fi network saved during first setup:\nleave it enabled.\nThe Player has no HDMI input. Its TV inputs are the DVB-T tuner (org.dtvkit.inputsource, HW19,\nfronted by fr.freebox.fbxdtvkit) and IPTV through OQEE (net.oqee.androidtv), which is the Live TV app.\nThe tuner reports itself as a hardware passthrough input, so the launcher's Inputs menu lists it next\nto Live TV, and picking it sends a channel URI nothing answers (\"not available\"). Use the Live TV row\n(live_tv_package net.oqee.androidtv), or put OQEE in the dock.\nLocation is off on the tested unit (location_mode=0), so the network pill reads \"Wi-Fi\", not the SSID.\n\nSpotify: keep Chromecast built-in (com.google.android.apps.mediashell). Spotify Connect from a phone\nstarts the TV app through it, even when Spotify is not on screen.\nAd-blocking DNS breaks Spotify here. dns.adguard-dns.com answers 0.0.0.0 for pixel.spotify.com, and\nthe TV app then stops at \"Vérifiez votre connexion réseau\". Worse, a session refreshed while it was\nblocked stayed broken after the DNS went back: the app logged \"invalid access token\" until\n`pm clear com.spotify.tv.android` and a new login. With Spotify, use a personal NextDNS / AdGuard\nDNS profile that allowlists pixel.spotify.com, or no ad-blocking DNS at all.\nStandby is not a reboot (uptime keeps counting), and ADB stays reachable through it.\n\nLeave alone: net.oqee.androidtv (TV), org.dtvkit.inputsource, fr.freebox.fbxdtvkit,\ncom.nes.dtvkitdatabackup (channel database), com.nes.blerc (Bluetooth remote),\nfr.freebox.bleirlearner (remote's IR learning for the TV's power/volume), com.nes.tvglobalkeyhandler\n(remote keys), com.nes.freeboxburnkey (key provisioning), fr.freebox.fbx8am.externalauth,\nfr.freebox.fbxservices and fr.freebox.fbx8lc.canalsubscriptionservice (Free billing for partner apps),\nfr.freebox.fbx8lc.fbxcustomization, fr.freebox.fbxshortcutsettings, com.droidlogic.* system services,\ncom.google.android.tungsten.setupwraith, Play Store / Services, the keyboard.",
+ "sections": [
+  {
+   "title": "Telemetry and log collection",
+   "apps": [
+    {
+     "pkg": "fr.freebox.fbxstats",
+     "note": "Free usage statistics (system uid, boot receiver)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback reports"
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": "bug report uploader"
+    },
+    {
+     "pkg": "com.droidlogic.readlog",
+     "note": "Amlogic log dumper to USB storage"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads, recommendations and partner auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sei",
+     "note": "auto-installs partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory and test leftovers",
+   "apps": [
+    {
+     "pkg": "com.nes.dvb.playtest",
+     "note": "DVB playback factory test"
+    },
+    {
+     "pkg": "com.ctc",
+     "note": "\"MediaProcessorDemoActivity\""
+    },
+    {
+     "pkg": "com.utsmta.app",
+     "note": "factory test triggered by USB"
+    },
+    {
+     "pkg": "com.android.camera2",
+     "note": "no camera on the Player"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "printing"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice and casting (owner's choice; re-enable if you use them)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.apps.mediashell",
+     "note": "Chromecast built-in: KEEP. Spotify Connect from a phone wakes Spotify through it"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Streaming apps the owner does not use (comment out the ones you watch)",
+   "apps": [
+    {
+     "pkg": "fr.tf1.mytf1.free",
+     "note": "TF1+"
+    },
+    {
+     "pkg": "fr.m6.m6replay.free",
+     "note": "M6+"
+    },
+    {
+     "pkg": "fr.francetv.pluzz",
+     "note": "france.tv"
+    },
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "YouTube"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.canal.android.canal",
+     "note": "Canal+"
+    },
+    {
+     "pkg": "com.disney.disneyplus",
+     "note": "Disney+"
+    },
+    {
+     "pkg": "fr.freebox.disneypluslauncher",
+     "note": "Free's Disney+ shortcut"
+    },
+    {
+     "pkg": "com.nextinteractive.rmcbfmplay.tv.free",
+     "note": "RMC BFM Play"
+    },
+    {
+     "pkg": "org.videolan.vlc",
+     "note": "VLC"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded extras (owner's choice)",
+   "apps": [
+    {
+     "pkg": "fr.free.aktu",
+     "note": "Free Aktu news"
+    },
+    {
+     "pkg": "fr.francetv.zouzous",
+     "note": "Okoo (france.tv kids)"
+    },
+    {
+     "pkg": "fr.tfou.max",
+     "note": "TFOU Max (TF1 kids)"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Google TV / Play Movies"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "com.tcl.browser",
+     "note": "TCL Browser (preinstalled as a user app)"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "net.oqee.launcher",
+     "note": "OQEE home screen"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 28
+}

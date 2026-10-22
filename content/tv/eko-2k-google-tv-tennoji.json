@@ -1,0 +1,35 @@
+{
+  "name": "EKO 2K Google TV",
+  "brand": "EKO",
+  "os": "Google TV 14",
+  "summary": "EKO 2K Google TV ships with telemetry, ads and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This EKO 2K Google TV is built by MTC and runs Google TV 14. It ships with telemetry, ads and partner services that install apps, plus background services and preloaded apps. The list has 16 apps and is applied in batches, so you can keep any group.",
+    "The Input button is kept working, because it runs through a retail mode app that stays on. So do the remote pairing, Bluetooth and the TV service. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Input button handler, which looks like retail demo mode",
+    "Remote pairing and Bluetooth",
+    "The TV service and TV input service",
+    "Live TV and the HDMI inputs",
+    "Factory menu packages that handle remote keys"
+  ],
+  "notes": [
+    "Live TV only takes regular channel links, so the clean home screen opens it with its normal launch entry.",
+    "There is no separate firmware update app on this build."
+  ],
+  "faq": [
+    {
+      "q": "Will the Input button still work on my EKO TV?",
+      "a": "Yes. It is handled by a retail mode app that looks like bloat, and TidyTV keeps it on."
+    },
+    {
+      "q": "Do the HDMI inputs still work?",
+      "a": "Yes. The TV input service is kept and the HDMI inputs open in the Google input player."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the Google TV home screen back in one tap."
+    }
+  ]
+}

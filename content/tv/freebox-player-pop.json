@@ -1,0 +1,34 @@
+{
+  "name": "Freebox Player POP",
+  "brand": "Free",
+  "os": "Android TV 10",
+  "summary": "Freebox Player POP ships with telemetry, ads and streaming apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The Freebox Player POP from Free in France ships with telemetry and log collection, ads, recommendations and partner auto-installs. It also has factory leftovers, voice and casting apps, streaming apps and extra preloads. The list has 28 apps in groups, so you can keep the ones you watch.",
+    "Its home screen is Free's OQEE, which is also the live TV app, so a new home screen is installed first. The Player has no HDMI input, but the TV tuner and OQEE keep working. TidyTV turns the rest off over Wi-Fi with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "OQEE, Free's home screen and live TV app",
+    "The DVB-T tuner",
+    "The setup wizard, which owns a saved Wi-Fi network",
+    "Sideloading, which works on this box"
+  ],
+  "notes": [
+    "Debugging opens on this box once USB debugging is on, and each computer is accepted on screen.",
+    "Streaming apps and voice and casting are groups you pick. Comment out the ones you watch."
+  ],
+  "faq": [
+    {
+      "q": "Will I still be able to watch live TV on my Freebox Player POP?",
+      "a": "Yes. OQEE and the DVB-T tuner are kept. The OQEE home screen is only turned off after a new home screen is installed."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "The header does not say whether casting stays on. Voice and casting are an optional group, so keep that group on in the app if you cast."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts OQEE back in one tap."
+    }
+  ]
+}

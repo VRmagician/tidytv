@@ -1,0 +1,35 @@
+{
+  "name": "PEAQ PTV 43AQU-5023C",
+  "brand": "PEAQ",
+  "os": "Android TV 11",
+  "summary": "PEAQ PTV 43AQU-5023C ships with Homwee vendor apps, ad rows and telemetry. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Changhong-built PEAQ set sells under the OK. AI PONT name and shares its Homwee vendor layer with other Changhong sets. It ships with telemetry, ad and recommendation rows on the home screen, and preloaded vendor apps. Each app on the list has its own switch in the app, so you decide what goes.",
+    "It was tested on one set in 2026, the same day and through one restart. Every app stayed off, and Live TV, the HDMI inputs, YouTube, Netflix and Spotify all played. The remote's Netflix, YouTube, Input and Settings buttons still worked. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Firmware updates and remote key handling",
+    "Live TV, inputs, remote pairing and picture settings (the MediaTek services)",
+    "Chromecast",
+    "Screen mirroring, used on this set",
+    "The vendor TV manager and factory service"
+  ],
+  "notes": [
+    "The setup helper stays on because it owns the set's saved Wi-Fi network.",
+    "This was tested for one day and one restart, not a long soak."
+  ],
+  "faq": [
+    {
+      "q": "Do the remote's buttons still work on my PEAQ?",
+      "a": "Yes. The Netflix, YouTube, Input and Settings buttons all still worked in testing."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast and screen mirroring are both kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

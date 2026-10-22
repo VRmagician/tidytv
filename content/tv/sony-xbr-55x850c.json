@@ -1,0 +1,36 @@
+{
+  "name": "Sony BRAVIA XBR-55X850C",
+  "brand": "Sony",
+  "os": "Android TV 8.0",
+  "summary": "Sony BRAVIA XBR-55X850C has a viewing tracker, promo rows and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 2015 Sony runs Android TV 8.0 and ships with Samba TV, which tracks what is on screen. It also has Sony device and remote-support agents, Sony Select promos, a Discover content bar, recommendation rows, and automatic installs of partner apps. Preloaded help tiles, manuals, games and streaming apps add to the clutter.",
+    "Nothing was disabled at the factory. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything. After the change the Inputs list still showed HDMI, Video and Live TV, and the Input button still worked."
+  ],
+  "keep": [
+    "Live TV and input app, which also plays every HDMI input",
+    "HDMI-CEC (BRAVIA Sync) and remote pairing",
+    "The Netflix button service",
+    "Sony's keyboard, settings and software updates",
+    "Hotel mode plumbing, Sony IP control and DLNA",
+    "USB media players"
+  ],
+  "notes": [
+    "Turning off the launcher customizer removes the notification, Inputs and Timer icons from the top bar of the stock home. The remote's Input button still works.",
+    "The list turns off Google Assistant by the owner's choice, which removes the remote's mic search."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony XBR-55X850C?",
+      "a": "Not with this list. The owner turned off Google Assistant, which removes the remote's mic search. You can switch it back on in the app."
+    },
+    {
+      "q": "Does HDMI still work?",
+      "a": "Yes. The Live TV app that plays every HDMI input is kept, along with HDMI-CEC."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}

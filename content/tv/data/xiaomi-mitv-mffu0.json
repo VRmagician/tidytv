@@ -1,0 +1,87 @@
+{
+ "id": "xiaomi-mitv-mffu0",
+ "title": "Xiaomi TV S Pro 100 Mini LED 2025 (小米电视 S Pro 100, L100MB-SP, MiTV-MFFU0, codename finch;",
+ "header": "Xiaomi TV S Pro 100 Mini LED 2025 (小米电视 S Pro 100, L100MB-SP, MiTV-MFFU0, codename finch;\nChina-market firmware), Android 14 (SDK 34), firmware OS3.0.115.0.UFFMATV (HyperOS 3),\nMediaTek mt5877, 4 GB RAM.\nDisabled on 2026-10-20 in batches; after each batch Home, Xiaomi settings, HDMI 1 and the\nscreensaver were checked. All but com.xiaomi.tv.gallery (added last) were also checked after a reboot.\nStock launcher: com.mitv.tvhome (HOME activity .MainActivityUserMode) - KEEP IT ENABLED, see\n\"Home\" below. This list is debloat only.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mffu0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mffu0/debloat.txt com.mitv.tvhome\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Home: unlike MiTV-ANSP0, a sideloaded launcher cannot become Home here. HyperOS drops the HOME\nactivities of ordinary (non-system) apps from resolution, and it refuses them as the preferred\nhome, so `cmd package set-home-activity` does not help. With com.mitv.tvhome disabled, Home\nlands on com.xiaomi.mitv.settings/.entry.FallbackHome, a black screen.\n- Network ADB (port 5555) closes on every reboot; re-enable it in\nSettings -> 账号与安全 (Account & Security) -> ADB 调试 after each power cycle.\n- Not touched: mitv.service, com.xiaomi.mitv.tvplayer (input switching, HDMI/AV/DTMB),\ncom.mediatek.* (TV inputs), com.xiaomi.mitv.settings (the only full settings UI),\ncom.xiaomi.mitv.smartpanel (the Menu-button panel), com.mitv.overseaservice and com.mi.bluetooth\n(Bluetooth remote), com.sohu.inputmethod.sogou.tv (the only keyboard), the app store,\ncom.xiaomi.account, com.mitv.codec.update, com.xiaomi.mitv.mediaexplorer (USB/media browser).\n- Kept by choice: XiaoAI voice (com.xiaomi.voicecontrol, com.xiaomi.wakeupservice), casting\n(com.xiaomi.miplay, com.xiaomi.mitv.smartshare, com.xiaomi.mi_connect_service,\ncom.xiaomi.hyper_connect.tv), Mi Home (com.xiaomi.smarthome.tv), firmware updates\n(com.xiaomi.mitv.upgrade), the Hyper screensaver (com.xiaomi.mitv.hyper.screensaver, com.xiaomi.tweather).\n- A black screen right after a reboot with an HDMI-CEC set-top box plugged in is the box's CEC\n\"active source\" switching the TV to its port (HdmiCecLocalDeviceTv), not this list. Home brings\nthe TV back; turning HDMI device control (CEC) off in the input settings stops it.\n- Do not disable com.xiaomi.mitv.tvmanager (\"TV Manager\"): XiaoAI's \"open <app>\" runs through its\ncom.xiaomi.aicr.action.provider. Without it XiaoAI answers \"OK\" and nothing opens (logcat:\n\"Failed to find provider info for com.xiaomi.aicr.action.provider\"). It was disabled here at first.\n- MemAvailable went from about 1.57 GB to 1.77 GB with the stock launcher still running (measured\nwhile TV Manager was also disabled).\n- A firmware update may re-enable some of these; apply the list again afterwards.\nInput routes, Xiaomi settings intents and app discovery on this platform:\ndocs/devices/xiaomi-mitv-mftr0-freeguy.txt.",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry / diagnostics / cloud control",
+   "apps": [
+    {
+     "pkg": "com.miui.analytics",
+     "note": "OneTrack analytics SDK host"
+    },
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": "TV usage statistics, ~100 MB resident"
+    },
+    {
+     "pkg": "com.miui.misightservice",
+     "note": "MiSight remote diagnostics and log upload"
+    },
+    {
+     "pkg": "com.xiaomi.tvqs",
+     "note": "quality/performance reporting, ~86 MB resident"
+    },
+    {
+     "pkg": "com.mitv.cloudcontrol",
+     "note": "cloud control: remote configuration pushes"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads / shopping / promoted content",
+   "apps": [
+    {
+     "pkg": "com.duokan.videodaily",
+     "note": "short-video promos; bundles the Xiaomi ad SDK and a P2P upload service"
+    },
+    {
+     "pkg": "com.mitv.shoplugin",
+     "note": "TV Taobao shopping plugin"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.shop",
+     "note": "Xiaomi store"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "webview container for promotions"
+    },
+    {
+     "pkg": "com.xiaomi.tv.gallery",
+     "note": "\"Pictorial\" wallpaper app, ships ad classes; preinstalled to /data,"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Features not used (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.aitranslate",
+     "note": "AI subtitle translation, ~117 MB resident"
+    },
+    {
+     "pkg": "com.mitv.alarmcenter",
+     "note": "reminders/alarms: re-enable it if you set alarms with XiaoAI voice"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.health",
+     "note": "MiHealth"
+    },
+    {
+     "pkg": "com.xiaomi.gamecenter.sdk.service.mibox",
+     "note": "game center SDK"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.mitv.tvhome",
+ "count": 14
+}

@@ -1,0 +1,232 @@
+{
+ "id": "xiaomi-mitv-astp0",
+ "title": "Xiaomi MiTV-ASTP0 (codename mulan; China-market firmware, sold as L55M7-EA), Android 9 (SDK 28),",
+ "header": "Xiaomi MiTV-ASTP0 (codename mulan; China-market firmware, sold as L55M7-EA), Android 9 (SDK 28),\nfirmware 22.12.2.1630, Amlogic/droidlogic, 1.5 GB RAM, 1080p panel. Used in Vietnam.\nStock launcher: com.mitv.tvhome (HOME activity .MainActivityUserMode). It is not in\nKNOWN_STOCK_LAUNCHERS, so install with: STOCK_LAUNCHER=com.mitv.tvhome launcher/build-and-install.sh\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-astp0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-astp0/debloat.txt com.mitv.tvhome\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nNotes from this firmware:\n- Same family as xiaomi-mitv-astp1; this list starts from that one, minus what this build lacks\n(com.gitvdemo.video, com.duokan.videodaily, com.xiaomi.tv.gallery, com.newtv.cboxtv).\n- No CN streaming apps preinstalled; no Google apps besides the YouTube and katniss the owner sideloaded.\n- Network ADB (port 5555) closes on every reboot; re-enable it in\nSettings -> Account & Security -> ADB debugging after each power cycle. Wi-Fi also sleeps in\nstandby, so the TV drops off the network until it is woken.\n- mitv.service is the core MiTV service: do not touch it. The owner chose to drop payment, Mi Home,\nMi Video, the voice assistant and every casting receiver but AirPlay (in com.xiaomi.mitv.smartshare).\nThe app store and com.mitv.videoplayer (USB files) stay.\n- com.xiaomi.mitv.remotecontroller.service looped at 100-190% CPU and flooded logd (~490 MB in\n30 min): its relay host is gone, so it is disabled below. ES File Explorer ran DLNA and a WebView\nin the background; it is replaced by Material Files (F-Droid, me.zhanghai.android.files).\n- Home stays com.mitv.tvhome: set-home-activity succeeds but resolution ignores it, and with\ncom.mitv.tvhome disabled Home falls to com.android.tv.settings/.system.FallbackHome. Keep it\nenabled; an accessibility service that answers the Home key (HOME_KEY_SERVICE=1) brings the new\nlauncher up instead.\n- The firmware has no night mode setting: cmd uimode night yes|no|auto. Auto needs a location for\nsunset and the TV has none, so it stays in day mode.\n- The remote has no Input button; its Menu key (three lines) is KEYCODE_MENU, scancode 127. Inputs\nswitch only through Xiaomi's player: am start -a com.xiaomi.mitv.tvplayer.EXTSRC_PLAY\n-n com.xiaomi.mitv.tvplayer/.ExternalSourceActivity --ei input N (HDMI1-3 = 23-25, AV = 2).\nStarting the HDMI channel URI with a plain VIEW lets any app that claims every VIEW catch it.\n- The time zone ships as Asia/Shanghai, an hour ahead in Vietnam. Set the one the IP locates\n(get.geojs.io/v1/ip/geo.json \"timezone\"): service call alarm 3 s16 Asia/Ho_Chi_Minh\n- Picture: Settings -> Image settings -> Display model is kept per source; \"Picture\" is the vivid\none (contrast 55, saturation 60, cold), \"Standard\" is flat.",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry / push / cloud control",
+   "apps": [
+    {
+     "pkg": "com.miui.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.cloudcontrol",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.tvpush.tvpushservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.smspush",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads / promoted content / shopping",
+   "apps": [
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.shoplugin",
+     "note": "TV shopping channel plugin"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.shop",
+     "note": "Xiaomi shop"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Xiaomi background services",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.upgrade",
+     "note": "firmware updates: re-enable to check for one"
+    },
+    {
+     "pkg": "com.xiaomi.gamecenter.sdk.service.mibox",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.karaoke.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.wakeupservice",
+     "note": "Chinese wake word for the voice assistant, ~30% CPU all the time"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps not used",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": "Mi Music"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Media Explorer still opens USB photos"
+    },
+    {
+     "pkg": "com.xiaomi.screenrecorder",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartpanel",
+     "note": "smart home panel"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tweather",
+     "note": "CN weather"
+    },
+    {
+     "pkg": "com.mitv.screensaver",
+     "note": "Xiaomi screensaver; the launcher's clock screensaver takes over"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.healthdiagnosis",
+     "note": "TV self-diagnosis"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.legal.webview",
+     "note": "terms and privacy viewer"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": "printing"
+    },
+    {
+     "pkg": "com.xiaomi.mibox.lockscreen",
+     "note": "child lock screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Casting except AirPlay (com.xiaomi.mitv.smartshare keeps .mairplay.AirPlayService on port 47000)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.miplay",
+     "note": "MiPlay, Xiaomi phone casting"
+    },
+    {
+     "pkg": "com.duokan.airkan.tvbox",
+     "note": "AirKan DLNA"
+    },
+    {
+     "pkg": "com.xiaomi.wfdsinkhelperservice",
+     "note": "Miracast sink helper"
+    },
+    {
+     "pkg": "com.xiaomi.mi_connect_service",
+     "note": "Mi Connect phone link"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Phone remote, air mouse and the TV assistant relay",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.remotecontroller.service",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "It reconnects to relay01.c.assistant.tv.mi.com, which no longer resolves, about 19 times a second with no backoff: ~190% CPU in GC after every boot. The Bluetooth remote runs in com.android.bluetooth (BleRemoteService) and is not affected."
+  },
+  {
+   "title": "Chinese voice assistant (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.voicecontrol",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mico.mqtt.service.application.tv",
+     "note": "Xiao AI speaker link"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Chinese payment (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.mipay.wallet.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.pay",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.payment",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content (owner's choice)",
+   "apps": [
+    {
+     "pkg": "com.mitv.mivideoplayer",
+     "note": "Mi Video, CN streaming; com.mitv.videoplayer still plays USB files"
+    },
+    {
+     "pkg": "com.xiaomi.smarthome.tv",
+     "note": "Mi Home on the TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Keyboard",
+   "apps": [
+    {
+     "pkg": "com.sohu.inputmethod.sogou.tv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Gboard for Android TV 16.1.02 (com.google.android.inputmethod.latin, tv_release armeabi-v7a, minSdk 26; 17.x needs Android 10) is the only IME: ime enable/set .../com.android.inputmethod.latin.LatinIME. It logs missing Play Services but types fine. Re-enable Sogou before removing it, or the TV has no keyboard."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.mitv.tvhome",
+ "count": 38
+}

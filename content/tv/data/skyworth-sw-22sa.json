@@ -1,0 +1,171 @@
+{
+ "id": "skyworth-sw-22sa",
+ "title": "Skyworth SW-22SA (device SW6H, MediaTek, ~1.9 GB RAM), Android TV 14 (API 34), build UTT1.250517.001",
+ "header": "Skyworth SW-22SA (device SW6H, MediaTek, ~1.9 GB RAM), Android TV 14 (API 34), build UTT1.250517.001\nGoogle TV home: com.google.android.apps.tv.launcherx (owns HOME; setupwraith RecoveryActivity also claims it).\nLive TV / inputs: com.smartdevice.livetv (+ overlay_SANLUX), com.mediatek.tvinput, com.mediatek.tv.service.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/skyworth-sw-22sa/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/skyworth-sw-22sa/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nDisabled from the factory, so not listed (restore.sh would turn them ON):\ncom.smartdevice.myapp.\n\nQuirks on this firmware, checked on the TV 2026-10-21:\n- Port 5555 goes flaky: opens when USB debugging is switched, may close again on its own, and\nthe adb client can go \"offline\" mid-session; reconnect with `adb connect <ip>:5555`.\nThe stock adb client (platform-tools 37.0.1) authenticates reliably; delete tools/adbkey to let\ntools/tv.py fall back to ~/.android/adbkey when the TV already trusts that key.\n- Forget + re-join Wi-Fi changes the TV's DHCP address; rediscover it (Google Cast port 8008\nanswers before ADB does).\n- `adb exec-out screencap -p` is corrupted by an adbd stdout wrapper (\"Init wrapper sys mutex\nsuccessful\", LF->CRLF). Screenshots must go screencap to a file + `adb pull`.\n- No dedicated updater package; com.smartdevice.aftersale can push APKs on boot, so it is disabled.\n\nKept on purpose: com.smartdevice.factory, com.smartdevice.dailyshortcut (quick menu),\ncom.smartdevice.duplebluetooth + com.smartdevice.bleconnectservice (BLE remote pairing),\ncom.smartdevice.livetv + overlay_SANLUX (Live TV), com.mediatek.tvinput / tv.service /\ntv.globalkeyoverlay (HDMI + hot keys), com.dolby.android.audio.service,\ncom.google.android.apps.mediashell (Chromecast, by choice), com.google.android.katniss +\ncom.google.android.tv.assistant (Assistant, by choice), com.google.android.youtube.tv,\ncom.netflix.ninja, com.tianci.localmedia, Play Store + Play Services, all system/Google core.",
+ "sections": [
+  {
+   "title": "Skyworth content, ads, demos and preloads",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recommendation",
+     "note": "Coocaa recommendation rows; bundles Sensors Data analytics"
+    },
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": "partner config that injects rows into the home screen"
+    },
+    {
+     "pkg": "com.smartdevice.epopplayer",
+     "note": "ePop shop demo player (USB-triggered)"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "shop demo player (Skyworth ePop)"
+    },
+    {
+     "pkg": "com.coocaa.demonow.lightining",
+     "note": "\"Demo Now\" retail mode, auto-starts from home"
+    },
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual"
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "retail legal-disclaimer dialogs"
+    },
+    {
+     "pkg": "com.smartdevice.setupwraith",
+     "note": "Skyworth first-run/privacy wizard; setup is finished"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and after-sale push",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.aftersale",
+     "note": "boot + network receivers, can install APKs"
+    },
+    {
+     "pkg": "com.smartdevice.dailymanage",
+     "note": "\"Daily Manage\" boot service, no documented purpose (like 24NA)"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Android ad and personalisation services",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Not needed on a TV",
+   "apps": [
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.security.SwaiotTV",
+     "note": "Tuya smart-home preload, unrelated to TV operation"
+    },
+    {
+     "pkg": "org.liskovsoft.androidtv.rukeyboard",
+     "note": "Russian soft keyboard, not used"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Casting / local media stack not used (Chromecast kept)",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.dtv.icast",
+     "note": "Miracast + DLNA"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused streaming apps, off by owner's choice",
+   "apps": [
+    {
+     "pkg": "com.wbd.stream",
+     "note": "HBO Max"
+    },
+    {
+     "pkg": "com.disneyplus.ph",
+     "note": "Disney+"
+    },
+    {
+     "pkg": "com.iqiyi.i18n.tv",
+     "note": "iQIYI"
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies"
+    },
+    {
+     "pkg": "com.hisense.odinbrowser",
+     "note": "sideloaded Hisense browser"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Handover (applied 2026-10-21",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "stock Google TV home; com.gathin.tvhome is Home now"
+    },
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "its RecoveryActivity otherwise steals Home and crash-loops system_server"
+    }
+   ],
+   "optional": [],
+   "note": "build-and-install.sh disabled launcherx as Home was handed over; setupwraith applied in a FORCE_SETUPWRAITH=1 pass after the connected network had been forgotten + re-joined — dumpsys events show Globe1524 re-added under android.uid.system; the stale setupwraith networks (Globe1524masters etc.) went with it, harmlessly)."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 28
+}

@@ -1,0 +1,31 @@
+{
+  "name": "TCL 32L5A",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 32L5A ships with a TCL account app, promo rows and preloaded browsers. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This small TCL set runs Android TV 11 and ships with a TCL account center, a TGuard cleaner app, promo and recommendation rows on the home screen, a TCL web video portal and a store demo sticker. It also has two preloaded browsers, a feedback reporter and a games service.",
+    "The list is short at twelve apps. TidyTV turns them off from your phone over Wi-Fi, saves a backup first and never deletes anything. The Live TV app and the HDMI, AV and tuner inputs are kept, and every app can be switched back on."
+  ],
+  "keep": [
+    "Live TV (the TCL TV app)",
+    "HDMI 1, HDMI 2, AV and tuner inputs",
+    "Play Store and Play Services",
+    "The remote and settings"
+  ],
+  "notes": [],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 32L5A?",
+      "a": "This list does not touch Google Assistant, so the mic button is left as it is."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the promo and recommendation rows on the stock home and the TCL promotional service."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}

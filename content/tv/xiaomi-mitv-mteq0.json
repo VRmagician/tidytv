@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi TV EA Pro 55-inch (L55MA-EP)",
+  "brand": "Xiaomi",
+  "os": "Android 10 (China)",
+  "summary": "Xiaomi TV EA Pro 55-inch (L55MA-EP) ships with telemetry, ads, shopping and cloud control. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This China-market Xiaomi TV ships with telemetry and log upload, push, cloud control, ads and promoted content, shopping and payment, and cleaners and panels. It also has casting and smart-home parts. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was used for a day with two reboots and several standby cycles, and nothing broke that is not noted here. TidyTV saves a backup first and never deletes anything. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Xiaomi TV player for live TV and sources",
+    "The core Xiaomi TV service",
+    "The stock home, with a special build to replace it"
+  ],
+  "notes": [
+    "Only system apps or allowlisted names can become Home on this TV, so the standard new home screen leaves a black screen.",
+    "Network debugging closes at every boot. Turn it back on in Account and Security."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi TV EA Pro 55-inch?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Can I use the clean home screen on this TV?",
+      "a": "Only a special build works. The standard one would leave a black screen if the Xiaomi home is switched off."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi TV EA Pro 55-inch?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

@@ -1,0 +1,123 @@
+{
+ "id": "byintek-t5-max",
+ "title": "BYINTEK T5 Max projector, built-in Google TV stick: ro.product.model=\"4K Google TV Stick\",",
+ "header": "BYINTEK T5 Max projector, built-in Google TV stick: ro.product.model=\"4K Google TV Stick\",\nmanufacturer SkyworthDigital, device YYT, Amlogic (ro.board.platform HP46B), about 1.9 GB RAM.\nGoogle TV 14 (API 34), build UKG3.260128.001.C3.3.5_20260723. Tested in Brazil.\nSame stick and firmware as examples/wanbo-x5-pro; this list differs where this device differs.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/byintek-t5-max/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/byintek-t5-max/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nDeliberately NOT in this list (measured on this device, 2026-10-20):\n- com.google.android.tungsten.setupwraith: `dumpsys wifi` shows cname=com.google.android.tungsten.setupwraith,\nso disabling it would delete the saved Wi-Fi network and drop the projector off the network\n(the Wanbo failure). It stays enabled; rejoin Wi-Fi from Settings first if that ever changes.\n- com.google.android.apps.tv.launcherx and setupwraith were disabled separately, later, only\nafter the owner forgot and rejoined the Wi-Fi network in Settings (cname then read\nandroid.uid.system:1000): `pm disable-user --user 0` for both, then\n`cmd package set-home-activity --user 0 com.gathin.tvhome/.MainActivity`. Undo that pair with\n`pm enable --user 0 com.google.android.apps.tv.launcherx`, `pm enable --user 0\ncom.google.android.tungsten.setupwraith`, then set-home-activity back to launcherx. Before the\nrejoin, disabling launcherx alone dropped Home to setupwraith's RecoveryActivity (rolled back).\n- Projector hardware (autofocus, keystone, HDMI switching) is run by the projector mainboard and\nis not exposed to this Android module; nothing here can or should try to replace it.\n\nKept on purpose: com.sdt.projector.observer, com.sdt.customization, com.sdt.globalkey,\ncom.mft.rcupair, com.mft.frontpanelledsservice, com.droidlogic.*, com.dolby.android.audio.service,\ncom.google.android.gms, com.google.android.apps.mediashell (Chromecast), com.sdt.ota, keyboard,\nPlay Store, Play Services. Kept by choice below (commented): Assistant/voice (the remote has a\nmic key and uses it), YouTube Music, TalkBack.",
+ "sections": [
+  {
+   "title": "Telemetry and remote management",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Google feedback reporter"
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": "feedback consent screen"
+    },
+    {
+     "pkg": "com.oemservice",
+     "note": "xCPE remote-management agent (boot receiver only)"
+    },
+    {
+     "pkg": "com.sdt.deviceinfo",
+     "note": "Skyworth device-info reporter (boot receiver only)"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Ads and personalization",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Privacy Sandbox ad services"
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory test apps",
+   "apps": [
+    {
+     "pkg": "com.oem.qa",
+     "note": "BoxFactoryTest"
+    },
+    {
+     "pkg": "com.sdt.producttest",
+     "note": "Skyworth product test, key check, USB command handler"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused on a projector stick",
+   "apps": [
+    {
+     "pkg": "com.amlogic.voicesubtitle",
+     "note": "Amlogic voice subtitle overlay"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.cameraextensions",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dynsystem",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.hotspot2.osulogin",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant / voice search (remote mic key)"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "TalkBack screen reader"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 18
+}

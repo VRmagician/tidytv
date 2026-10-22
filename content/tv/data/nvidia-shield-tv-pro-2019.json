@@ -27,19 +27,15 @@
    "note": ""
   },
   {
-   "title": "Sponsored rows and auto-installs",
+   "title": "Sponsored rows and auto-installs com.google.android.tvrecommendations - keep it enabled",
    "apps": [
-    {
-     "pkg": "com.google.android.tvrecommendations",
-     "note": "sponsored / \"Top picks\" rows on the stock home"
-    },
     {
      "pkg": "android.autoinstalls.config.nvidia",
      "note": "Play auto-installs of partner apps"
     }
    ],
    "optional": [],
-   "note": ""
+   "note": "Disabled, Android stops binding the SHIELD TV phone app's input service (com.nvidia.shield.remote.server, virtualinput.InputService, a TvRemoteProvider) at boot: the app still connects, but every key fails (\"Key injection failed\", \"Beyonder_VIS ... isInitialized=false\"). Bisected with a reboot per step on a 2017 SHIELD (darcy) and confirmed on a 2015/2017 one (foster_e), SHIELD Experience on Android 11 (docs/TROUBLESHOOTING.md). The sponsored rows it feeds only show on the stock home, which this list replaces anyway."
   },
   {
    "title": "NVIDIA gaming leftovers (GameStream closed in 2023)",
@@ -178,5 +174,5 @@
  ],
  "kept": [],
  "stock_launcher": null,
- "count": 11
+ "count": 10
 }

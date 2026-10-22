@@ -1,0 +1,36 @@
+{
+  "name": "JVC Android TV (Vestel)",
+  "brand": "JVC",
+  "os": "Android TV 11",
+  "summary": "JVC Android TV ships with Vestel telemetry and preloaded apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This JVC Android TV, built by Vestel for Spain, ships with Vestel telemetry and a cleaner app. It also has Google and partner attribution, feedback and auto-installs, preloaded apps and background services nobody needs on a TV. The list has 25 apps. It uses the classic Android TV home.",
+    "It was disabled in two batches on one TV. Prime Video and Disney+ were kept at the owner's choice. The Input key, Live TV, Chromecast built-in and Gboard keep working. TidyTV turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Input key handler, which looks like retail demo mode",
+    "Live TV and the TV service",
+    "Chromecast built-in, Play Store and Play Services",
+    "Gboard and text to speech",
+    "The Vestel TV, key, backlight and remote update services",
+    "Remote pairing and Dolby audio"
+  ],
+  "notes": [
+    "One MediaTek home screen helper crashes the TV service if it is turned off, so it stays on.",
+    "There is no separate firmware update app on this TV. Updates live in Settings."
+  ],
+  "faq": [
+    {
+      "q": "Will the Input button still work on my JVC TV?",
+      "a": "Yes. The app that handles it looks like bloat, but it must stay on, so TidyTV keeps it."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast built-in is kept."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns the apps back on and puts the old home screen back in one tap."
+    }
+  ]
+}

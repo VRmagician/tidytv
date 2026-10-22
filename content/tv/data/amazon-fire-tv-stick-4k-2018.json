@@ -1,7 +1,7 @@
 {
  "id": "amazon-fire-tv-stick-4k-2018",
  "title": "Amazon Fire TV Stick 4K, 1st gen 2018 (AFTMM, codename mantis), Fire OS 6.7.1.1 (NS6711/5908), Android 7.1.2 (SDK 25)",
- "header": "Amazon Fire TV Stick 4K, 1st gen 2018 (AFTMM, codename mantis), Fire OS 6.7.1.1 (NS6711/5908), Android 7.1.2 (SDK 25)\nAlso a fair start for other Fire OS 6 sticks and boxes (Fire TV Stick 4K / Cube 1st gen). Fire OS 7 sets differ:\nsee insignia-ns55f301na25/ and toshiba-fire-tv-aftha004/.\n\nFIRE OS: DEBLOAT ONLY. com.amazon.tv.launcher is a protected package and keeps Home; launcher/ does not apply.\nA custom home is still possible on top of the stock one: the community route is \"Launcher Manager Mini\" (XDA,\nSweenWolf), which watches the Home press in the system log and brings a sideloaded launcher such as Projectivy to the\nfront. Both are third-party sideloads, and Amazon has broken earlier versions with OTA updates, so it is not part of\nthis list.\n\nApply:   TV_HOST=<stick ip> tools/disable.sh examples/amazon-fire-tv-stick-4k-2018/debloat.txt\nUndo:    TV_HOST=<stick ip> tools/restore.sh examples/amazon-fire-tv-stick-4k-2018/debloat.txt com.amazon.tv.launcher\n(restore.sh re-enables the stock launcher as a matter of routine; on Fire OS it was never disabled, which is harmless.)\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\nADB on Fire OS 6: Settings > My Fire TV > Developer options > ADB debugging. If Developer options is hidden,\nSettings > My Fire TV > About > highlight the first entry and press select 7 times. Port 5555, no pairing.\n\nLived with since 2026-10-18 on one stick (the group dated 2026-10-19 for one day less). Nothing had to be re-enabled.\nProtected by Fire OS 6 (pm disable-user is refused without root), so commented out below: com.amazon.client.metrics,\ncom.amazon.device.metrics, com.amazon.minerva.client.api, com.amazon.device.logmanager, com.amazon.device.crashmanager,\ncom.amazon.diode, com.fireos.usagestats.proxy, com.amazon.ftvads.deeplinking, com.amazon.tv.csapp, com.amazon.tv.oobe.\nNo com.amazon.tv.acr on a stick (ACR is a TV-set thing).\n\nKept on purpose: com.amazon.tv.launcher, com.amazon.tv.settings.*, com.amazon.venezia (Appstore),\ncom.amazon.tigris (Appstore UI), OTA updates, remote/Bluetooth services, com.amazon.tv.ime (keyboard),\ncom.amazon.vizzini (Alexa voice search for the remote mic) with com.amazon.aria/cardinal (its screens),\nPrime Video (com.amazon.firebat, com.amazon.tv.support), display mirroring and DIAL casting\n(com.amazon.cast.sink, dialservice, ssdpservice, whisperlink/whisperplay, awvflingreceiver),\nscreensaver, profile picker, accessibility (com.amazon.logan) and TTS. The streaming apps this owner uses\n(Netflix, Prime Video, Disney+, Apple TV, DirecTV, Crunchyroll, YouTube) are not listed; the rest are, by choice.\n\nWhat the list cannot remove: the \"Sponsored\" hero banner and sponsored app row are fetched by the launcher itself\nfrom amazon-adsystem.com. Private DNS needs Android 9, so on Fire OS 6 set an ad-blocking DNS (AdGuard 94.140.14.14 /\n94.140.15.15) through a static IP in the Wi-Fi advanced settings, or block *.amazon-adsystem.com on the router.\nAlso turn off Settings > Preferences > Featured Content autoplay and the three Privacy Settings toggles.\nGotchas: a reboot resets the favourites bar to Amazon's defaults; OTA updates may re-enable packages, re-run\ndisable.sh afterwards; Netflix is DRM-black in screenshots.",
+ "header": "Amazon Fire TV Stick 4K, 1st gen 2018 (AFTMM, codename mantis), Fire OS 6.7.1.1 (NS6711/5908), Android 7.1.2 (SDK 25)\nAlso a fair start for other Fire OS 6 sticks and boxes (Fire TV Stick 4K / Cube 1st gen). Fire OS 7 sets differ:\nsee insignia-ns55f301na25/ and toshiba-fire-tv-aftha004/.\n\nFIRE OS: DEBLOAT ONLY. com.amazon.tv.launcher is a protected package and keeps Home; launcher/ does not apply.\nA custom home is still possible on top of the stock one: the community route is \"Launcher Manager Mini\" (XDA,\nSweenWolf), which watches the Home press in the system log and brings a sideloaded launcher such as Projectivy to the\nfront. Both are third-party sideloads, and Amazon has broken earlier versions with OTA updates, so it is not part of\nthis list.\n\nApply:   TV_HOST=<stick ip> tools/disable.sh examples/amazon-fire-tv-stick-4k-2018/debloat.txt\nUndo:    TV_HOST=<stick ip> tools/restore.sh examples/amazon-fire-tv-stick-4k-2018/debloat.txt com.amazon.tv.launcher\n(restore.sh re-enables the stock launcher as a matter of routine; on Fire OS it was never disabled, which is harmless.)\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\nADB on Fire OS 6: Settings > My Fire TV > Developer options > ADB debugging. If Developer options is hidden,\nSettings > My Fire TV > About > highlight the first entry and press select 7 times. Port 5555, no pairing.\n\nLived with since 2026-10-18 on one stick (the group dated 2026-10-19 for one day less). Nothing had to be re-enabled.\nProtected by Fire OS 6 (pm disable-user is refused without root), so commented out below: com.amazon.client.metrics,\ncom.amazon.device.metrics, com.amazon.minerva.client.api, com.amazon.device.logmanager, com.amazon.device.crashmanager,\ncom.amazon.diode, com.fireos.usagestats.proxy, com.amazon.ftvads.deeplinking, com.amazon.tv.csapp, com.amazon.tv.oobe.\nNo com.amazon.tv.acr on a stick (ACR is a TV-set thing).\n\nSecond unit, same model and build (AFTMM, NS6711/5908), Europe, 2026-10-22: the list above applied cleanly.\nThree more packages are protected on this build: com.amazon.tcomm, com.amazon.securitysyncclient and\ncom.amazon.whisperlink.core.android (\"Cannot disable a protected package\"). With com.amazon.vizzini disabled, Fire OS\nre-enables it at every boot (all other disabled packages stay off), so dropping voice search means re-running\ndisable.sh after each reboot. Disabling the casting group at the end closed ports 8009, 55442 and 60000 on the LAN.\nWith Fire OS parental controls on (\"PIN protect app launches\"), any start of another app over Amazon's home,\nincluding a Home-watcher launcher from SHOWCASE.md, opens the Prime Video PIN prompt every time.\n\nKept on purpose: com.amazon.tv.launcher, com.amazon.tv.settings.*, com.amazon.venezia (Appstore),\ncom.amazon.tigris (Appstore UI), OTA updates, remote/Bluetooth services, com.amazon.tv.ime (keyboard),\ncom.amazon.vizzini (Alexa voice search for the remote mic) with com.amazon.aria/cardinal (its screens),\nPrime Video (com.amazon.firebat, com.amazon.tv.support), display mirroring and DIAL casting\n(com.amazon.cast.sink, dialservice, ssdpservice, whisperlink/whisperplay, awvflingreceiver),\nscreensaver, profile picker, accessibility (com.amazon.logan) and TTS. The streaming apps this owner uses\n(Netflix, Prime Video, Disney+, Apple TV, DirecTV, Crunchyroll, YouTube) are not listed; the rest are, by choice.\n\nWhat the list cannot remove: the \"Sponsored\" hero banner and sponsored app row are fetched by the launcher itself\nfrom amazon-adsystem.com. Private DNS needs Android 9, so on Fire OS 6 set an ad-blocking DNS (AdGuard 94.140.14.14 /\n94.140.15.15) through a static IP in the Wi-Fi advanced settings, or block *.amazon-adsystem.com on the router.\nAlso turn off Settings > Preferences > Featured Content autoplay and the three Privacy Settings toggles.\nGotchas: a reboot resets the favourites bar to Amazon's defaults; OTA updates may re-enable packages, re-run\ndisable.sh afterwards; Netflix is DRM-black in screenshots.",
  "sections": [
   {
    "title": "Amazon telemetry, metrics, logs, crash and usage reporting com.amazon.client.metrics                 # protected by Fire OS, cannot be disabled without root",
@@ -333,6 +333,94 @@
     {
      "pkg": "com.amazon.tv.oobe",
      "note": "out-of-box setup wizard (protected by Fire OS, cannot be disabled). If it ever is disabled it must be re-enabled before a factory reset"
+    },
+    {
+     "pkg": "com.amazon.vizzini",
+     "note": "Alexa voice search; Fire OS re-enables it at every boot"
+    },
+    {
+     "pkg": "com.amazon.vizzini.ftvcds",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.aria",
+     "note": "voice search screens"
+    },
+    {
+     "pkg": "com.amazon.cardinal",
+     "note": "voice search screens"
+    },
+    {
+     "pkg": "com.amazon.alexa.datastore.app",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.aca",
+     "note": "Alexa hints/cues"
+    },
+    {
+     "pkg": "com.amazon.audiohome",
+     "note": "Alexa Home Theater"
+    },
+    {
+     "pkg": "com.amazon.spotify.mediabrowserservice",
+     "note": "Spotify for Alexa (the Spotify app is separate)"
+    },
+    {
+     "pkg": "com.amazon.firebat",
+     "note": "Prime Video"
+    },
+    {
+     "pkg": "com.amazon.tv.support",
+     "note": "Prime Video helper"
+    },
+    {
+     "pkg": "com.amazon.recess",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.naatyam",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.neodelegate",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.csm.htmlruntime",
+     "note": "HTML runtime for Amazon promos"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.whisperplay.service.install",
+     "note": "remote app install from the phone app"
+    },
+    {
+     "pkg": "com.amazon.tv.forcedotaupdater.v2",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.cast.sink",
+     "note": "Miracast receiver"
+    },
+    {
+     "pkg": "com.amazon.awvflingreceiver",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.dialservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.ssdpservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.whisperplay.contracts",
+     "note": ""
     }
    ],
    "note": ""

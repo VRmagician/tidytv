@@ -52,6 +52,7 @@ import kotlinx.coroutines.flow.asStateFlow
 import kotlinx.coroutines.flow.first
 import kotlinx.coroutines.flow.update
 import kotlinx.coroutines.launch
+import kotlinx.coroutines.withContext
 import kotlinx.coroutines.sync.Mutex
 import kotlinx.coroutines.sync.withLock
 import kotlinx.coroutines.withTimeoutOrNull
@@ -100,13 +101,33 @@ sealed interface HomeState {
         val app: HomeApp = HomeApp.SIMPLE,
         /** Home screens this TV can run (the styled one needs Android 8). */
         val available: List<HomeApp> = listOf(HomeApp.SIMPLE),
+        /** The Apple TV style home screen is already Home, so its look can be changed. */
+        val styledIsHome: Boolean = false,
     ) : HomeState
     data object Running : HomeState
     data class Problem(val message: String, val worried: Boolean, val action: HomeAction? = null, val rescue: List<String> = emptyList()) : HomeState
     data class Installed(val app: HomeApp = HomeApp.SIMPLE) : HomeState
     /** Projectivy's Play Store page is open on the TV; waiting for the owner to press Install. */
     data class WaitingForPlayStore(val app: HomeApp) : HomeState
+    /** Picking a look for the Apple TV style home screen; [back] is where Back returns. */
+    data class Look(val look: LookState, val back: HomeState? = null) : HomeState
 }
+
+/** The looks TidyTV ships for the Apple TV style home screen (cleanyourtv themes/, MIT). */
+enum class LookId(val id: String, val title: String, val blurb: String) {
+    CLASSIC("default", "Classic", "Black and simple, the way it comes."),
+    AURORA("aurora", "Aurora", "A dark night sky with teal and violet light."),
+    GLASS("glass", "Glass", "A frosted dock, soft light and a glow in each app's colour."),
+    SCENES("scenes", "Scenes", "14 painted landscapes, a new one every hour."),
+}
+
+data class LookState(
+    /** A look id, or "photo", while it's being put on the TV. */
+    val applying: String? = null,
+    /** The look set in this session. */
+    val current: String? = null,
+    val message: RestoreUi.Finished? = null,
+)
 
 /** Check my TV. [rebooting] is the reboot test's progress line, null when it isn't running. */
 data class CheckState(
@@ -207,6 +228,12 @@ class WizardViewModel(
     private val iconFromApk: ((pkg: String, apk: ByteArray) -> String?)? = null,
     /** Once-a-day check for a newer release on GitHub. Null in tests. */
     private val updates: dev.tidytv.app.data.UpdateCheck? = null,
+    /** A bundled look's files (assets/themes/<id>), or null when it isn't bundled. */
+    private val looks: (String) -> dev.tidytv.core.ops.LookFiles? = { null },
+    /** Shrinks a photo from the phone into a TV wallpaper. Android only. */
+    private val photoWallpaper: (PickedFile) -> dev.tidytv.app.data.WallpaperImage? = { null },
+    /** Where photos are decoded and shrunk; tests pass their own. */
+    private val imageWork: kotlinx.coroutines.CoroutineDispatcher = kotlinx.coroutines.Dispatchers.Default,
 ) : ViewModel() {
     private val _ui = MutableStateFlow(UiState())
     val ui: StateFlow<UiState> = _ui.asStateFlow()
@@ -294,6 +321,7 @@ class WizardViewModel(
         if (s.wizard.step == Step.CONNECT && s.connect !is ConnectState.Scanning && s.connect !is ConnectState.Connected) {
             connect(ConnectEvent.Back); return true
         }
+        if (s.wizard.step == Step.HOME_SCREEN && s.home is HomeState.Look) { closeLook(); return true }
         val next = WizardReducer.reduce(s.wizard, WizardEvent.Back) ?: return false
         wizard(WizardEvent.Back)
         return true
@@ -867,6 +895,67 @@ class WizardViewModel(
         val available = HomeApp.entries.filter { a -> snap.info.sdk >= a.minSdk && (a.fromPlayStore || launcherApk(a) != null) }
         _ui.update { it.copy(home = HomeState.Offer(options, options.take(8).map { o -> o.pkg }, HomeApp.SIMPLE, available)) }
         fetchIcons(options.map { it.pkg })
+        viewModelScope.launch {
+            val home = withShell { s -> dev.tidytv.core.ops.Parse.component(s.run(dev.tidytv.core.ops.Commands.RESOLVE_HOME)) }
+            if (home?.substringBefore('/') == HomeApp.STYLED.pkg) _ui.update { u ->
+                (u.home as? HomeState.Offer)?.let { u.copy(home = it.copy(styledIsHome = true)) } ?: u
+            }
+        }
+    }
+
+    // ---------- Looks for the Apple TV style home screen ----------
+
+    fun openLook() = _ui.update { it.copy(home = HomeState.Look(LookState(), back = it.home)) }
+
+    fun closeLook() {
+        val l = _ui.value.home as? HomeState.Look ?: return
+        if (l.look.applying != null) return
+        if (l.back != null) _ui.update { it.copy(home = l.back) } else enterHome()
+    }
+
+    fun applyLook(id: LookId) {
+        val files = if (id == LookId.CLASSIC) dev.tidytv.core.ops.LookFiles("default", "{}") else looks(id.id)
+        if (files == null) return setLook { it.copy(message = RestoreUi.Finished("That look isn't in this copy of TidyTV.", ok = false)) }
+        putLook(id.id, "${id.title} is on your TV.") { files }
+    }
+
+    /** The owner's own photo, made small on the phone first (see Wallpaper). */
+    fun applyPhoto(file: PickedFile) = putLook("photo", null) {
+        val img = photoWallpaper(file) ?: return@putLook null
+        lastPhoto = img
+        dev.tidytv.core.ops.LookFiles("photo", PHOTO_CONFIG, wallpaper = img.jpeg)
+    }
+
+    private var lastPhoto: dev.tidytv.app.data.WallpaperImage? = null
+
+    private fun putLook(id: String, done: String?, make: suspend () -> dev.tidytv.core.ops.LookFiles?) {
+        if ((_ui.value.home as? HomeState.Look)?.look?.applying != null) return
+        setLook { it.copy(applying = id, message = null) }
+        wizard(WizardEvent.Busy(true))
+        viewModelScope.launch {
+            val files = withContext(imageWork) { runCatching { make() }.getOrNull() }
+            val ok = files != null && withShell { s -> dev.tidytv.core.ops.LauncherLook(s).apply(files) } == true
+            trace.line("look $id: ok=$ok")
+            val msg = when {
+                files == null -> RestoreUi.Finished("That photo couldn't be opened. Try another one.", ok = false)
+                !ok -> RestoreUi.Finished("The TV didn't take the new look. Check it's on, then try again.", ok = false)
+                done != null -> RestoreUi.Finished(done, ok = true)
+                else -> RestoreUi.Finished(photoMessage(lastPhoto), ok = true)
+            }
+            setLook { it.copy(applying = null, current = if (ok) id else it.current, message = msg) }
+            wizard(WizardEvent.Busy(false))
+        }
+    }
+
+    private fun photoMessage(img: dev.tidytv.app.data.WallpaperImage?): String {
+        if (img == null) return "Your photo is on your TV."
+        fun size(b: Long) = if (b >= 1024 * 1024) "%.1f MB".format(b / 1048576.0) else "${(b + 1023) / 1024} KB"
+        val was = if (img.originalBytes > 0) ", from ${size(img.originalBytes)}" else ""
+        return "Your photo is on your TV. Sent at ${img.width}×${img.height}, ${size(img.jpeg.size.toLong())}$was."
+    }
+
+    private fun setLook(f: (LookState) -> LookState) = _ui.update { u ->
+        (u.home as? HomeState.Look)?.let { u.copy(home = it.copy(look = f(it.look))) } ?: u
     }
 
     fun chooseHome(app: HomeApp) = _ui.update {
@@ -929,6 +1018,11 @@ class WizardViewModel(
     }
 
     private var lastDock: List<String> = emptyList()
+
+    private companion object {
+        /** A photo look: the photo full screen, with the frosted dock so the apps stay readable. */
+        const val PHOTO_CONFIG = "{\"wallpaper\": true, \"background_color\": \"#000000\", \"dock_glass\": true}"
+    }
     private var lastApp: HomeApp = HomeApp.SIMPLE
 
     fun homeAction(action: HomeAction, onEthernet: Boolean = false) {

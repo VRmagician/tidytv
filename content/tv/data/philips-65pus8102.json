@@ -50,6 +50,10 @@
      "note": "\"GEL\" metrics collector, runs inside the candeebug process; disable both"
     },
     {
+     "pkg": "org.droidtv.tv.frameworklogger",
+     "note": "Reads the reboot reasons and firmware-install records at boot and hands them to the Philips logger (uploadRebootDetails)"
+    },
+    {
      "pkg": "tv.inscape.tvclient.inscapeacr",
      "note": "\"Inscape\" ACR client: identifies what is on screen, HDMI included"
     }
@@ -184,5 +188,5 @@
  ],
  "kept": [],
  "stock_launcher": "com.google.android.tvlauncher",
- "count": 34
+ "count": 35
 }

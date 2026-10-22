@@ -1,0 +1,121 @@
+{
+ "id": "sony-xbr-55x850d",
+ "title": "Sony BRAVIA XBR-55X850D — Android TV 8.0.0 / API 26, Sony firmware 6.827",
+ "header": "Sony BRAVIA XBR-55X850D — Android TV 8.0.0 / API 26, Sony firmware 6.827\nAndroid's generic model label is \"BRAVIA 4K 2015\"; match the retail model/firmware too.\nTested with CleanYourTV v2.3, source 6bcd649bfd6fb4ed0e448c369a258b672a0a1a0b.\nRoku Ultra LT supplies streaming; this is an owner's short-term tested list, not every Sony.\n\nApply: TV_HOST=<tv ip> tools/disable.sh examples/sony-xbr-55x850d/debloat.txt\nUndo:  TV_HOST=<tv ip> tools/restore.sh examples/sony-xbr-55x850d/debloat.txt\nEverything is DISABLED for user 0, not uninstalled. Save original enabled states first.\nInstall and verify the replacement Home before the final stock-launcher entry below.\nStock launcher: com.google.android.tvlauncher; replacement: com.gathin.tvhome.\nLive TV AND HDMI playback app: com.sony.dtv.tvx — KEEP IT ENABLED.\nKeep Sony TV/input providers, CEC/BRAVIA Sync, remote/pairing, keyboard, Settings,\nGoogle services/Store, MediaTek services, firmware updater, recovery and boot monitor.\nChromecast, DLNA, mirroring, phone remote and Assistant were left enabled, not removed.\nDeveloper options calls the switch \"ADB debugging\" on this firmware.\nSee README.md here for tested functions, launcher configuration and timing limits.",
+ "sections": [
+  {
+   "title": "Viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV automatic content recognition"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony/Google content rows, promotions and partner installs",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.discovery",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.bivlinfo",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.tvlaunchercustomizer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Device agents, feedback and optional home-automation discovery",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "Sony remote-support/device agent"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "Re-enable if Control4/SDDP discovery is needed"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Optional help/media/apps not used in this Roku-primary setup",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": "Smart Help; keep if used"
+    },
+    {
+     "pkg": "com.sony.dtv.imanual",
+     "note": "i-Manual; keep if used"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "Re-enable for the native USB music player"
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.crackle.androidtv",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Home handover ONLY after installing, launching and verifying the new launcher",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": "Restore stock Home before disabling the replacement"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 19
+}

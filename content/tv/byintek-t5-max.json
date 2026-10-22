@@ -1,0 +1,33 @@
+{
+  "name": "BYINTEK T5 Max",
+  "brand": "BYINTEK",
+  "os": "Google TV 14",
+  "summary": "BYINTEK T5 Max ships with telemetry, ads and unused stick apps. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "The BYINTEK T5 Max projector has a built-in Google TV stick with telemetry and remote management on it. It also has ad and personalization services, factory test apps and extra apps that make no sense on a projector stick. The list has 18 apps.",
+    "The setup wizard was left on, because it holds the saved Wi-Fi network and turning it off would drop the projector off Wi-Fi. TidyTV leaves it on. It turns the rest off over Wi-Fi with a backup first, and the projector hardware is not touched. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The setup wizard, which owns the saved Wi-Fi network",
+    "The projector's autofocus, keystone and HDMI switching",
+    "Google Play Store and Play Services",
+    "The remote and Bluetooth"
+  ],
+  "notes": [
+    "Autofocus, keystone and HDMI switching are run by the projector's own mainboard, not by this stick, so TidyTV cannot touch them."
+  ],
+  "faq": [
+    {
+      "q": "Will my Wi-Fi stay connected?",
+      "a": "Yes. The setup wizard holds the saved network, so TidyTV leaves it on."
+    },
+    {
+      "q": "Will autofocus and keystone still work?",
+      "a": "Yes. They are run by the projector's mainboard, not the Google TV stick, and TidyTV does not touch them."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on in one tap."
+    }
+  ]
+}

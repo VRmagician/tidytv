@@ -1,0 +1,192 @@
+{
+ "id": "philips-65pus9435",
+ "title": "Philips 65PUS9435/12 (65\" 4K UHD LED, 4-sided Ambilight, \"The One\", 2020 model), Germany",
+ "header": "Philips 65PUS9435/12 (65\" 4K UHD LED, 4-sided Ambilight, \"The One\", 2020 model), Germany\nAndroid TV 12 (API 31), firmware STT2.230526.001\nro.product.model=TPM191E  ro.product.device=PH9M_EA_5599\nFingerprint: Philips/PH9M_EA_5599/PH9M_EA_5599:12/STT2.230526.001/4215:user/release-keys\nTP Vision build: MediaTek MT5887, vendor packages use the org.droidtv prefix.\n\nSame board AND firmware build as examples/philips-75pus8505 and examples/philips-tpm191e (identical\nfingerprint). Batches 1-3 follow the 8505 list, minus Apple TV, which this owner uses, and minus\nusagelogger and demome (note 1). Batches 4 and 5 are this owner's unused streaming apps and Philips\nweb-app tiles.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/philips-65pus9435/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/philips-65pus9435/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher\nLive TV app:    org.droidtv.playtv\nThe uk.co.freeview.* packages and org.droidtv.freeviewplayers are disabled from the factory on\nthis unit, so they are not listed (restore.sh would turn them ON).\n\nNotes from this unit:\n1. Re-enabled at every boot, so left out below: com.phorus.playfi.tv (as on the 8505),\norg.droidtv.usagelogger and org.droidtv.demome. disable.sh skips the last two anyway, as both ask\nfor TV_INPUT_HARDWARE. Neither serves android.media.tv.TvInputService here (only\ncom.mediatek.tvinput, org.droidtv.fastip and com.google.android.videos do), so that skip is a\nfalse positive on this set; disabled with TVINPUT_ALLOW=1 they were back on after one reboot.\nThe other entries stayed disabled across two reboots. The 8505 and tpm191e lists disable\nusagelogger (and the 8505 demome) with no such note, so other units may differ.\n2. com.google.android.tvrecommendations went off while the stock launcher was still Home, the\norder the 8505 notes warn against. The stock home still drew and opened apps afterwards, and\nbuild-and-install.sh moved Home without trouble, so on this unit the order did not matter.\n3. Launcher: build-and-install.sh ran through on its own, without the `am start -W` timeout the\n8505 saw (cold start 2.2 s), and Home resolved to com.gathin.tvhome. config.xml used:\nlive_tv_package org.droidtv.playtv; hidden_apps org.droidtv.playtv, org.droidtv.demome,\norg.droidtv.eum, org.droidtv.channels, com.vewd.core.browserui (hidden, not disabled: eum and\nchannels back the SOURCES drawer, vewd is the HbbTV engine).\n4. Private DNS set to dns.adguard-dns.com (mode hostname); Netflix still plays. Both settings were\nnull before. Undo: settings delete global private_dns_mode; settings delete global private_dns_specifier\n5. Checked with the real remote after the launcher took over: Home, SOURCES drawer, the launcher's\nInputs menu, Ambilight, and casting YouTube from a phone.\n\nKept on purpose: Ambilight (org.droidtv.ambihuecommon, org.droidtv.ambiair, org.droidtv.alhuewizard),\nChromecast (com.google.android.apps.mediashell), firmware updates (org.droidtv.oad, com.easy.oad),\nthe HbbTV browser engine (com.vewd.core.browserui), ARTE and ARD Mediathek web apps\n(org.droidtv.nettvapp1814, org.droidtv.nettvapp3093), and everything in the DO NOT DISABLE block of\nexamples/philips-75pus8505 (org.droidtv.eum, org.droidtv.fastip, org.droidtv.settings, USB media).",
+ "sections": [
+  {
+   "title": "Batch 1: telemetry",
+   "apps": [
+    {
+     "pkg": "org.droidtv.candeebug",
+     "note": "\"DAC\" analytics uploader"
+    },
+    {
+     "pkg": "org.droidtv.gel",
+     "note": "metrics collector sharing candeebug's process"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "Market Feedback Agent"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner referrer / attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "runs once at first setup, nothing afterwards"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "Google Calendar sync; no calendar app on this TV"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 2: Philips and Google content promotion",
+   "apps": [
+    {
+     "pkg": "org.droidtv.nettvrecommender",
+     "note": "\"Top Picks\" content promotion row"
+    },
+    {
+     "pkg": "org.droidtv.recommendation",
+     "note": "its headless backend"
+    },
+    {
+     "pkg": "org.droidtv.nettv.market",
+     "note": "\"Philips TV Collection\" app storefront"
+    },
+    {
+     "pkg": "org.droidtv.android.fitness",
+     "note": "Fitness Buddy"
+    },
+    {
+     "pkg": "org.droidtv.sticker",
+     "note": "e-sticker and shop banners"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "The 8505 list disables the stock launcher first; see note 2 and its \"ORDER MATTERS\" block",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "\"Android TV Core Services\": recommendation rows, notification panel"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 3",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant and voice search; the remote's mic button stops"
+    },
+    {
+     "pkg": "org.droidtv.amazonalexa",
+     "note": "Alexa bridge"
+    },
+    {
+     "pkg": "com.phorus.playfi.softap",
+     "note": "Play-Fi speaker setup access point"
+    }
+   ],
+   "optional": [],
+   "note": "voice assistants and speakers this owner does not use. Chromecast stays. Disabling katniss clears secure voice_interaction_service and assistant, and restore.sh does not put them back; see examples/philips-75pus8505 for the two settings commands."
+  },
+  {
+   "title": "Batch 4: streaming and game apps this owner does not use",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": "YouTube Music"
+    },
+    {
+     "pkg": "com.crunchyroll.crunchyroid",
+     "note": "Crunchyroll"
+    },
+    {
+     "pkg": "de.prosiebensat1digital.seventv",
+     "note": "Joyn / 7TV"
+    },
+    {
+     "pkg": "de.rtli.tvnow",
+     "note": "RTL+"
+    },
+    {
+     "pkg": "com.novoda.dch",
+     "note": "discovery+"
+    },
+    {
+     "pkg": "tv.wuaki.apptv",
+     "note": "Rakuten TV"
+    },
+    {
+     "pkg": "com.mgmedia.androidApp",
+     "note": "CHILI film store"
+    },
+    {
+     "pkg": "tv.pluto.android",
+     "note": "Pluto TV"
+    },
+    {
+     "pkg": "com.zeasn.whalelive",
+     "note": "Whale Live channels, a /data app"
+    },
+    {
+     "pkg": "com.blacknut.client",
+     "note": "Blacknut cloud games"
+    },
+    {
+     "pkg": "com.boosteroidtv.streaming",
+     "note": "Boosteroid cloud games"
+    },
+    {
+     "pkg": "com.ted.android.tv",
+     "note": "TED"
+    },
+    {
+     "pkg": "com.nbaimd.gametime.nba2011",
+     "note": "NBA"
+    },
+    {
+     "pkg": "dw.com.androidtv.live",
+     "note": "DW"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Google Play Games"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Batch 5",
+   "apps": [
+    {
+     "pkg": "org.droidtv.nettvapp3463",
+     "note": "Videociety"
+    },
+    {
+     "pkg": "org.droidtv.nettvapp4546",
+     "note": "MEGOGO"
+    },
+    {
+     "pkg": "org.droidtv.nettvapp5245",
+     "note": "TV SpieleCenter"
+    },
+    {
+     "pkg": "org.droidtv.nettvapp5326",
+     "note": "Toon Goggles"
+    },
+    {
+     "pkg": "org.droidtv.nettvapp5512",
+     "note": "Fishing TV"
+    }
+   ],
+   "optional": [],
+   "note": "Philips web-app tiles this owner does not use. All are /data apps; the name is the application-label from the APK."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 35
+}

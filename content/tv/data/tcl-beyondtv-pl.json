@@ -1,0 +1,161 @@
+{
+ "id": "tcl-beyondtv-pl",
+ "title": "TCL BeyondTV, Poland unit (ro.product.model BeyondTV, board RTD2851 / rtd285o, build PPR1.180610.011 AP03,",
+ "header": "TCL BeyondTV, Poland unit (ro.product.model BeyondTV, board RTD2851 / rtd285o, build PPR1.180610.011 AP03,\nsecurity patch 2020-02-05), Android TV 9 (API 28), 2 GB RAM, Polish UI. Same platform as\nexamples/tcl-beyondtv-rt2851/ (build AP06), which was used as the starting point.\nTested 2026-10-21: applied in groups with a screenshot after each, then one reboot; Home, the Inputs menu,\nthe remote's Source/Settings buttons and Netflix checked. Not yet lived with for days.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-beyondtv-pl/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-beyondtv-pl/debloat.txt\nStock launcher: com.google.android.tvlauncher. Live TV app: com.tcl.tv. Tuner: com.tcl.tvinput. HDMI: com.tcl.tvpassthrough.\n\nDO NOT DISABLE (load-bearing on this firmware): com.tcl.tv com.tcl.tvinput com.tcl.tvpassthrough\ncom.tcl.sourcemananger com.tcl.keycustomfunctionservice com.tcl.framework.custom com.tcl.tcl_bt_rcu_service\ncom.tcl.autopair com.tcl.inputmethod.international com.tcl.settings com.tcl.initsetup com.tcl.factory.view\ncom.tcl.showmode com.tcl.xian.StartandroidService com.tcl.appstatecontroller com.realtek.netflix.setting\ncom.android.WifiCountryService com.tcl.versionUpdateApp (firmware updater, kept by choice) com.tcl.rc.ota\n\nRe-enabled by the firmware at every boot (checked after a reboot): com.tcl.notereminder. Left alone.\n\nAlready disabled at the factory, left alone: the uk.co.freeview.* apps, com.tcl.bootadservice,\ncom.tcl.common.terminalmanagerplus, com.tcl.gallery, com.tcl.smartalexa, Stan, ZEE5, LINE TV, Rakuten TV,\nPlay Music/Games/Movies, Eros Now, com.google.android.tv.remote.service.",
+ "sections": [
+  {
+   "title": "1. Telemetry and analytics",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL BI analytics"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "\"send feedback\""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": "bug report uploader"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "one-time setup leftovers"
+    },
+    {
+     "pkg": "android.autoinstalls.config.tcl.device",
+     "note": "partner-app auto installer"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "2. Content, recommendation rows and promos",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "home-screen recommendation rows"
+    },
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "TCL promo rows, T-Channel"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL message/promo box"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "retail demo stickers"
+    },
+    {
+     "pkg": "com.tcl.cyberui",
+     "note": "TCL's own content service, unused"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "3. Preloads and background extras",
+   "apps": [
+    {
+     "pkg": "com.tcl.ui_mediaCenter",
+     "note": "USB media centre; nothing on USB here"
+    },
+    {
+     "pkg": "com.tcl.keyhelp",
+     "note": "remote-key help overlays"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.tcl.notereminder",
+     "note": "note/reminder app: firmware re-enables it at every boot, so not listed"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "4",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google voice search and the mic button"
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": "offline speech recognition"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL's Google Assistant bridge"
+    },
+    {
+     "pkg": "com.google.android.tv.assistant",
+     "note": "Assistant LED service"
+    },
+    {
+     "pkg": "com.tcl.miracast",
+     "note": "Miracast screen mirroring"
+    },
+    {
+     "pkg": "com.tcl.MultiScreenInteraction_TV",
+     "note": "TCL T-Cast phone app link"
+    }
+   ],
+   "optional": [],
+   "note": "Off by choice: voice and screen mirroring (Chromecast and the firmware updater are kept)"
+  },
+  {
+   "title": "5",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "YouTube"
+    },
+    {
+     "pkg": "pl.tvn.player.tv",
+     "note": "player.pl"
+    },
+    {
+     "pkg": "com.spotify.tv.android",
+     "note": "Spotify"
+    },
+    {
+     "pkg": "com.valvesoftware.steamlink",
+     "note": "Steam Link"
+    }
+   ],
+   "optional": [],
+   "note": "Streaming apps not used (re-enable any of them with tools/restore.sh or `pm enable <package>`)"
+  },
+  {
+   "title": "6",
+   "apps": [
+    {
+     "pkg": "com.tcl.tvweishi",
+     "note": "TCL \"TV Guard\" cleaner"
+    },
+    {
+     "pkg": "com.tcl.appmarket2",
+     "note": "TCL app store"
+    }
+   ],
+   "optional": [],
+   "note": "After the launcher is installed (both carry a PackageInstallerService; the Play Store stays)"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 26
+}

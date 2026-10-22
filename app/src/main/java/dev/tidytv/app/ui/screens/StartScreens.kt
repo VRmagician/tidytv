@@ -119,7 +119,7 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
         Title(if (mode == Mode.RESTORE) "Let's reconnect to your TV" else "Get your TV ready")
         Body(
             if (mode == Mode.RESTORE) "Restoring needs the TV on and reachable. Keep your phone on the same home network as the TV and check debugging is still switched on."
-            else "This takes about a minute and is only needed once. Keep your phone on the same home network as the TV (the TV can be on Wi-Fi or Ethernet).",
+            else "This takes about a minute and is only needed once. Keep your phone on the same home network as the TV.",
         )
         Outline {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
@@ -129,7 +129,7 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
                     NumberedStep(3, "Keep the TV on", "When your TV asks \"Allow USB debugging?\", tick Always allow, then press Allow.")
                 } else {
                     NumberedStep(1, "Turn on developer options", "Settings › System › About. Select Android TV OS build 7 times until it says you're a developer.")
-                    NumberedStep(2, "Turn on debugging", "Settings › System › Developer options. Turn on USB debugging, and Network debugging if you see it.")
+                    NumberedStep(2, "Turn on debugging", "Settings › System › Developer options. Turn on USB debugging, then Wireless debugging. Some TVs call it Network debugging or ADB over network instead.")
                     NumberedStep(3, "Keep the TV on", "When your TV asks \"Allow debugging?\", tick Always allow, then press Allow.")
                 }
             }
@@ -137,10 +137,10 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
         Note("Using a stick powered from the TV's USB port? Plug it into its wall adapter for now, so it doesn't switch off halfway.")
         if (!fire) {
             Note(
-                "On Ethernet? Wireless debugging only appears when the TV is on Wi-Fi. Network debugging works on Ethernet, or switch the TV to Wi-Fi for a minute.",
+                "TV on Ethernet? On most TVs Wireless debugging stays greyed out until the TV is on Wi-Fi. Turn on the TV's Wi-Fi and join the same network as your phone, then turn on Wireless debugging. You can turn Wi-Fi off again when you're done.",
                 color = Tidy.BlueSoft, textColor = Tidy.Ink,
             )
-            Body("Only see Wireless debugging? That works too: TidyTV will ask for the code your TV shows.", color = Tidy.Muted)
+            Body("With Wireless debugging, TidyTV asks once for the code your TV shows.", color = Tidy.Muted)
         }
     }
 }

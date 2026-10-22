@@ -1,0 +1,103 @@
+{
+ "id": "nokia-streaming-box-8000",
+ "title": "Nokia Streaming Box 8000 (Sagemcom/NES, product SEI600NK4, device HND, Amlogic), 2 GB RAM",
+ "header": "Nokia Streaming Box 8000 (Sagemcom/NES, product SEI600NK4, device HND, Amlogic), 2 GB RAM\nAndroid TV 14 (SDK 34), build UKG3.240613.001, 32-bit (armeabi-v7a)\n\nApply and undo: the commands in README.md here, NOT tools/disable.sh (this firmware refuses it).\nEverything is SUSPENDED and barred from the background, not disabled or uninstalled.\nComment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (classic Android TV, not Google TV launcherx), with\nShop and Discover tabs. Only it and Settings' FallbackHome claim HOME; setupwraith does not.\nNo HDMI inputs (it's a box); a DTVKit tuner input (org.dtvkit.inputsource) is registered, and\nlive-TV streaming apps can add their own TIF inputs. com.nes.seilivetv and com.google.android.tv.axel ship\nalready disabled.\n\nKnown quirks on this firmware:\n- Port 5555 opens as soon as USB debugging is on; no pairing. The box also advertises\n_adb._tcp over mDNS, which is the quickest way to find it when DHCP moves it.\n- The saved Wi-Fi belongs to com.google.uid.shared (GMS), not setupwraith.\n- Network debugging does not survive a reboot: port 5555 refuses connections afterwards until it\nis switched on again in Developer options (USB debugging itself stays on).\n- Every pm disable*/hide/uninstall --user 0 is refused (\"This command is illegal!\"), and the stock\nlauncher has HOME priority 2, so this list is suspended instead (README.md here) and the\nstock launcher cannot be replaced yet.\n\nKept on purpose (load-bearing, checked with dumpsys package):\ncom.nes.blerc                  Bluetooth remote service (NesBleRemoteService)\ncom.standard.irtvcontrol       IR control of the TV from the box remote (SetUpRemoteActivity)\ncom.nes.tvglobalkeyhandler     remote app buttons\ncom.nes.recents                recent-apps screen\ncom.nes.remoteota.*            remote firmware updates (Realtek/Telink/Weina RCU OTA)\ncom.nes.coreservice            front LED, OTA messages and an analytics receiver mixed together\ncom.nes.daemon                 unknown NES daemon\ncom.google.android.tvsetup.partnercustomizer   IR remote wizard + low-power-mode page\ncom.droidlogic.*               Amlogic vendor (Settings, sleep timer, HDMI-CEC, picture)\norg.dtvkit.inputsource, com.android.providers.tv, Play Store/Services, Gboard,\ncom.google.android.tv.remote.service (phone remote), com.google.android.tv.dfuservice\nKept by choice: Chromecast (com.google.android.apps.mediashell), Nokia OTA updater\n(com.droidlogic.updater) + NES device manager (com.nes.skywayclient: firmware check, privacy\nagreement), Netflix, Prime Video, YouTube, Play Games.",
+ "sections": [
+  {
+   "title": "Telemetry, feedback and ad measurement",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "Google RLZ partner attribution pings"
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Privacy Sandbox ad services"
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": "ad personalisation"
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": "federated ad/usage learning"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Content and ad services",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "recommendation rows for the stock launcher"
+    },
+    {
+     "pkg": "com.nes.leanbacklauncher.partnercustomizer",
+     "note": "Nokia's Shop/Discover row config for the stock launcher"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sei",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Factory/test leftovers and preloads nobody uses on a TV",
+   "apps": [
+    {
+     "pkg": "com.nes.dvb.playtest",
+     "note": "DVB factory play test"
+    },
+    {
+     "pkg": "com.utsmta.app",
+     "note": "factory test, listens for USB sticks"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "re-enable if you need the screen reader"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant: the remote's mic button stops working"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver, replaced by the launcher's Clock"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 15
+}

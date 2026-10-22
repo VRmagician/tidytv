@@ -1,0 +1,35 @@
+{
+  "name": "Cecotec VQU10065S 65\" QLED",
+  "brand": "Cecotec",
+  "os": "Android TV 14",
+  "summary": "Cecotec VQU10065S ships with Vestel telemetry and Google ads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Cecotec 65-inch QLED is built by Vestel and runs Android TV 14. It ships with Vestel telemetry and logging, a cleaner app, Google ads and personalization, preloaded apps and a retail demo. There are 31 apps on the list. The UK Freeview apps already ship off.",
+    "The list keeps everything the TV needs to run. That is the remote hotkeys, Live TV and the source menu, Bluetooth remote pairing and the setup wizard that holds the saved Wi-Fi. TidyTV turns the rest off from your phone with a backup first and deletes nothing. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the source menu",
+    "Bluetooth remote pairing",
+    "The part that provides the home screen widget, which crash-loops the TV service if it is off",
+    "The setup wizard, which may hold your saved Wi-Fi",
+    "Factory packages, never opened"
+  ],
+  "notes": [
+    "Turning off the home screen widget provider makes the TV service crash after a restart and kills the Input key and other remote hotkeys, so it stays on.",
+    "The USB media player is on the list. Turn it back on if you play files from USB."
+  ],
+  "faq": [
+    {
+      "q": "Will the Input button still work on my Cecotec TV?",
+      "a": "Yes. The services behind it are kept. One of them looks like bloat but turning it off makes the TV service crash, so TidyTV leaves it on."
+    },
+    {
+      "q": "Does the remote microphone matter here?",
+      "a": "The remote has no microphone on this set, so the voice services on the list only idle."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the old home screen back in one tap."
+    }
+  ]
+}

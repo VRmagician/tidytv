@@ -1,0 +1,113 @@
+{
+ "id": "motorola-swtv-24ae-fhd",
+ "title": "Motorola SWTV-24AE-FHD (Skyworth OEM, device beomil, product SW11_TG, MediaTek), India/Global",
+ "header": "Motorola SWTV-24AE-FHD (Skyworth OEM, device beomil, product SW11_TG, MediaTek), India/Global\nAndroid TV 14 (API 34), build UKN4.250714.138, security patch 2025-10-01.\nStock launcher: com.google.android.apps.tv.launcherx (Google TV).\nSetup wizard: com.google.android.tungsten.setupwraith (claims HOME with priority 1).\nLive TV app: com.cltv.hybrid (iWedia CanaliTV).\nHDMI and tuner inputs: com.mediatek.tvinput.\nRemote: Settings button emits keycode 83 (KEYCODE_NOTIFICATION) on scancode 240; needs HomeKeyService.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/motorola-swtv-24ae-fhd/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/motorola-swtv-24ae-fhd/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nWARNING: If Wi-Fi was set up during the first-run wizard, the saved network belongs to setupwraith\nand Android DELETES it the moment setupwraith is disabled; the TV drops off the network and ADB with it.\nCheck first: `dumpsys wifi | grep -o 'cname=[^ ]*'`. If it is not android.uid.system, forget the network\nand re-join it in Settings > Network BEFORE disabling setupwraith.",
+ "sections": [
+  {
+   "title": "Skyworth telemetry and activation",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recordactivation",
+     "note": "records first activation"
+    },
+    {
+     "pkg": "com.smartdevice.aftersale",
+     "note": "\"after-sale\" service: boot + network receivers, can install APKs"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.tv.feedbackconsent",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Android ad and personalisation services",
+   "apps": [
+    {
+     "pkg": "com.android.adservices.api",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Skyworth content and recommendations",
+   "apps": [
+    {
+     "pkg": "com.smartdevice.recommendation",
+     "note": "Coocaa recommendation rows and analytics"
+    },
+    {
+     "pkg": "com.smartdevice.leanbacklauncher.customizer",
+     "note": "partner config that injects rows into the home screen"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Bloatware / cleaners / manuals / unused",
+   "apps": [
+    {
+     "pkg": "com.Smartdevice.emanual",
+     "note": "on-screen manual"
+    },
+    {
+     "pkg": "com.android.healthconnect.controller",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.health.connect.backuprestore",
+     "note": ""
+    },
+    {
+     "pkg": "com.smartdevice.dailymanage",
+     "note": "TV Guard / cleaner"
+    },
+    {
+     "pkg": "com.smartdevice.myapp",
+     "note": "Daily Key / app manager"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Google Play Games"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock Google TV home and setup wizard Disable only after installing and verifying the new launcher!",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": "setup wizard recovery activity claiming HOME"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": "stock Google TV launcher"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 17
+}

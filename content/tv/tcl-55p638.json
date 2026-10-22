@@ -1,0 +1,34 @@
+{
+  "name": "TCL 55P638",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 55P638 ships with TCL analytics, content feeds and promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This TCL runs Android TV 11 and ships with TCL analytics and logging, plus content feeds, promos and optional vendor services such as a guard cleaner, a store demo sticker, a message box and a TCL account app. Google extras, preloaded streaming apps and a preloaded browser add more.",
+    "Apps staying off and the clean home screen were verified after a reboot. The preloaded browser was turned off afterward, and the owner confirmed normal TV operation. TidyTV turns the apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Google TV home, until a replacement is installed",
+    "Live TV and the TCL input apps",
+    "The system web view component",
+    "Wi-Fi and the TV's settings"
+  ],
+  "notes": [
+    "The setup app may hold your saved Wi-Fi. Check that before turning it off.",
+    "Several apps, such as voice assistants and streaming apps, are off by the owner's choice."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 55P638?",
+      "a": "Not with the default list. The voice assistants are off by the owner's choice. Switch them back on in the app if you use voice."
+    },
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "It turns off the TCL content feeds and promos, plus the Google extras and preload setup apps."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Google TV home screen back."
+    }
+  ]
+}

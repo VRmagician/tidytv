@@ -45,6 +45,9 @@ class FakeTv(
     var playStoreInstalls = false
     /** Reboots so far, and what a firmware update brings back on the next boot. */
     var reboots = 0
+    /** LauncherLook: files written through the theme provider, and Home restarts for a new look. */
+    val lookWrites = mutableListOf<String>()
+    var lookRestarts = 0
     var reEnableOnReboot: MutableSet<String> = mutableSetOf()
     var installOnReboot: MutableSet<String> = mutableSetOf()
     /** Free space on /sdcard in 1K blocks, for `df`. */
@@ -235,6 +238,29 @@ class FakeTv(
                 }
             }
             c == Commands.KEY_HOME -> { keys += "KEYCODE_HOME"; "" }
+            // Looks for the Apple TV style home screen (LauncherLook).
+            c.contains("content write --uri content://") -> {
+                val f = c.substringAfter(".theme/").substringBefore(" <")
+                val stage = c.substringAfter(" < ").substringBefore(" 2>&1")
+                val dest = c.substringAfter("rm -f ").substringBefore(" 2>/dev/null")
+                val bytes = pushed.remove(stage)
+                if (bytes != null) {
+                    pushed[dest] = bytes
+                    lookWrites += f
+                    if (f == "theme_revision") files[dest] = String(bytes)
+                }
+                "put\n"
+            }
+            c.contains("content delete --uri content://") && c.endsWith("echo deleted") -> {
+                pushed.remove(c.substringAfter("rm -f ").substringBefore(" 2>/dev/null")); "deleted\n"
+            }
+            c.contains("content delete --uri content://") && c.endsWith("echo cleared") -> {
+                val dir = c.substringAfter("mkdir -p ").substringBefore(" 2>/dev/null")
+                pushed.keys.removeAll { it.startsWith("$dir/") }; "cleared\n"
+            }
+            c.startsWith("cat /sdcard/Android/data/") && c.contains("config.json") ->
+                (pushed[c.substringAfter("cat ").substringBefore(" 2>/dev/null")]?.let { String(it) } ?: "") + "\n"
+            c.contains("am force-stop ") && c.endsWith("echo restarted") -> { lookRestarts++; "restarted\n" }
             c.startsWith("mkdir -p /sdcard/Android/data/") -> "ok\n"
             c.startsWith("printf '%s' '") && c.contains("theme_revision") -> {
                 files[c.substringAfter("> ").substringBefore(" &&")] = c.substringAfter("'%s' '").substringBefore("'"); "ok\n"

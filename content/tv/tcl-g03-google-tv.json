@@ -1,0 +1,34 @@
+{
+  "name": "TCL Smart TV Pro (G03)",
+  "brand": "TCL",
+  "os": "Google TV (Android 11)",
+  "summary": "TCL Smart TV Pro (G03) ships with TCL and Google telemetry, promos and preloaded extras. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This Middle East firmware of the TCL Smart TV Pro sends TCL and Google usage data and runs several background services and preloaded extras nobody asked for. Content rows and promo apps sit on the home screen, and a few leftover factory and demo tools are still installed.",
+    "The list was applied in seven batches on a real set with a screenshot after each, then a reboot. Wi-Fi, Settings, the remote's Input key, Live TV, HDMI and app playback all kept working, and every app stayed off after the restart. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI and tuner inputs",
+    "The remote's Input key and TCL's source panel",
+    "Wi-Fi and Settings",
+    "Remote pairing and the Play Store"
+  ],
+  "notes": [
+    "It was lived with for about one day so far.",
+    "The Live TV row in the inputs menu needs a small setting from the optional clean home screen to show up."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my TCL Smart TV Pro?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Does AdGuard or private DNS still work?",
+      "a": "Yes. App launches and playback worked with AdGuard Private DNS during testing."
+    },
+    {
+      "q": "Does TidyTV delete anything on my TCL Smart TV Pro?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

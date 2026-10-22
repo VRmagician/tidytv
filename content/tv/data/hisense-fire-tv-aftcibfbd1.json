@@ -1,0 +1,182 @@
+{
+ "id": "hisense-fire-tv-aftcibfbd1",
+ "title": "Hisense Fire TV (Fire TV Edition, AFTCIBFBD1, codename coyote, MediaTek), Fire OS 8.0 / Android 11 (SDK 30),",
+ "header": "Hisense Fire TV (Fire TV Edition, AFTCIBFBD1, codename coyote, MediaTek), Fire OS 8.0 / Android 11 (SDK 30),\nfirmware RS8180.3734N, US. The first Fire OS 8 TV (Fire TV Edition) here. amazon-fire-tv-stick-4k-2023/ (Fire OS 8.1)\ngoes further on packages and its notes apply here too; this list adds what is TV-specific: Alexa voice coming back at\nevery boot, and HDMI input switching being reserved to Amazon.\n\nFIRE OS: DEBLOAT ONLY. As on Fire OS 7, com.amazon.tv.launcher and com.amazon.firehomestarter are protected\n(pm disable-user and am force-stop are refused) and keep Home. Live TV app: com.amazon.tv.livetv.\n\nApply:  TV_HOST=<tv ip> tools/disable.sh examples/hisense-fire-tv-aftcibfbd1/debloat.txt\nUndo:   TV_HOST=<tv ip> tools/restore.sh examples/hisense-fire-tv-aftcibfbd1/debloat.txt com.amazon.tv.launcher\nEverything is DISABLED for user 0, not uninstalled. Comment out any line you want to keep.\n\nLived with since 2026-10-19, through several reboots: Netflix, YouTube, Prime Video, Spotify, Settings, the Network\npage, Live TV settings and HDMI inputs (via the remote's Input button) all work.\n\nFire OS 8 notes:\n- com.amazon.vizzini (Alexa voice) comes back ENABLED AT EVERY BOOT. Neither pm disable-user, pm suspend,\n`appops set ... RECORD_AUDIO ignore` (not even applied) nor pm uninstall -k --user 0\n(DELETE_FAILED_INTERNAL_ERROR) survives a reboot; re-run this list after one. Everything else stays off.\n- Two packages are protected (pm disable-user is refused), so they are commented out below:\ncom.amazon.ftvads.deeplinking and com.amazon.device.crashmanager.\n- AdGuard Private DNS works (mads.amazon-adsystem.com stops resolving) and removes the third-party ad\nin the hero banner; Amazon's own promotions stay, they come from the protected launcher.\n- Input switching is Amazon-only: its player needs com.amazon.tv.permission.TUNE_INPUT (signature|amazon) and\nits picker com.amazon.tv.inputpreference.permission.LAUNCH_INPUTS (signature|privileged). The standard\npassthrough URI opens Live TV's settings instead of the input, so a launcher's Inputs button can't switch here.\n- Leave the animation scales at 1.0, as on amazon-fire-tv-stick-4k-2023/: at 0.5 every entry in the ☰ side menu\n(Inputs, Settings, profile) closes the menu and opens nothing. Confirmed on a second set (65U68QF, Canada) by\ntoggling 1.0 / 0.5 with the list applied.\n- Screensavers: Amazon's AmbientManagerService (in system_server) replaces any DreamService with Ambient\nExperience (\"Stopping Ambient, reason=starting new dream\", then \"Starting Ambient\"), and with\ncom.amazon.tv.ftvambient disabled it ends the dream at once (\"No AmbientService implementations found\"). A\nthird-party screensaver set through screensaver_components never shows. With ambient_turn_off_in_darkroom=1\nthe light sensor sends the set straight to sleep from Ambient in a dark room.\n- Live TV screens and a sleeping panel both screenshot as plain black; check `dumpsys power | grep mWakefulness`.\nAmazon's screens expose no text to uiautomator, so verify the UI with screenshots.\n- Owners who use Alexa voice, casting and Ambient: comment out the Alexa and Casting groups and ftvambient. The\n65U68QF set ran that way (vizzini, Alexa extras, cast.sink, AirPlay, Photos and Ambient kept) with the rest of\nthis list plus kso.blackbird, client.metrics.api and hedwig, and with Amazon Kids (tahoe) off as well, which\nthis list keeps on purpose: free memory after a cold boot went from about 1.0 GB to 1.6 GB and swap from\n98 % full to empty.\n\nKept on purpose: Amazon Kids (com.amazon.tahoe), OTA updates, Live TV, settings, Silk, Appstore, the stock launcher.\nPersonal choices are marked below: Alexa, AirPlay, Miracast and the preloaded apps.",
+ "sections": [
+  {
+   "title": "Ads, shopping and content recognition",
+   "apps": [
+    {
+     "pkg": "com.amazon.shoptv.client",
+     "note": "Shop on Fire TV"
+    },
+    {
+     "pkg": "com.amazon.tv.acr",
+     "note": "Automatic Content Recognition (what's on screen, HDMI included)"
+    },
+    {
+     "pkg": "com.amazon.tv.democontent.provider",
+     "note": "retail demo content"
+    },
+    {
+     "pkg": "com.amazon.media.recommendations",
+     "note": "sponsored and recommendation rows"
+    },
+    {
+     "pkg": "com.amazon.sneakpeek",
+     "note": "autoplaying previews on Home"
+    },
+    {
+     "pkg": "com.amazon.hybridadidservice",
+     "note": "advertising ID"
+    },
+    {
+     "pkg": "com.amazon.kso.blackbird",
+     "note": "launcher ad sync / bidding (sponsored banner and rows); tested on 65U68QF"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.ftvads.deeplinking",
+     "note": "ad deep links: protected on this firmware"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Telemetry and metrics",
+   "apps": [
+    {
+     "pkg": "com.amazon.client.metrics.api",
+     "note": "metrics client API; tested on 65U68QF"
+    },
+    {
+     "pkg": "com.amazon.wirelessmetrics.service",
+     "note": "Wi-Fi metrics upload"
+    },
+    {
+     "pkg": "com.amazon.perfcollection",
+     "note": "performance telemetry"
+    },
+    {
+     "pkg": "com.amazon.perfc",
+     "note": "performance telemetry"
+    },
+    {
+     "pkg": "com.amazon.dp.logger",
+     "note": "device log upload"
+    },
+    {
+     "pkg": "com.amazon.device.telemetry.emitter",
+     "note": "telemetry emitter"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.amazon.device.crashmanager",
+     "note": "crash report upload: protected on this firmware"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Tutorials",
+   "apps": [
+    {
+     "pkg": "com.amazon.storm.lightning.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tmm.tutorial",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Alexa (personal choice; vizzini comes back at every boot, see the header)",
+   "apps": [
+    {
+     "pkg": "com.amazon.vizzini",
+     "note": "Alexa voice on Fire TV"
+    },
+    {
+     "pkg": "com.amazon.tv.alexaalerts",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.tv.alexanotifications",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.alexamediaplayer.runtime.ftv",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.alexa.externalmediaplayer.fireos",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Casting (personal choice)",
+   "apps": [
+    {
+     "pkg": "com.apple.airplay.amazon.airplay",
+     "note": "AirPlay receiver: keep if you cast from an iPhone or Mac"
+    },
+    {
+     "pkg": "com.amazon.cast.sink",
+     "note": "Miracast screen mirroring"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps (personal choice)",
+   "apps": [
+    {
+     "pkg": "com.tubitv.ott",
+     "note": "Tubi"
+    },
+    {
+     "pkg": "com.amazon.bueller.music",
+     "note": "Amazon Music"
+    },
+    {
+     "pkg": "com.amazon.bueller.photos",
+     "note": "Amazon Photos"
+    },
+    {
+     "pkg": "com.amazon.minitv.android.app",
+     "note": "miniTV"
+    },
+    {
+     "pkg": "com.amazon.naatyam",
+     "note": "Naatyam"
+    },
+    {
+     "pkg": "com.amazon.gamehub",
+     "note": "games hub"
+    },
+    {
+     "pkg": "com.amazon.hedwig",
+     "note": "Fire TV Channels (free ad-supported channels row); tested on 65U68QF"
+    },
+    {
+     "pkg": "com.amazon.tv.ftvambient",
+     "note": "Ambient Experience screensaver"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 30
+}

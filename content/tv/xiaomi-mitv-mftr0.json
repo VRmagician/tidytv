@@ -1,0 +1,33 @@
+{
+  "name": "Xiaomi MiTV-MFTR0 (China)",
+  "brand": "Xiaomi",
+  "os": "Android TV 11",
+  "summary": "Xiaomi MiTV-MFTR0 (China) ships with telemetry, ads and push. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This China-market Xiaomi TV ships with telemetry, ads and push, preloaded apps, Mi Home and a cleaner. Its standby screensaver also shows ads from a downloaded carousel. Each app has its own switch in the app, so you decide which ones to turn off.",
+    "It was disabled and lived with on 22 October, and each app was checked against this firmware first. The mechanisms match the newer Redmi set. TidyTV saves a backup first and never deletes anything. TidyTV turns these apps off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Menu-button panel with the source switcher",
+    "The core Xiaomi TV service",
+    "Settings and HDMI inputs"
+  ],
+  "notes": [
+    "The screensaver ads come from their own app, so the screensaver setting does not stop them.",
+    "Switch the TV manager back on if the voice assistant stops opening apps."
+  ],
+  "faq": [
+    {
+      "q": "Can I get the old home screen back on my Xiaomi MiTV-MFTR0?",
+      "a": "Yes. Restore everything in the app turns every app back on and puts the old home screen back in one tap. TidyTV only switches apps off, so nothing is ever deleted."
+    },
+    {
+      "q": "Will it stop the standby ads?",
+      "a": "Yes. The app that shows the screensaver ads is on the list."
+    },
+    {
+      "q": "Does TidyTV delete anything on my Xiaomi MiTV-MFTR0?",
+      "a": "No. It turns apps off with Android's own setting, saves a backup first and checks each one. You can turn any app back on with its switch."
+    }
+  ]
+}

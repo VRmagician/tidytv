@@ -1,0 +1,286 @@
+{
+ "id": "xiaomi-mitv-mteq0",
+ "title": "Xiaomi TV EA Pro 55\" (MiTV-MTEQ0, codename baymax; sold as L55MA-EP), China-market firmware 23.6.26.4028,",
+ "header": "Xiaomi TV EA Pro 55\" (MiTV-MTEQ0, codename baymax; sold as L55MA-EP), China-market firmware 23.6.26.4028,\nAndroid 10 (SDK 29, QQ2A.200305.004.A1), MediaTek/MStar, 3840x2160 panel (Android reports a 1080p UI mode).\nStock launcher: com.mitv.tvhome (HOME activity .MainActivityUserMode). Live TV / sources: com.xiaomi.mitv.tvplayer.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mteq0/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mteq0/debloat.txt com.mitv.tvhome\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\nUsed for a day with two reboots and several standby cycles; nothing broke that is not noted here.\n\nNotes from this firmware (details in docs/devices/xiaomi-mitv-mteq0-baymax.md):\n- Home: the framework only accepts system apps or allowlisted package names as HOME, like the\nMiTV-AETP0. The opt-in build -PlauncherApplicationId=com.ts.launcher (docs/devices/xiaomi-mitv-aetp0-dofus.md)\nwas accepted here: HOME resolved to it, also after a reboot and after a force-stop like the one\nstandby does. With the standard com.gathin.tvhome ID, disabling com.mitv.tvhome leaves\nFallbackHome (a black screen).\n- Network ADB closes at every boot: com.xiaomi.mitv.settings writes adb_enabled=0 a few seconds after\nboot. Re-enable it under Settings > Account & Security > ADB debugging.\n- Standby (power key) force-stops every non-system app after 2 s (MitvPowerManagerService ->\nkillAllThirdApp) unless a cloud allowlist exempts it. Android then drops any accessibility service\nof those apps, so do not rely on an accessibility helper on this set.\n- com.xiaomi.mitv.upgrade and com.mediatek.TimeMeasurementAgent are persistent: the firmware starts them\nat boot even when disabled. Disabling still blocks their components; the processes stay.\n- Shell cannot disable single components, `pm hide` (no MANAGE_USERS) or `pm uninstall --user 0`\n(DELETE_FAILED_INTERNAL_ERROR) on this firmware, so whole-package disables are the only tool.\n- Wi-Fi 5 GHz: the Wi-Fi country code comes from Settings.Global service_region and falls back to CN,\nwhich hides 5 GHz networks on channels 100-144. `settings put global service_region <CC>` and a Wi-Fi\noff/on fixes it.\n- Xiaomi's package installer has no CONFIRM_INSTALL screen: stores that install split APKs through a\nPackageInstaller session (Aptoide) hang at 80%. Stores using ACTION_VIEW (single APKs) work.\n- No Google services: the official YouTube TV app refuses to run; SmartTube works.\n- Privacy toggles worth flipping as well: settings put secure allow_oaid_used 0 (OAID ad ID),\nsettings put global individual_privacy_enabled 0 (personalised recommendations).",
+ "sections": [
+  {
+   "title": "Xiaomi telemetry, diagnostics and log upload",
+   "apps": [
+    {
+     "pkg": "com.miui.analytics",
+     "note": "installed into /data/app by com.mitv.tvhome"
+    },
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tvqs",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.healthdiagnosis",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.debug",
+     "note": "DebugService: log collection"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.csi",
+     "note": "satisfaction survey and privacy prompt"
+    },
+    {
+     "pkg": "com.xiaomi.screenrecorder",
+     "note": "screen capture for feedback uploads"
+    },
+    {
+     "pkg": "com.xiaomi.android.TV.audio",
+     "note": "audio debug tool"
+    },
+    {
+     "pkg": "com.mediatek.TimeMeasurementAgent",
+     "note": "persistent: keeps running after boot even when disabled"
+    },
+    {
+     "pkg": "com.mstar.android.media.tests",
+     "note": "media test cases"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Push, cloud control, ads and promoted content",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvpush.tvpushservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.cloudcontrol",
+     "note": "cloud config; the HOME allowlist it downloaded stays on disk"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "web promos, Sentry"
+    },
+    {
+     "pkg": "com.duokan.videodaily",
+     "note": "video promos"
+    },
+    {
+     "pkg": "com.mitv.screensaver",
+     "note": "Xiaomi screensaver with pushed content"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "retail demo"
+    },
+    {
+     "pkg": "com.xiaomi.gamecenter.sdk.service.mibox",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Shopping, payment and Mi account",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.shop",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.pay",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.payment",
+     "note": ""
+    },
+    {
+     "pkg": "com.mipay.wallet.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.account",
+     "note": "Mi account; needed only for Xiaomi's paid content"
+    },
+    {
+     "pkg": "com.xiaomi.account.auth",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Updates and app store",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.upgrade",
+     "note": "OTA, persistent like TimeMeasurementAgent; re-enable to update"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.appstore",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Cleaners, panels and first-run setup",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner, log reporter"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartpanel",
+     "note": "long-press Menu panel"
+    },
+    {
+     "pkg": "com.xiaomi.setupwizard",
+     "note": "first-run setup only; does not claim HOME here"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Casting (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.miplay",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.smartshare",
+     "note": ""
+    },
+    {
+     "pkg": "com.duokan.airkan.tvbox",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.wfdsinkhelperservice",
+     "note": "Miracast sink"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Smart home / IoT",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.smarthome.tv",
+     "note": "long-press Home opens it; nothing happens once disabled"
+    },
+    {
+     "pkg": "com.xiaomi.mico.mqtt.service.application.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mi_connect_service",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "XiaoAI voice assistant",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.voicecontrol",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.wakeupservice",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "The remote's mic key only reaches com.xiaomi.voicecontrol (no key event), so it does nothing once disabled; Google voice search cannot replace it without Google services."
+  },
+  {
+   "title": "Preloaded apps (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tweather",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.calendar",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.mivideoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.karaoke.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mibox.lockscreen",
+     "note": "child mode and privacy lock"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.handbook",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.legal.webview",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.alarmcenter",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.tv.gallery",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.mitv.mediaexplorer",
+     "note": "USB media player"
+    },
+    {
+     "pkg": "com.mitv.toolhouse",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.sohu.inputmethod.sogou.tv",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.mitv.tvhome",
+ "count": 52
+}

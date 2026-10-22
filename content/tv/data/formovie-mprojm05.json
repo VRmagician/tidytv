@@ -1,0 +1,125 @@
+{
+ "id": "formovie-mprojm05",
+ "title": "Formovie / Fengmi projector MiProjM05 (device eva, Amlogic/droidlogic), Android TV 9 (SDK 28), build PQ3B.190705.003.2102",
+ "header": "Formovie / Fengmi projector MiProjM05 (device eva, Amlogic/droidlogic), Android TV 9 (SDK 28), build PQ3B.190705.003.2102\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/formovie-mprojm05/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/formovie-mprojm05/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED for user 0, never uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher. Only other HOME claimant is com.android.tv.settings/.system.FallbackHome.\nSaved Wi-Fi belongs to android.uid.system and com.google.uid.shared, not setupwraith, which does not claim HOME here.\nThe firmware re-enables com.google.android.leanbacklauncher at every boot; it claims no HOME, so it is left alone.\nHDMI comes from com.droidlogic.tvinput, so the launcher's Inputs pill lists the one HDMI port. No tuner:\nlive_tv_package can be left empty.\nKept: com.fengmi.projector.imaging (focus, keystone, auto keystone; auto keystone still works with Camera2 off),\ncom.fengmi.fmsettings, com.fengmi.platform, com.formovie.fmutils, com.formovie.gsettings (projector settings,\nvoice key, USB), com.formovie.launchboard (Formovie app drawer), droidlogic services, Live Channels, Play Store and Services.\nRemote (\"Xiaomi RC\", Vendor_2717_Product_32b9.kl): the gear button sends KEY_APPSELECT (580), mapped to\nKEYCODE_ALL_APPS (284), not KEY_TAPE (384). With tvlauncher disabled it does nothing; settings_key_keycodes 284 with\nHOME_KEY_SERVICE=1 makes it open Settings, but that helper stops a held Volume Up from ramping (one step per press).\nFirmware updates come through TvSettings; no separate updater package.",
+ "sections": [
+  {
+   "title": "Telemetry and partner auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.nbu.smartconnect.tv",
+     "note": "Google data meter / VPN client"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Recommendations and content",
+   "apps": [
+    {
+     "pkg": "com.google.android.leanbacklauncher.recommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Ambient screensaver, off by choice"
+    },
+    {
+     "pkg": "cn.formovie.fengos.usermanual",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps, off by choice",
+   "apps": [
+    {
+     "pkg": "com.espn.score_center",
+     "note": ""
+    },
+    {
+     "pkg": "com.cbsnews.ott",
+     "note": ""
+    },
+    {
+     "pkg": "com.ted.android.tv",
+     "note": ""
+    },
+    {
+     "pkg": "com.nousguide.android.rbtv",
+     "note": ""
+    },
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Unused system apps",
+   "apps": [
+    {
+     "pkg": "com.android.camera2",
+     "note": "the webcam is driven by Formovie's own cameraservice_fm, not this app"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.fengmi.testsuite",
+     "note": "factory test suite: disabled, never launched"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher (only after the new launcher is Home)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 20
+}

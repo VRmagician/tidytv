@@ -1,0 +1,34 @@
+{
+  "name": "TCL 43S5400A",
+  "brand": "TCL",
+  "os": "Android TV 11",
+  "summary": "TCL 43S5400A ships with a TCL account app, a cleaner, promo rows and Google extras. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 43 inch TCL has about 1 GB of memory and ships with a TCL account app, a TGuard background cleaner, promo rows on the stock home, a TCL video portal, a store demo sticker, a partner app auto installer, a promo app and push messages. Google extras such as Play Movies and a music stub add more.",
+    "The list was applied with a screenshot after each batch. YouTube, Vidio, Jellyfin and Netflix played, and HDMI 1, HDMI 2, AV and Live TV switched properly. Free memory rose from about 100 MB to about 328 MB. TidyTV saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV, which also handles HDMI",
+    "The TCL input service for 2 HDMI, AV and tuner",
+    "The firmware updater, which TCL calls ttvs",
+    "Picture and sound settings"
+  ],
+  "notes": [
+    "The TCL account app may be turned back on by the system at boot, though it stays idle.",
+    "The photo screensaver uses about 105 MB of memory. Switch to a lighter screensaver before turning it off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my TCL 43S5400A?",
+      "a": "Not with the default list. It turns off Google Assistant, which the mic button uses. Switch it back on in the app if you use voice."
+    },
+    {
+      "q": "Will TV updates still work?",
+      "a": "Yes. The firmware updater is kept on purpose."
+    },
+    {
+      "q": "Can I get the old home screen back?",
+      "a": "Yes. Restore everything turns every app back on and puts the stock Android TV home screen back."
+    }
+  ]
+}
