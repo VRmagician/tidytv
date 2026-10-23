@@ -1,0 +1,36 @@
+{
+  "name": "Liberton LTV 24H01AT",
+  "brand": "Liberton",
+  "os": "Android TV 11",
+  "summary": "Liberton LTV 24H01AT ships with a Homwee app store, ad services and sponsored rows. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Liberton set is built by Changhong and runs Android TV 11 with the Homwee layer on top. It ships with a Homwee app store, silent installers, ad services, sponsored rows on the home screen and extras like an accessibility service and preloaded apps. Apps such as Kyivstar TV and Spotify come preinstalled.",
+    "The list was checked against the 122 packages on this TV. The owner chose to keep the voice assistant and Chromecast casting. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything, so each app can be switched back on."
+  ],
+  "keep": [
+    "Voice assistant",
+    "Chromecast casting",
+    "Remote key service and the Input key",
+    "Live TV, its channel scan and all the MediaTek TV parts",
+    "A Google home screen part that Live TV needs: without it the Input key and other hotkeys stop working after a restart",
+    "Factory tools (never opened)"
+  ],
+  "notes": [
+    "The vendor updaters are left on the list but commented out here, so updates keep working unless you turn them off.",
+    "Do not switch off the Google partner customizer. Without it the TV service crashes after a restart and the Input key stops working."
+  ],
+  "faq": [
+    {
+      "q": "Will the Input key still work?",
+      "a": "Yes, as long as you leave the parts listed as kept alone. The Google partner customizer matters most: the Input key breaks without it."
+    },
+    {
+      "q": "Does casting still work?",
+      "a": "Yes. Chromecast is kept by the owner."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

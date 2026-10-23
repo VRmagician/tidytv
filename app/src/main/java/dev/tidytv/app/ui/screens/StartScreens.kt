@@ -16,6 +16,18 @@ import dev.tidytv.app.ui.BigButton
 import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Bubble
 import dev.tidytv.app.ui.ChoiceButton
+import dev.tidytv.app.ui.ChipRow
+import dev.tidytv.app.ui.InfoChip
+import dev.tidytv.app.ui.MoreInfo
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.HelpOutline
+import androidx.compose.material.icons.rounded.Backup
+import androidx.compose.material.icons.rounded.SettingsInputHdmi
+import androidx.compose.material.icons.rounded.DesktopWindows
+import androidx.compose.material.icons.rounded.Favorite
+import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.Shield
+import androidx.compose.material.icons.rounded.Tv
 import dev.tidytv.app.ui.HeroMascot
 import dev.tidytv.app.ui.Note
 import dev.tidytv.app.ui.NumberedStep
@@ -41,7 +53,7 @@ fun WelcomeScreen(
         val actions = dev.tidytv.app.ui.LocalAppActions.current
         androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
             TextLink("Feedback", { actions.feedback(dev.tidytv.app.ui.FeedbackRequest(dev.tidytv.app.data.FeedbackKind.FEATURE, "welcome")) }, color = Tidy.Muted)
-            TextLink("↻  Restore a TV", onRestore)
+            TextLink("Restore a TV", onRestore, icon = Icons.Rounded.Restore)
         }
     }) {
         if (update != null) UpdateBanner(update, onDismissUpdate)
@@ -67,19 +79,23 @@ fun WelcomeScreen(
                 confirmButton = {},
                 dismissButton = { androidx.compose.material3.TextButton({ pick = false }) { androidx.compose.material3.Text("Cancel") } },
             )
-            HeroMascot(height = 110.dp)
+            HeroMascot(height = 96.dp)
             Bubble("Connect another TV")
         } else {
-            HeroMascot()
+            HeroMascot(height = 120.dp)
             Bubble("Hi! What TV do you have?")
         }
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            ChoiceButton("Android TV / Google TV", "Sony, TCL, Philips, Hisense, Xiaomi, Chromecast…", Tidy.Blue) { onChoose(TvKind.ANDROID_TV) }
-            ChoiceButton("Amazon Fire TV", "Clean-up only", Tidy.Orange) { onChoose(TvKind.FIRE_TV) }
-            ChoiceButton("Samsung or LG", null, Tidy.Purple) { onChoose(TvKind.SAMSUNG_LG) }
-            ChoiceButton("Not sure", "We'll check once connected", Tidy.Grey, textColor = Tidy.Ink) { onChoose(TvKind.NOT_SURE) }
+            ChoiceButton("Android TV / Google TV", Icons.Rounded.Tv, Tidy.Blue) { onChoose(TvKind.ANDROID_TV) }
+            ChoiceButton("Amazon Fire TV", Icons.Rounded.SettingsInputHdmi, Tidy.Orange, badge = "Clean-up only") { onChoose(TvKind.FIRE_TV) }
+            ChoiceButton("Samsung or LG", Icons.Rounded.DesktopWindows, Tidy.Purple) { onChoose(TvKind.SAMSUNG_LG) }
+            ChoiceButton("Not sure", Icons.AutoMirrored.Rounded.HelpOutline, Tidy.Grey, textColor = Tidy.Ink) { onChoose(TvKind.NOT_SURE) }
         }
-        Body("Free and open source. TidyTV turns apps off, never deletes them, and saves a backup first so you can undo everything.")
+        ChipRow(center = true) {
+            InfoChip(Icons.Rounded.Favorite, "Free")
+            InfoChip(Icons.Rounded.Shield, "Never deletes")
+            InfoChip(Icons.Rounded.Backup, "Backup first")
+        }
     }
 }
 
@@ -117,31 +133,30 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
     val fire = kind == TvKind.FIRE_TV
     ScreenFrame(bottom = { BigButton("My TV is ready", onReady) }) {
         Title(if (mode == Mode.RESTORE) "Let's reconnect to your TV" else "Get your TV ready")
-        Body(
-            if (mode == Mode.RESTORE) "Restoring needs the TV on and reachable. Keep your phone on the same home network as the TV and check debugging is still switched on."
-            else "This takes about a minute and is only needed once. Keep your phone on the same home network as the TV.",
-        )
+        Body(if (mode == Mode.RESTORE) "TV on, same Wi-Fi, debugging still on." else "About a minute, and only once.")
         Outline {
             Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
                 if (fire) {
-                    NumberedStep(1, "Turn on developer options", "Settings › My Fire TV › About. Select your Fire TV's name 7 times until it says you're a developer.")
-                    NumberedStep(2, "Turn on ADB debugging", "Settings › My Fire TV › Developer options › ADB debugging: On.")
-                    NumberedStep(3, "Keep the TV on", "When your TV asks \"Allow USB debugging?\", tick Always allow, then press Allow.")
+                    NumberedStep(1, "Select your Fire TV's name 7 times", "Settings › My Fire TV › About")
+                    NumberedStep(2, "Turn on ADB debugging", "My Fire TV › Developer options")
+                    NumberedStep(3, "Allow on the TV", "Tick Always allow, then Allow")
                 } else {
-                    NumberedStep(1, "Turn on developer options", "Settings › System › About. Select Android TV OS build 7 times until it says you're a developer.")
-                    NumberedStep(2, "Turn on debugging", "Settings › System › Developer options. Turn on USB debugging, then Wireless debugging. Some TVs call it Network debugging or ADB over network instead.")
-                    NumberedStep(3, "Keep the TV on", "When your TV asks \"Allow debugging?\", tick Always allow, then press Allow.")
+                    NumberedStep(1, "Select Build 7 times", "Settings › System › About › Android TV OS build")
+                    NumberedStep(2, "Turn on USB debugging", "Developer options. Then Wireless debugging too.")
+                    NumberedStep(3, "Allow on the TV", "Tick Always allow, then Allow")
                 }
             }
         }
-        Note("Using a stick powered from the TV's USB port? Plug it into its wall adapter for now, so it doesn't switch off halfway.")
-        if (!fire) {
-            Note(
-                "TV on Ethernet? On most TVs Wireless debugging stays greyed out until the TV is on Wi-Fi. Turn on the TV's Wi-Fi and join the same network as your phone, then turn on Wireless debugging. You can turn Wi-Fi off again when you're done.",
-                color = Tidy.BlueSoft, textColor = Tidy.Ink,
-            )
-            Body("With Wireless debugging, TidyTV asks once for the code your TV shows.", color = Tidy.Muted)
+        MoreInfo("Need help?", link = "Need help?") {
+            Body("Keep your phone on the same home network as the TV.", color = Tidy.Ink)
+            Note("Using a stick powered from the TV's USB port? Plug it into its wall adapter for now, so it doesn't switch off halfway.")
+            if (!fire) {
+                Body("Some TVs call Wireless debugging Network debugging or ADB over network instead. With Wireless debugging, TidyTV asks once for the code your TV shows.", color = Tidy.Ink)
+                Note(
+                    "TV on Ethernet? On most TVs Wireless debugging stays greyed out until the TV is on Wi-Fi. Turn on the TV's Wi-Fi and join the same network as your phone, then turn on Wireless debugging. You can turn Wi-Fi off again when you're done.",
+                    color = Tidy.BlueSoft, textColor = Tidy.Ink,
+                )
+            }
         }
     }
 }
-

@@ -1,0 +1,35 @@
+{
+  "name": "RockTek GB1",
+  "brand": "RockTek",
+  "os": "Google TV 14",
+  "summary": "RockTek GB1 Google TV box ships with ad personalization, feedback services and unused preloads. TidyTV is a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "This RockTek GB1 box runs Google TV 14. It ships with Android advertising and personalization services, feedback reporting and a few preloaded apps nobody asked for. The Google TV setup wizard is also on the list, but only after you check your Wi-Fi and the new home screen works.",
+    "The home screen handover and a restart were checked on the box. Long-term use, such as streaming, voice and updates, is not confirmed yet. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Remote global keys",
+    "The phone remote link",
+    "Play Store and Play Services",
+    "The Google keyboard"
+  ],
+  "notes": [
+    "Before switching off the setup wizard, check that it does not own your saved Wi-Fi network. If it does, rejoin the network in Settings first.",
+    "With the stock home screen off, the gear and Macro buttons stop working until the key helper is turned on. Test the real remote.",
+    "Switching off the setup wizard hands Home to the new screen but may cost casting."
+  ],
+  "faq": [
+    {
+      "q": "Will the gear and Macro buttons still work?",
+      "a": "Only with the key helper turned on. They relied on the stock home screen. The gear opens TV settings and Macro opens a set app."
+    },
+    {
+      "q": "Will casting still work?",
+      "a": "Possibly not. Switching off the setup wizard may cost casting. Turn it back on to get it back."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

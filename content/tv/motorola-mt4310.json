@@ -1,0 +1,37 @@
+{
+  "name": "Motorola MT4310",
+  "brand": "Motorola",
+  "os": "Android TV 11",
+  "summary": "Motorola MT4310 (Argentina) ships with store demo, silent installs and promo rows. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 43-inch Motorola set, sold in Argentina, runs Android TV 11 and has under 1 GB of memory. It ships with silent installers, a store demo, setup leftovers, telemetry, recommendation and promo rows, and a few unused system services. It is a small set, so memory is tight.",
+    "It was done in batches on one TV with a home screen check after each, then a restart. Live TV, HDMI switching and the real remote's buttons were checked. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. It had held up for a day when it was written."
+  ],
+  "keep": [
+    "Live TV, HDMI and the Input key (MediaTek TV service)",
+    "The remote's YouTube, Prime Video and Disney+ keys",
+    "Bluetooth",
+    "Device ID and auto backlight",
+    "The setup helper, which does not take over Home here"
+  ],
+  "notes": [
+    "The TV's factory tool turns Google Assistant and the recommendation service back on at every start, so they are not on the list.",
+    "The screen sleeps after 5 minutes idle and Wi-Fi drops with it. If the TV seems to vanish after a restart, press Power.",
+    "The remote's mic button opens Bluetooth pairing until the remote is paired.",
+    "Never open the factory menus on this TV, even to look."
+  ],
+  "faq": [
+    {
+      "q": "Do the Netflix and YouTube buttons still work?",
+      "a": "Yes. The TV's own key services handle them, so they keep working with a new home screen."
+    },
+    {
+      "q": "Why are Assistant and recommendations still on?",
+      "a": "The TV's factory tool turns them back on at every start, so the list does not try to switch them off."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

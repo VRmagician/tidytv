@@ -1,0 +1,33 @@
+{
+  "name": "KTC 4K Smart TV",
+  "brand": "KTC",
+  "os": "Google TV 14",
+  "summary": "KTC 4K Smart TV (Taiwan) ships with viewing tracking, Google feedback telemetry and factory tools. TidyTV is a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "This white-label KTC set runs Google TV 14 and is sold in Taiwan. It ships with a viewing tracker that watches what is on screen, Google feedback and crash reporting, and a handful of factory and production-line test tools. It also has two small unused apps.",
+    "The Taiwan video apps it comes with (friDay, ChocoTV, LiTV, myVideo, Hami and iQIYI) are kept on purpose, because the owner uses them. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. You can still switch any app on the list back on."
+  ],
+  "keep": [
+    "Taiwan video apps: friDay, ChocoTV, LiTV, myVideo, Hami, iQIYI",
+    "Google Assistant and voice search (the mic button needs them)",
+    "The Play Store and Play Services",
+    "The remote and HDMI inputs"
+  ],
+  "notes": [
+    "This list is small on purpose. It only covers the viewing tracker, feedback telemetry, factory tools and two unused apps."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my KTC TV?",
+      "a": "Yes. Google Assistant is kept, because the mic button and voice search stop working without it."
+    },
+    {
+      "q": "Will my Taiwan video apps still work?",
+      "a": "Yes. They are not on the list."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

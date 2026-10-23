@@ -69,6 +69,8 @@ class UpstreamListsTest {
             "onn-4k-streaming-box-2023" to "com.google.android.apps.tv.dreamx",
             "xiaomi-mitv-afmu0" to "com.google.android.tv.remote.service",
             "xiaomi-tv-a-pro-2026" to "com.google.android.apps.mediashell",
+            // After 2.6: disabling it gives "No Signal" on every input, HDMI included.
+            "sankey-smart2ktvse" to "com.zeasn.livetv",
         )
         for ((id, pkg) in fixed) {
             val l = catalog.byId(id)!!
@@ -117,6 +119,13 @@ class UpstreamListsTest {
             TvInfo("Android TV", "x1", "y1", "Acme", "Acme", 30, "11", "x"),
             TvInfo("Google TV", "x2", "y2", "Acme", "Acme", 30, "11", "x"),
         )) assertTrue(other.model, ModelMatcher.match(other, catalog.lists).none { it.exact })
+    }
+
+    @Test fun listsTidyTvCantApplyAreNeverOffered() {
+        // The TiVo Stream 4K refuses pm disable-user for every app; its list suspends them instead.
+        val tivo = TvInfo("TiVo Stream 4K", "SEI400TV", "SEI400TV", "TiVo", "SEI Robotics", 31, "12", "x")
+        assertTrue(ModelMatcher.match(tivo, catalog.lists).none { it.list.id == "tivo-stream-4k" })
+        assertTrue("the list itself still parses", catalog.byId("tivo-stream-4k") != null)
     }
 
     @Test fun aRealModelNumberStillMatchesExactly() {

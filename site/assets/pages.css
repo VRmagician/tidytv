@@ -37,7 +37,9 @@ code { font-family: ui-monospace, "SF Mono", Menlo, monospace; font-size: .86em;
 .btn:active { transform: translateY(4px); box-shadow: 0 1px 0 var(--ink); }
 .btn.star { background: #fff; }
 .btn.star svg, .starpill svg { color: #F5B400; stroke: var(--ink); stroke-width: 1.4; }
-.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; }
+.actions { display: flex; flex-wrap: wrap; gap: 14px; margin-top: 24px; align-items: center; }
+.play { display: inline-block; line-height: 0; border-radius: 12px; }
+.play img { height: 76px; width: auto; margin: -10px -12px; }
 @media (max-width: 480px) { .actions .btn { width: 100%; } }
 .stars { display: none; padding: 3px 9px; border-radius: 999px; background: var(--ground); font-size: .85em; font-weight: 900; }
 .has-stars .stars { display: inline-block; }

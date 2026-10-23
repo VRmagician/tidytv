@@ -82,5 +82,31 @@ object Grouping {
             .sortedWith(compareBy({ it.group.ordinal }, { it.label.lowercase() }))
     }
 
+    /**
+     * "Show more apps", for when this TV's own list finds only a few: apps that OTHER TVs' lists turn
+     * off and that are installed here. All start unselected. Never offered: protected and home apps,
+     * anything any list says to keep or not touch, and packages already on the review screen
+     * ([offered]: the current list's candidates and everything else that list mentions).
+     */
+    fun moreCandidates(
+        catalog: List<DebloatList>,
+        installed: Set<String>,
+        live: Set<String>,
+        keep: Set<String>,
+        offered: Set<String> = emptySet(),
+    ): List<Candidate> {
+        val keptAnywhere = catalog.flatMap { it.keep }.toSet() + keep
+        val refused = catalog.flatMap { it.entries + it.optional }.filter { NOT_OFFERED.containsMatchIn(it.note) }.map { it.pkg }.toSet()
+        return catalog.asSequence()
+            .flatMap { it.entries + it.optional }
+            .filter { it.pkg in installed && it.pkg !in offered && it.pkg !in refused && it.pkg !in keptAnywhere }
+            .filterNot { Launchers.isHomeApp(it.pkg) }
+            .filterNot { Protected.isProtected(it.pkg, live, keep) }
+            .distinctBy { it.pkg }
+            .map { e -> Candidate(e.pkg, AppLabels.label(e.pkg, e.note), e.note, groupOf(e), selected = false, optional = true) }
+            .sortedWith(compareBy({ it.group.ordinal }, { it.label.lowercase() }))
+            .toList()
+    }
+
     private fun String.containsAny(vararg needles: String) = needles.any { contains(it) }
 }

@@ -1,0 +1,36 @@
+{
+  "name": "Hisense 65D62QH",
+  "brand": "Hisense",
+  "os": "Android TV 11 (JuUI)",
+  "summary": "Hisense 65D62QH (China) ships with telemetry, a push channel and ad services. TidyTV is a free phone app that turns them off, with backup and undo.",
+  "intro": [
+    "This China-market Hisense runs JuUI on Android 11. It ships with usage reporting, a vendor push channel, a network poller that keeps running, ad services, retail and hotel leftovers, and preloaded content. The screensaver also shows stock photos with a caption and a like button.",
+    "The list was checked on a real set in five batches, with a cold restart after each. HDMI, the remote, Wi-Fi, Bluetooth pairing and the keyboard kept working. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. It does not change how the home screen looks."
+  ],
+  "keep": [
+    "HDMI and the input panel",
+    "The remote and Bluetooth pairing",
+    "Wi-Fi",
+    "The on-screen keyboard",
+    "Settings and setup apps"
+  ],
+  "notes": [
+    "The sponsored rows, VIP banner and promo tiles on the home screen come from the TV's own video app, so this list does not remove them. Only a new home screen does.",
+    "The firmware turns the calendar, clock and music apps back on at every start, so they will not stay off.",
+    "This set does not ask 'Allow debugging?', so anyone on your Wi-Fi could connect while debugging is on. Switch debugging off when you are done."
+  ],
+  "faq": [
+    {
+      "q": "Will it stop the ads on the home screen?",
+      "a": "Not by itself. The sponsored rows and banners are fed by the TV's video app, which the list leaves on. A new home screen from TidyTV removes them."
+    },
+    {
+      "q": "Will HDMI and the remote still work on my Hisense 65D62QH?",
+      "a": "Yes. Each batch was followed by a restart and a check of the input panel, the remote, Wi-Fi and Bluetooth pairing."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

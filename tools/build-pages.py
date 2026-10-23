@@ -26,7 +26,8 @@ SITE = ROOT / "site"
 BASE = "https://tidytv.winkle.dev"
 REPO = "https://github.com/jolan94/tidytv"
 LIST_URL = "https://github.com/Gathin23/cleanyourtv/blob/main/examples/{id}/debloat.txt"
-VERSION = "0.6.1"
+VERSION = "0.7.0"
+PLAY = "https://play.google.com/store/apps/details?id=com.appfactory.tidytv"
 TODAY = date.today().isoformat()
 
 PKG = re.compile(r"^([a-zA-Z][\w]*(?:\.[\w]+)+)\s*(?:#\s*(.*))?$")
@@ -183,7 +184,7 @@ DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=
 
 
 def buttons() -> str:
-    return (f'<div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-{VERSION}.apk">{DOWN}Download the free APK</a>'
+    return (f'<div class="actions"><a class="play" href="{PLAY}"><img src="/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play"></a>'
             f'<a class="btn star" href="{REPO}" data-star>{STAR}Star on GitHub<span class="stars" data-count></span></a></div>')
 
 
@@ -401,7 +402,7 @@ def guides_index(gs: list) -> str:
 
 # ---------- privacy ----------
 
-PRIVACY_DATE = "22 October 2026"
+PRIVACY_DATE = "24 October 2026"
 
 def privacy_page() -> str:
     body = f"""<article class="card guide">
@@ -413,7 +414,7 @@ def privacy_page() -> str:
 <h2>The short version</h2>
 <ul>
 <li>TidyTV talks to your TV over your own home network. That traffic never leaves your network.</li>
-<li>Once a day it asks GitHub whether a newer version is out. Nothing about you or your TV is sent.</li>
+<li>Installed from Google Play, it never checks for updates itself: Play does that. A copy installed from GitHub asks GitHub once a day whether a newer version is out, and sends nothing about you or your TV.</li>
 <li>Anything else leaves your phone only when you choose to send it: a message in the feedback form, or something you share through Android's share sheet.</li>
 <li>We don't sell data, show ads, or use analytics or advertising SDKs.</li>
 </ul>
@@ -434,7 +435,7 @@ def privacy_page() -> str:
 
 <h2>What goes over the internet</h2>
 <h3>Update check</h3>
-<p>Once a day TidyTV requests the public "latest release" page of its GitHub repository to see whether a newer version exists. The request contains nothing about you or your TV. Like any web request, GitHub sees your IP address; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
+<p>Copies installed from Google Play skip this: Play handles their updates. A copy installed another way (for example the APK from GitHub) requests the public "latest release" page of TidyTV's GitHub repository once a day to see whether a newer version exists. The request contains nothing about you or your TV. Like any web request, GitHub sees your IP address; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
 <h3>Feedback form (only when you tap Send)</h3>
 <p>If you send a message from the app, it includes:</p>
 <ul>
@@ -467,7 +468,7 @@ def privacy_page() -> str:
 <p>If this policy changes, we'll update this page and the date above. Questions: use the feedback form in the app or open an issue on <a href="{REPO}/issues">GitHub</a>.</p>
   </div>
 </article>"""
-    ld = [{"@context": "https://schema.org", "@type": "WebPage", "name": "TidyTV privacy policy", "url": f"{BASE}/privacy/", "dateModified": "2026-10-22"}]
+    ld = [{"@context": "https://schema.org", "@type": "WebPage", "name": "TidyTV privacy policy", "url": f"{BASE}/privacy/", "dateModified": "2026-10-24"}]
     return page("privacy/", "Privacy policy | TidyTV", "What data the TidyTV app handles: almost none. No account, ads, analytics or tracking. What stays on your phone and what is sent only when you choose.",
                 body, ld, [("TidyTV", "/"), ("Privacy policy", None)])
 

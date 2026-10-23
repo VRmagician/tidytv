@@ -46,7 +46,8 @@ class MainActivity : ComponentActivity() {
                     lists = { Store.loadLists(app.assets) },
                     launcherApk = { home -> runCatching { app.assets.open("launcher/${home.asset}").use { it.readBytes() } }.getOrNull() },
                     iconFromApk = dev.tidytv.app.data.ApkIcons(app, store)::iconFromApk,
-                    updates = dev.tidytv.app.data.UpdateCheck(store.updateFile, BuildConfig.VERSION_NAME, ::httpGet),
+                    updates = if (!dev.tidytv.app.data.UpdateCheck.needed(installerOf(app.packageName))) null
+                        else dev.tidytv.app.data.UpdateCheck(store.updateFile, BuildConfig.VERSION_NAME, ::httpGet),
                     looks = { id -> dev.tidytv.app.data.Looks.load(app.assets, id) },
                     photoWallpaper = { f -> dev.tidytv.app.data.Wallpaper.fromPhoto(f.size) { f.open() } },
                 )
@@ -104,6 +105,12 @@ class MainActivity : ComponentActivity() {
         return runCatching { f.readText().trim() }.getOrNull()?.takeIf { it.isNotEmpty() }
             ?: java.util.UUID.randomUUID().toString().also { runCatching { f.writeText(it) } }
     }
+
+    /** Which app installed TidyTV ("com.android.vending" for Google Play); null when Android won't say. */
+    private fun installerOf(pkg: String): String? = runCatching {
+        if (android.os.Build.VERSION.SDK_INT >= 30) packageManager.getInstallSourceInfo(pkg).installingPackageName
+        else @Suppress("DEPRECATION") packageManager.getInstallerPackageName(pkg)
+    }.getOrNull()
 
     /** A small GET for the update check; null on any error. */
     private fun httpGet(url: String): String? = runCatching {

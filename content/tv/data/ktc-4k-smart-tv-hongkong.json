@@ -1,0 +1,70 @@
+{
+ "id": "ktc-4k-smart-tv-hongkong",
+ "title": "KTC 4K Smart TV (device hongkong, MediaTek), Taiwan, Google TV 14, build UKNV.260626.001.",
+ "header": "KTC 4K Smart TV (device hongkong, MediaTek), Taiwan, Google TV 14, build UKNV.260626.001.\nSold white-label with Taiwan telecom VOD apps preinstalled (friDay/ChocoTV/LiTV/myVideo/\nHami/iQIYI) — those are kept here on the owner's request. This list only removes ACR\ntracking, Google feedback telemetry, and OEM factory/demo tools.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/ktc-4k-smart-tv-hongkong/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/ktc-4k-smart-tv-hongkong/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nDo NOT disable com.google.android.katniss — it's Google Assistant/voice search; the\nremote's mic button and in-app voice search stop working without it.",
+ "sections": [
+  {
+   "title": "ACR (automatic content recognition) tracking",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.anokiacroptin",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google feedback/crash telemetry",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "OEM factory/production-line test tools",
+   "apps": [
+    {
+     "pkg": "com.ktc.serialport",
+     "note": ""
+    },
+    {
+     "pkg": "com.ktc.tv.factory",
+     "note": ""
+    },
+    {
+     "pkg": "ktc.factorymenu.ui",
+     "note": ""
+    },
+    {
+     "pkg": "mediatek.factorymenu.ui",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Misc unused preinstalled apps",
+   "apps": [
+    {
+     "pkg": "com.electronic.manual",
+     "note": ""
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 8
+}

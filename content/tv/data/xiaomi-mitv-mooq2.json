@@ -1,0 +1,153 @@
+{
+ "id": "xiaomi-mitv-mooq2",
+ "title": "Xiaomi Mi TV P1 43\" (MiTV-MOOQ2, codename croods, MediaTek), Android TV 11, firmware RTM4.220307.164.8238",
+ "header": "Xiaomi Mi TV P1 43\" (MiTV-MOOQ2, codename croods, MediaTek), Android TV 11, firmware RTM4.220307.164.8238\nLatin America retail unit (L43M6), 1.7 GB RAM, Android low-RAM mode on. Same croods chassis as MiTV-MOOQ0.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/xiaomi-mitv-mooq2/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/xiaomi-mitv-mooq2/debloat.txt\nEverything is DISABLED for user 0, not uninstalled. Comment out any line you want to keep.\nProvisional: applied in one session and reboot-checked; every package stayed disabled after reboot.\n\nStock launcher: com.google.android.tvlauncher. It is NOT in this list: launcher/build-and-install.sh\ndisables it after com.gathin.tvhome is installed and verified as Home (default STOCK_LAUNCHER detection works).\nOnly com.android.tv.settings and the stock launcher claim HOME on this firmware; setupwraith does not, so\nit stays enabled and the saved Wi-Fi network is untouched.\n\nKept deliberately, checked with `dumpsys package`:\ncom.mitv.overseaservice                        hosts netflixService (the Netflix key), as on MOSR4\ncom.xiaomi.android.tvsetup.partnercustomizer   holds BleRcActivity, the Bluetooth remote pairing\ncom.xiaomi.tvqs.overseas                       TV quick-settings receivers\ncom.mediatek.tvinput, com.mediatek.wwtv.tvcenter, mitv.service, com.mediatek.tv.service   HDMI 1-3, AV, tuner\ncom.xiaomi.mitv.updateservice                  firmware updates, kept by owner's choice\n\nBefore disabling com.mitv.dream and com.google.android.backdrop, point the screensaver elsewhere:\nsettings put secure screensaver_components com.gathin.tvhome/.ClockDream\n\nTested after the debloat: launcher Inputs menu lists HDMI 1-3, AV and Live TV; Netflix, YouTube, Prime Video\nand Max launch; Chromecast, Mi Cast/Miracast and the Bluetooth remote still work.",
+ "sections": [
+  {
+   "title": "---- Xiaomi and Google telemetry ----",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "com.xiaomi.statistic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "crash / feedback reporting"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Xiaomi content, ads and recommendation rows ----",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": "PatchWall"
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": "Mi recommendation channels"
+    },
+    {
+     "pkg": "com.mitv.tvhome.mitvplus",
+     "note": "Xiaomi TV+ FAST channels"
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": "Xiaomi promo web content"
+    },
+    {
+     "pkg": "android.autoinstalls.config.xiaomi.amelie",
+     "note": "partner app auto-install config"
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "stock launcher recommendation rows"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Background services not needed ----",
+   "apps": [
+    {
+     "pkg": "com.xiaomi.mitv.tvmanager",
+     "note": "\"TV Manager\" cleaner"
+    },
+    {
+     "pkg": "com.xiaomi.amazon.alexa",
+     "note": "Alexa bridge"
+    },
+    {
+     "pkg": "com.mitv.gallery",
+     "note": "Mi Gallery"
+    },
+    {
+     "pkg": "com.mitv.dream",
+     "note": "Xiaomi screensaver, replaced by the Clock dream"
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "Google ambient screensaver, replaced by the Clock dream"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Preloaded apps ----",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvlock",
+     "note": "Xiaomi TV lock / parental password"
+    },
+    {
+     "pkg": "com.xiaomo.tv.milegal",
+     "note": "Xiaomi legal / privacy screens"
+    },
+    {
+     "pkg": "com.mstar.android.tv.disclaimercustomization",
+     "note": "vendor disclaimer screen"
+    },
+    {
+     "pkg": "com.mediatek.wwtv.webview",
+     "note": "vendor web view shell"
+    },
+    {
+     "pkg": "fusion.android.tv.demo",
+     "note": "retail store demo loop"
+    },
+    {
+     "pkg": "com.xiaomi.mimusic2",
+     "note": "Mi Music"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "mediatek.factorymenu.ui",
+     "note": "factory menu: disabled, never launched"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- Optional, by owner's choice ----",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "voice assistant (the mic button stops working)"
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": "Play Movies & TV"
+    },
+    {
+     "pkg": "com.xiaomi.mitv.mediaexplorer",
+     "note": "USB media player"
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": "Mi video player"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher.",
+ "count": 27
+}

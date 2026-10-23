@@ -27,6 +27,7 @@ import kotlinx.coroutines.test.runTest
 import kotlinx.coroutines.test.setMain
 import org.junit.After
 import org.junit.Assert.assertEquals
+import org.junit.Assert.assertFalse
 import org.junit.Assert.assertTrue
 import org.junit.Before
 import dev.tidytv.core.ops.disabledByUs
@@ -63,8 +64,8 @@ class WizardViewModelTest {
     private val glassLook = dev.tidytv.core.ops.LookFiles("glass", """{"dock_apps": ["com.sample.app"], "wallpaper": true, "dock_glass": true}""", wallpaper = byteArrayOf(7, 7))
     private val photo = dev.tidytv.app.data.WallpaperImage(ByteArray(310_000), 1920, 1080, originalBytes = 4_200_000)
 
-    private fun vm(demo: DemoBackend) =
-        WizardViewModel(Store(dir), Trace(File(dir, "logs")), { NoNetwork }, demo, { catalog }, { home -> home.pkg.toByteArray() },
+    private fun vm(demo: DemoBackend, lists: ListCatalog = catalog) =
+        WizardViewModel(Store(dir), Trace(File(dir, "logs")), { NoNetwork }, demo, { lists }, { home -> home.pkg.toByteArray() },
             looks = { id -> if (id == "glass") glassLook else null }, photoWallpaper = { photo }, imageWork = dispatcher)
 
     /** Connects to the Demo TV, which lands on the My TV hub; [tidy] then opens Tidy up. */
@@ -123,6 +124,68 @@ class WizardViewModelTest {
         assertTrue(picked.none { it in tv.disabled })
         assertEquals(Launchers.LAUNCHERX, tv.home()?.substringBefore('/'))
         assertTrue(Launchers.TIDY_HOME_PACKAGE !in tv.installed)
+    }
+
+    /** Every list the demo TV matches cut down to [keep], as for a TV whose list only finds one or two apps. */
+    private suspend fun catalogWithShortList(keep: Set<String>): ListCatalog {
+        val info = dev.tidytv.core.ops.TvReader.snapshot(DemoBackend().tv).info
+        val ids = dev.tidytv.core.lists.ModelMatcher.match(info, catalog.lists, limit = Int.MAX_VALUE).map { it.list.id }.toSet()
+        val examples = File("../upstream/cleanyourtv/examples")
+        return ListCatalog(examples.listFiles()!!.filter { it.isDirectory }.associate { d ->
+            val text = File(d, "debloat.txt").readText()
+            d.name to if (d.name !in ids) text else text.lines().filter { l ->
+                val t = l.trim()
+                t.isEmpty() || t.startsWith("#") || t.substringBefore(' ').substringBefore('#') in keep
+            }.joinToString("\n")
+        })
+    }
+
+    @Test fun aFullListOffersNoMoreApps() = runTest(dispatcher) {
+        val vm = vm(DemoBackend())
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        val r = vm.ui.value.review
+        assertTrue(r.candidates.size >= ReviewState.FEW)
+        assertFalse(r.fewFound)
+        assertTrue(r.moreAvailable.isEmpty())
+    }
+
+    @Test fun aShortListOffersMoreAppsAllUnselected() = runTest(dispatcher) {
+        // First the normal run, to learn which list the demo TV matches and what it offers.
+        val first = vm(DemoBackend())
+        first.choose(TvKind.ANDROID_TV)
+        connectToDemo(first)
+        val full = first.ui.value.review
+        val keep = full.candidates.take(1).map { it.pkg }.toSet()
+
+        val demo = DemoBackend()
+        val vm = vm(demo, catalogWithShortList(keep))
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        var r = vm.ui.value.review
+        val own = r.candidates.map { it.pkg }.toSet()
+        assertTrue("$own", own.size < ReviewState.FEW && own.containsAll(keep))
+        assertTrue("a short list says so", r.fewFound)
+        assertTrue(r.moreAvailable.isNotEmpty())
+        assertTrue(r.extra.isEmpty())
+
+        vm.showMoreApps()
+        r = vm.ui.value.review
+        assertFalse(r.fewFound)
+        assertEquals(r.moreAvailable, r.extra)
+        assertTrue("every extra app starts unselected", r.extra.none { it.pkg in r.selected })
+        assertTrue(r.extra.none { it.pkg in own })
+        assertTrue(r.extra.none { Launchers.isHomeApp(it.pkg) })
+        assertTrue(r.extra.none { dev.tidytv.core.lists.Protected.isProtected(it.pkg) })
+
+        // Picking one of them turns it off along with the list's own app.
+        val extra = r.extra.first().pkg
+        vm.toggleApp(extra)
+        vm.startTidy()
+        advanceUntilIdle()
+        assertTrue(extra in demo.tv.disabled)
+        assertTrue(own.filter { it in r.selected }.all { it in demo.tv.disabled })
+        assertTrue("unpicked extras stay on", r.extra.drop(1).none { it.pkg in demo.tv.disabled })
     }
 
     @Test fun styledHomeScreenCanBeChosenAndRestored() = runTest(dispatcher) {

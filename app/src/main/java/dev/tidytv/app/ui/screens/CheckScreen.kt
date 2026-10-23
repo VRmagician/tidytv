@@ -14,6 +14,13 @@ import androidx.compose.ui.Modifier
 import androidx.compose.ui.unit.dp
 import dev.tidytv.app.CheckState
 import dev.tidytv.app.ui.AppIcon
+import dev.tidytv.app.ui.CardBox
+import dev.tidytv.app.ui.MoreInfo
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.RestartAlt
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.Color
 import dev.tidytv.app.ui.BigButton
 import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Bubble
@@ -53,26 +60,38 @@ fun CheckScreen(
                         onRetidy, color = Tidy.Green, enabled = !s.retidying,
                     )
                 }
-                if (!busy) TextLink("Restart the TV and check", onRebootTest)
+                if (!busy) {
+                    BigButton("Restart the TV and check", onRebootTest, color = Color.White, textColor = Tidy.Ink,
+                        leading = { Icon(Icons.Rounded.RestartAlt, null, tint = Tidy.Ink) })
+                    Text("Checks it all stays off. About 2 minutes.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
+                }
                 if (report != null && report.toTidy.isEmpty() && !busy) TextLink("Check again", onRecheck)
             }
         },
     ) {
-        Title("Check my TV")
-        Body("TV updates sometimes switch apps back on. This checks your TV against what TidyTV turned off.")
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Title("Check my TV", Modifier.weight(1f))
+            MoreInfo("Check my TV") {
+                Body("TV updates sometimes switch apps back on. This checks your TV against what TidyTV turned off.", color = Tidy.Ink)
+                Body("Restarting checks that everything stays off after a reboot. It takes about 2 minutes.", color = Tidy.Ink)
+            }
+        }
         if (s.rebooting != null) {
             HeroMascot(mood = Mood.SEARCH, height = 120.dp)
             Bubble(s.rebooting, leading = { Spinner() })
             return@ScreenFrame
         }
         if (s.running) Bubble("Checking your TV…", leading = { Spinner() })
-        s.message?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message) }
         if (report != null) {
             if (report.allGood) {
-                HeroMascot(mood = Mood.HAPPY, height = 120.dp)
-                SafetyBanner("All tidy: ${report.stillOff} apps still off, nothing came back.")
+                ResultCard(Mood.HAPPY, "All tidy", "${report.stillOff} still off", Tidy.GreenSoft, Tidy.GreenInk)
             } else {
-                HeroMascot(mood = Mood.WORRIED, height = 120.dp)
+                val back = report.backOn.size + report.newOnList.size
+                ResultCard(
+                    Mood.WORRIED,
+                    if (back == 0) "Home screen changed" else if (back == 1) "1 app to turn off" else "$back apps to turn off",
+                    "${report.stillOff} still off", Tidy.Amber, Tidy.AmberInk,
+                )
                 if (report.backOn.isNotEmpty()) PackageCard("Switched back on", "Usually after a TV update.", report.backOn, labels)
                 if (report.newOnList.isNotEmpty()) PackageCard("New since your last tidy", null, report.newOnList, labels)
                 if (report.homeChanged) {
@@ -80,10 +99,22 @@ fun CheckScreen(
                 }
             }
         }
-        Text(
-            "Restarting checks that everything stays off after a reboot. It takes about 2 minutes.",
-            style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted,
-        )
+        s.message?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message) }
+    }
+}
+
+/** The answer first: a mascot, a big line and a small one. */
+@Composable
+private fun ResultCard(mood: Mood, title: String, sub: String, color: Color, ink: Color) {
+    CardBox(color = color) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            androidx.compose.foundation.Image(androidx.compose.ui.res.painterResource(mood.res), mood.description, Modifier.size(72.dp))
+            Spacer(Modifier.width(14.dp))
+            Column(Modifier.weight(1f)) {
+                Text(title, style = MaterialTheme.typography.headlineMedium, color = ink)
+                Text(sub, style = MaterialTheme.typography.titleMedium, color = ink)
+            }
+        }
     }
 }
 

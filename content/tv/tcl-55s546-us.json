@@ -1,0 +1,38 @@
+{
+  "name": "TCL 55S546",
+  "brand": "TCL",
+  "os": "Google TV 11",
+  "summary": "TCL 55S546 (US) ships with TCL and Google telemetry, content rows and preloads. TidyTV is a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "This US TCL 5-Series set runs Google TV on Android 11. It ships with TCL and Google telemetry, TCL and Google content, ad and recommendation rows, background services and preloaded extras. The Google ambient screensaver, which shows promos, is on the list too.",
+    "It was tested on a real set in batches with a screenshot after each, then restarted. Everything stayed off, Wi-Fi stayed up, and the Netflix, YouTube, Prime Video, Input and gear buttons all worked. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV, the tuner and HDMI and AV inputs",
+    "The Input key's source panel",
+    "TCL Channel and TCL+",
+    "Netflix, Prime Video, YouTube and YouTube Music",
+    "Chromecast and USB media player",
+    "Google Assistant",
+    "TCL firmware updates"
+  ],
+  "notes": [
+    "The setup wizard takes Home once the stock one is off. Check it does not own your Wi-Fi network first.",
+    "Switch the screensaver to another one before the Google ambient screensaver is turned off.",
+    "The Wi-Fi pill shows 'Wi-Fi' and not the network name because Location is off."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. The mic and Google voice worked with the TCL assistant switched off."
+    },
+    {
+      "q": "Do TCL Channel and TCL+ still work?",
+      "a": "Yes. Both are kept on this US build."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

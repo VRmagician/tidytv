@@ -7,17 +7,12 @@ import androidx.activity.result.PickVisualMediaRequest
 import androidx.activity.result.contract.ActivityResultContracts
 import androidx.compose.foundation.Image
 import androidx.compose.foundation.background
-import androidx.compose.foundation.border
-import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
-import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.aspectRatio
 import androidx.compose.foundation.layout.fillMaxWidth
-import androidx.compose.foundation.layout.padding
-import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.RoundedCornerShape
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
@@ -30,15 +25,21 @@ import androidx.compose.ui.graphics.Color
 import androidx.compose.ui.graphics.asImageBitmap
 import androidx.compose.ui.layout.ContentScale
 import androidx.compose.ui.platform.LocalContext
-import androidx.compose.ui.semantics.Role
 import androidx.compose.ui.unit.dp
 import dev.tidytv.app.LookId
 import dev.tidytv.app.LookState
 import dev.tidytv.app.PickedFile
 import dev.tidytv.app.ui.BigButton
+import dev.tidytv.app.ui.ChoiceCard
+import dev.tidytv.app.ui.InfoChip
+import dev.tidytv.app.ui.MoreInfo
+import androidx.compose.foundation.layout.size
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.AddPhotoAlternate
+import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material3.Icon
 import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Note
-import dev.tidytv.app.ui.SafetyBanner
 import dev.tidytv.app.ui.ScreenFrame
 import dev.tidytv.app.ui.Spinner
 import dev.tidytv.app.ui.Tidy
@@ -75,40 +76,33 @@ fun LookScreen(
         top = { TopBar(back = "Home screen", onBack = onClose, tvName = null) },
         bottom = { BigButton("Done", onClose, enabled = !busy) },
     ) {
-        Title("Pick a look")
-        look.message?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message) }
-        Body("Changes the wallpaper, dock and colours of the Apple TV style home screen. Your apps stay the same.")
-        for (row in LookId.entries.chunked(2)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Title("Pick a look", Modifier.weight(1f))
+            MoreInfo("Looks") {
+                Body("Changes the wallpaper, dock and colours of the Apple TV style home screen. Your apps stay the same.", color = Tidy.Ink)
+                Body("Your own photo: pick any photo from your phone. TidyTV crops it to fit the TV and makes it small before sending.", color = Tidy.Ink)
+            }
+        }
+        look.message?.let { if (it.ok) InfoChip(Icons.Rounded.CheckCircle, it.message) else Note(it.message) }
+        val photoOn = look.current == "photo"
+        // The looks, then "Your photo" (null) as the last tile.
+        for (row in (LookId.entries + null).chunked(2)) {
             Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.spacedBy(12.dp)) {
                 for (id in row) Box(Modifier.weight(1f)) {
-                    LookCard(id, selected = look.current == id.id, applying = look.applying == id.id, enabled = !busy) { onApplyLook(id) }
+                    if (id != null) LookCard(id, selected = look.current == id.id, applying = look.applying == id.id, enabled = !busy) { onApplyLook(id) }
+                    else ChoiceCard("Your photo", selected = photoOn, enabled = !busy, onClick = {
+                        picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
+                    }, preview = {
+                        Box(Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RoundedCornerShape(12.dp)).background(Tidy.BlueSoft), contentAlignment = Alignment.Center) {
+                            if (look.applying == "photo") Spinner(26.dp)
+                            else Icon(Icons.Rounded.AddPhotoAlternate, "Add your photo", Modifier.size(36.dp), tint = Tidy.Blue)
+                        }
+                    })
                 }
                 if (row.size == 1) Spacer(Modifier.weight(1f))
             }
         }
-        val photoOn = look.current == "photo"
-        val shape = RoundedCornerShape(22.dp)
-        Column(
-            Modifier.fillMaxWidth().clip(shape)
-                .border(if (photoOn) 3.dp else 2.dp, if (photoOn) Tidy.Blue else Tidy.Line, shape)
-                .background(if (photoOn) Tidy.BlueSoft else Tidy.Card)
-                .clickable(enabled = !busy, role = Role.Button) {
-                    picker.launch(PickVisualMediaRequest(ActivityResultContracts.PickVisualMedia.ImageOnly))
-                }
-                .padding(14.dp),
-            verticalArrangement = Arrangement.spacedBy(6.dp),
-        ) {
-            Text("Your own photo", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
-            Text(
-                "Pick any photo from your phone. TidyTV crops it to fit the TV and makes it small before sending.",
-                style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted,
-            )
-            if (look.applying == "photo") Row(verticalAlignment = Alignment.CenterVertically) {
-                Spinner(22.dp)
-                Spacer(Modifier.width(10.dp))
-                Text("Making it TV-sized and sending…", style = MaterialTheme.typography.bodyMedium, color = Tidy.Ink)
-            }
-        }
+        if (look.applying == "photo") Text("Making it TV-sized and sending…", style = MaterialTheme.typography.bodyMedium, color = Tidy.Ink)
     }
 }
 
@@ -120,15 +114,7 @@ private fun LookCard(id: LookId, selected: Boolean, applying: Boolean, enabled: 
             context.assets.open("themes/${id.id}/screenshot.jpg").use { BitmapFactory.decodeStream(it) }
         }.getOrNull()
     }
-    val shape = RoundedCornerShape(18.dp)
-    Column(
-        Modifier.fillMaxWidth().clip(shape)
-            .border(if (selected) 3.dp else 2.dp, if (selected) Tidy.Blue else Tidy.Line, shape)
-            .background(if (selected) Tidy.BlueSoft else Tidy.Card)
-            .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
-            .padding(8.dp),
-        verticalArrangement = Arrangement.spacedBy(6.dp),
-    ) {
+    ChoiceCard(id.title, selected = selected, onClick = onClick, enabled = enabled, preview = {
         Box(Modifier.fillMaxWidth().aspectRatio(16f / 9f).clip(RoundedCornerShape(12.dp)).background(Tidy.Ink)) {
             if (bitmap != null) Image(
                 bitmap.asImageBitmap(), "${id.title} look",
@@ -138,7 +124,5 @@ private fun LookCard(id: LookId, selected: Boolean, applying: Boolean, enabled: 
                 Spinner(26.dp, Color.White)
             }
         }
-        Text(id.title, style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
-        Text(id.blurb, style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted, modifier = Modifier.padding(bottom = 2.dp))
-    }
+    })
 }

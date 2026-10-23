@@ -82,6 +82,16 @@ class ScreenshotTest {
     @Test fun reviewBackingUp() = shoot("4a_backup_running", Step.REVIEW, UiState(wizard = clean, review = ReviewState()))
     @Test fun reviewReady() = shoot("4_review", Step.REVIEW, UiState(wizard = clean, review = review))
     @Test fun reviewSimilarModel() = shoot("4b_review_similar", Step.REVIEW, UiState(wizard = clean, review = review.copy(exact = false)))
+    private val more = listOf(
+        Candidate("com.google.android.youtube.tvmusic", "YouTube Music", "", Group.STREAMING, false, true),
+        Candidate("com.google.android.apps.mediashell", "Chromecast built-in", "", Group.CASTING, false, true),
+        Candidate("com.tcl.messagebox", "Pushed messages and notifications", "", Group.ADS_TRACKING, false, true),
+    )
+    private val short = review.copy(candidates = candidates.take(1), selected = setOf(candidates[0].pkg), moreAvailable = more)
+    @Test fun reviewFewFound() = shoot("4d_review_few_found", Step.REVIEW, UiState(wizard = clean, review = short))
+    @Test fun reviewShowingMore() = shoot("4e_review_more_apps", Step.REVIEW, UiState(wizard = clean, review = short.copy(extra = more)))
+    @Test fun homeOfferUntested() = shoot("5c5_home_untested", Step.HOME_SCREEN, UiState(tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
+        home = HomeState.Offer(untested = true)))
     @Test fun reviewNoList() = shoot("4c_review_no_list", Step.REVIEW, UiState(wizard = clean, review = ReviewState(BackupStatus.Saved, noList = true)))
 
     private val order = candidates.take(4)
@@ -112,6 +122,8 @@ class ScreenshotTest {
     @Test fun done() = shoot("6_done", Step.DONE, UiState(tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
         done = DoneState(freedMb = 140, newHome = true, records = records, debugging = DebugCheck.OFF),
         labels = mapOf("com.tcl.tv.tclchannel" to "TCL Channel")))
+    @Test fun doneHomeUntested() = shoot("6d_done_home_untested", Step.DONE, UiState(tv = summary, tidy = TidyState(order, order.associate { it.pkg to PkgResult.Disabled(it.pkg) }),
+        done = DoneState(records = records.dropLast(1), homeUntested = true)))
     // ---- 0.4.0: My TV hub, remote, send files ----
     @Test fun welcomeSaved() = shoot("1d_welcome_saved_tvs", Step.WELCOME, UiState(savedTvs = listOf(
         dev.tidytv.app.data.KnownTv("A1", "Living room TV", "TCL 55C735", "192.168.1.42", 2),

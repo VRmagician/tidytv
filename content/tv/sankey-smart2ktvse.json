@@ -10,11 +10,13 @@
   "keep": [
     "The Play Store and Google Play Services",
     "Keyboards, TV inputs, the remote and Bluetooth pairing",
-    "Settings and setup apps"
+    "Settings and setup apps",
+    "The Live TV service (Zeasn Live TV): turning it off gives No Signal on every input, HDMI included"
   ],
   "notes": [
     "The usual MENU and 1147 code does not open developer options on this model. Install the Activity Launcher app, open it, and go to Settings, then Developer options.",
-    "The stock home screen is switched off only after a new one is installed."
+    "The stock home screen is switched off only after a new one is installed.",
+    "The Live TV service stays on. Switching it off gives No Signal on every input, HDMI included, so it is kept."
   ],
   "faq": [
     {

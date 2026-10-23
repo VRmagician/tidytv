@@ -1,5 +1,22 @@
 package dev.tidytv.app.ui.screens
 
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.automirrored.rounded.Backspace
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowLeft
+import androidx.compose.material.icons.automirrored.rounded.KeyboardArrowRight
+import androidx.compose.material.icons.automirrored.rounded.VolumeOff
+import androidx.compose.material.icons.rounded.Add
+import androidx.compose.material.icons.rounded.FastForward
+import androidx.compose.material.icons.rounded.FastRewind
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.KeyboardArrowDown
+import androidx.compose.material.icons.rounded.KeyboardArrowUp
+import androidx.compose.material.icons.rounded.Menu
+import androidx.compose.material.icons.rounded.PlayArrow
+import androidx.compose.material.icons.rounded.Remove
+import androidx.compose.material3.Icon
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.foundation.background
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
@@ -95,19 +112,19 @@ fun RemoteScreen(
             Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                 PowerKey(enabled) { press(RemoteKey.POWER) }
                 Spacer(Modifier.weight(1f))
-                RoundKey("↩", "Back", enabled) { press(RemoteKey.BACK) }
+                RoundKey(Icons.AutoMirrored.Rounded.ArrowBack, "Back", enabled) { press(RemoteKey.BACK) }
                 Spacer(Modifier.width(10.dp))
-                RoundKey("⌂", "Home", enabled) { press(RemoteKey.HOME) }
+                RoundKey(Icons.Rounded.Home, "Home", enabled) { press(RemoteKey.HOME) }
                 Spacer(Modifier.width(10.dp))
-                RoundKey("☰", "Menu", enabled) { press(RemoteKey.MENU) }
+                RoundKey(Icons.Rounded.Menu, "Menu", enabled) { press(RemoteKey.MENU) }
             }
 
             Box(Modifier.fillMaxWidth(), contentAlignment = Alignment.Center) {
                 Box(Modifier.size(260.dp).clip(CircleShape).background(Tidy.Blue)) {
-                    Arrow("▲", "Up", enabled, Modifier.align(Alignment.TopCenter)) { press(RemoteKey.UP) }
-                    Arrow("▼", "Down", enabled, Modifier.align(Alignment.BottomCenter)) { press(RemoteKey.DOWN) }
-                    Arrow("◀", "Left", enabled, Modifier.align(Alignment.CenterStart)) { press(RemoteKey.LEFT) }
-                    Arrow("▶", "Right", enabled, Modifier.align(Alignment.CenterEnd)) { press(RemoteKey.RIGHT) }
+                    Arrow(Icons.Rounded.KeyboardArrowUp, "Up", enabled, Modifier.align(Alignment.TopCenter)) { press(RemoteKey.UP) }
+                    Arrow(Icons.Rounded.KeyboardArrowDown, "Down", enabled, Modifier.align(Alignment.BottomCenter)) { press(RemoteKey.DOWN) }
+                    Arrow(Icons.AutoMirrored.Rounded.KeyboardArrowLeft, "Left", enabled, Modifier.align(Alignment.CenterStart)) { press(RemoteKey.LEFT) }
+                    Arrow(Icons.AutoMirrored.Rounded.KeyboardArrowRight, "Right", enabled, Modifier.align(Alignment.CenterEnd)) { press(RemoteKey.RIGHT) }
                     Box(
                         Modifier.align(Alignment.Center).size(96.dp).clip(CircleShape).background(Color.White)
                             .clickable(enabled = enabled, role = Role.Button, onClickLabel = null) { press(RemoteKey.OK) }
@@ -124,17 +141,17 @@ fun RemoteScreen(
                     Modifier.clip(RoundedCornerShape(999.dp)).background(Tidy.BlueSoft),
                     horizontalAlignment = Alignment.CenterHorizontally,
                 ) {
-                    GlyphBox("+", "Volume up", enabled, Modifier.size(width = 56.dp, height = 56.dp)) { press(RemoteKey.VOLUME_UP) }
-                    GlyphBox("−", "Volume down", enabled, Modifier.size(width = 56.dp, height = 56.dp)) { press(RemoteKey.VOLUME_DOWN) }
+                    GlyphBox(Icons.Rounded.Add, "Volume up", enabled, Modifier.size(width = 56.dp, height = 56.dp)) { press(RemoteKey.VOLUME_UP) }
+                    GlyphBox(Icons.Rounded.Remove, "Volume down", enabled, Modifier.size(width = 56.dp, height = 56.dp)) { press(RemoteKey.VOLUME_DOWN) }
                 }
                 Spacer(Modifier.width(10.dp))
-                RoundKey("🔇", "Mute", enabled) { press(RemoteKey.MUTE) }
+                RoundKey(Icons.AutoMirrored.Rounded.VolumeOff, "Mute", enabled) { press(RemoteKey.MUTE) }
                 Spacer(Modifier.weight(1f))
-                RoundKey("⏪", "Rewind", enabled) { press(RemoteKey.REWIND) }
+                RoundKey(Icons.Rounded.FastRewind, "Rewind", enabled) { press(RemoteKey.REWIND) }
                 Spacer(Modifier.width(6.dp))
-                RoundKey("⏯", "Play or pause", enabled) { press(RemoteKey.PLAY_PAUSE) }
+                RoundKey(Icons.Rounded.PlayArrow, "Play or pause", enabled) { press(RemoteKey.PLAY_PAUSE) }
                 Spacer(Modifier.width(6.dp))
-                RoundKey("⏩", "Fast forward", enabled) { press(RemoteKey.FAST_FORWARD) }
+                RoundKey(Icons.Rounded.FastForward, "Fast forward", enabled) { press(RemoteKey.FAST_FORWARD) }
             }
 
             CardBox {
@@ -150,7 +167,7 @@ fun RemoteScreen(
                 Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
                     TextLink("Send", { if (enabled) send() })
                     Spacer(Modifier.weight(1f))
-                    GlyphBox("⌫", "Delete", enabled, Modifier.size(48.dp).clip(CircleShape).background(Tidy.BlueSoft)) { press(RemoteKey.DELETE) }
+                    GlyphBox(Icons.AutoMirrored.Rounded.Backspace, "Delete", enabled, Modifier.size(48.dp).clip(CircleShape).background(Tidy.BlueSoft)) { press(RemoteKey.DELETE) }
                 }
             }
         }
@@ -196,17 +213,17 @@ fun RemoteScreen(
 }
 
 @Composable
-private fun GlyphBox(glyph: String, desc: String, enabled: Boolean, modifier: Modifier, onClick: () -> Unit) {
+private fun GlyphBox(glyph: ImageVector, desc: String, enabled: Boolean, modifier: Modifier, onClick: () -> Unit) {
     Box(
         modifier.clickable(enabled = enabled, role = Role.Button, onClick = onClick).semantics { contentDescription = desc },
         contentAlignment = Alignment.Center,
     ) {
-        Text(glyph, fontSize = 22.sp, color = Tidy.Ink, modifier = Modifier.clearAndSetSemantics { })
+        Icon(glyph, null, Modifier.size(26.dp), tint = Tidy.Ink)
     }
 }
 
 @Composable
-private fun RoundKey(glyph: String, desc: String, enabled: Boolean, onClick: () -> Unit) =
+private fun RoundKey(glyph: ImageVector, desc: String, enabled: Boolean, onClick: () -> Unit) =
     GlyphBox(glyph, desc, enabled, Modifier.size(56.dp).clip(CircleShape).background(Tidy.BlueSoft), onClick)
 
 /** Power, drawn rather than typed: Nunito has no ⏻ glyph. */
@@ -231,13 +248,13 @@ private fun PowerKey(enabled: Boolean, onClick: () -> Unit) {
 }
 
 @Composable
-private fun Arrow(glyph: String, desc: String, enabled: Boolean, modifier: Modifier, onClick: () -> Unit) {
+private fun Arrow(glyph: ImageVector, desc: String, enabled: Boolean, modifier: Modifier, onClick: () -> Unit) {
     Box(
         modifier.padding(6.dp).size(64.dp).clip(CircleShape)
             .clickable(enabled = enabled, role = Role.Button, onClick = onClick)
             .semantics { contentDescription = desc },
         contentAlignment = Alignment.Center,
     ) {
-        Text(glyph, fontSize = 26.sp, color = Color.White, modifier = Modifier.clearAndSetSemantics { })
+        Icon(glyph, null, Modifier.size(40.dp), tint = Color.White)
     }
 }

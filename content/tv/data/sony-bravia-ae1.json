@@ -1,0 +1,183 @@
+{
+ "id": "sony-bravia-ae1",
+ "title": "Sony BRAVIA 4K AE1 (device BRAVIA_AE_M6L, MediaTek MT5897), EU firmware",
+ "header": "Sony BRAVIA 4K AE1 (device BRAVIA_AE_M6L, MediaTek MT5897), EU firmware\nAndroid 12 (Google TV, API 31), build BRAVIA_AE1_EU-user 12 STT2.231117.001 634040\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-ae1/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-ae1/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (Google TV). Install the launcher first\n(launcher/build-and-install.sh): tools/disable.sh refuses to disable launcherx while it still owns Home.\nLive TV / input player: com.sony.dtv.tvlin. It also plays the HDMI inputs, so keep it even if you never\nwatch broadcast TV; set it as live_tv_package and in hidden_apps (config.json here). The Inputs menu\nlists HDMI 1-4 and Live TV, and picking an HDMI port opens tvlin on that input.\nKeep com.sony.dtv.tvlin, com.sony.dtv.tvinput.dvbtuner, com.sony.dtv.sonysystemservice, imeproxy,\nsettingsprovider, the Sony settings apps, update/update.agent.* (firmware) and all com.mediatek.*:\nthey drive HDMI, the tuner, the remote and updates.\nKept by owner's choice: Netflix, YouTube, Prime Video, UEI QuickSet (IR blaster), Sony IoT/smart-speaker\ncontrol (seeds.iot), Sony IP control (webapi), firmware updates. Left alone because their components\ndon't say enough: fingerprinterserver, crashlogcollector, lastaccess, interactivetvutil.\nThis set has no Chromecast (mediashell) and no Google Assistant (katniss) package.\nAlready disabled at the factory: the my5, sounds, iplayer, itv and all4 launchers, com.youview.poa,\nde.hdplus.tvapp.androidtv. Not in this list, so restore.sh leaves them as they are.\n\nQuirks on this firmware, all checked on the TV:\n- setupwraith claims HOME with priority 1; on this unit it did not own the saved Wi-Fi network\n(`dumpsys wifi | grep -o 'cname=[^ ]*'` showed android.uid.system only). Check yours first.\n- The remote's Input key opens Sony's own source panel (tvlin's GlobalKeyReceiver): no helper needed.\n- With launcherx disabled the Settings, Netflix, YouTube and Prime Video buttons do nothing. They come\nback with HOME_KEY_SERVICE=1 and scancodes (getevent, decimal): Settings 646 (settings_key_scancodes,\nconfig.xml only), Netflix 583, YouTube 485, Prime Video 490 (app_keys, in config.json here).\n- With that helper bound, a held Volume key moves one step instead of ramping, the same trade as\ndocs/devices/tcl-55p71b-g09-key-repeat.md (checked on the real remote, before and after).\n\nApplied 22 October 2026 on one unit and reboot-checked: everything below stayed disabled and Home came\nback on the new launcher. Not yet lived with for days; if something breaks, re-enable it with\n`pm enable <package>` and please report it.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker and telemetry",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    },
+    {
+     "pkg": "com.qterics.da.product",
+     "note": "Qterics device agent"
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": "remote-support session service"
+    },
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": "Sony usage data"
+    },
+    {
+     "pkg": "com.sony.dtv.usercontext",
+     "note": "viewing context for recommendations"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": "bug-report uploader"
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.vendorprotocol",
+     "note": "broadcasts model/MAC/IP over SDDP"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony ads and partner installs",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonytab",
+     "note": "Sony tab on the Google TV home; unused once launcherx is off"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "help",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "features not used (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.voicesearch",
+     "note": "remote's mic button stops working"
+    },
+    {
+     "pkg": "com.sony.dtv.assistantadapter",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.airplayapp",
+     "note": "AirPlay"
+    },
+    {
+     "pkg": "com.sonyericsson.dlna",
+     "note": "DLNA media server/renderer"
+    },
+    {
+     "pkg": "com.sony.huey.dlna.module",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.smartmediaapp",
+     "note": "Media Player, re-enable to play USB files"
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": "re-enable to play music from USB"
+    },
+    {
+     "pkg": "com.vewd.core.browser",
+     "note": "Vewd web browser"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "UK broadcaster apps and USB recording (off by choice)",
+   "apps": [
+    {
+     "pkg": "com.youview.dtv.bbc",
+     "note": ""
+    },
+    {
+     "pkg": "com.itv.youviewandroidlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.channel4.youviewandroidlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.channel5.my5sony",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.recapp",
+     "note": "records Live TV to a USB drive"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google TV setup wizard and home",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.apps.tv.launcherx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "setupwraith first, or its RecoveryActivity takes Home. Re-enable both before a factory reset. See the Wi-Fi note above first."
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 31
+}

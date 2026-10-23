@@ -1,0 +1,144 @@
+{
+ "id": "tcl-55s546-us",
+ "title": "TCL 55S546 (5-Series, \"Smart TV Pro\", device BeyondTV4, product G03_4K_US), Google TV on Android 11 (SDK 30),",
+ "header": "TCL 55S546 (5-Series, \"Smart TV Pro\", device BeyondTV4, product G03_4K_US), Google TV on Android 11 (SDK 30),\nbuild RP1A.200622.001 GTV93. Fingerprint: TCL/G03_4K_US/BeyondTV4:11/RP1A.200622.001/GTV93:user/release-keys\nSame G03 platform as examples/tcl-g03-google-tv; that list was the starting point. This US build lacks\ncom.tcl.logkit, overseasappshow, tclhome_passive, browser, gamebar, micmanager, miracast and\nMultiScreenInteraction_TV, and adds com.tcl.tv.plus (TCL+) and com.tcl.tv.tclchannel (TCL Channel), both kept.\nNothing was disabled at the factory.\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/tcl-55s546-us/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/tcl-55s546-us/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled.\n\nTested 2026-10-21 on a real unit, applied in the six batches below with a screenshot after each, plus the stock\nlauncher com.google.android.apps.tv.launcherx (24 packages), then rebooted: every package stayed disabled (this\nbuild re-enables nothing at boot), Home came up on launcher/ (mFocusedApp checked), Wi-Fi stayed up.\n- The saved Wi-Fi belonged to android.uid.system, not setupwraith, so setupwraith was disabled without\nforgetting the network.\n- With launcherx off, the real remote's Netflix, YouTube, Prime Video, Input (TCL source panel) and gear buttons\nall kept working, and volume kept auto-repeating: no InputKeyService / HomeKeyService needed.\n- Mic / Google voice worked with com.tcl.assistant disabled.\n- The first `pm install` of the launcher hung past tv.py's 120 s timeout with no dialog on screen; a retry of\n`pm install -r` on the already-pushed APK answered Success in a second.\n- Wi-Fi pill shows \"Wi-Fi\" instead of the SSID because Location is off (location_mode 0); left off by choice.\n\nKept by choice on this unit: Netflix, Prime Video, YouTube, YouTube Music, Google TV app, TCL Channel, TCL+,\nUSB media player, Google voice search / Assistant, Chromecast, TCL firmware updates.\n\nDO NOT DISABLE: com.tcl.tv, com.tcl.tvinput (Live TV, tuner, HDMI/AV), com.tcl.suspension (Input key's source\npanel), com.tcl.settings, com.tcl.system.server, com.tcl.providers.config, com.tcl.initsetup,\ncom.tcl.factory.view, com.tcl.tcl_bt_rcu_service, com.tcl.autopair (remote), com.tcl.keyhelp,\ncom.google.android.tv.remote.service, com.google.android.inputmethod.latin (keyboard), com.tvos (framework res).",
+ "sections": [
+  {
+   "title": "---- 1. TCL and Google telemetry ----",
+   "apps": [
+    {
+     "pkg": "com.tcl.bi",
+     "note": "TCL BI analytics"
+    },
+    {
+     "pkg": "com.tcl.xian.StartandroidService",
+     "note": "background reporting service"
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "crash / feedback reporting"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- 2",
+   "apps": [
+    {
+     "pkg": "com.tcl.dashboard",
+     "note": "TCL dashboard / promo backend"
+    },
+    {
+     "pkg": "com.tcl.partnercustomizer",
+     "note": "partner customisation channel, promo rows"
+    },
+    {
+     "pkg": "com.tcl.messagebox",
+     "note": "TCL message / promo box"
+    },
+    {
+     "pkg": "com.tcl.esticker",
+     "note": "sticker / emoji overlay"
+    },
+    {
+     "pkg": "com.tcl.waterfall.overseas",
+     "note": "older copy of TCL's web-video portal (TCL+ is its own package)"
+    },
+    {
+     "pkg": "android.autoinstalls.config.google.gtvpai",
+     "note": "silently installs partner apps"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner-app attribution"
+    },
+    {
+     "pkg": "com.google.android.onetimeinitializer",
+     "note": "one-time setup leftovers"
+    }
+   ],
+   "optional": [],
+   "note": "TCL and Google content, ads and recommendation rows ----"
+  },
+  {
+   "title": "---- 3. Background services and preloaded extras ----",
+   "apps": [
+    {
+     "pkg": "com.tcl.guard",
+     "note": "TCL online support"
+    },
+    {
+     "pkg": "com.tcl.usercenter",
+     "note": "TCL account sign-in nags"
+    },
+    {
+     "pkg": "com.tcl.ocean.instructions",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.tcl.android.webview",
+     "note": "TCL WebView; com.google.android.webview stays the provider"
+    },
+    {
+     "pkg": "org.chromium.webview_shell",
+     "note": "WebView test shell"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "calendar sync, no calendar on a TV"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": "Play Games"
+    },
+    {
+     "pkg": "com.tcl.gallery",
+     "note": "TCL photo gallery"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- 4. Off by choice: voice assistants not used ----",
+   "apps": [
+    {
+     "pkg": "com.tcl.smartalexa",
+     "note": "Alexa bridge"
+    },
+    {
+     "pkg": "com.tcl.assistant",
+     "note": "TCL voice assistant / voice TV control"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "---- 5",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Google TV first-run wizard: claims HOME once launcherx is off ---- Check `dumpsys wifi | grep -o 'cname=[^ ]*'` first; re-enable it before a factory reset."
+  },
+  {
+   "title": "---- 6",
+   "apps": [
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Google ambient screensaver (promos) ---- Switch the screensaver first: settings put secure screensaver_components com.gathin.tvhome/.ClockDream"
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 23
+}

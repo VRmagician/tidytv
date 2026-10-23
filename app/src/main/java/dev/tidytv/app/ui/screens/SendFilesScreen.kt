@@ -23,6 +23,15 @@ import dev.tidytv.app.PickedFile
 import dev.tidytv.app.SendItem
 import dev.tidytv.app.SendStatus
 import dev.tidytv.app.ui.BigButton
+import dev.tidytv.app.ui.IconBadge
+import dev.tidytv.app.ui.InfoChip
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Description
+import androidx.compose.material.icons.rounded.Image
+import androidx.compose.material.icons.rounded.Movie
+import androidx.compose.material.icons.rounded.MusicNote
+import androidx.compose.material.icons.rounded.SdStorage
+import androidx.compose.ui.text.style.TextAlign
 import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Check
 import dev.tidytv.app.ui.HeroMascot
@@ -76,16 +85,30 @@ fun SendFilesScreen(
     ) {
         if (s.items.isEmpty()) {
             Column(Modifier.fillMaxWidth(), horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(12.dp)) {
-                HeroMascot(mood = Mood.STAND, height = 130.dp)
-                Title("Send files to your TV")
-                Body("Photos, videos, music or documents. They're saved on the TV in Downloads › TidyTV, where the TV's file manager or media player can open them.")
+                HeroMascot(mood = Mood.STAND, height = 110.dp)
+                Title("Send files to your TV", align = TextAlign.Center)
+                Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceEvenly) {
+                    FileKind(Icons.Rounded.Image, "Photos", Tidy.Blue)
+                    FileKind(Icons.Rounded.Movie, "Videos", Tidy.Purple)
+                    FileKind(Icons.Rounded.MusicNote, "Music", Tidy.Orange)
+                    FileKind(Icons.Rounded.Description, "Docs", Tidy.Green)
+                }
+                Body("Saved in Downloads › TidyTV", align = TextAlign.Center)
             }
         }
-        s.freeBytes?.let { Body("${formatBytes(it)} free on the TV") }
+        s.freeBytes?.let { InfoChip(Icons.Rounded.SdStorage, "${formatBytes(it)} free on the TV", color = Tidy.Grey, textColor = Tidy.Ink) }
         s.items.forEach { SendRow(it, onCancel, onRetry) }
         if (s.items.isNotEmpty() && s.items.all { it.status == SendStatus.SENT }) {
             SafetyBanner("Sent. On the TV, open Downloads › TidyTV.")
         }
+    }
+}
+
+@Composable
+private fun FileKind(icon: androidx.compose.ui.graphics.vector.ImageVector, label: String, color: androidx.compose.ui.graphics.Color) {
+    Column(horizontalAlignment = Alignment.CenterHorizontally, verticalArrangement = Arrangement.spacedBy(6.dp)) {
+        IconBadge(icon, color, 52.dp)
+        Text(label, style = MaterialTheme.typography.labelMedium, color = Tidy.Ink)
     }
 }
 

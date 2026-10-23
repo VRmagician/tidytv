@@ -30,6 +30,7 @@ import androidx.compose.material3.OutlinedTextField
 import androidx.compose.material3.Text
 import androidx.compose.material3.rememberModalBottomSheetState
 import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.rounded.Star
 import androidx.compose.runtime.getValue
 import androidx.compose.runtime.mutableStateOf
 import androidx.compose.runtime.remember
@@ -206,7 +207,7 @@ fun ShareCardDialog(card: Bitmap, onShare: () -> Unit, onStar: () -> Unit, onTel
             )
             Body("Show your friends how you tidied your TV. TidyTV is free, so sharing is how people find it.", align = androidx.compose.ui.text.style.TextAlign.Center)
             BigButton("Share my card", onShare, color = Tidy.Blue)
-            BigButton("★  Star TidyTV on GitHub", onStar, color = Color.White, textColor = Tidy.Ink)
+            BigButton("Star TidyTV on GitHub", onStar, color = Color.White, textColor = Tidy.Ink, leading = { androidx.compose.material3.Icon(androidx.compose.material.icons.Icons.Rounded.Star, null, tint = Tidy.Ink) })
             Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
                 TextLink("Tell us what you liked", onTellUs)
                 TextLink("Not now", onDismiss, color = Tidy.Muted)

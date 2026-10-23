@@ -1,0 +1,37 @@
+{
+  "name": "Sber Salute TV 43\"",
+  "brand": "Sber",
+  "os": "Android 13 (StarOS)",
+  "summary": "Sber Salute TV 43\" (Russia) ships with Sber content apps, background services and a screensaver. TidyTV is a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "This 43-inch Sber Salute TV runs StarOS on Android 13. It ships with Sber content apps and preloads, background services, a Sber screensaver and screen sharing receivers. Sber's platform service puts its mandatory apps back after every uninstall, which is why TidyTV only switches them off and never uninstalls.",
+    "When apps are switched off, they stay off. The platform service itself and the Salute voice assistant must be left alone. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. Each app has its own switch."
+  ],
+  "keep": [
+    "The Sber platform service and the Salute voice assistant",
+    "HDMI and AV playback (the input service)",
+    "The Sber keyboard, the only keyboard on the TV",
+    "The web view component and system UI",
+    "Settings, setup and location services",
+    "Every droidlogic and cvte part (factory and TV apps, never opened)"
+  ],
+  "notes": [
+    "Developer options are locked on this firmware, so turning on debugging takes extra steps.",
+    "Point the screensaver at another one first, or the Sber one comes back on.",
+    "Chromecast is not part of this firmware, so the screen sharing receivers are listed."
+  ],
+  "faq": [
+    {
+      "q": "Why not uninstall the Sber apps?",
+      "a": "Sber's platform service reinstalls its mandatory apps, usually at the next start. Switched off, they stay put."
+    },
+    {
+      "q": "Will the voice assistant still work?",
+      "a": "Yes. The platform service hosts the Salute assistant, so it is kept."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

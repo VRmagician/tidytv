@@ -1,0 +1,37 @@
+{
+  "name": "TCL 65C7L",
+  "brand": "TCL",
+  "os": "Google TV 14",
+  "summary": "TCL 65C7L Google TV (Australia, 2025) ships with TCL tracking, ads and promos. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This 65-inch TCL C7L, sold in Australia in 2025, runs Google TV 14. It ships with TCL tracking and analytics, TCL content, ads and promos, a retail demo and hotel mode, and preloaded apps and services. Three more apps are off by choice.",
+    "It was tested on a real unit in six batches with screenshots between them. All four HDMI inputs, Live TV, YouTube and every remote button kept working, and all 27 apps stayed off after a restart. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI inputs",
+    "The Input key's source panel",
+    "Chromecast, AirPlay and Miracast",
+    "Google Assistant and the mic button",
+    "The game bar",
+    "USB media player and gallery",
+    "Netflix, Prime Video, YouTube and YouTube Music"
+  ],
+  "notes": [
+    "The setup wizard owned the saved Wi-Fi network on this set. Forget it and rejoin in Settings first, or the TV drops off Wi-Fi.",
+    "Switching off the setup wizard is only safe after the new home screen is set, or a blank screen can take Home."
+  ],
+  "faq": [
+    {
+      "q": "Will casting still work?",
+      "a": "Yes. Chromecast, AirPlay and Miracast are all kept by the owner."
+    },
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Google Assistant and the remote service that carries the mic button are kept."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

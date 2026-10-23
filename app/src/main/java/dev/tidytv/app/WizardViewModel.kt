@@ -14,6 +14,7 @@ import dev.tidytv.core.flow.ConnectState
 import dev.tidytv.core.flow.FoundTv
 import dev.tidytv.core.flow.Mode
 import dev.tidytv.core.flow.Step
+import dev.tidytv.core.flow.TvKind
 import dev.tidytv.core.flow.Wizard
 import dev.tidytv.core.flow.WizardEvent
 import dev.tidytv.core.flow.WizardReducer
@@ -77,7 +78,16 @@ data class ReviewState(
     val kept: List<String> = emptyList(),
     /** No list matches this TV: backup only, nothing to turn off. */
     val noList: Boolean = false,
-)
+    /** Installed apps other TVs' lists turn off, offered behind "Show more apps" when [candidates] is short. */
+    val moreAvailable: List<Candidate> = emptyList(),
+    /** The extra apps once "Show more apps" is tapped. All start unselected. */
+    val extra: List<Candidate> = emptyList(),
+) {
+    /** Few apps from this TV's own list: say so and offer the others instead of looking finished. */
+    val fewFound get() = !noList && candidates.size < FEW && extra.isEmpty() && moreAvailable.isNotEmpty()
+
+    companion object { const val FEW = 5 }
+}
 
 data class TidyState(
     val order: List<Candidate> = emptyList(),
@@ -103,6 +113,8 @@ sealed interface HomeState {
         val available: List<HomeApp> = listOf(HomeApp.SIMPLE),
         /** The Apple TV style home screen is already Home, so its look can be changed. */
         val styledIsHome: Boolean = false,
+        /** The TV's home app is one TidyTV hasn't tested: no change is offered, only a one-line card. */
+        val untested: Boolean = false,
     ) : HomeState
     data object Running : HomeState
     data class Problem(val message: String, val worried: Boolean, val action: HomeAction? = null, val rescue: List<String> = emptyList()) : HomeState
@@ -165,6 +177,8 @@ data class DoneState(
     val turningOn: Set<String> = emptySet(),
     /** One line about the last single app, e.g. "Netflix is back on." */
     val turnOnNote: RestoreUi.Finished? = null,
+    /** The clean-up finished but the TV's home app is untested, so no home screen was offered. */
+    val homeUntested: Boolean = false,
 )
 
 /** One app on the TV's home screen, for the remote's Apps sheet. */
@@ -771,11 +785,17 @@ class WizardViewModel(
                 .filter { it.pkg in snap.installed }
                 .filter { Protected.isProtected(it.pkg, snap.liveProtected, match.list.keep) || Launchers.isHomeApp(it.pkg) }
                 .map { AppLabels.label(it.pkg, it.note) }.distinct().sorted().toList()
+            val more = if (candidates.size >= ReviewState.FEW) emptyList() else Grouping.moreCandidates(
+                lists().lists, snap.installed - snap.disabled, snap.liveProtected, match.list.keep,
+                offered = (match.list.entries + match.list.optional).map { e -> e.pkg }.toSet(),
+            )
+            if (more.isNotEmpty()) trace.line("only ${candidates.size} on the list; ${more.size} more from other lists")
             fetchIcons(candidates.map { c -> c.pkg })
             _ui.update {
                 it.copy(labels = it.labels + candidates.associate { c -> c.pkg to c.label }, review = ReviewState(
                     backup = BackupStatus.Saved, listTitle = match.list.title, exact = match.exact,
                     candidates = candidates, selected = candidates.filter { c -> c.selected }.map { c -> c.pkg }.toSet(), kept = kept,
+                    moreAvailable = more,
                 ))
             }
         }
@@ -812,6 +832,15 @@ class WizardViewModel(
         it.copy(review = it.review.copy(selected = if (pkg in sel) sel - pkg else sel + pkg))
     }
 
+    /** "Show more apps": the other lists' apps join the review, every one unselected. */
+    fun showMoreApps() {
+        val more = _ui.value.review.moreAvailable
+        if (more.isEmpty()) return
+        trace.line("show more apps: ${more.size}")
+        _ui.update { it.copy(labels = it.labels + more.associate { c -> c.pkg to c.label }, review = it.review.copy(extra = more)) }
+        fetchIcons(more.map { it.pkg })
+    }
+
     fun toggleGroup(group: Group, on: Boolean) = _ui.update {
         val pkgs = it.review.candidates.filter { c -> c.group == group }.map { c -> c.pkg }.toSet()
         it.copy(review = it.review.copy(selected = if (on) it.review.selected + pkgs else it.review.selected - pkgs))
@@ -823,8 +852,8 @@ class WizardViewModel(
         val r = _ui.value.review
         if (r.backup != BackupStatus.Saved || r.selected.isEmpty()) return
         iconJob?.cancel() // the clean-up comes first; missing icons keep their fallback
-        val order = r.candidates.filter { it.pkg in r.selected }
-        _ui.update { it.copy(tidy = TidyState(order = order)) }
+        val order = (r.candidates + r.extra).filter { it.pkg in r.selected }
+        _ui.update { it.copy(tidy = TidyState(order = order), done = it.done.copy(homeUntested = false)) }
         wizard(WizardEvent.StartTidy)
         viewModelScope.launch { runTidy(order.map { it.pkg }) }
     }
@@ -851,8 +880,11 @@ class WizardViewModel(
             trace.line("clean-up: ${outcome::class.simpleName}, ${outcome.disabledCount} off")
             when (outcome) {
                 is DebloatOutcome.Finished -> {
-                    _ui.update { it.copy(tidy = it.tidy.copy(saving = false, finished = true)) }
-                    wizard(WizardEvent.TidyEnded(stopped = false, launcherPossible = launcherPossible()))
+                    val possible = launcherPossible()
+                    val untested = !possible && _ui.value.wizard.kind != TvKind.FIRE_TV && !homeTested()
+                    if (untested) trace.line("home ${snapshot?.home} untested: no home screen offered")
+                    _ui.update { it.copy(tidy = it.tidy.copy(saving = false, finished = true), done = it.done.copy(homeUntested = untested)) }
+                    wizard(WizardEvent.TidyEnded(stopped = false, launcherPossible = possible))
                     return
                 }
                 is DebloatOutcome.Stopped -> {
@@ -883,6 +915,12 @@ class WizardViewModel(
         return homePkg in Launchers.KNOWN_STOCK || homePkg == "android"
     }
 
+    /** Home is a stock launcher TidyTV has tested, or already one of its own home screens. */
+    private fun homeTested(): Boolean {
+        val homePkg = snapshot?.home?.substringBefore('/') ?: return false
+        return homePkg in Launchers.KNOWN_STOCK || homePkg == "android" || HomeApp.of(homePkg) != null
+    }
+
     // ---------- Home screen ----------
 
     private fun enterHome() {
@@ -893,7 +931,7 @@ class WizardViewModel(
             .map { DockApp(it, AppLabels.label(it)) }
             .sortedBy { it.label.lowercase() }
         val available = HomeApp.entries.filter { a -> snap.info.sdk >= a.minSdk && (a.fromPlayStore || launcherApk(a) != null) }
-        _ui.update { it.copy(home = HomeState.Offer(options, options.take(8).map { o -> o.pkg }, HomeApp.SIMPLE, available)) }
+        _ui.update { it.copy(home = HomeState.Offer(options, options.take(8).map { o -> o.pkg }, HomeApp.SIMPLE, available, untested = !homeTested())) }
         fetchIcons(options.map { it.pkg })
         viewModelScope.launch {
             val home = withShell { s -> dev.tidytv.core.ops.Parse.component(s.run(dev.tidytv.core.ops.Commands.RESOLVE_HOME)) }
@@ -972,6 +1010,7 @@ class WizardViewModel(
 
     fun installHome() {
         val offer = _ui.value.home as? HomeState.Offer
+        if (offer?.untested == true) return // never change Home on a launcher TidyTV hasn't tested
         lastDock = offer?.chosen ?: lastDock
         lastApp = offer?.app ?: lastApp
         val dock = lastDock

@@ -1,0 +1,37 @@
+{
+  "name": "TiVo Stream 4K",
+  "brand": "TiVo",
+  "os": "Android TV 12",
+  "summary": "TiVo Stream 4K ships with telemetry, an app blocker and partner rows. Its firmware blocks the switch TidyTV uses, so TidyTV can't clean it yet.",
+  "intro": [
+    "This TiVo Stream 4K is a streaming stick on Android TV 12. It ships with telemetry and feedback services, an app blocker with background services, partner recommendation rows and auto-installs, and a couple of preloads. The firmware refuses the usual off switch, so this list suspends apps instead.",
+    "This firmware refuses Android's normal way of turning an app off, which is the only change TidyTV makes, so the TidyTV app can't clean this stick yet. The tested list here suspends the apps instead, from a computer, and some come back after each restart. The list below shows what was found and what was kept."
+  ],
+  "keep": [
+    "UEI QuickSet (the remote switches the TV on and off)",
+    "HDMI-CEC",
+    "Bluetooth remote pairing and remote updates",
+    "Chromecast",
+    "Play Store, Play Services and the keyboard"
+  ],
+  "notes": [
+    "Some apps start again after a restart and need to be stopped again.",
+    "A background service removes any other launcher or sideloaded app it dislikes at every start, so switching home screens needs extra steps.",
+    "It is a stick, so there are no HDMI inputs or tuner.",
+    "TidyTV doesn't offer a clean-up on this stick: the firmware refuses the off switch for every app, and it removes other home screens at each restart."
+  ],
+  "faq": [
+    {
+      "q": "Can I install another launcher?",
+      "a": "Not easily. A service on the stick removes alternative launchers at every start, so Home is harder to change here."
+    },
+    {
+      "q": "Is it still undoable?",
+      "a": "TidyTV doesn't change anything on this stick, so there's nothing to undo. If you used the list's own steps from a computer, its README explains how to unsuspend the apps."
+    },
+    {
+      "q": "Will casting still work?",
+      "a": "Yes. Chromecast is kept."
+    }
+  ]
+}

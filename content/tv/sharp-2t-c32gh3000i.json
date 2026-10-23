@@ -1,0 +1,38 @@
+{
+  "name": "SHARP 2T-C32GH3000I",
+  "brand": "Sharp",
+  "os": "Google TV 14",
+  "summary": "SHARP 2T-C32GH3000I (Indonesia) ships with Skyworth telemetry and ad services. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 32-inch Sharp set is built by Skyworth and runs Google TV 14 with about 1 GB of memory. It ships with telemetry and activation services, Android ad and personalization services, content and recommendations, cleaners, manuals and unused apps. A memory pass also switches off six more apps, because the set was swapping.",
+    "It was applied and checked on one TV, with a restart afterwards. Live TV, HDMI and YouTube and Netflix playback worked, and the real remote's buttons did too. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "Live TV and the HDMI and tuner inputs",
+    "Global keys and remote pairing",
+    "USB media player",
+    "Google voice search and the phone remote link",
+    "The keyboard, text-to-speech and Dolby audio",
+    "The BrowseHere browser"
+  ],
+  "notes": [
+    "Debugging was only offered as Wireless debugging on this set.",
+    "The Wi-Fi network from first setup belonged to the setup helper. Forget it and rejoin in Settings before that helper is switched off, or the TV drops off Wi-Fi.",
+    "Searching for content by voice fails once the stock home screen is off. Simple commands like 'open YouTube' still work.",
+    "Private DNS works, but one ISP buffered with AdGuard and not with Cloudflare."
+  ],
+  "faq": [
+    {
+      "q": "Will voice search still work?",
+      "a": "Partly. Commands like 'open YouTube' work. Searching for content by voice fails once the stock home screen is off."
+    },
+    {
+      "q": "Will the remote keys still work?",
+      "a": "Yes. Home, Input, Settings and the app buttons worked on the real remote with the key helpers on."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

@@ -43,8 +43,14 @@ object ModelMatcher {
         "tv", "smarttv", "smarttvpro", "androidtv", "googletv", "ledtv", "uhdtv", "hdtv", "4ktv", "atv", "tvbox", "box",
     )
 
+    /**
+     * Lists TidyTV can't apply, so they're never offered. tivo-stream-4k: the firmware refuses every
+     * `pm disable-user` (its list suspends apps instead) and uninstalls other home screens at each boot.
+     */
+    val NOT_FOR_TIDYTV = setOf("tivo-stream-4k")
+
     fun match(tv: TvInfo, lists: List<DebloatList>, limit: Int = 3, installed: Set<String> = emptySet()): List<ListMatch> =
-        lists.map { l -> ListMatch(l, score(tv, l), overlap = l.entries.count { it.pkg in installed }) }
+        lists.filter { it.id !in NOT_FOR_TIDYTV }.map { l -> ListMatch(l, score(tv, l), overlap = l.entries.count { it.pkg in installed }) }
             .filter { it.score >= SIMILAR }
             .sortedWith(compareByDescending<ListMatch> { it.score }.thenByDescending { it.overlap }.thenByDescending { it.coverage }.thenBy { it.list.id })
             .take(limit)

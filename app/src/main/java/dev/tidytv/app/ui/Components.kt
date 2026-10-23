@@ -19,7 +19,10 @@ import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.width
 import androidx.compose.foundation.shape.CircleShape
 import androidx.compose.foundation.shape.RoundedCornerShape
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.ChevronRight
 import androidx.compose.material3.CircularProgressIndicator
+import androidx.compose.material3.Icon
 import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
@@ -36,6 +39,7 @@ import androidx.compose.ui.graphics.Path
 import androidx.compose.ui.graphics.StrokeCap
 import androidx.compose.ui.graphics.drawscope.Stroke
 import androidx.compose.ui.graphics.drawscope.scale
+import androidx.compose.ui.graphics.vector.ImageVector
 import androidx.compose.ui.graphics.vector.PathParser
 import androidx.compose.ui.platform.LocalContext
 import androidx.compose.ui.platform.LocalInspectionMode
@@ -85,30 +89,39 @@ fun BigButton(
     }
 }
 
-/** A colour-coded choice row on the welcome screen. */
+/** A colour-coded choice row on the welcome screen: an icon, a name and an optional small badge. */
 @Composable
-fun ChoiceButton(text: String, sub: String?, color: Color, textColor: Color = Color.White, onClick: () -> Unit) {
+fun ChoiceButton(text: String, icon: ImageVector, color: Color, textColor: Color = Color.White, badge: String? = null, onClick: () -> Unit) {
     Row(
         Modifier.fillMaxWidth().clip(Chunky).background(color)
             .clickable(role = Role.Button, onClick = onClick)
-            .heightIn(min = 64.dp).padding(horizontal = 18.dp, vertical = 12.dp),
+            .heightIn(min = 64.dp).padding(horizontal = 16.dp, vertical = 12.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
+        Icon(icon, null, Modifier.size(30.dp), tint = textColor)
+        Spacer(Modifier.width(14.dp))
         Column(Modifier.weight(1f)) {
             Text(text, style = MaterialTheme.typography.titleLarge, color = textColor)
-            if (sub != null) Text(sub, style = MaterialTheme.typography.bodyMedium, color = textColor.copy(alpha = 0.9f))
+            if (badge != null) Text(
+                badge, style = MaterialTheme.typography.labelMedium, color = textColor,
+                modifier = Modifier.padding(top = 2.dp).clip(RoundedCornerShape(99.dp)).background(Color.White.copy(alpha = 0.25f))
+                    .padding(horizontal = 8.dp, vertical = 2.dp),
+            )
         }
-        Text("›", fontSize = 28.sp, color = textColor)
+        Icon(Icons.Rounded.ChevronRight, null, Modifier.size(28.dp), tint = textColor)
     }
 }
 
 @Composable
-fun TextLink(text: String, onClick: () -> Unit, color: Color = Tidy.Blue, modifier: Modifier = Modifier) {
-    Text(
-        text, style = MaterialTheme.typography.titleMedium, color = color,
-        modifier = modifier.clip(RoundedCornerShape(10.dp)).clickable(role = Role.Button, onClick = onClick)
-            .heightIn(min = 44.dp).padding(horizontal = 6.dp, vertical = 12.dp),
-    )
+fun TextLink(text: String, onClick: () -> Unit, color: Color = Tidy.Blue, modifier: Modifier = Modifier, icon: ImageVector? = null) {
+    Row(
+        modifier.clip(RoundedCornerShape(10.dp)).clickable(role = Role.Button, onClick = onClick)
+            .heightIn(min = 44.dp).padding(horizontal = 6.dp, vertical = 10.dp),
+        verticalAlignment = Alignment.CenterVertically,
+    ) {
+        if (icon != null) { Icon(icon, null, Modifier.size(20.dp), tint = color); Spacer(Modifier.width(6.dp)) }
+        Text(text, style = MaterialTheme.typography.titleMedium, color = color)
+    }
 }
 
 @Composable

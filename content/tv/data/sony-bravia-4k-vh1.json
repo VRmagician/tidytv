@@ -1,0 +1,218 @@
+{
+ "id": "sony-bravia-4k-vh1",
+ "title": "Sony BRAVIA 4K VH1 (device BRAVIA_VH1, KD-55XH9096, MediaTek MT5895 / MT5835), EU firmware",
+ "header": "Sony BRAVIA 4K VH1 (device BRAVIA_VH1, KD-55XH9096, MediaTek MT5895 / MT5835), EU firmware\nGoogle TV 12 (API 31), build BRAVIA_VH1_EU-user 12 STT2.230505.001.S137 626241\nProduct codename Valhalla_EU; ro.boot.product.hardware.sku = KD-55XH9096\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-vh1/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-vh1/debloat.txt com.google.android.tvlauncher\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher on this set: com.google.android.tvlauncher (leanback). Pass it to restore.sh as above.\nLive TV / tuner app: com.sony.dtv.tvx (set it as live_tv_package in the launcher's config.xml and hide it).\nKeep the com.sony.dtv.tvinput.* services, com.sony.dtv.braviasync*, com.sony.dtv.tvapi,\ncom.sony.dtv.sonysystemservice, imeproxy, settingsprovider, systemupdate/update (firmware), the Sony\nsettings apps and all com.mediatek.*: they drive HDMI, the tuner, Bravia Sync, updates and the remote.\nChromecast built-in (mediashell) and firmware updates kept.\n\nsetupwraith is still enabled on this unit: Home already resolves to CleanYourTV. Disable\ncom.google.android.tungsten.setupwraith if the Google TV setup wizard retakes Home after a reboot.\nClosest sibling list: examples/sony-bravia-4k-vh2/ (VH2 / KD-55X80J).\nSame Android platform (BRAVIA_VH1) as the PA-firmware notes in\ndocs/devices/sony-kd-55x9000h.md (retail KD-55X9000H); this list is the EU build.\n\nLived with for weeks on a KD-55XH9096 (Spain/EU) with CleanYourTV; Live TV, HDMI Inputs, Ethernet\nand Chromecast still work. If something breaks, re-enable it with `pm enable <package>` and please report it.",
+ "sections": [
+  {
+   "title": "ACR viewing tracker",
+   "apps": [
+    {
+     "pkg": "tv.samba.ssm",
+     "note": "Samba TV fingerprints what's on screen"
+    },
+    {
+     "pkg": "tv.samba.ssm.ui",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "telemetry and remote support",
+   "apps": [
+    {
+     "pkg": "com.qterics.da.product",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.da.service",
+     "note": ""
+    },
+    {
+     "pkg": "com.sonyericsson.idd.agent",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "demo / shop / hotel mode",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.demosupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.demosystemsupport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.hotelmode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.softap",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.rs232csupport",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony promos, Select, help and partner install config",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.promos",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonyselect",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonytab",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.customersupport",
+     "note": "Help tile"
+    },
+    {
+     "pkg": "com.sony.dtv.smarthelp",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.helpguidecontents",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.accessibility.tutorial",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.sony.bravia",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony extras unused on this set",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.homekit",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.livingfit",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.osat.music",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.gestureapp",
+     "note": ""
+    },
+    {
+     "pkg": "com.spocky.projengmenu",
+     "note": "engineering / project menu"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google rows and preloads",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.youview.poa",
+     "note": "YouView (UK); unused on this EU unit"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Stock leanback Home (CleanYourTV owns HOME)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Off by owner's choice (re-enable if you use them)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Google Assistant voice"
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "com.netflix.partner.ncm",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 38
+}

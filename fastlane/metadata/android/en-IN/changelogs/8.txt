@@ -1,0 +1,6 @@
+What's new in 0.7.0
+• Clean-up lists for 252 TV models, with safety fixes from real TVs.
+• A simpler, calmer design: cards and icons instead of long text.
+• TCL TVs that call themselves "Smart TV" now get the right list.
+• Not many apps found? "Show more apps" offers ones seen on other TVs, all off until you pick them.
+• Looks for the Apple TV style home screen, or your own photo.

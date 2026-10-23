@@ -1,0 +1,37 @@
+{
+  "name": "OnePlus TV (Cebu)",
+  "brand": "OnePlus",
+  "os": "Android TV 10",
+  "summary": "OnePlus TV (Cebu, India) ships with telemetry, content rows and auto-installs. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This OnePlus TV is a classic Android TV 10 set sold in India. It ships with telemetry and diagnostics, OnePlus content and recommendation rows, auto-installs, and preloaded extras. The list also covers casting, mirroring and streaming apps, which are switched off by choice, so you can keep any of them.",
+    "It was checked with a restart, and nothing came back on. HDMI, Live TV, the Input key, the Netflix key and the Assistant mic all kept working. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The HDMI and tuner services",
+    "Live TV",
+    "The remote service and TV keyboard",
+    "The Input and Netflix keys",
+    "Google Assistant",
+    "Firmware updates",
+    "Play Store and Play Services"
+  ],
+  "notes": [
+    "Factory apps are left alone and never opened.",
+    "Debugging keeps its Wi-Fi port open across restarts until you switch it off, so turn debugging off when you are done."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work?",
+      "a": "Yes. Google Assistant is kept."
+    },
+    {
+      "q": "Will firmware updates still arrive?",
+      "a": "Yes. The OnePlus update services are kept on purpose."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

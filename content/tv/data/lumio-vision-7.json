@@ -1,0 +1,114 @@
+{
+ "id": "lumio-vision-7",
+ "title": "Lumio Vision 7, 55\" / 139 cm (KTC ODM, Realtek chipset, device khardi, product KTC_LUMIO_4K_EU_23GV1), India",
+ "header": "Lumio Vision 7, 55\" / 139 cm (KTC ODM, Realtek chipset, device khardi, product KTC_LUMIO_4K_EU_23GV1), India\nGoogle TV 14 (Android 14, SDK 34), build UKRA.251202.032\nFirst Lumio list. Contributed by Subramanya GB.\n\nApply:   TV_HOST=<tv ip> FORCE_SETUPWRAITH=1 tools/disable.sh examples/lumio-vision-7/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/lumio-vision-7/debloat.txt com.google.android.apps.tv.launcherx\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.apps.tv.launcherx (disabled by launcher/build-and-install.sh after the\nnew launcher is confirmed Home). On this build setupwraith re-claims Home (.RecoveryActivity/.MainActivity)\nthe moment launcherx is off, and the shell cannot disable that component alone (SecurityException), so\nsetupwraith has to be disabled too (listed below). The active Wi-Fi here was system-owned (OwnerUid 1000),\nso disabling setupwraith did NOT drop Wi-Fi - but disable.sh's guard is conservative, hence\nFORCE_SETUPWRAITH=1. Disabling setupwraith may break Chromecast (mediashell reads device info from it);\nre-enable setupwraith to get casting back.\nLive TV / tuner app: com.realtek.tv (set as live_tv_package in config.xml, and hidden from the grid).\nNetflix (com.netflix.ninja) shipped already disabled on this unit.\nRemote app buttons (for config.xml app_keys): YouTube 190, Netflix 191, Prime Video 195, TL;DR 200.\nTested same day over Wireless debugging (classic port 5555 was already open): every HDMI/tuner input and\ninstalled app verified by screenshot; rebooted and the fork launcher came back as Home.",
+ "sections": [
+  {
+   "title": "Ad tracking / Privacy Sandbox",
+   "apps": [
+    {
+     "pkg": "tv.anoki.acr.anokiacroptin",
+     "note": "Anoki ACR: on-screen content recognition for ad targeting"
+    },
+    {
+     "pkg": "com.android.adservices.api",
+     "note": "Privacy Sandbox ad APIs (Topics, attribution)"
+    },
+    {
+     "pkg": "com.android.ondevicepersonalization.services",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.federatedcompute.services",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Retail demo + regional / unused preloads",
+   "apps": [
+    {
+     "pkg": "com.realtek.storemode",
+     "note": "KtcStoreMode: in-store demo mode"
+    },
+    {
+     "pkg": "com.realtek.kara",
+     "note": "Karaoke"
+    },
+    {
+     "pkg": "com.realtek.karaoke.userguide",
+     "note": ""
+    },
+    {
+     "pkg": "com.hk.gingaplayer.huangs",
+     "note": "Ginga (Latin-America ISDB-T middleware), inert on an EU DVB set"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Google telemetry / bloat",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": "crash / usage reporting"
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "partner / referrer telemetry"
+    },
+    {
+     "pkg": "com.google.android.syncadapters.calendar",
+     "note": "background calendar sync, unused on a TV"
+    },
+    {
+     "pkg": "com.google.android.apps.tv.dreamx",
+     "note": "Google ambient screensaver (the fork launcher has its own clock)"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Voice assistant (optional)",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "~100 MB RAM in the background. Comment out to keep voice search / the mic button."
+  },
+  {
+   "title": "Required for a third-party launcher to hold Home on this build (see header; needs FORCE_SETUPWRAITH=1)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tungsten.setupwraith",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.youtube.tv",
+     "note": "removed in favour of SmartTube"
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.apps.tv.launcherx",
+ "count": 16
+}

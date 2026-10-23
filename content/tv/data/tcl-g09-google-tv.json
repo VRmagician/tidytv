@@ -8,7 +8,7 @@
    "apps": [
     {
      "pkg": "com.tcl.ttvs",
-     "note": "TCL BI/awareness/identifier services"
+     "note": "TCL BI/awareness/identifier services; see the README on TvSettings without it"
     },
     {
      "pkg": "com.tcl.logkit",

@@ -1,8 +1,7 @@
 #!/bin/sh
-# Builds the signed release APK, puts it on the site as tidytv.apk and deploys tidytv.winkle.dev.
-# Needs keys/signing.properties (git-ignored) for release signing and `npx wrangler login`.
+# Deploys tidytv.winkle.dev (static files in site/). The app itself is on Google Play;
+# /tidytv.apk redirects there (site/_redirects). Needs `npx wrangler login`.
 set -e
 cd "$(dirname "$0")/.."
-./gradlew -q :app:assembleRelease
-cp app/build/outputs/apk/release/app-release.apk site/tidytv.apk
+rm -f site/tidytv.apk
 npx --yes wrangler@4 deploy

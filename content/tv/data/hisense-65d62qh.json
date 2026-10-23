@@ -1,0 +1,184 @@
+{
+ "id": "hisense-65d62qh",
+ "title": "Hisense 65D62QH (China market), JuUI 9.0.10.845",
+ "header": "Hisense 65D62QH (China market), JuUI 9.0.10.845\nro.product.model         = VIDAA_TV\nro.product.device        = MT9653\nro.build.version.release = 11  (API 30)\nro.build.display.id      = RP1A.200720.011 release-keys\nro.adb.secure            = 0     <- no \"Allow USB debugging?\" prompt, see below\nservice.adb.tcp.port     = 5555\n\nSame platform and build as examples/vidda-mt9653/ and examples/hisense-e5q-pro/ (device MT9653,\nbuild RP1A.200720.011, package namespace com.jamdeo.* / com.hisense.*). This list was derived from\ntheirs and re-checked package by package against this set's own `pm list packages` (131 packages).\nPackages those lists name that are NOT installed here are left out rather than copied over.\n\nADB: turning USB debugging on opens port 5555 directly. ro.adb.secure=0 means the TV does not show\nthe \"Allow USB debugging?\" dialog: ANY device on the LAN gets a shell with no prompt. Close the\ndebugging switches when you are done and check the port really refuses connections\n(tools/adb-closed.py <tv ip>).\n\nState at the time this list was written (2026-10-22):\npm list packages -d        -> empty: nothing is disabled at the factory on this build, so the\nAOSP leftovers in BATCH 5 below are all running here.\ndumpsys tv_input           -> empty: no TvInputManager inputs at all. The launcher's Inputs pill\ntherefore has nothing to list and must use the vendor source panel\n(config.json in this folder: source_panel_service =\ncom.hisense.tv.inputs/com.hisense.tv.InputsUIService,\nsource_panel_action = com.hisense.tv.start_inputs).\n\nApplied on the real set on 2026-10-22: five batches, each followed by a cold reboot, with the input\npanel switching HDMI, the remote, Wi-Fi, Bluetooth pairing and the IME checked after every one.\n26 packages stick. com.android.calendar / .deskclock / .music do not: the firmware re-enables them\nat every boot (see BATCH 5). Nothing else came back.\n\nRead before applying:\n* This list does NOT change how Home looks. The sponsored rows, the VIP banner and the promo\ntiles are fetched by com.jamdeo.tv.vod itself, not by the ad sidecars below. Only swapping the\nlauncher removes them. What this list buys is the telemetry, the push channel, the persistent\nnetwork poller, the ad SDK processes and the leftover preloads.\n* Everything is DISABLED (pm disable-user --user 0), never uninstalled. tools\\disable.ps1 records\neach package's original state under %USERPROFILE%\\.cleanyourtv\\ before touching it, so\ntools\\restore.ps1 with this same file puts it all back.\n* Apply in batches, reboot after each one, and confirm the TV boots, the remote works, the input\npanel switches to HDMI and Wi-Fi is still up. A batch can take something load-bearing with it\nand you cannot tell which without the reboot.\n\nApply:   tools\\disable.ps1 -TvHost <tv ip> examples\\hisense-65d62qh\\debloat.txt\nUndo:    tools\\restore.ps1 -TvHost <tv ip> examples\\hisense-65d62qh\\debloat.txt\nReboot:  & tools\\venv\\Scripts\\python.exe -I tools\\tv.py 'reboot'\nCompare: & tools\\venv\\Scripts\\python.exe -I tools\\tv.py 'pm list packages -d'\nComment out any line you want to keep.",
+ "sections": [
+  {
+   "title": "BATCH 1 — telemetry, reporting and the vendor push channel (lowest risk, start here)",
+   "apps": [
+    {
+     "pkg": "com.hisense.hitv.das",
+     "note": "DasApp: DataReportReceiver only"
+    },
+    {
+     "pkg": "com.hisense.platformreport",
+     "note": "usage/telemetry reporting"
+    },
+    {
+     "pkg": "com.hisense.logupload",
+     "note": "log uploader"
+    },
+    {
+     "pkg": "com.hisense.service.hproxy",
+     "note": "LoopingService + network-change receiver, polls forever"
+    },
+    {
+     "pkg": "com.hisense.service.message",
+     "note": "HiMsgService, the vendor push channel"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "BATCH 2 — advertising, home operator rows and content feeds",
+   "apps": [
+    {
+     "pkg": "com.hisense.business.ad",
+     "note": "ad SDK (ships Alibaba Baichuan + CIBN shopping SDKs)"
+    },
+    {
+     "pkg": "com.hisense.service.ad",
+     "note": "ad service; registers a WatchingAccessibilityService"
+    },
+    {
+     "pkg": "com.hisense.widget.pro",
+     "note": "home operator widget rows"
+    },
+    {
+     "pkg": "com.hisense.tv.weather",
+     "note": "weather card, another content feed"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "BATCH 3 — retail, hotel, factory and first-run leftovers",
+   "apps": [
+    {
+     "pkg": "com.hisense.demonstrate",
+     "note": "DbxDemo / multi-channel sound demo reels"
+    },
+    {
+     "pkg": "com.hisense.hotelmenu",
+     "note": "hotel mode menu"
+    },
+    {
+     "pkg": "com.meetingroom",
+     "note": "meeting-room mode"
+    },
+    {
+     "pkg": "com.hisense.autotest",
+     "note": "factory autotest app (never launch it, see PROMPT.md)"
+    },
+    {
+     "pkg": "com.hisense.electronictutorial",
+     "note": "e-manual"
+    },
+    {
+     "pkg": "com.hisense.ar.baike",
+     "note": "AR encyclopedia"
+    },
+    {
+     "pkg": "com.jamdeo.tv.fte",
+     "note": "first-run wizard, already done; Wi-Fi belongs to android.uid.system"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.hisense.usbupgrade",
+     "note": "USB firmware upgrade. Optional: only needed to flash"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "BATCH 4 — preloaded content nobody asked for",
+   "apps": [
+    {
+     "pkg": "com.hisense.tv.videoconference",
+     "note": "video conferencing"
+    },
+    {
+     "pkg": "com.hisense.tv.videochat.social",
+     "note": "preloaded video chat"
+    },
+    {
+     "pkg": "com.hisense.tv.fitmirror",
+     "note": "fitness mirror"
+    },
+    {
+     "pkg": "com.hisense.tv.foodmanage",
+     "note": "recipe app"
+    },
+    {
+     "pkg": "com.vision.aibook",
+     "note": "AI picture book"
+    },
+    {
+     "pkg": "com.jamdeo.calendar",
+     "note": "vendor calendar, not the AOSP one"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.ju.miguvideoTV.cmcc",
+     "note": "Migu Video (咪咕视频) preload. Optional: keep if you use it"
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "BATCH 5 — the screensaver ad surface and AOSP leftovers The screensaver on this firmware is 拍信创意 stock photos with a caption and a like button",
+   "apps": [
+    {
+     "pkg": "com.jamdeo.screensaver",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.dreams.basic",
+     "note": "the AOSP screensaver it falls back to"
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.wallpaperbackup",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.android.deskclock",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.calendar",
+     "note": "RE-ENABLED BY THE FIRMWARE AT EVERY BOOT."
+    },
+    {
+     "pkg": "com.android.music",
+     "note": "Verified 2026-10-22: disabled, rebooted, and"
+    },
+    {
+     "pkg": "com.hisense.smartimages",
+     "note": ""
+    },
+    {
+     "pkg": "com.hisense.tv.infer",
+     "note": ""
+    },
+    {
+     "pkg": "com.hisense.singlelisten",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": null,
+ "count": 26
+}

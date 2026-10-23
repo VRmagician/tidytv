@@ -1,0 +1,153 @@
+{
+ "id": "xiaomi-mi-box-3",
+ "title": "Xiaomi Mi Box 3 (model MIBOX3, codename once, Amlogic), Android TV 9 (SDK 28), firmware PI.3934, 2 GB RAM,",
+ "header": "Xiaomi Mi Box 3 (model MIBOX3, codename once, Amlogic), Android TV 9 (SDK 28), firmware PI.3934, 2 GB RAM,\n1920x1080. Streaming box, no HDMI-in or tuner.\n\nApply:   TV_HOST=<box ip> tools/disable.sh examples/xiaomi-mi-box-3/debloat.txt\nUndo:    TV_HOST=<box ip> tools/restore.sh examples/xiaomi-mi-box-3/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nSet live_tv_package empty in config.xml (nothing to switch to). Stock launcher: com.google.android.tvlauncher\n(the scripts' default).\n\nNotes from this box:\n- Kept: com.google.android.apps.mediashell (Chromecast), com.xiaomi.mitv.updateservice and its download helper\ncom.mitv.download.service (firmware updates), com.google.android.tungsten.setupwraith (it owned one of the\nsaved Wi-Fi networks), com.xiaomi.android.tvsetup.partnercustomizer, mitv.service, com.droidlogic*.\n- USB debugging alone opens network ADB on port 5555 (service.adb.tcp.port=5555).\n- cmd package set-home-activity needs the component on Android 9 (com.gathin.tvhome/.MainActivity), and\ndumpsys activity activities shows mResumedActivity, not mFocusedApp.\n- Re-enabled at every boot: com.google.android.backdrop (Ambient screensaver). Harmless once the screensaver\npoints at the launcher's clock, so it is commented out below:\ntools/tv.py 'settings put secure screensaver_components com.gathin.tvhome/.ClockDream'\n(stock value here: com.android.dreams.basic/com.android.dreams.basic.Colors)\n- Remote: Home and Back work with the new launcher without any key service.\n- Everything else stayed disabled after a reboot, and the launcher stayed Home.",
+ "sections": [
+  {
+   "title": "Xiaomi + Google telemetry and ad tracking",
+   "apps": [
+    {
+     "pkg": "com.miui.tv.analytics",
+     "note": ""
+    },
+    {
+     "pkg": "tv.alphonso.alphonso_eula",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "PatchWall, content rows, promos, auto-installs",
+   "apps": [
+    {
+     "pkg": "com.mitv.tvhome.atv",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.tvhome.michannel",
+     "note": ""
+    },
+    {
+     "pkg": "com.xm.webcontent",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": ""
+    },
+    {
+     "pkg": "android.autoinstalls.config.xioami.mibox3",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.google.android.katniss",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.speech.pumpkin",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "voice assistant (the mic button stops working)"
+  },
+  {
+   "title": "Personal choice",
+   "apps": [
+    {
+     "pkg": "com.mitv.milinkservice",
+     "note": ""
+    },
+    {
+     "pkg": "com.mitv.videoplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.remote.service",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": "Mi cast and the phone remote (Chromecast kept)"
+  },
+  {
+   "title": "Preloaded apps (personal choice)",
+   "apps": [
+    {
+     "pkg": "com.amazon.amazonvideo.livingroom",
+     "note": ""
+    },
+    {
+     "pkg": "com.netflix.ninja",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvmusic",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.youtube.tvkids",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.videos",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv",
+     "note": "Live Channels"
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": ""
+    }
+   ],
+   "note": ""
+  },
+  {
+   "title": "Stock launcher, replaced by launcher/ (build-and-install.sh disables it)",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 24
+}

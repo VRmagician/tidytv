@@ -15,8 +15,8 @@ android {
         applicationId = "com.appfactory.tidytv"
         minSdk = 26
         targetSdk = 36
-        versionCode = 7
-        versionName = "0.6.1"
+        versionCode = 8
+        versionName = "0.7.0"
     }
 
     // Release signing comes from keys/signing.properties, a git-ignored folder in the repo.
@@ -93,6 +93,7 @@ dependencies {
     implementation(libs.androidx.compose.ui.graphics)
     implementation(libs.androidx.compose.ui.tooling.preview)
     implementation(libs.androidx.compose.material3)
+    implementation("androidx.compose.material:material-icons-extended:1.7.8")
     debugImplementation(libs.androidx.compose.ui.tooling)
     testImplementation(libs.junit)
     testImplementation(libs.robolectric)

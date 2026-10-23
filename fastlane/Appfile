@@ -1,0 +1,3 @@
+# Android: shared Google Play service account (central vault). Never copy or print the key.
+json_key_file(File.expand_path("~/.appfactory/keys/google-play-service-account.json"))
+package_name("com.appfactory.tidytv")

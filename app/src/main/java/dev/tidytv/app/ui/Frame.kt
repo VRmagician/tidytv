@@ -46,6 +46,8 @@ import androidx.compose.animation.core.animateFloat
 import androidx.compose.foundation.layout.height
 import androidx.compose.runtime.getValue
 import androidx.compose.ui.graphics.graphicsLayer
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.ChevronRight
 
 /**
  * Every screen: a white rounded sheet on the pale-blue backdrop (concept C), a scrolling body and an
@@ -85,7 +87,7 @@ fun ScreenFrame(
 @Composable
 fun TopBar(back: String, onBack: () -> Unit, tvName: String?) {
     Row(Modifier.fillMaxWidth(), verticalAlignment = Alignment.CenterVertically) {
-        TextLink("‹  $back", onBack)
+        TextLink(back, onBack, icon = androidx.compose.material.icons.Icons.AutoMirrored.Rounded.ArrowBack)
         Spacer(Modifier.weight(1f))
         if (tvName != null) Text(
             tvName, style = MaterialTheme.typography.labelMedium, color = Tidy.Ink, maxLines = 1,
@@ -202,7 +204,9 @@ fun TvCard(title: String, subtitle: String, onClick: (() -> Unit)? = null, trail
             Text(title, style = MaterialTheme.typography.titleLarge, color = Tidy.Ink)
             Text(subtitle, style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
         }
-        if (trailing != null) trailing() else if (onClick != null) Text("›", style = MaterialTheme.typography.headlineMedium, color = Tidy.Muted)
+        if (trailing != null) trailing() else if (onClick != null) {
+            androidx.compose.material3.Icon(androidx.compose.material.icons.Icons.Rounded.ChevronRight, null, Modifier.size(28.dp), tint = Tidy.Muted)
+        }
     }
 }
 

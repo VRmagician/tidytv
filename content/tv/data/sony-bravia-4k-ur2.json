@@ -1,7 +1,7 @@
 {
  "id": "sony-bravia-4k-ur2",
  "title": "Sony BRAVIA 4K UR2 (device BRAVIA_UR2_4K, MediaTek)",
- "header": "Sony BRAVIA 4K UR2 (device BRAVIA_UR2_4K, MediaTek)\nAndroid 10 (Android TV, API 29), firmware BRAVIA_UR2_4K_UC-user 10 QTG3.200305.006.S97 662301\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-ur2/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-ur2/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (the restore.sh default is correct).\nLive TV / tuner app: com.sony.dtv.tvx (set it as live_tv_package in the launcher's config.xml).\nKeep the com.sony.dtv.tvinput.* services, com.sony.dtv.braviasync*, com.sony.dtv.tvapi,\ncom.sony.dtv.sonysystemservice and the Sony settings apps: they drive HDMI, the tuner, Bravia Sync\nand the remote.\nAlready disabled at the factory: com.sony.dtv.b2b.vendorprotocol, com.sony.dtv.b2b.softap,\nscrenmirroring.com.\n\nApplied one afternoon with the dock set to Netflix, YouTube, Disney+, ZEE5. Not yet lived with\nfor weeks; if something breaks, re-enable it with `pm enable <package>` and please report it.",
+ "header": "Sony BRAVIA 4K UR2 (device BRAVIA_UR2_4K, MediaTek)\nAndroid 10 (Android TV, API 29), build QTG3.200305.006.S97 662301 (US UC firmware and EU retail KD-55XG9505)\n\nApply:   TV_HOST=<tv ip> tools/disable.sh examples/sony-bravia-4k-ur2/debloat.txt\nUndo:    TV_HOST=<tv ip> tools/restore.sh examples/sony-bravia-4k-ur2/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (the restore.sh default is correct).\nLive TV / tuner app: com.sony.dtv.tvx (set it as live_tv_package in the launcher's config.xml).\nKeep the com.sony.dtv.tvinput.* services, com.sony.dtv.braviasync*, com.sony.dtv.tvapi,\ncom.sony.dtv.sonysystemservice and the Sony settings apps: they drive HDMI, the tuner, Bravia Sync\nand the remote.\nAlready disabled at the factory: com.sony.dtv.b2b.vendorprotocol, com.sony.dtv.b2b.softap,\nscrenmirroring.com.\n\nApplied on US firmware (dock: Netflix, YouTube, Disney+, ZEE5) and re-confirmed on an EU retail\nKD-55XG9505 (BRAVIA_UR2_4K_EU) with the Apple TV style launcher (dock: Netflix, Prime Video,\nYouTube, Spotify). HDMI 1-4/eARC, TVX tuner, Bravia Sync, and remote control verified across reboots.",
  "sections": [
   {
    "title": "tracking / ads / recommendations",
@@ -37,6 +37,18 @@
     {
      "pkg": "com.google.android.feedback",
      "note": ""
+    },
+    {
+     "pkg": "com.google.android.tv.bugreportsender",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonybugreportsys",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.sonyloglevelsettingsys",
+     "note": ""
     }
    ],
    "optional": [],
@@ -55,6 +67,60 @@
     },
     {
      "pkg": "com.sony.dtv.multiscreendemo",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Sony IoT and ambient services",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.seeds.iot",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.seeds.iot.remotestart",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.seeds.auth",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.livingfit",
+     "note": "Living Decor / ambient service"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "hotel / professional mode (unused in a home)",
+   "apps": [
+    {
+     "pkg": "com.sony.dtv.b2b.prosettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.hotelmode",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.adminpassword",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.deviceadminsettings",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.importexport",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.b2b.rs232csupport",
      "note": ""
     }
    ],
@@ -92,6 +158,21 @@
    "note": ""
   },
   {
+   "title": "screen mirroring / Wi-Fi Direct (skip to keep Miracast)",
+   "apps": [
+    {
+     "pkg": "com.mediatek.wfd",
+     "note": ""
+    },
+    {
+     "pkg": "com.sony.dtv.networkapp.wifidirect",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
    "title": "preloaded apps, disabled by choice",
    "apps": [
     {
@@ -119,6 +200,10 @@
      "note": ""
     },
     {
+     "pkg": "com.google.android.music",
+     "note": ""
+    },
+    {
      "pkg": "com.google.android.youtube.tvmusic",
      "note": ""
     },
@@ -141,5 +226,5 @@
  ],
  "kept": [],
  "stock_launcher": "com.google.android.tvlauncher",
- "count": 25
+ "count": 41
 }

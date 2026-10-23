@@ -1,0 +1,36 @@
+{
+  "name": "INCLO Google TV 4K",
+  "brand": "INCLO",
+  "os": "Google TV 11",
+  "summary": "INCLO Google TV 4K ships with ad auto-installs, telemetry and preloads. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This INCLO set is built by KTC and runs Google TV on Android 11. The list is short: ad and auto-install services, one telemetry service and a few maker and Google preloads. The stock Google TV home screen is also on the list, but it only goes once a replacement home screen is installed.",
+    "It was tested on one unit for one day, with HDMI game consoles, voice, casting and the gear button checked on the real remote, plus a restart. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "All the Realtek TV and input parts",
+    "The remote's firmware updater",
+    "KTC factory parts that handle remote keys (never opened)",
+    "Chromecast casting",
+    "Voice search and the remote service"
+  ],
+  "notes": [
+    "After the stock home screen is switched off, the remote's Netflix and YouTube buttons do nothing.",
+    "The setup helper owned the Wi-Fi network from first setup. Forget the network and rejoin it in Settings first, or the TV may drop off Wi-Fi.",
+    "With the new home screen's key helper on, a held volume key moves one step per press."
+  ],
+  "faq": [
+    {
+      "q": "Will casting still work on my INCLO TV?",
+      "a": "Yes. Chromecast is kept, and casting from an iPhone through YouTube still worked after a restart."
+    },
+    {
+      "q": "Do the Netflix and YouTube buttons still work?",
+      "a": "Not once the stock home screen is off. They only talk to it. Everything else on the remote kept working."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

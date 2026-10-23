@@ -1,0 +1,36 @@
+{
+  "name": "Sony BRAVIA 4K UR3",
+  "brand": "Sony",
+  "os": "Android TV 10",
+  "summary": "Sony BRAVIA 4K UR3 ships with tracking, ads, recommendations and shop demo mode. TidyTV is a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "This Sony BRAVIA UR3 runs Android TV 10. It ships with tracking, ads and recommendation rows, a demo and shop mode, a voice assistant and a few preloaded apps that most owners never open. The list has 17 apps in total, grouped by what they do.",
+    "All of them stayed off after a restart on a real set. Chromecast stayed, and Sony's HDMI, tuner, Bravia Sync and remote services are left alone. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. It had not been lived with for weeks yet."
+  ],
+  "keep": [
+    "HDMI, the tuner, Bravia Sync and the remote",
+    "Sony settings apps",
+    "AirPlay and HomeKit",
+    "Chromecast",
+    "Firmware update services (if you want updates)",
+    "Apple TV app, used as a dock app here"
+  ],
+  "notes": [
+    "The voice assistant entries are optional. Skip them to keep the mic button.",
+    "If the home screen fails, the TV falls back to the Settings home screen, so you do not land on a black screen."
+  ],
+  "faq": [
+    {
+      "q": "Will the voice button still work on my Sony UR3?",
+      "a": "Not with the default list, which switches off the voice assistant. Leave those three apps on to keep the mic button."
+    },
+    {
+      "q": "Will AirPlay still work?",
+      "a": "Yes. AirPlay and HomeKit are kept."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

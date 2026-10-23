@@ -1,6 +1,6 @@
 {
   // The landing page at tidytv.winkle.dev: static files from site/, served by Workers static assets.
-  // Deploy: tools/deploy-site.sh (copies the release APK in as site/tidytv.apk, then runs wrangler deploy).
+  // Deploy: tools/deploy-site.sh. The app is on Google Play; site/_redirects sends /tidytv.apk there.
   "name": "tidytv-site",
   "compatibility_date": "2026-10-01",
   "assets": {

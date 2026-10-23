@@ -1,0 +1,38 @@
+{
+  "name": "Sony BRAVIA 4K AE1",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Sony BRAVIA 4K AE1 ships with a viewing tracker, ad installs and demo mode. TidyTV is a free phone app that turns them off, with a backup and one-tap undo.",
+  "intro": [
+    "This Sony BRAVIA AE1 runs Google TV on Android 12. It ships with a viewing tracker and telemetry, Sony ads and partner installs, demo and shop mode, and help apps. The list also covers unused features and UK broadcaster apps, which are off by choice.",
+    "It was applied on one unit and everything stayed off after a restart, with Home on the new launcher. It had not been lived with for days yet. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Live TV and input player (also plays your HDMI inputs)",
+    "The tuner",
+    "Sony settings and update services",
+    "Netflix, YouTube and Prime Video",
+    "UEI QuickSet (the IR blaster)",
+    "Sony smart speaker and IP control"
+  ],
+  "notes": [
+    "With the stock home screen off, the Settings, Netflix, YouTube and Prime Video buttons do nothing until the key helper is on.",
+    "A held volume key then moves one step per press instead of ramping.",
+    "The setup wizard claims Home. Check it does not own your Wi-Fi network before switching it off.",
+    "This set has no Chromecast and no Google Assistant package."
+  ],
+  "faq": [
+    {
+      "q": "Will the Input key still work?",
+      "a": "Yes. It opens Sony's own source panel and needs no helper."
+    },
+    {
+      "q": "Do the Netflix and YouTube buttons still work?",
+      "a": "Only with the key helper on once the stock home screen is off. With it on, they worked."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

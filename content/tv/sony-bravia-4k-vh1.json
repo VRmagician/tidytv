@@ -1,0 +1,34 @@
+{
+  "name": "Sony BRAVIA 4K VH1",
+  "brand": "Sony",
+  "os": "Google TV 12",
+  "summary": "Sony BRAVIA 4K VH1 (KD-55XH9096) ships with a viewing tracker, promos and demo mode. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Sony BRAVIA VH1, sold as the KD-55XH9096 in Europe, runs Google TV 12. It ships with a viewing tracker, telemetry and remote support, demo, shop and hotel modes, Sony promos and Select, and Google rows and preloads. The list has 38 apps, and three are off by the owner's choice.",
+    "It was lived with for weeks on a set in Spain, and Live TV, HDMI inputs, Ethernet and Chromecast kept working. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. Each app has its own switch."
+  ],
+  "keep": [
+    "HDMI, tuner, Bravia Sync and remote parts",
+    "Firmware updates",
+    "Sony settings apps",
+    "Chromecast",
+    "All the MediaTek TV parts"
+  ],
+  "notes": [
+    "The Google TV setup wizard may take Home back after a restart. If that happens, switch it off too."
+  ],
+  "faq": [
+    {
+      "q": "Does Chromecast still work?",
+      "a": "Yes. Chromecast is kept."
+    },
+    {
+      "q": "Will firmware updates still arrive?",
+      "a": "Yes. The Sony update services are kept."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

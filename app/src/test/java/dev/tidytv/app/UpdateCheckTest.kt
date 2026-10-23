@@ -89,4 +89,11 @@ class UpdateCheckTest {
     }
 
     private companion object { const val DAY = 24L * 60 * 60 * 1000 }
+
+    @Test fun onlySideloadedCopiesCheckGitHub() {
+        assertFalse("Play updates its own installs", UpdateCheck.needed("com.android.vending"))
+        assertTrue("a browser or file manager install", UpdateCheck.needed("com.google.android.packageinstaller"))
+        assertTrue("adb or unknown", UpdateCheck.needed(null))
+        assertTrue("the banner sends people to Play", UpdateCheck.SITE_URL.startsWith("https://play.google.com/"))
+    }
 }

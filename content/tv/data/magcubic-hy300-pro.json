@@ -1,0 +1,89 @@
+{
+ "id": "magcubic-hy300-pro",
+ "title": "Magcubic HY300 Pro projector (rk3566_rgo, device adt3, Askey; Allwinner/HTC firmware), Android 11 (SDK 30)",
+ "header": "Magcubic HY300 Pro projector (rk3566_rgo, device adt3, Askey; Allwinner/HTC firmware), Android 11 (SDK 30)\nFirmware UI_Veng.projector.20260626.102242, 1280x720 panel.\nSame firmware family as the Portronics Beem 470 (examples/portronics-beem-470/), different build.\n\nApply:   TV_HOST=<projector ip> tools/disable.sh examples/magcubic-hy300-pro/debloat.txt\nUndo:    TV_HOST=<projector ip> tools/restore.sh examples/magcubic-hy300-pro/debloat.txt\nEverything is DISABLED, not uninstalled. Comment out anything you use.\n\nKept on purpose:\n- com.htc.htcsettings: the projector's own settings (Wi-Fi, picture, keystone). Home resolves to\ncom.htc.htclauncherhighenglishd08; it is left enabled, and the launcher takes Home with\n`cmd package set-home-activity`.\n- The firmware updaters (com.htc.htcotaupdate, com.softwinner.update, android.rockchip.update.service).\n- Factory and test packages (com.htc.hyk_test, com.softwinner.dragon*): not started, not disabled.\n- The input and source services: HDMI1-3 and CVBS1 list in the launcher's Inputs menu.\n\nThe Settings pill opens com.android.tv.settings; no settings_fallback_components entry is needed.",
+ "sections": [
+  {
+   "title": "Apps nobody asked for",
+   "apps": [
+    {
+     "pkg": "com.android.calculator2",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.music",
+     "note": ""
+    },
+    {
+     "pkg": "com.mobisystems.office",
+     "note": "Office suite"
+    },
+    {
+     "pkg": "com.softwinner.TvdFileManager",
+     "note": ""
+    },
+    {
+     "pkg": "com.softwinner.TvdVideo",
+     "note": "stock USB video player; VLC covers playback"
+    },
+    {
+     "pkg": "com.softwinner.miracastReceiver",
+     "note": "screen mirroring; re-enable if you cast from a phone"
+    },
+    {
+     "pkg": "com.htc.storeos",
+     "note": "HTC app store"
+    },
+    {
+     "pkg": "com.android.egg",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.htmlviewer",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Printing",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.bips",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.printservice.recommendation",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Screensaver and backup extras",
+   "apps": [
+    {
+     "pkg": "com.android.dreams.web",
+     "note": ""
+    },
+    {
+     "pkg": "com.android.wallpaperbackup",
+     "note": ""
+    }
+   ],
+   "optional": [],
+   "note": ""
+  }
+ ],
+ "kept": [
+  "com.htc.htcsettings: the projector's own settings (Wi-Fi, picture, keystone). Home resolves to"
+ ],
+ "stock_launcher": null,
+ "count": 14
+}

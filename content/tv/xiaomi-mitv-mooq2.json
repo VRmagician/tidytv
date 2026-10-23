@@ -1,0 +1,35 @@
+{
+  "name": "Xiaomi Mi TV P1 43\"",
+  "brand": "Xiaomi",
+  "os": "Android TV 11",
+  "summary": "Xiaomi Mi TV P1 43\" (Latin America) ships with telemetry, content rows and preloads. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 43-inch Xiaomi Mi TV P1 is a Latin America set on Android TV 11 with 1.7 GB of memory. It ships with Xiaomi and Google telemetry, Xiaomi content, ads and recommendation rows, background services and preloaded apps. Five more apps are optional.",
+    "It was checked after the change: HDMI 1 to 3, AV and Live TV in the Inputs menu, Netflix, YouTube, Prime Video and Max, Chromecast, Miracast and the Bluetooth remote. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Netflix key service",
+    "Bluetooth remote pairing",
+    "The TV's quick settings",
+    "HDMI 1 to 3, AV and the tuner",
+    "Firmware updates (owner's choice)"
+  ],
+  "notes": [
+    "Point the screensaver at another one before its apps are switched off.",
+    "The list is provisional: one session, checked after a restart."
+  ],
+  "faq": [
+    {
+      "q": "Does Netflix still work?",
+      "a": "Yes. The Netflix key service is kept, and Netflix, YouTube, Prime Video and Max all launched."
+    },
+    {
+      "q": "Will Chromecast and Miracast still work?",
+      "a": "Yes. Both kept working after the change."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

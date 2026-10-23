@@ -1,0 +1,33 @@
+{
+  "name": "Magcubic HY300 Pro",
+  "brand": "Magcubic",
+  "os": "Android 11",
+  "summary": "Magcubic HY300 Pro projector ships with unneeded apps, printing services and extras. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This Magcubic projector runs Android 11 on HTC and Allwinner firmware. It ships with nine apps nobody asked for, three printing services, and screensaver and backup extras. The list is short and mild, because the projector's own tools are needed for day-to-day use.",
+    "The projector's own settings (Wi-Fi, picture, keystone), the firmware updaters and the HDMI and AV input services are left alone. TidyTV turns the rest off from your phone over Wi-Fi, saves a backup first and never deletes anything. Each app has its own switch."
+  ],
+  "keep": [
+    "The projector's own settings: Wi-Fi, picture and keystone",
+    "The firmware updaters",
+    "Factory and test tools (never opened)",
+    "HDMI 1 to 3 and AV input services"
+  ],
+  "notes": [
+    "The original home screen stays enabled. A new home screen can still take over as Home."
+  ],
+  "faq": [
+    {
+      "q": "Will keystone and picture settings still work?",
+      "a": "Yes. The projector's own settings app is kept."
+    },
+    {
+      "q": "Will the HDMI inputs still work?",
+      "a": "Yes. The input and source services are kept, and HDMI 1 to 3 and AV stay in the Inputs menu."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

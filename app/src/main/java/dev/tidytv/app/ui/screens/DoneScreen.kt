@@ -27,6 +27,18 @@ import dev.tidytv.app.TvSummary
 import androidx.compose.ui.graphics.Color
 import dev.tidytv.app.data.FeedbackKind
 import dev.tidytv.app.ui.AppIcon
+import dev.tidytv.app.ui.ChipRow
+import dev.tidytv.app.ui.InfoChip
+import dev.tidytv.app.ui.Title
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.Backup
+import androidx.compose.material.icons.rounded.Block
+import androidx.compose.material.icons.rounded.Home
+import androidx.compose.material.icons.rounded.Memory
+import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.ThumbUp
+import androidx.compose.material3.Icon
+import androidx.compose.ui.text.style.TextAlign
 import dev.tidytv.app.ui.BigButton
 import dev.tidytv.app.ui.FeedbackRequest
 import dev.tidytv.app.ui.LocalAppActions
@@ -72,7 +84,7 @@ fun DoneScreen(
     val restoring = s.restore is RestoreUi.Running
     ScreenFrame(bottom = {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
-            BigButton("‹  Back to My TV", onMyTv, color = Tidy.Blue)
+            BigButton("Back to My TV", onMyTv, color = Tidy.Blue)
             TextLink("Start over", onStartOver)
         }
     }) {
@@ -81,17 +93,19 @@ fun DoneScreen(
             fin?.ok == false -> Mood.WORRIED
             fin?.ok == true || (!restoreMode && disabledCount > 0) -> Mood.CHEER
             else -> Mood.STAND
-        })
-        if (tv != null) TvCard(tv.title, listOf(tv.model.takeIf { it != tv.title }, tv.host).filterNotNull().joinToString("\n"))
+        }, height = 130.dp)
         val restored = (s.restore as? RestoreUi.Finished)?.ok == true
-        if (!restoreMode && !restored && disabledCount > 0) {
-            SafetyBanner(buildString {
-                append("$disabledCount apps turned off")
-                if (s.newHome) append(" · new home screen")
-            })
-            s.freedMb?.takeIf { it > 0 }?.let { Body("Freed about $it MB of memory.", color = Tidy.GreenInk) }
-            HowDidItGo()
+        val result = !restoreMode && !restored && disabledCount > 0
+        if (result) {
+            Title(if (disabledCount == 1) "1 app off" else "$disabledCount apps off", align = TextAlign.Center)
+            ChipRow(center = true) {
+                if (s.newHome) InfoChip(Icons.Rounded.Home, "New home screen")
+                s.freedMb?.takeIf { it > 0 }?.let { InfoChip(Icons.Rounded.Memory, "$it MB freed") }
+                InfoChip(Icons.Rounded.Backup, "Backup saved")
+            }
         }
+        if (!restoreMode && s.homeUntested) UntestedHomeCard()
+        if (tv != null) TvCard(tv.title, listOf(tv.model.takeIf { it != tv.title }, tv.host).filterNotNull().joinToString("\n"))
         when (val r = s.restore) {
             is RestoreUi.Running -> Row(verticalAlignment = Alignment.CenterVertically) {
                 Spinner(); Spacer(Modifier.width(10.dp)); Body("Turning things back on… ${r.count}")
@@ -102,27 +116,31 @@ fun DoneScreen(
             }
         }
         if (!restoring) OffApps(s, labels, onTurnOn)
-        BigButton(if (restoring) "Restoring…" else "↻  Restore everything", onRestore, color = Tidy.Green, enabled = !restoring)
+        BigButton(
+            if (restoring) "Restoring…" else "Restore everything", onRestore, color = Tidy.Green, enabled = !restoring,
+            leading = if (restoring) null else { { Icon(Icons.Rounded.Restore, null, tint = Color.White) } },
+        )
+        if (result) HowDidItGo()
         if (!restoreMode) DebuggingCard(s.debugging, onCheckDebugging)
         Activity(s.records, labels)
-        Row(horizontalArrangement = Arrangement.spacedBy(4.dp)) {
+        val actions = LocalAppActions.current
+        ChipRow {
             TextLink("Share logs", onShareLogs)
-            val actions = LocalAppActions.current
             TextLink("Send feedback", { actions.feedback(FeedbackRequest(FeedbackKind.FEATURE, "done")) })
         }
     }
 }
 
-/** The ask, right after a good run: share a card if it went well, tell us if it didn't. */
+/** The ask after a good run, as a small link: share a card if it went well, tell us if it didn't. */
 @Composable
 private fun HowDidItGo() {
     val actions = LocalAppActions.current
-    Outline {
-        Text("How did it go?", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
-        Spacer(Modifier.heightIn(min = 10.dp))
+    var open by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    TextLink("How did it go?", { open = true }, icon = Icons.Rounded.ThumbUp)
+    if (open) dev.tidytv.app.ui.InfoSheet("How did it go?", { open = false }) {
         Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            BigButton("It went great", actions.shareCard, Modifier.weight(1f), color = Tidy.Green)
-            BigButton("Not quite", { actions.feedback(FeedbackRequest(FeedbackKind.BUG, "done")) }, Modifier.weight(1f), color = Color.White, textColor = Tidy.Ink)
+            BigButton("It went great", { open = false; actions.shareCard() }, Modifier.weight(1f), color = Tidy.Green)
+            BigButton("Not quite", { open = false; actions.feedback(FeedbackRequest(FeedbackKind.BUG, "done")) }, Modifier.weight(1f), color = Color.White, textColor = Tidy.Ink)
         }
     }
 }
@@ -136,7 +154,6 @@ private fun OffApps(s: DoneState, labels: Map<String, String>, onTurnOn: (String
     var showAll by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
     Outline {
         Text("Apps turned off", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
-        Text("Changed your mind about one? Turn it back on by itself.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
         Spacer(Modifier.heightIn(min = 10.dp))
         Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
             for (pkg in if (showAll) off else off.take(6)) {
@@ -186,13 +203,13 @@ private fun Activity(records: List<ActionRecord>, labels: Map<String, String>) {
     Outline {
         Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
             for ((r, text) in items) Row(verticalAlignment = Alignment.CenterVertically) {
-                val (bg, glyph) = when (r.op) {
-                    Op.DISABLE -> Tidy.RedSoft to "⦸"
-                    Op.ENABLE -> Tidy.GreenSoft to "↻"
-                    else -> Tidy.BlueSoft to "⌂"
+                val (bg, icon) = when (r.op) {
+                    Op.DISABLE -> Tidy.RedSoft to Icons.Rounded.Block
+                    Op.ENABLE -> Tidy.GreenSoft to Icons.Rounded.Restore
+                    else -> Tidy.BlueSoft to Icons.Rounded.Home
                 }
                 Box(Modifier.size(40.dp).clip(CircleShape).background(bg), contentAlignment = Alignment.Center) {
-                    Text(glyph, style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+                    Icon(icon, null, Modifier.size(22.dp), tint = Tidy.Ink)
                 }
                 Spacer(Modifier.width(12.dp))
                 Column(Modifier.weight(1f)) {

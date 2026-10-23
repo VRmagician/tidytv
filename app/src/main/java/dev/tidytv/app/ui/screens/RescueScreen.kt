@@ -3,9 +3,17 @@ package dev.tidytv.app.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.runtime.Composable
+import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.ui.unit.dp
 import dev.tidytv.app.RescueState
 import dev.tidytv.app.ui.BigButton
+import dev.tidytv.app.ui.IconBadge
+import dev.tidytv.app.ui.MoreInfo
+import androidx.compose.foundation.layout.width
+import androidx.compose.material.icons.Icons
+import androidx.compose.material.icons.rounded.PowerSettingsNew
+import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.Wifi
 import dev.tidytv.app.ui.Bubble
 import dev.tidytv.app.ui.HeroMascot
 import dev.tidytv.app.ui.Mood
@@ -31,7 +39,7 @@ fun RescueScreen(
     val result = s.result
     val trying = result == null && !s.gaveUp && !s.restoring
     ScreenFrame(
-        top = { TextLink("‹  Back", onStop) },
+        top = { TextLink("Back", onStop, icon = androidx.compose.material.icons.Icons.AutoMirrored.Rounded.ArrowBack) },
         bottom = {
             when {
                 result != null -> {
@@ -62,14 +70,26 @@ fun RescueScreen(
             else -> {
                 HeroMascot(mood = Mood.SEARCH, height = 120.dp)
                 Bubble("Trying to reach your TV… attempt ${s.attempts}", leading = { Spinner() })
-                Outline {
-                    Column(verticalArrangement = Arrangement.spacedBy(16.dp)) {
-                        NumberedStep(1, "Turn the TV off at the wall, wait 10 seconds, and turn it on again.")
-                        NumberedStep(2, "Keep your phone on the same network.")
-                        NumberedStep(3, "As soon as the TV answers, TidyTV turns everything it changed back on.")
-                    }
+                StepCard(Icons.Rounded.PowerSettingsNew, Tidy.Orange, "Unplug the TV for 10 seconds")
+                StepCard(Icons.Rounded.Wifi, Tidy.Blue, "Keep your phone on the same Wi-Fi")
+                StepCard(Icons.Rounded.Restore, Tidy.Green, "TidyTV puts everything back")
+                MoreInfo("TV stuck after a change?", link = "More about this") {
+                    NumberedStep(1, "Turn the TV off at the wall, wait 10 seconds, and turn it on again.")
+                    NumberedStep(2, "Keep your phone on the same network.")
+                    NumberedStep(3, "As soon as the TV answers, TidyTV turns everything it changed back on.")
                 }
             }
+        }
+    }
+}
+
+@Composable
+private fun StepCard(icon: androidx.compose.ui.graphics.vector.ImageVector, color: androidx.compose.ui.graphics.Color, text: String) {
+    Outline {
+        androidx.compose.foundation.layout.Row(verticalAlignment = androidx.compose.ui.Alignment.CenterVertically) {
+            IconBadge(icon, color, 44.dp)
+            androidx.compose.foundation.layout.Spacer(androidx.compose.ui.Modifier.width(14.dp))
+            androidx.compose.material3.Text(text, style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = Tidy.Ink)
         }
     }
 }

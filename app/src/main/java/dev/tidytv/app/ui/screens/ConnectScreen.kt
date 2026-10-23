@@ -34,6 +34,7 @@ import androidx.compose.ui.text.input.KeyboardType
 import androidx.compose.ui.text.style.TextAlign
 import androidx.compose.ui.unit.dp
 import dev.tidytv.app.ui.BigButton
+import dev.tidytv.app.ui.MoreInfo
 import dev.tidytv.app.ui.Body
 import dev.tidytv.app.ui.Bubble
 import dev.tidytv.app.ui.Check
@@ -133,13 +134,14 @@ private fun NothingFound(state: ConnectState.NothingFound, onEvent: (ConnectEven
     ScreenFrame(bottom = { TextLink("Search again", { onEvent(ConnectEvent.StartScan) }) }) {
         HeroMascot(worried = true)
         Title("No TV found yet")
-        Body("Type your TV's IP address. You'll find it on the TV in Settings › Network & Internet (your Wi-Fi name, or Ethernet).")
-        IpField(state.badIp, onEvent)
-        Outline {
-            Text("Same network?", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
-            Spacer(Modifier.height(4.dp))
-            Body("Your phone and TV must be on the same home network. The TV can use Wi-Fi or Ethernet. Guest networks and mobile data won't find the TV.")
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            Text("Type your TV's IP address.", style = MaterialTheme.typography.bodyLarge, color = Tidy.Muted, modifier = Modifier.weight(1f))
+            MoreInfo("Same network?") {
+                Body("You'll find the TV's address on the TV in Settings › Network & Internet (your Wi-Fi name, or Ethernet).", color = Tidy.Ink)
+                Body("Your phone and TV must be on the same home network. The TV can use Wi-Fi or Ethernet. Guest networks and mobile data won't find the TV.", color = Tidy.Ink)
+            }
         }
+        IpField(state.badIp, onEvent)
     }
 }
 
@@ -179,8 +181,8 @@ private fun PressAllow(state: ConnectState.PressAllow, onEvent: (ConnectEvent) -
         HeroMascot()
         Bubble("Press Allow on your TV") { Spinner(26.dp) }
         AllowDialogPicture()
-        Body("Tick \"Always allow from this computer\" first, so your TV never asks again. TidyTV carries on by itself once you press Allow.")
-        if (state.canRetry) Note("No answer yet. Is the prompt showing on the TV? If it went away, tap Try again.")
+        Body("Tick Always allow first, so it never asks again.")
+        if (state.canRetry) Note("No answer yet? If the prompt went away, tap Try again.")
     }
 }
 
@@ -264,10 +266,8 @@ private fun Help(title: String, intro: String, steps: List<String>, onEvent: (Co
         HeroMascot(worried = true)
         Title(title)
         Body(intro)
-        Outline {
-            Column(verticalArrangement = Arrangement.spacedBy(14.dp)) {
-                steps.forEachIndexed { i, s -> NumberedStep(i + 1, s) }
-            }
+        MoreInfo(title, link = "How to fix it") {
+            steps.forEachIndexed { i, s -> NumberedStep(i + 1, s) }
         }
     }
 }

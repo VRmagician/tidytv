@@ -14,7 +14,7 @@
 <meta property="og:description" content="What data the TidyTV app handles: almost none. No account, ads, analytics or tracking. What stays on your phone and what is sent only when you choose.">
 <meta property="og:image" content="https://tidytv.winkle.dev/img/og.png">
 <meta name="twitter:card" content="summary_large_image">
-<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebPage", "name": "TidyTV privacy policy", "url": "https://tidytv.winkle.dev/privacy/", "dateModified": "2026-10-22"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Privacy policy"}]}]</script>
+<script type="application/ld+json">[{"@context": "https://schema.org", "@type": "WebPage", "name": "TidyTV privacy policy", "url": "https://tidytv.winkle.dev/privacy/", "dateModified": "2026-10-24"}, {"@context": "https://schema.org", "@type": "BreadcrumbList", "itemListElement": [{"@type": "ListItem", "position": 1, "name": "TidyTV", "item": "https://tidytv.winkle.dev/"}, {"@type": "ListItem", "position": 2, "name": "Privacy policy"}]}]</script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@500;600;700;800;900&display=swap" rel="stylesheet">
@@ -27,14 +27,14 @@
 <p class="crumbs"><a href="/">TidyTV</a> › Privacy policy</p>
 <article class="card guide">
   <h1>Privacy policy</h1>
-  <p class="meta">TidyTV for Android · Effective 22 October 2026</p>
+  <p class="meta">TidyTV for Android · Effective 24 October 2026</p>
   <div class="prose">
 <p>TidyTV is a free, open-source phone app that cleans up Android TV and Google TV sets over your home network. It has no account, no ads, no analytics and no tracking. This page explains the little data it handles and where it goes. The full source code is on <a href="https://github.com/jolan94/tidytv">GitHub</a>, so anyone can check it.</p>
 
 <h2>The short version</h2>
 <ul>
 <li>TidyTV talks to your TV over your own home network. That traffic never leaves your network.</li>
-<li>Once a day it asks GitHub whether a newer version is out. Nothing about you or your TV is sent.</li>
+<li>Installed from Google Play, it never checks for updates itself: Play does that. A copy installed from GitHub asks GitHub once a day whether a newer version is out, and sends nothing about you or your TV.</li>
 <li>Anything else leaves your phone only when you choose to send it: a message in the feedback form, or something you share through Android's share sheet.</li>
 <li>We don't sell data, show ads, or use analytics or advertising SDKs.</li>
 </ul>
@@ -55,7 +55,7 @@
 
 <h2>What goes over the internet</h2>
 <h3>Update check</h3>
-<p>Once a day TidyTV requests the public "latest release" page of its GitHub repository to see whether a newer version exists. The request contains nothing about you or your TV. Like any web request, GitHub sees your IP address; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
+<p>Copies installed from Google Play skip this: Play handles their updates. A copy installed another way (for example the APK from GitHub) requests the public "latest release" page of TidyTV's GitHub repository once a day to see whether a newer version exists. The request contains nothing about you or your TV. Like any web request, GitHub sees your IP address; see <a href="https://docs.github.com/en/site-policy/privacy-policies/github-general-privacy-statement">GitHub's privacy statement</a>.</p>
 <h3>Feedback form (only when you tap Send)</h3>
 <p>If you send a message from the app, it includes:</p>
 <ul>
@@ -92,7 +92,7 @@
   <div>
     <h2>Tidy your TV from your phone</h2>
     <p>TidyTV is free and open source. It saves a backup first, turns apps off instead of deleting them, and puts everything back with one tap.</p>
-    <div class="actions"><a class="btn" href="/tidytv.apk" download="TidyTV-0.6.1.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download the free APK</a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
+    <div class="actions"><a class="play" href="https://play.google.com/store/apps/details?id=com.appfactory.tidytv"><img src="/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play"></a><a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a></div>
     <p class="ask">A star on GitHub is how other people find TidyTV.</p>
   </div>
   <img src="/img/art/mascot-cheer.webp" width="800" height="683" loading="lazy" alt="The TidyTV mascot cheering.">

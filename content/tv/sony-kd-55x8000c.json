@@ -1,0 +1,38 @@
+{
+  "name": "Sony BRAVIA KD-55X8000C",
+  "brand": "Sony",
+  "os": "Android TV 7",
+  "summary": "Sony BRAVIA KD-55X8000C (2015, China firmware) ships with video apps, promo rows and demo mode. TidyTV is a free phone app with a backup and one-tap undo.",
+  "intro": [
+    "This 2015 Sony KD-55X8000C is a China-firmware set on Android TV 7 with 1.5 GB of memory. It ships with video apps that start at boot and held about 250 MB, a partner app store that fills the home recommendation row with paid apps, promo feeds, help apps and demo mode. The list has 42 apps.",
+    "It was reported on one set after an evening of use. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything. Each app has its own switch."
+  ],
+  "keep": [
+    "HDMI inputs and the Live TV and input app",
+    "Bravia Sync (HDMI-CEC)",
+    "Remote pairing and key services",
+    "Keyboards",
+    "The hotel mode part (Settings needs it)",
+    "The application assistant"
+  ],
+  "notes": [
+    "This firmware has no Google Play Services, so there is no Play Store or Google voice.",
+    "The Settings menu opens to a blank screen if the hotel mode part is switched off, so it stays on.",
+    "Screen mirroring only works with its Wi-Fi Direct parts on. Switching them off leaves the menu entry doing nothing.",
+    "The Simple home screen works on this TV. The Apple TV style one needs Android 8 or newer, and this set runs Android 7."
+  ],
+  "faq": [
+    {
+      "q": "Can I get a new home screen on this TV?",
+      "a": "Yes, the Simple one: your apps, your inputs and a clock, with no ad rows. The Apple TV style home screen needs Android 8 or newer, and this set runs Android 7."
+    },
+    {
+      "q": "Will HDMI still work?",
+      "a": "Yes. The Live TV and input app, which also plays every HDMI input, is kept."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

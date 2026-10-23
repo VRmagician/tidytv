@@ -117,7 +117,7 @@ private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs
         Step.CONNECT -> ConnectScreen(s.connect, { vm?.connect(it) }, onShareLogs)
         Step.REVIEW -> ReviewScreen(
             s.review, { vm?.toggleApp(it) }, { g, on -> vm?.toggleGroup(g, on) }, { vm?.startTidy() },
-            { vm?.retryBackup() }, { vm?.toDone() },
+            { vm?.retryBackup() }, { vm?.toDone() }, { vm?.showMoreApps() },
         )
         Step.TIDYING -> TidyingScreen(s.tidy, { vm?.toDone(); vm?.restoreEverything() }, { vm?.toDone() }, onShareLogs)
         Step.HOME_SCREEN -> HomeScreenStep(

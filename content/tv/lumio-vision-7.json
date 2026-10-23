@@ -1,0 +1,34 @@
+{
+  "name": "Lumio Vision 7",
+  "brand": "Lumio",
+  "os": "Google TV 14",
+  "summary": "Lumio Vision 7 (India) ships with ad tracking, retail demo mode and Google telemetry. TidyTV is a free phone app that turns them off, with a backup and undo.",
+  "intro": [
+    "This 55-inch Lumio set is built by KTC and runs Google TV 14. It ships with ad tracking and Privacy Sandbox services, a retail demo mode, regional preloads and Google telemetry. There is also an optional voice assistant entry that uses around 100 MB of memory in the background.",
+    "The list was checked on a real set over Wireless debugging. Every HDMI and tuner input and every installed app was verified by screenshot, and the TV was restarted afterwards. TidyTV turns these off from your phone over Wi-Fi, saves a backup first and never deletes anything."
+  ],
+  "keep": [
+    "The Realtek Live TV and tuner app",
+    "HDMI and tuner inputs",
+    "Voice assistant and the mic button (listed as optional, so you choose)",
+    "The remote's YouTube, Prime Video and other app buttons"
+  ],
+  "notes": [
+    "A setup helper takes the home screen back the moment the stock one is off. It has to be switched off too, and that may break Chromecast. Turn it back on to get casting back.",
+    "Netflix came already switched off on this unit."
+  ],
+  "faq": [
+    {
+      "q": "Will the mic button still work?",
+      "a": "Yes by default. The voice assistant is listed as optional, so it stays on unless you switch it off in the app."
+    },
+    {
+      "q": "Will Chromecast still work?",
+      "a": "Mostly. Switching off the setup helper, which is needed for a new home screen, may break casting. Turn it back on to get casting back."
+    },
+    {
+      "q": "Does it have a way back?",
+      "a": "Yes. Restore everything in the app turns every app back on in one tap, and puts the old home screen back if you changed it."
+    }
+  ]
+}

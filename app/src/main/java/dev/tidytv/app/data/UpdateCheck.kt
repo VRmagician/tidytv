@@ -13,7 +13,8 @@ import java.io.File
 data class UpdateInfo(val version: String, val url: String)
 
 /**
- * TidyTV is sideloaded, so nothing tells people a new version is out. Once a day this asks GitHub
+ * Only for copies not installed from Google Play (see [needed]): Play updates its own installs, but a
+ * sideloaded APK hears about nothing. Once a day this asks GitHub
  * for the latest release (a plain public request; nothing about the user or the TV is sent) and
  * says so when it is newer than this build. Offline or any error means silence, never a crash.
  */
@@ -59,7 +60,12 @@ class UpdateCheck(
 
     companion object {
         const val LATEST_URL = "https://api.github.com/repos/jolan94/tidytv/releases/latest"
-        const val SITE_URL = "https://tidytv.winkle.dev"
+        /** Where "Get it" on the banner goes: the Play listing, where updates now come from. */
+        const val SITE_URL = "https://play.google.com/store/apps/details?id=com.appfactory.tidytv"
+        const val PLAY_STORE = "com.android.vending"
+
+        /** Play installs update through Play, so only sideloaded copies (any other installer) check GitHub. */
+        fun needed(installer: String?): Boolean = installer != PLAY_STORE
         private const val DAY_MS = 24L * 60 * 60 * 1000
         private val json = Json { ignoreUnknownKeys = true }
 

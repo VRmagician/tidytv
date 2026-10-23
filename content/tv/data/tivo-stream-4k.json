@@ -1,0 +1,127 @@
+{
+ "id": "tivo-stream-4k",
+ "title": "TiVo Stream 4K (SEI Robotics IPA1104HDW, SKU RA2400, device SEI400TV, Amlogic S905Y2, NES middleware), 2 GB RAM",
+ "header": "TiVo Stream 4K (SEI Robotics IPA1104HDW, SKU RA2400, device SEI400TV, Amlogic S905Y2, NES middleware), 2 GB RAM\nAndroid TV 12 (SDK 31), build SC.1272, 32-bit (armeabi-v7a), security patch 2025-07-05\n\nApply and undo: the commands in README.md here, NOT tools/disable.sh (this firmware refuses it).\nEverything is SUSPENDED and barred from the background, not disabled or uninstalled.\nComment out any line you want to keep.\n\nStock launcher: com.google.android.tvlauncher (classic Android TV). HOME priority 2, so set-home-activity says\n\"Success\" and changes nothing; README.md here explains how Home reaches another launcher. A streaming stick: no\nHDMI inputs and no tuner. Suspending the stock launcher only works after it stops owning the HOME role.\n\nKnown quirks on this firmware:\n- Every pm disable-user, pm disable <component> and pm hide is refused (\"This command is illegal!\"); pm uninstall\n--user 0 is refused for core apps. pm suspend and appops work and survive a reboot.\n- Port 5555 opens as soon as USB debugging is on, with a per-computer prompt; there is no separate network toggle.\n- com.nes.coreservice runs EvoBlackListAppsFun at every start (its BootReceiver, kicked by the persistent\ncom.nes.daemon): it uninstalls every non-system app whose activity declares android.intent.category.HOME, and a\nfixed list of 53 packages from array/evo_black_list_to_uninstall_pkgs (alternative launchers, Downloader,\nMagisk, IPTV \"Magis TV\" variants). Suspending it does not stop its boot receiver.\n- A suspended package still gets its boot broadcasts: coreservice, sageservice, tvlauncher, katniss,\ntvrecommendations and tvbugtracker are running again after a boot. Stop them with am force-stop.\n\nKept on purpose (checked with dumpsys package):\ncom.uei.uas.tivo               UEI QuickSet: the remote switches the TV on and off\ncom.sei.hdmi.services          HDMI-CEC\ncom.nes.tivo.remote.pair       Bluetooth remote pairing; remote.ota updates the remote's firmware\ncom.google.android.apps.mediashell   Chromecast (suspending it saved no memory: another component binds it)\nPlay Store, Play Services, keyboard, TV Settings",
+ "sections": [
+  {
+   "title": "Telemetry and feedback",
+   "apps": [
+    {
+     "pkg": "com.google.android.feedback",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.partnersetup",
+     "note": "Google RLZ partner attribution pings"
+    },
+    {
+     "pkg": "com.nes.tvbugtracker",
+     "note": "NES bug tracker"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "App blocker and NES background services",
+   "apps": [
+    {
+     "pkg": "com.nes.coreservice",
+     "note": "uninstalls launchers and sideload tools at boot; polls the update status once a second"
+    },
+    {
+     "pkg": "com.nes.daemon",
+     "note": "persistent: the system re-creates it, so suspending changes nothing visible"
+    },
+    {
+     "pkg": "com.tivo.sageservice",
+     "note": "TiVo service, no use outside the US"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Recommendations, partner rows and auto-installs",
+   "apps": [
+    {
+     "pkg": "com.google.android.tvrecommendations",
+     "note": "also switch its notification listener off: cmd notification disallow_listener"
+    },
+    {
+     "pkg": "android.autoinstalls.config.sei",
+     "note": "Play auto-install of partner apps"
+    }
+   ],
+   "optional": [],
+   "note": ""
+  },
+  {
+   "title": "Preloaded apps, off by choice",
+   "apps": [
+    {
+     "pkg": "com.android.printspooler",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.marvin.talkback",
+     "note": "re-enable if you need the screen reader"
+    }
+   ],
+   "optional": [
+    {
+     "pkg": "com.google.android.tvlauncher",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.backdrop",
+     "note": "ambient screensaver"
+    },
+    {
+     "pkg": "com.android.camera2",
+     "note": "no camera on a stick"
+    },
+    {
+     "pkg": "com.android.gallery3d",
+     "note": ""
+    },
+    {
+     "pkg": "com.google.android.katniss",
+     "note": "Assistant; also clear settings assistant and voice_interaction_service, or the system keeps it alive"
+    },
+    {
+     "pkg": "com.tivo.atom",
+     "note": ""
+    },
+    {
+     "pkg": "com.tivo.tivoplusplayer",
+     "note": ""
+    },
+    {
+     "pkg": "com.tivo.tvlaunchercustomization",
+     "note": ""
+    },
+    {
+     "pkg": "com.nes.skywayclient",
+     "note": "NES device manager: boot ads, silent installs, firmware check"
+    },
+    {
+     "pkg": "com.nes.tvglobalkeyhandler",
+     "note": "remote shortcut keys"
+    },
+    {
+     "pkg": "com.utsmta.app",
+     "note": "NES factory test app"
+    },
+    {
+     "pkg": "com.google.android.play.games",
+     "note": ""
+    }
+   ],
+   "note": ""
+  }
+ ],
+ "kept": [],
+ "stock_launcher": "com.google.android.tvlauncher",
+ "count": 10
+}
