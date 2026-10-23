@@ -26,7 +26,7 @@ SITE = ROOT / "site"
 BASE = "https://tidytv.winkle.dev"
 REPO = "https://github.com/jolan94/tidytv"
 LIST_URL = "https://github.com/Gathin23/cleanyourtv/blob/main/examples/{id}/debloat.txt"
-VERSION = "0.6.0"
+VERSION = "0.6.1"
 TODAY = date.today().isoformat()
 
 PKG = re.compile(r"^([a-zA-Z][\w]*(?:\.[\w]+)+)\s*(?:#\s*(.*))?$")

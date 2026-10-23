@@ -15,8 +15,8 @@ android {
         applicationId = "com.appfactory.tidytv"
         minSdk = 26
         targetSdk = 36
-        versionCode = 6
-        versionName = "0.6.0"
+        versionCode = 7
+        versionName = "0.6.1"
     }
 
     // Release signing comes from keys/signing.properties, a git-ignored folder in the repo.

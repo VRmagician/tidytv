@@ -409,7 +409,7 @@ class WizardViewModel(
 
     /** Restore mode skips the review, but the activity list should still use the list's names. */
     private fun loadLabels(snap: TvSnapshot) {
-        val l = ModelMatcher.match(snap.info, lists().lists).firstOrNull()?.list ?: return
+        val l = ModelMatcher.match(snap.info, lists().lists, installed = snap.installed).firstOrNull()?.list ?: return
         list = l
         val names = (l.entries + l.optional).associate { it.pkg to AppLabels.label(it.pkg, it.note) }
         _ui.update { it.copy(labels = it.labels + names) }
@@ -758,14 +758,14 @@ class WizardViewModel(
                 ))) }
                 return@launch
             }
-            val match = ModelMatcher.match(snap.info, lists().lists).firstOrNull()
+            val match = ModelMatcher.match(snap.info, lists().lists, installed = snap.installed).firstOrNull()
             list = match?.list
             if (match == null) {
                 trace.line("no list for ${snap.info.displayName}")
                 _ui.update { it.copy(review = it.review.copy(backup = BackupStatus.Saved, noList = true)) }
                 return@launch
             }
-            trace.line("list ${match.list.id} score ${match.score}")
+            trace.line("list ${match.list.id} score ${match.score} overlap ${match.overlap}")
             val candidates = Grouping.candidates(match.list, snap.installed - snap.disabled, snap.liveProtected)
             val kept = (match.list.entries + match.list.optional).asSequence()
                 .filter { it.pkg in snap.installed }
