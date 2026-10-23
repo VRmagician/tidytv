@@ -28,6 +28,7 @@ REPO = "https://github.com/jolan94/tidytv"
 LIST_URL = "https://github.com/Gathin23/cleanyourtv/blob/main/examples/{id}/debloat.txt"
 VERSION = "0.7.0"
 PLAY = "https://play.google.com/store/apps/details?id=com.appfactory.tidytv"
+APK = "https://github.com/jolan94/tidytv/releases/latest/download/TidyTV.apk"  # stable name, uploaded with every release
 TODAY = date.today().isoformat()
 
 PKG = re.compile(r"^([a-zA-Z][\w]*(?:\.[\w]+)+)\s*(?:#\s*(.*))?$")
@@ -184,7 +185,8 @@ DOWN = '<svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width=
 
 
 def buttons() -> str:
-    return (f'<div class="actions"><a class="play" href="{PLAY}"><img src="/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play"></a>'
+    return (f'<div class="actions"><a class="play" href="{PLAY}"><img src="/img/google-play-badge.png" width="564" height="168" alt="Get it on Google Play"></a>'
+            f'<a class="btn apk" href="{APK}">{DOWN}Download APK</a>'
             f'<a class="btn star" href="{REPO}" data-star>{STAR}Star on GitHub<span class="stars" data-count></span></a></div>')
 
 

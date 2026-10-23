@@ -92,10 +92,20 @@ p { margin: 0; }
 .hero-copy h1 { font-size: var(--step-hero); line-height: 0.98; }
 .hero-copy h1 .y { color: var(--yellow); display: block; }
 .hero-copy .lead { font-size: var(--step-lead); line-height: 1.32; margin-top: 22px; max-width: 52ch; font-weight: 700; }
-.hero-copy .actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 16px 26px; align-items: center; }
-.play { display: inline-block; line-height: 0; border-radius: 14px; transition: transform .14s ease; }
+.hero-copy .actions { margin-top: 34px; display: flex; flex-wrap: wrap; gap: 16px; align-items: center; }
+.hero-copy .actions .btn { padding-inline: 22px; gap: 10px; }
+.play { display: inline-block; line-height: 0; border-radius: 12px; transition: transform .14s ease; }
+.play img { height: 64px; width: auto; border-radius: 10px; box-shadow: 0 6px 0 var(--ink); transition: box-shadow .14s ease; }
 .play:hover { transform: translateY(-2px); }
-.play img { height: 84px; width: auto; margin: -11px -14px; }
+.play:hover img { box-shadow: 0 8px 0 var(--ink); }
+.play:active { transform: translateY(5px); }
+.play:active img { box-shadow: 0 1px 0 var(--ink); }
+.btn.apk { background: #fff; }
+@media (max-width: 640px) {
+  .hero-copy .actions > a, .cta .actions > a { width: 100%; justify-content: center; }
+  .play { display: flex; justify-content: center; background: #000; border-radius: 16px; box-shadow: 0 6px 0 var(--ink); border: 3px solid var(--ink); }
+  .play img, .play:hover img, .play:active img { box-shadow: none; height: 58px; border-radius: 0; }
+}
 .hero-copy .apkinfo { margin-top: 18px; font-size: var(--step-small); font-weight: 700; opacity: .92; }
 .hero-copy .apkinfo a { text-decoration: underline; text-underline-offset: 3px; }
 .hero-copy .more { font-weight: 800; text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 4px; }
@@ -307,10 +317,11 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
       <h1 class="rise">Your TV, <span class="y">without the junk.</span></h1>
       <p class="lead rise d1">A few taps to turn off ads, trackers and bloat on your Android TV. Plus a phone remote and file sending.</p>
       <div class="actions rise d2">
-        <a class="play" href="https://play.google.com/store/apps/details?id=com.appfactory.tidytv"><img src="/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play"></a>
+        <a class="play" href="https://play.google.com/store/apps/details?id=com.appfactory.tidytv"><img src="/img/google-play-badge.png" width="564" height="168" alt="Get it on Google Play"></a>
+        <a class="btn apk" href="https://github.com/jolan94/tidytv/releases/latest/download/TidyTV.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download APK</a>
         <a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a>
       </div>
-      <p class="apkinfo rise d3">Free on Google Play · Android 8 or newer · <a href="https://github.com/jolan94/tidytv/releases/latest">APK on GitHub</a></p>
+      <p class="apkinfo rise d3">Free · Android 8 or newer · <a href="https://github.com/jolan94/tidytv/releases/latest">All releases on GitHub</a></p>
       <img class="hero-mascot" src="img/art/mascot-stand.webp" width="800" height="773" alt="The TidyTV mascot, a smiling blue TV with little legs.">
     </div>
     <div class="hero-phone"><div class="bezel"><div class="screen"><img src="img/real/welcome.webp" width="720" height="1600" alt="TidyTV's first screen: Hi! What TV do you have? with buttons for Android TV or Google TV, Amazon Fire TV, Samsung or LG, and Not sure."></div></div></div>
@@ -467,7 +478,8 @@ footer .small { margin-top: 10px; font-size: 0.875rem; max-width: 70ch; margin-i
       <h2 class="rise" id="cta-h">A tidier TV is a few taps away.</h2>
       <p class="rise d1">Get TidyTV from Google Play on your Android phone and follow the three steps.</p>
 <div class="actions rise d2">
-              <a class="play" href="https://play.google.com/store/apps/details?id=com.appfactory.tidytv"><img src="/img/google-play-badge.png" width="646" height="250" alt="Get it on Google Play"></a>
+              <a class="play" href="https://play.google.com/store/apps/details?id=com.appfactory.tidytv"><img src="/img/google-play-badge.png" width="564" height="168" alt="Get it on Google Play"></a>
+        <a class="btn apk" href="https://github.com/jolan94/tidytv/releases/latest/download/TidyTV.apk"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.6" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 3v12m0 0l-5-5m5 5l5-5M4 20h16"/></svg>Download APK</a>
         <a class="btn star" href="https://github.com/jolan94/tidytv" data-star><svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 2.6l2.9 5.9 6.5.9-4.7 4.6 1.1 6.5L12 17.4l-5.8 3.1 1.1-6.5L2.6 9.4l6.5-.9z"/></svg>Star on GitHub<span class="stars" data-count></span></a>
       </div>
       <p class="ask rise d3">TidyTV is free, with no ads and no sign-up. A star on GitHub is how other people find it.</p>

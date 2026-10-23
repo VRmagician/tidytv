@@ -1,2 +1,2 @@
-# Old direct-download links go to Google Play (TidyTV is on Play since 0.6.1).
-/tidytv.apk https://play.google.com/store/apps/details?id=com.appfactory.tidytv 302
+# Old direct-download links get the latest signed APK from GitHub releases.
+/tidytv.apk https://github.com/jolan94/tidytv/releases/latest/download/TidyTV.apk 302

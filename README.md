@@ -123,6 +123,8 @@ The promo video is a [HyperFrames](https://hyperframes.heygen.com) project in `v
 The package name is `com.appfactory.tidytv` from 0.2.0 on. Version 0.1.0 used `dev.tidytv.app`,
 so uninstall 0.1.0 before installing 0.2.0. Release keys live in `keys/`, which git ignores.
 
+Releases go to Google Play with fastlane, plus a signed APK on GitHub releases; the steps are in [docs/RELEASING.md](docs/RELEASING.md).
+
 | Module | What's in it |
 |---|---|
 | `core` | Pure JVM: list parser, matcher, grouping, protected set, backup, Debloater, LauncherHandover, Restorer, action log, connect and wizard state machines, and `FakeTv` |
