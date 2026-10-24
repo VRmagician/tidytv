@@ -89,7 +89,8 @@ class MainActivity : ComponentActivity() {
         )
     }
 
-    private val host = Host(
+    // Lazy: filesDir is null until the activity's context is attached, so it can't be read in an initializer.
+    private val host by lazy { Host(
         sendFeedback = { draft, includeLog ->
             val log = if (includeLog) runCatching { vm.exportLogs(File(cacheDir, "share"), BuildConfig.VERSION_NAME).readText() }.getOrNull() else null
             feedback.send(draft.copy(log = log))
@@ -110,7 +111,7 @@ class MainActivity : ComponentActivity() {
         openUrl = { url -> runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } },
         rating = dev.tidytv.app.data.RatingStore(File(filesDir, "rating.json")),
         requestReview = ::requestReview,
-    )
+    ) }
 
     /**
      * 4 and 5 stars: Google Play's own review dialog when Play installed TidyTV; otherwise (or if Play declines
