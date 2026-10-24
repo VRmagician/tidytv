@@ -114,9 +114,27 @@ platform :android do
     UI.success "Build promoted to production"
   end
 
+  desc "Copy the production build to closed testing (alpha) or open testing (beta). track:alpha|beta CONFIRM=1"
+  lane :release_testing do |options|
+    track = options[:track].to_s
+    UI.user_error!("track must be alpha (closed testing) or beta (open testing)") unless %w[alpha beta].include?(track)
+    confirm!("Releasing to the #{track} testing track")
+    supply(
+      track: "production",
+      track_promote_to: track,
+      skip_upload_apk: true,
+      skip_upload_aab: true,
+      skip_upload_metadata: true,
+      skip_upload_changelogs: true,
+      skip_upload_images: true,
+      skip_upload_screenshots: true,
+    )
+    UI.success "Production build released to #{track}"
+  end
+
   desc "Read back which version codes the internal and production tracks have"
   lane :verify do
-    %w[internal production].each do |track|
+    %w[internal alpha beta production].each do |track|
       UI.message("Play #{track}: #{google_play_track_version_codes(track: track).inspect}")
     end
   end

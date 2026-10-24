@@ -9,7 +9,8 @@ Lanes (see `fastlane/Fastfile`) run with `bundle exec fastlane android <lane>`:
 - `promote_to_production`: moves the internal build to production. Needs `CONFIRM=1`.
 - `metadata_upload`: uploads the listing text from `fastlane/metadata/android/en-IN/`. Add `version_code:N` to include that version's changelog, or `validate_only:true` to only check it.
 - `upload_screenshots`: replaces the store screenshots with `images/phoneScreenshots/*`.
-- `verify`: reads back the version codes on the internal and production tracks.
+- `release_testing track:alpha|beta`: copies the production build to closed (alpha) or open (beta) testing. Needs `CONFIRM=1`.
+- `verify`: reads back the version codes on every track.
 
 ## A release
 

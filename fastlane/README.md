@@ -63,6 +63,14 @@ Build the AAB and upload it to the production track for review (CONFIRM=1)
 
 Promote the internal build to production (CONFIRM=1)
 
+### android release_testing
+
+```sh
+[bundle exec] fastlane android release_testing
+```
+
+Release an already-uploaded version code to closed testing (alpha) or open testing (beta). track:alpha|beta version_code:N CONFIRM=1
+
 ### android verify
 
 ```sh
