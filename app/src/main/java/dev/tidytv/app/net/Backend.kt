@@ -71,7 +71,7 @@ class AdbBackend(private val discovery: Discovery, keyFile: File, private val tr
  * A simulated TV for trying the flow. [phoneApk] lends the phone's own copy of an app (if it has
  * one) so the real-icon path, pm path then stat then pull, also runs in the demo.
  */
-class DemoBackend(val tv: FakeTv = FakeTv.googleTv(), private val phoneApk: (String) -> java.io.File? = { null }) : Backend {
+class DemoBackend(val tv: FakeTv = FakeTv.tclG06(), private val phoneApk: (String) -> java.io.File? = { null }) : Backend {
     var debuggingOn = true
     /** The demo owner presses Install as soon as a Play Store page opens (tests turn this off). */
     init { tv.playStoreInstalls = true }

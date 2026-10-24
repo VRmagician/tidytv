@@ -10,6 +10,23 @@ import java.io.File
  * PackageManager parses the archive; nothing is installed on the phone.
  */
 class ApkIcons(private val context: Context, private val store: Store) {
+    /** The app's own name (its label in the APK), or null. */
+    fun labelFromApk(pkg: String, apk: ByteArray): String? {
+        val tmp = File(context.cacheDir, "apk/$pkg.label.apk").apply { parentFile?.mkdirs(); writeBytes(apk) }
+        try {
+            val pm = context.packageManager
+            @Suppress("DEPRECATION")
+            val info = pm.getPackageArchiveInfo(tmp.path, 0) ?: return null
+            val ai = info.applicationInfo ?: return null
+            if (info.packageName != pkg) return null
+            ai.sourceDir = tmp.path
+            ai.publicSourceDir = tmp.path
+            return ai.loadLabel(pm).toString().trim().takeIf { it.isNotEmpty() && it != pkg }
+        } finally {
+            tmp.delete()
+        }
+    }
+
     fun iconFromApk(pkg: String, apk: ByteArray): String? {
         val tmp = File(context.cacheDir, "apk/$pkg.apk").apply { parentFile?.mkdirs(); writeBytes(apk) }
         try {

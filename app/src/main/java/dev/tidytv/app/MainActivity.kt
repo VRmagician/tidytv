@@ -46,6 +46,7 @@ class MainActivity : ComponentActivity() {
                     lists = { Store.loadLists(app.assets) },
                     launcherApk = { home -> runCatching { app.assets.open("launcher/${home.asset}").use { it.readBytes() } }.getOrNull() },
                     iconFromApk = dev.tidytv.app.data.ApkIcons(app, store)::iconFromApk,
+                    labelFromApk = dev.tidytv.app.data.ApkIcons(app, store)::labelFromApk,
                     updates = if (!dev.tidytv.app.data.UpdateCheck.needed(installerOf(app.packageName))) null
                         else dev.tidytv.app.data.UpdateCheck(store.updateFile, BuildConfig.VERSION_NAME, ::httpGet),
                     looks = { id -> dev.tidytv.app.data.Looks.load(app.assets, id) },
@@ -67,6 +68,16 @@ class MainActivity : ComponentActivity() {
                 TidyApp(state, vm, ::shareLogs, host)
             }
         }
+    }
+
+    /** While the remote is open, the phone's volume buttons turn the TV's volume. */
+    override fun dispatchKeyEvent(event: android.view.KeyEvent): Boolean {
+        val up = event.keyCode == android.view.KeyEvent.KEYCODE_VOLUME_UP
+        if ((up || event.keyCode == android.view.KeyEvent.KEYCODE_VOLUME_DOWN) && vm.ui.value.wizard.step == dev.tidytv.core.flow.Step.REMOTE) {
+            if (event.action == android.view.KeyEvent.ACTION_DOWN) vm.press(if (up) dev.tidytv.core.ops.RemoteKey.VOLUME_UP else dev.tidytv.core.ops.RemoteKey.VOLUME_DOWN)
+            return true
+        }
+        return super.dispatchKeyEvent(event)
     }
 
     private val feedback by lazy {
@@ -97,7 +108,26 @@ class MainActivity : ComponentActivity() {
         },
         openStar = { runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(REPO))) } },
         openUrl = { url -> runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse(url))) } },
+        rating = dev.tidytv.app.data.RatingStore(File(filesDir, "rating.json")),
+        requestReview = ::requestReview,
     )
+
+    /**
+     * 4 and 5 stars: Google Play's own review dialog when Play installed TidyTV; otherwise (or if Play declines
+     * to show it) the store page, so a happy person always gets somewhere to rate.
+     */
+    private fun requestReview() {
+        val openStore = {
+            runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("market://details?id=$packageName"))) }
+                .onFailure { runCatching { startActivity(Intent(Intent.ACTION_VIEW, Uri.parse("https://play.google.com/store/apps/details?id=$packageName"))) } }
+            Unit
+        }
+        if (installerOf(packageName) != "com.android.vending") return openStore()
+        val manager = com.google.android.play.core.review.ReviewManagerFactory.create(this)
+        manager.requestReviewFlow().addOnCompleteListener { req ->
+            if (req.isSuccessful) manager.launchReviewFlow(this, req.result) else openStore()
+        }
+    }
 
     /** A random id for this install, so Joe can tell two messages from one person apart. No account, no device id. */
     private fun installId(): String {

@@ -59,6 +59,7 @@ import dev.tidytv.core.lists.AppLabels
 import dev.tidytv.core.lists.Launchers
 import dev.tidytv.core.ops.ActionRecord
 import dev.tidytv.core.ops.disabledByUs
+import dev.tidytv.core.ops.offByUs
 import dev.tidytv.core.ops.Finisher
 import dev.tidytv.core.ops.Op
 import dev.tidytv.core.ops.Phase
@@ -82,10 +83,17 @@ fun DoneScreen(
     onMyTv: () -> Unit = {},
 ) {
     val restoring = s.restore is RestoreUi.Running
+    val actions = LocalAppActions.current
     ScreenFrame(bottom = {
         Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
             BigButton("Back to My TV", onMyTv, color = Tidy.Blue)
-            TextLink("Start over", onStartOver)
+            Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center, verticalAlignment = Alignment.CenterVertically) {
+                if (!restoreMode) {
+                    TextLink("Send feedback", { actions.feedback(FeedbackRequest(FeedbackKind.FEATURE, "done")) }, color = Tidy.Muted, small = true)
+                    Spacer(Modifier.width(8.dp))
+                }
+                TextLink("Start over", onStartOver, color = Tidy.Muted, small = true)
+            }
         }
     }) {
         val fin = s.restore as? RestoreUi.Finished
@@ -120,27 +128,12 @@ fun DoneScreen(
             if (restoring) "Restoring…" else "Restore everything", onRestore, color = Tidy.Green, enabled = !restoring,
             leading = if (restoring) null else { { Icon(Icons.Rounded.Restore, null, tint = Color.White) } },
         )
-        if (result) HowDidItGo()
         if (!restoreMode) DebuggingCard(s.debugging, onCheckDebugging)
         Activity(s.records, labels)
         val actions = LocalAppActions.current
         ChipRow {
+            if (result) TextLink("Share your result", { actions.shareCard() }, icon = Icons.Rounded.ThumbUp)
             TextLink("Share logs", onShareLogs)
-            TextLink("Send feedback", { actions.feedback(FeedbackRequest(FeedbackKind.FEATURE, "done")) })
-        }
-    }
-}
-
-/** The ask after a good run, as a small link: share a card if it went well, tell us if it didn't. */
-@Composable
-private fun HowDidItGo() {
-    val actions = LocalAppActions.current
-    var open by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
-    TextLink("How did it go?", { open = true }, icon = Icons.Rounded.ThumbUp)
-    if (open) dev.tidytv.app.ui.InfoSheet("How did it go?", { open = false }) {
-        Row(horizontalArrangement = Arrangement.spacedBy(10.dp)) {
-            BigButton("It went great", { open = false; actions.shareCard() }, Modifier.weight(1f), color = Tidy.Green)
-            BigButton("Not quite", { open = false; actions.feedback(FeedbackRequest(FeedbackKind.BUG, "done")) }, Modifier.weight(1f), color = Color.White, textColor = Tidy.Ink)
         }
     }
 }
@@ -148,7 +141,7 @@ private fun HowDidItGo() {
 /** Every app TidyTV turned off and that is still off, each with its own Turn on (GitHub #2). */
 @Composable
 private fun OffApps(s: DoneState, labels: Map<String, String>, onTurnOn: (String) -> Unit) {
-    val off = s.records.disabledByUs().filterNot { Launchers.isHomeApp(it) }
+    val off = s.records.offByUs().filterNot { Launchers.isHomeApp(it) }
     s.turnOnNote?.let { if (it.ok) SafetyBanner(it.message) else Note(it.message) }
     if (off.isEmpty()) return
     var showAll by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
@@ -230,6 +223,8 @@ private fun describe(r: ActionRecord, labels: Map<String, String>): String? {
         Op.UNINSTALL -> "Removed the clean home screen"
         Op.SET_HOME -> if (dev.tidytv.core.lists.HomeApp.of(r.target.substringBefore('/')) != null) "Set new home screen" else "Put the old home screen back"
         Op.SETTING -> "Restored a setting"
+        Op.REMOVE -> "Uninstalled ${name()}"
+        Op.REINSTALL -> "Brought back ${name()}"
     }
 }
 

@@ -15,8 +15,8 @@ android {
         applicationId = "com.appfactory.tidytv"
         minSdk = 26
         targetSdk = 36
-        versionCode = 8
-        versionName = "0.7.0"
+        versionCode = 9
+        versionName = "0.8.0"
     }
 
     // Release signing comes from keys/signing.properties, a git-ignored folder in the repo.
@@ -82,6 +82,8 @@ dependencies {
     // Kadb's Wireless debugging pairing needs TLS 1.3 keying material that the platform Conscrypt hides.
     // Bundling Conscrypt makes Kadb use its own copy, so the hidden-API bypass it also ships is never needed.
     implementation(libs.conscrypt.android)
+    // Google Play's in-app review dialog (only used when TidyTV was installed from Play).
+    implementation(libs.play.review.ktx)
     implementation(libs.kotlinx.coroutines.android)
     implementation(libs.kotlinx.serialization.json)
     implementation(libs.androidx.core.ktx)

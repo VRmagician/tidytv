@@ -67,6 +67,48 @@ class ScreenshotTest {
         candidates.filter { it.selected }.map { it.pkg }.toSet(), listOf("TV inputs", "Live TV"))
     private val clean = Wizard(Step.REVIEW, TvKind.ANDROID_TV)
 
+
+    private fun row(pkg: String, label: String, tier: dev.tidytv.core.lists.Tier, note: String, sel: Boolean = false, g: Group = Group.PRELOADED) =
+        dev.tidytv.core.lists.AppRow(pkg, label, tier, note, sel, g)
+    private val allRows = listOf(
+        row("com.tcl.guard", "TGuard", dev.tidytv.core.lists.Tier.RECOMMENDED, "Tracks what you watch.", true, Group.ADS_TRACKING),
+        row("com.tcl.messagebox", "Pushed messages and notifications", dev.tidytv.core.lists.Tier.RECOMMENDED, "Ads and offers on your home screen.", true, Group.ADS_TRACKING),
+        row("com.google.android.katniss", "Google Assistant", dev.tidytv.core.lists.Tier.YOUR_CALL, "This TV's list keeps it on. The remote's mic button stops working.", false, Group.VOICE),
+        row("com.google.android.apps.mediashell", "Chromecast built-in", dev.tidytv.core.lists.Tier.YOUR_CALL, "Casting to this TV stops working.", false, Group.CASTING),
+        row("com.spotify.tv.android", "Spotify", dev.tidytv.core.lists.Tier.OTHER_TVS, "Streaming app from other TVs' lists.", false, Group.STREAMING),
+        row("com.stremio.one", "Stremio", dev.tidytv.core.lists.Tier.YOURS, "Uninstalling is permanent. Get it again from Google Play.", false, Group.STREAMING),
+        row("in.startv.hotstar", "JioHotstar", dev.tidytv.core.lists.Tier.YOURS, "Uninstalling is permanent. Get it again from Google Play.", false, Group.STREAMING),
+        row("com.example.vendor.unknown", "Vendor Service With A Rather Long Name", dev.tidytv.core.lists.Tier.UNLISTED, "Not on any list. Check before turning off.", false, Group.PRELOADED),
+        row("com.google.android.gms", "Google Play Services", dev.tidytv.core.lists.Tier.LOCKED, "The TV needs it to work.", false, Group.PRELOADED),
+    )
+    private val allFacts = mapOf(
+        "com.tcl.guard" to dev.tidytv.core.ops.AppFacts(ramMb = 151, startsAtBoot = true, appMb = 30, dataMb = 12, cacheMb = 40),
+        "com.tcl.messagebox" to dev.tidytv.core.ops.AppFacts(ramMb = 64, startsAtBoot = true),
+        "com.google.android.katniss" to dev.tidytv.core.ops.AppFacts(ramMb = 210, appMb = 180, dataMb = 60, cacheMb = 90),
+        "com.stremio.one" to dev.tidytv.core.ops.AppFacts(ramMb = 8, appMb = 120, dataMb = 30, cacheMb = 300, yours = true),
+        "com.google.android.gms" to dev.tidytv.core.ops.AppFacts(ramMb = 400, startsAtBoot = true, appMb = 200),
+        "in.startv.hotstar" to dev.tidytv.core.ops.AppFacts(ramMb = 95, appMb = 210, dataMb = 80, cacheMb = 120, yours = true),
+    )
+    private val allApps = AllAppsState(loading = false, rows = allRows, facts = allFacts)
+    private val allReview = review.copy(all = allApps, selected = setOf("com.tcl.guard", "com.tcl.messagebox", "com.google.android.katniss"))
+    private val allLabels = allRows.associate { it.pkg to it.label }
+    @Test fun allApps() = shoot("12_all_apps", Step.REVIEW, UiState(wizard = clean, labels = allLabels, review = allReview))
+    @Test fun allAppsLoading() = shoot("12c_all_apps_loading", Step.REVIEW, UiState(wizard = clean, review = review.copy(all = AllAppsState())))
+    @Test fun allAppsUninstall() = shoot("12b_all_apps_uninstall", Step.REVIEW, UiState(wizard = clean, labels = allLabels,
+        review = allReview.copy(uninstall = true, selected = setOf("com.tcl.guard", "com.stremio.one"), confirmPermanent = listOf("com.stremio.one"))))
+    private val spaceStorage = dev.tidytv.core.ops.StorageFacts(5800, 10000, 1500)
+    private val topCache = listOf("com.stremio.one" to 612, "com.google.android.katniss" to 380, "com.tcl.guard" to 240, "com.google.android.gms" to 120)
+    @Test fun space() = shoot("13_space", Step.SPACE, UiState(tv = summary, labels = allLabels, space = SpaceState(false, spaceStorage, topCache)))
+    @Test fun spaceDone() = shoot("13b_space_done", Step.SPACE, UiState(tv = summary, labels = allLabels,
+        space = SpaceState(false, dev.tidytv.core.ops.StorageFacts(7200, 10000, 90), emptyList(), message = RestoreUi.Finished("Freed 1,412 MB on your TV.", true))))
+    @Test fun adsOff() = shoot("14_ads_off", Step.ADS, UiState(tv = summary, ads = AdsState(loading = false, dns = dev.tidytv.core.ops.DnsState(null, null))))
+    @Test fun adsOn() = shoot("14b_ads_on", Step.ADS, UiState(tv = summary, ads = AdsState(loading = false,
+        dns = dev.tidytv.core.ops.DnsState("hostname", "dns.adguard-dns.com"), message = RestoreUi.Finished("Ad blocking is on. Open an app to see the difference.", ok = true))))
+    @Test fun adsReplaceAsk() = shoot("14c_ads_replace", Step.ADS, UiState(tv = summary, ads = AdsState(loading = false,
+        dns = dev.tidytv.core.ops.DnsState("hostname", "dns.quad9.net"), confirmReplace = dev.tidytv.core.ops.AdBlockProvider.ADS)))
+    @Test fun adsOldTv() = shoot("14d_ads_old_tv", Step.ADS, UiState(tv = summary, ads = AdsState(loading = false, supported = false)))
+    @Test fun spaceLoading() = shoot("13c_space_loading", Step.SPACE, UiState(tv = summary, space = SpaceState()))
+
     @Test fun welcome() = shoot("1_welcome", Step.WELCOME, UiState())
     @Test fun welcomeUpdate() = shoot("1c_welcome_update", Step.WELCOME, UiState(update = dev.tidytv.app.data.UpdateInfo("0.4.0", "https://tidytv.winkle.dev")))
     @Test fun unsupported() = shoot("1b_unsupported", Step.UNSUPPORTED, UiState())
@@ -133,7 +175,12 @@ class ScreenshotTest {
     @Test fun hubFireTv() = shoot("7b_hub_fire_tv", Step.HUB, UiState(tv = summary, wizard = dev.tidytv.core.flow.Wizard(Step.HUB, TvKind.FIRE_TV)))
     @Test fun remote() = shoot("8_remote", Step.REMOTE, UiState(tv = summary, remote = RemoteState(apps = listOf(
         RemoteApp("com.netflix.ninja", "com.netflix.ninja/.MainActivity", "Netflix"),
-        RemoteApp("com.google.android.youtube.tv", "com.google.android.youtube.tv/.Main", "YouTube")))))
+        RemoteApp("com.google.android.youtube.tv", "com.google.android.youtube.tv/.Main", "YouTube"),
+        RemoteApp("com.google.android.youtube.tvkids", "com.google.android.youtube.tvkids/.Main", "YouTube Kids"),
+        RemoteApp("com.amazon.amazonvideo.livingroom", "com.amazon.amazonvideo.livingroom/.Main", "Prime Video"),
+        RemoteApp("com.spotify.tv.android", "com.spotify.tv.android/.Main", "Spotify"),
+        RemoteApp("com.plexapp.android", "com.plexapp.android/.Main", "Plex"),
+        RemoteApp("org.xbmc.kodi", "org.xbmc.kodi/.Main", "Kodi")))))
     @Test fun remoteReconnecting() = shoot("8b_remote_reconnecting", Step.REMOTE, UiState(tv = summary, remote = RemoteState(reconnecting = true)))
     @Test fun filesEmpty() = shoot("9_send_files", Step.SEND_FILES, UiState(tv = summary, files = FilesState(freeBytes = 8L * 1024 * 1024 * 1024)))
     @Test fun filesSending() = shoot("9b_send_files_progress", Step.SEND_FILES, UiState(tv = summary, files = FilesState(freeBytes = 8L * 1024 * 1024 * 1024, items = listOf(
@@ -141,6 +188,9 @@ class ScreenshotTest {
         SendItem(2, "Birthday photos.zip", 52_428_800, sent = 20_971_520, status = SendStatus.SENDING),
         SendItem(3, "Recipe.pdf", 412_000, status = SendStatus.WAITING),
         SendItem(4, "Old film.mkv", 9_000_000_000, status = SendStatus.NO_SPACE)))))
+    @Test fun checkRemoteOff() = shoot("10c_check_remote_off", Step.CHECK, UiState(tv = summary, labels = allLabels,
+        check = CheckState(report = dev.tidytv.core.ops.CheckReport(emptyList(), emptyList(), homeChanged = false, stillOff = 24,
+            remoteOff = listOf("com.google.android.katniss", "com.tcl.keyhelp")))))
     @Test fun checkAllGood() = shoot("10_check_all_good", Step.CHECK, UiState(tv = summary,
         check = CheckState(report = dev.tidytv.core.ops.CheckReport(emptyList(), emptyList(), homeChanged = false, stillOff = 24))))
     @Test fun checkFound() = shoot("10b_check_found", Step.CHECK, UiState(tv = summary,

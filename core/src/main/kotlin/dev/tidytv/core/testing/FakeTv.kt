@@ -66,8 +66,38 @@ class FakeTv(
     var installAs: HomeApp = HomeApp.SIMPLE
     var startAnswer: String? = null
     var mirrorWritable = true
+    /** Apps the owner installed (`pm list packages -3`); uninstalling one removes it for good. */
+    val userApps: MutableSet<String> = mutableSetOf()
+    /** Preinstalled apps uninstalled for user 0: still on /system, so install-existing brings them back. */
+    val removedForUser: MutableSet<String> = mutableSetOf()
+    /** Apps whose `pm uninstall --user 0` fails. */
+    val refuseRemove: MutableSet<String> = mutableSetOf()
+    /** For the All apps view and Free up space: RAM in use (MB), BOOT_COMPLETED receivers, app/data/cache MB. */
+    val ramMb: MutableMap<String, Int> = mutableMapOf()
+    val bootPkgs: MutableSet<String> = mutableSetOf()
+    val diskMb: MutableMap<String, Triple<Int, Int, Int>> = mutableMapOf()
+    var dataFreeMb = 5800
+    var dataTotalMb = 10000
+    var cachesTrimmed = 0
+    /** Background clear: how much is left to free, how much each look at `df` frees, and how often it was started. */
+    var trimRemainingMb = 0
+    var trimMbPerPoll = 120
+    var trimStarted = 0
+    /** Like a real TV, `dumpsys diskstats` keeps reporting the old per-app caches after a clear (it refreshes ~daily). */
+    var staleDiskstats = true
     /** Google TV 14 quirk: the setup app's RecoveryActivity wins Home over the preference. */
     var wraithBeatsPreference = false
+    /**
+     * A real TCL G06 (Google TV 11): `set-home-activity` and the HOME role are accepted but don't change where
+     * the Home key goes. The enabled launcher with the highest priority always wins.
+     */
+    var strictPriority = false
+    /** The HOME role holder (`cmd role add-role-holder`); with [strictPriority] it has no effect on [home]. */
+    var homeRole: String? = null
+    /** The app on screen: set by `am start`, and by KEYCODE_HOME to wherever [home] points. */
+    var focused: String? = null
+    /** Home presses, to check the verification really pressed Home. */
+    var homePresses = 0
     var getpropBroken = false
     var listPackagesGarbage = false
 
@@ -137,6 +167,7 @@ class FakeTv(
 
     fun home(): String? {
         val candidates = claimantsNow()
+        if (strictPriority) return strictHome(candidates)
         if (wraithBeatsPreference) candidates.firstOrNull { pkgOf(it) == Launchers.SETUPWRAITH }?.let { return it }
         preferredHome?.takeIf { it in candidates }?.let { return it }
         if (candidates.isEmpty()) return null
@@ -147,6 +178,13 @@ class FakeTv(
     }
 
     /** Android forgets the Home preference whenever the set of HOME apps changes. */
+    private fun strictHome(candidates: Set<String>): String? {
+        if (candidates.isEmpty()) return null
+        val top = candidates.maxOf { homeClaimants.getValue(it) }
+        val best = candidates.filter { homeClaimants.getValue(it) == top }
+        return if (best.size == 1) best.single() else "android/com.android.internal.app.ResolverActivity"
+    }
+
     private inline fun changingHomeSet(block: () -> Unit) {
         val before = claimantsNow()
         block()
@@ -192,6 +230,64 @@ class FakeTv(
                     "Package $p new state: enabled\n"
                 }
             }
+            c.startsWith("pm uninstall -k --user 0 ") -> {
+                val p = args.last()
+                when {
+                    p !in installed -> "Failure [not installed for 0]\n"
+                    p in refuseRemove -> "Failure [DELETE_FAILED_INTERNAL_ERROR]\n"
+                    else -> {
+                        changingHomeSet { installed -= p; disabled -= p }
+                        if (p !in userApps) removedForUser += p else userApps -= p
+                        "Success\n"
+                    }
+                }
+            }
+            c.startsWith("cmd package install-existing ") -> {
+                val p = args.last()
+                if (p in removedForUser) {
+                    changingHomeSet { installed += p }
+                    removedForUser -= p
+                    "Package $p installed for user: 0\n"
+                } else "Error: android.content.pm.PackageManager\$NameNotFoundException: Package $p doesn't exist\n"
+            }
+            c == Commands.LIST_USER_APPS -> userApps.filter { it in installed }.sorted().joinToString("") { "package:$it\n" }
+            c == Commands.MEMINFO_PROCS -> "Applications Memory Usage (in Kilobytes):\n\nTotal PSS by process:\n" +
+                ramMb.filterKeys { it in installed && it !in disabled }.entries.sortedByDescending { it.value }
+                    .mapIndexed { i, (p, mb) -> "    ${"%,d".format(mb * 1024)}K: $p (pid ${1000 + i})\n" }.joinToString("") +
+                "\nTotal PSS by OOM adjustment:\n"
+            c == Commands.BOOT_RECEIVERS -> bootPkgs.filter { it in installed && it !in disabled }.sorted().joinToString("") { "$it/.BootReceiver\n" }
+            c == Commands.DISKSTATS -> {
+                val rows = diskMb.filterKeys { it in installed }.entries.sortedBy { it.key }
+                fun arr(f: (Triple<Int, Int, Int>) -> Int) = rows.joinToString(",") { (f(it.value).toLong() * 1_048_576).toString() }
+                "Data-Free: ${dataFreeMb * 1024}K / ${dataTotalMb * 1024}K total = ${dataFreeMb * 100 / dataTotalMb}% free\n" +
+                    "Package Names: [" + rows.joinToString(",") { "\"${it.key}\"" } + "]\n" +
+                    "App Sizes: [${arr { it.first }}]\nApp Data Sizes: [${arr { it.second }}]\nCache Sizes: [${arr { it.third }}]\n"
+            }
+            c == Commands.TRIM_CACHES -> {
+                val freed = diskMb.values.sumOf { it.third }
+                dataFreeMb += freed
+                diskMb.replaceAll { _, v -> Triple(v.first, v.second, 0) }
+                cachesTrimmed++
+                "trimmed\n"
+            }
+            c == Commands.TRIM_CACHES_BACKGROUND -> {
+                files.remove(Commands.TRIM_DONE_FILE)
+                trimRemainingMb = diskMb.values.sumOf { it.third }
+                if (trimRemainingMb == 0) files[Commands.TRIM_DONE_FILE] = "done" // nothing to clear: finished at once
+                trimStarted++
+                "started\n"
+            }
+            c == Commands.TRIM_STATUS -> if (Commands.TRIM_DONE_FILE in files) "done\n" else "running\n"
+            c == Commands.DF_DATA -> {
+                // Each look at the free space finds more freed, like the real TV working through its apps.
+                if (trimRemainingMb > 0) {
+                    val step = minOf(trimRemainingMb, trimMbPerPoll)
+                    trimRemainingMb -= step
+                    dataFreeMb += step
+                    if (trimRemainingMb == 0) { cachesTrimmed++; files[Commands.TRIM_DONE_FILE] = "done"; if (!staleDiskstats) diskMb.replaceAll { _, v -> Triple(v.first, v.second, 0) } }
+                }
+                "Filesystem      1K-blocks    Used Available Use% Mounted on\n/dev/block/dm-12 ${dataTotalMb * 1024} ${(dataTotalMb - dataFreeMb) * 1024} ${dataFreeMb * 1024}  ${(dataTotalMb - dataFreeMb) * 100 / dataTotalMb}% /data/user/0\n"
+            }
             c.startsWith("pm uninstall ") -> {
                 val p = args.last()
                 if (p !in installed) "Failure [DELETE_FAILED_INTERNAL_ERROR]\n" else {
@@ -227,17 +323,20 @@ class FakeTv(
             }
             c.startsWith("cmd role add-role-holder") -> {
                 val p = args.last()
-                homeClaimants.keys.firstOrNull { pkgOf(it) == p && enabled(p) }?.let { preferredHome = it }
+                homeRole = p
+                if (!strictPriority) homeClaimants.keys.firstOrNull { pkgOf(it) == p && enabled(p) }?.let { preferredHome = it }
                 ""
             }
             c.startsWith("am start -W -n ") -> {
                 startAnswer ?: run {
                     val comp = args[4]
-                    if (enabled(pkgOf(comp))) "Starting: Intent { cmp=$comp }\nStatus: ok\nLaunchState: COLD\nActivity: $comp\nTotalTime: 412\nWaitTime: 420\nComplete\n"
+                    if (enabled(pkgOf(comp))) { focused = pkgOf(comp); "Starting: Intent { cmp=$comp }\nStatus: ok\nLaunchState: COLD\nActivity: $comp\nTotalTime: 412\nWaitTime: 420\nComplete\n" }
                     else "Starting: Intent { cmp=$comp }\nError type 3\nError: Activity class {$comp} does not exist.\n"
                 }
             }
-            c == Commands.KEY_HOME -> { keys += "KEYCODE_HOME"; "" }
+            c == Commands.KEY_HOME -> { keys += "KEYCODE_HOME"; homePresses++; home()?.let { focused = pkgOf(it) }; "" }
+            c == Commands.FOCUSED_APP -> focused?.let { "  mFocusedApp=ActivityRecord{1a2b3c u0 $it/.MainActivity t42}\n" } ?: ""
+            c == Commands.OPEN_SETTINGS -> { focused = "com.android.tv.settings"; "Starting: Intent { act=android.settings.SETTINGS }\n" }
             // Looks for the Apple TV style home screen (LauncherLook).
             c.contains("content write --uri content://") -> {
                 val f = c.substringAfter(".theme/").substringBefore(" <")
@@ -281,20 +380,26 @@ class FakeTv(
                     "@$p\n$flags"
                 }
             }
-            c.startsWith("mkdir -p ${Commands.MIRROR_DIR} && printf") -> {
+            c.startsWith("mkdir -p ${Commands.MIRROR_DIR} && for p in ") -> {
                 if (!mirrorWritable) "printf: write error: Read-only file system\n" else {
-                    val pkgs = c.substringAfter("'%s\\n' ").substringBefore(" >>").split(" ")
-                    files[Commands.MIRROR_FILE] = files[Commands.MIRROR_FILE].orEmpty() + pkgs.joinToString("") { "$it\n" }
+                    val pkgs = c.substringAfter("for p in ").substringBefore(";").split(" ")
+                    val file = c.substringAfter(">> ").substringBefore(";")
+                    val have = files[file].orEmpty().lines().filter { it.isNotEmpty() }.toMutableList()
+                    for (p in pkgs) if (p !in have) have += p
+                    files[file] = have.joinToString("") { "$it\n" }
                     "ok\n"
                 }
             }
             c == Commands.READ_MIRROR -> files[Commands.MIRROR_FILE].orEmpty() + "END\n"
-            c.startsWith("if [ -e ${Commands.MIRROR_FILE} ]; then grep -vxF ") -> {
-                val pkg = c.removePrefix("if [ -e ${Commands.MIRROR_FILE} ]; then grep -vxF ").substringBefore(' ')
-                files[Commands.MIRROR_FILE]?.let { cur -> files[Commands.MIRROR_FILE] = cur.lines().filter { it.isNotEmpty() && it != pkg }.joinToString("") { "$it\n" } }
+            c == Commands.READ_REMOVED -> files[Commands.REMOVED_FILE].orEmpty() + "END\n"
+            c.startsWith("if [ -e ${Commands.MIRROR_DIR}/") && c.contains(" grep -vxF ") -> {
+                val file = c.removePrefix("if [ -e ").substringBefore(' ')
+                val pkg = c.substringAfter("grep -vxF ").substringBefore(' ')
+                files[file]?.let { cur -> files[file] = cur.lines().filter { it.isNotEmpty() && it != pkg }.joinToString("") { "$it\n" } }
                 "ok\n"
             }
             c == Commands.CLEAR_MIRROR -> { files.remove(Commands.MIRROR_FILE); "cleared\n" }
+            c == Commands.CLEAR_REMOVED -> { files.remove(Commands.REMOVED_FILE); "cleared\n" }
 
             c == Commands.MEMINFO -> "MemTotal:        2009240 kB\nMemFree:          112340 kB\nMemAvailable:     ${memAvailable()} kB\n"
             c == Commands.WIFI_OWNERS -> "cname=$wifiOwner\n"
@@ -359,6 +464,28 @@ class FakeTv(
             settings["global/device_provisioned"] = "1"
             settings["secure/user_setup_complete"] = "1"
             settings["global/window_animation_scale"] = "1.0"
+            // What a real TCL G06 showed (docs/research/tcl-g06-analysis.md), for the All apps view and Free up space.
+            ramMb += mapOf(Launchers.LAUNCHERX to 151, "com.android.vending" to 101, "com.google.android.katniss" to 83,
+                "com.google.android.gms" to 80, "com.google.android.apps.mediashell" to 42, "com.tcl.ttvs" to 23, "com.tcl.tv" to 18,
+                "com.tcl.guard" to 14, "com.android.systemui" to 27, Launchers.SETUPWRAITH to 11)
+            bootPkgs += listOf("com.tcl.guard", "com.tcl.ttvs", "com.tcl.partnercustomizer", "com.google.android.katniss",
+                "com.google.android.apps.mediashell", "com.google.android.gms", "com.netflix.ninja", "com.google.android.youtube.tv")
+            diskMb += mapOf(Launchers.LAUNCHERX to Triple(35, 184, 167), "com.tcl.waterfall.overseas" to Triple(52, 73, 68),
+                "com.google.android.youtube.tv" to Triple(87, 89, 4), "com.google.android.gms" to Triple(132, 106, 3),
+                "com.android.vending" to Triple(82, 30, 19), "com.google.android.katniss" to Triple(51, 13, 6),
+                "com.netflix.ninja" to Triple(96, 1, 0), "com.tcl.ttvs" to Triple(12, 4, 2))
+        }
+
+        /**
+         * The real TCL G06 from docs/research/tcl-g06-analysis.md: set-home-activity and the HOME role are accepted
+         * but the enabled launcher with the highest priority always owns the Home key (launcherx 2, setupwraith 1,
+         * ours 0, fallback -1000). The saved Wi-Fi belongs to the system, so the setup app can be turned off.
+         */
+        fun tclG06(): FakeTv = googleTv().apply {
+            strictPriority = true
+            homeRole = Launchers.LAUNCHERX
+            focused = Launchers.LAUNCHERX
+            wifiOwner = "android.uid.system:1000"
         }
 
         /** Classic Android TV 9 (Mi Box S style) with com.google.android.tvlauncher. */

@@ -51,6 +51,19 @@ object Protected {
         "com.android.phone",
     ) + HomeApp.entries.map { it.pkg } // TidyTV's own home screens, once installed.
 
+    /**
+     * The voice assistant and the remote's shortcut and mic helpers. Not locked (some owners want them gone), but a
+     * list never ticks them for you, and Check my TV warns when they're off: users lost the Netflix/YouTube keys and
+     * the mic button after a clean-up (feedback 291492, 6d3eba).
+     */
+    val REMOTE_ESSENTIALS: Set<String> = setOf(
+        "com.google.android.katniss",
+        "com.google.android.tv.assistant",
+        "com.google.android.tv.remote.service",
+        "com.tcl.keyhelp",
+        "com.tcl.micmanager",
+    )
+
     /** Substrings that mark TV-input, tuner, keyboard and remote-pairing packages. */
     private val PATTERNS = listOf(
         "tvinput", "tv.input", "tvcenter", "hdmi", "tuner", "tvsystem", "tv.framework", "tvserver",

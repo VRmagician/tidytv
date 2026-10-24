@@ -1,0 +1,1 @@
+Fixes the new home screen not sticking on TCL Google TVs, and keeps the remote voice and shortcut buttons working.

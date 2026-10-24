@@ -53,7 +53,7 @@ object Grouping {
     }
 
     private val OWNER_CHOICE = Regex("choice|optional|not used|personal|unused|comment out", RegexOption.IGNORE_CASE)
-    private val NOT_OFFERED = Regex(
+    internal val NOT_OFFERED = Regex(
         "protected|not on this|refused|cannot|can't|keep|needed|build-and-install|not installed",
         RegexOption.IGNORE_CASE,
     )
@@ -76,7 +76,7 @@ object Grouping {
             .map { (e, optional) ->
                 val group = groupOf(e)
                 val choice = OWNER_CHOICE.containsMatchIn(e.section)
-                val selected = !optional && group.onByDefault && !(choice && group != Group.ADS_TRACKING)
+                val selected = !optional && group.onByDefault && !(choice && group != Group.ADS_TRACKING) && e.pkg !in Protected.REMOTE_ESSENTIALS
                 Candidate(e.pkg, AppLabels.label(e.pkg, e.note), e.note, group, selected, optional)
             }
             .sortedWith(compareBy({ it.group.ordinal }, { it.label.lowercase() }))

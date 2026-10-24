@@ -5,6 +5,7 @@ coroutines = "1.10.2"
 serialization = "1.9.0"
 kadb = "2.1.5"
 conscrypt = "2.8.0"
+playReview = "2.0.2"
 junit = "4.13.2"
 composeBom = "2026.09.00"
 activityCompose = "1.10.1"
@@ -19,6 +20,7 @@ kotlinx-coroutines-android = { module = "org.jetbrains.kotlinx:kotlinx-coroutine
 kotlinx-coroutines-test = { module = "org.jetbrains.kotlinx:kotlinx-coroutines-test", version.ref = "coroutines" }
 kotlinx-serialization-json = { module = "org.jetbrains.kotlinx:kotlinx-serialization-json", version.ref = "serialization" }
 kadb = { module = "com.flyfishxu:kadb", version.ref = "kadb" }
+play-review-ktx = { module = "com.google.android.play:review-ktx", version.ref = "playReview" }
 conscrypt-android = { module = "org.conscrypt:conscrypt-android", version.ref = "conscrypt" }
 junit = { module = "junit:junit", version.ref = "junit" }
 androidx-core-ktx = { module = "androidx.core:core-ktx", version.ref = "coreKtx" }

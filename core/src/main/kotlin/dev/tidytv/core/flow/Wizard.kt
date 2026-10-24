@@ -2,7 +2,7 @@ package dev.tidytv.core.flow
 
 enum class TvKind { ANDROID_TV, FIRE_TV, SAMSUNG_LG, NOT_SURE }
 
-enum class Step { WELCOME, UNSUPPORTED, GET_READY, CONNECT, HUB, REVIEW, TIDYING, HOME_SCREEN, DONE, REMOTE, SEND_FILES, CHECK, RESCUE }
+enum class Step { WELCOME, UNSUPPORTED, GET_READY, CONNECT, HUB, REVIEW, TIDYING, HOME_SCREEN, DONE, REMOTE, SEND_FILES, CHECK, RESCUE, SPACE, ADS }
 
 enum class Mode { CLEAN, RESTORE }
 
@@ -38,6 +38,9 @@ sealed interface WizardEvent {
     data object OpenRestore : WizardEvent
     data object ToHub : WizardEvent
     data object OpenCheck : WizardEvent
+    /** "Free up space" on the hub. */
+    data object OpenSpace : WizardEvent
+    data object OpenAds : WizardEvent
     /** "TV stuck after a change?" on Welcome: keep trying a saved TV and restore as soon as it answers. */
     data object OpenRescue : WizardEvent
 }
@@ -65,6 +68,8 @@ object WizardReducer {
         // Fire OS won't let another home screen take over.
         WizardEvent.OpenHomeScreen -> if (s.step == Step.HUB && s.kind != TvKind.FIRE_TV) s.copy(step = Step.HOME_SCREEN, mode = Mode.CLEAN) else s
         WizardEvent.OpenCheck -> if (s.step == Step.HUB) s.copy(step = Step.CHECK) else s
+        WizardEvent.OpenSpace -> if (s.step == Step.HUB) s.copy(step = Step.SPACE) else s
+        WizardEvent.OpenAds -> if (s.step == Step.HUB) s.copy(step = Step.ADS) else s
         WizardEvent.OpenRescue -> if (s.step == Step.WELCOME) s.copy(step = Step.RESCUE) else s
         WizardEvent.OpenRestore -> if (s.step == Step.HUB) s.copy(step = Step.DONE, mode = Mode.RESTORE) else s
         WizardEvent.ToHub -> if (s.busy || s.step in setOf(Step.WELCOME, Step.UNSUPPORTED, Step.GET_READY, Step.CONNECT, Step.RESCUE)) s else s.copy(step = Step.HUB)
@@ -91,7 +96,7 @@ object WizardReducer {
             // A saved TV skipped Get ready, so Back goes home instead.
             Step.CONNECT -> if (s.kind == null && s.mode == Mode.CLEAN) Wizard() else s.copy(step = Step.GET_READY)
             Step.HUB -> Wizard()
-            Step.REVIEW, Step.REMOTE, Step.SEND_FILES, Step.CHECK -> s.copy(step = Step.HUB)
+            Step.REVIEW, Step.REMOTE, Step.SEND_FILES, Step.CHECK, Step.SPACE, Step.ADS -> s.copy(step = Step.HUB)
             Step.RESCUE -> Wizard()
             // Changes are made: going back can't undo them, so Back goes to the summary.
             Step.TIDYING, Step.HOME_SCREEN -> s.copy(step = Step.DONE)

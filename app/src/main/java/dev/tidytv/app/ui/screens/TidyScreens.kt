@@ -92,6 +92,7 @@ fun TidyingScreen(s: TidyState, onRestore: () -> Unit, onContinue: () -> Unit, o
 private fun Status(r: PkgResult?, running: Boolean) {
     when (r) {
         is PkgResult.Disabled -> Check(Tidy.Green, 26.dp)
+        is PkgResult.Removed -> Small(if (r.yours) "uninstalled" else "uninstalled for this TV", Tidy.GreenInk)
         is PkgResult.AlreadyOff -> Small("already off")
         is PkgResult.NotInstalled -> Small("not on this TV")
         is PkgResult.Skipped -> Small("kept on")
@@ -185,12 +186,12 @@ fun HomeScreenStep(
             ScreenFrame(bottom = {
                 when (s.action) {
                     HomeAction.REPLACE_COPY -> BigButton("Replace it", { onAction(HomeAction.REPLACE_COPY, false) })
-                    HomeAction.TURN_OFF_SETUP_APP -> BigButton("Turn off the setup app and try again", { onAction(HomeAction.TURN_OFF_SETUP_APP, ethernet) })
+                    HomeAction.TURN_OFF_SETUP_APP -> BigButton("Try again", { onAction(HomeAction.TURN_OFF_SETUP_APP, ethernet) })
                     HomeAction.RETRY -> BigButton("Try again", { onAction(HomeAction.RETRY, false) })
                     null -> Unit
                 }
                 TextLink(if (s.action == null) "Continue" else "Skip, keep my home screen", onContinue)
-                if (s.worried) androidx.compose.foundation.layout.Row { TextLink("Share logs", onShareLogs); dev.tidytv.app.ui.ReportProblemLink("tidy") }
+                androidx.compose.foundation.layout.Row { TextLink("Share logs", onShareLogs); if (s.worried) dev.tidytv.app.ui.ReportProblemLink("tidy") }
             }) {
                 HeroMascot(worried = s.worried)
                 Title(if (s.worried) "Something needs a look" else "Home screen not changed")

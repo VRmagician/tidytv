@@ -113,14 +113,14 @@ fun ChoiceButton(text: String, icon: ImageVector, color: Color, textColor: Color
 }
 
 @Composable
-fun TextLink(text: String, onClick: () -> Unit, color: Color = Tidy.Blue, modifier: Modifier = Modifier, icon: ImageVector? = null) {
+fun TextLink(text: String, onClick: () -> Unit, color: Color = Tidy.Blue, modifier: Modifier = Modifier, icon: ImageVector? = null, small: Boolean = false) {
     Row(
         modifier.clip(RoundedCornerShape(10.dp)).clickable(role = Role.Button, onClick = onClick)
             .heightIn(min = 44.dp).padding(horizontal = 6.dp, vertical = 10.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
         if (icon != null) { Icon(icon, null, Modifier.size(20.dp), tint = color); Spacer(Modifier.width(6.dp)) }
-        Text(text, style = MaterialTheme.typography.titleMedium, color = color)
+        Text(text, style = if (small) MaterialTheme.typography.labelLarge else MaterialTheme.typography.titleMedium, color = color)
     }
 }
 

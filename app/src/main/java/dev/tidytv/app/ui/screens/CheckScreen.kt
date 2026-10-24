@@ -3,6 +3,7 @@ package dev.tidytv.app.ui.screens
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
 import androidx.compose.foundation.layout.Row
+import androidx.compose.foundation.layout.padding
 import androidx.compose.foundation.layout.Spacer
 import androidx.compose.foundation.layout.heightIn
 import androidx.compose.foundation.layout.width
@@ -47,6 +48,7 @@ fun CheckScreen(
     onRebootTest: () -> Unit,
     onRecheck: () -> Unit,
     onBack: () -> Unit,
+    onTurnOnRemoteHelper: (String) -> Unit = {},
 ) {
     val report = s.report
     val busy = s.rebooting != null || s.running
@@ -96,6 +98,19 @@ fun CheckScreen(
                 if (report.newOnList.isNotEmpty()) PackageCard("New since your last tidy", null, report.newOnList, labels)
                 if (report.homeChanged) {
                     Note("Your TV's old home screen took over again. Open Home screen on My TV to switch back.")
+                }
+            }
+        }
+        if (report != null && report.remoteOff.isNotEmpty()) Outline {
+            Text("Remote features are off", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+            Text("Turned off, so the remote's mic or shortcut buttons may not work. Turn them on to get them back.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
+            Column(Modifier.padding(top = 8.dp), verticalArrangement = Arrangement.spacedBy(6.dp)) {
+                for (pkg in report.remoteOff) Row(verticalAlignment = Alignment.CenterVertically) {
+                    Column(Modifier.weight(1f)) {
+                        Text(labels[pkg] ?: dev.tidytv.core.lists.AppLabels.label(pkg), style = MaterialTheme.typography.bodyLarge, color = Tidy.Ink)
+                        dev.tidytv.core.lists.AllApps.TRADE_OFFS[pkg]?.let { Text(it, style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted) }
+                    }
+                    if (busy) Spinner() else TextLink("Turn on", { onTurnOnRemoteHelper(pkg) })
                 }
             }
         }

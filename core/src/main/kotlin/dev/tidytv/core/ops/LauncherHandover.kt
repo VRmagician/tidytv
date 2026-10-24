@@ -15,6 +15,11 @@ sealed interface HandoverOutcome {
     data class InstallBlocked(val output: String) : HandoverOutcome
     data class InstallFailed(val output: String) : HandoverOutcome
     data class StartFailed(val output: String) : HandoverOutcome
+    /**
+     * Google TV's setup app also claims Home and would grab it once the stock launcher is off, but turning it
+     * off isn't safe on this TV ([check] says why). Nothing about Home was changed.
+     */
+    data class SetupAppBlocked(val check: WraithCheck) : HandoverOutcome
     /** Home landed on Google TV's setup app once the stock launcher was off. Rolled back; ask the user. */
     data class SetupWraithTookHome(val rolledBack: Boolean) : HandoverOutcome
     data class RolledBack(val homeNow: String?) : HandoverOutcome
@@ -37,11 +42,18 @@ class LauncherHandover(
     private val clock: () -> Long = System::currentTimeMillis,
     private val sleep: suspend (Long) -> Unit = { kotlinx.coroutines.delay(it) },
     private val app: HomeApp = HomeApp.SIMPLE,
+    /** Short waits while checking the Home key (an app opening takes a moment). Not the long "Android saves" wait. */
+    private val settle: suspend (Long) -> Unit = { kotlinx.coroutines.delay(it) },
 ) {
+    /** True once this run turned Google TV's setup app off, so a rollback turns it back on. */
+    private var wraithOffByUs = false
+
     private var ours = app.component
     private val ourPkg = app.pkg
 
-    suspend fun run(apk: ByteArray, dockApps: List<String>, sdk: Int): HandoverOutcome = try {
+    /** [onEthernet]: the owner says the TV is on a network cable, so Wi-Fi owned by the setup app isn't a risk. */
+    suspend fun run(apk: ByteArray, dockApps: List<String>, sdk: Int, onEthernet: Boolean = false): HandoverOutcome = try {
+        this.onEthernet = onEthernet
         handover(apk, dockApps, sdk)
     } catch (e: TvConnectionLost) {
         HandoverOutcome.Disconnected
@@ -79,6 +91,8 @@ class LauncherHandover(
             WraithCheck.Unknown("the TV stopped answering")
         }
     }
+
+    private var onEthernet = false
 
     private suspend fun handover(apk: ByteArray, dockApps: List<String>, sdk: Int): HandoverOutcome {
         val homeBefore = Parse.component(tv.run(Commands.RESOLVE_HOME))
@@ -147,7 +161,12 @@ class LauncherHandover(
             return HandoverOutcome.StartFailed(start.trim())
         }
 
-        // 4. Make it Home, then turn the stock launcher off, then set Home again.
+        // 4. Google TV's setup app claims Home at priority 1 and takes it as soon as the stock launcher is off
+        // (a recovery screen on TCL). Turn it off first, while the stock launcher still owns Home, like upstream's
+        // tested order, but only when that's safe: it must not own the saved Wi-Fi, and setup must be finished.
+        if (stock != null) prepareSetupApp()?.let { return it }
+
+        // 5. Make it Home, then turn the stock launcher off, then set Home again.
         log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.INTENT, before = homeBefore))
         setOurs(sdk)
         if (stock != null && !isPersistent(stock)) {
@@ -162,18 +181,58 @@ class LauncherHandover(
             setOurs(sdk)
         }
 
-        // 5. Check where Home landed.
+        // 6. Check where Home landed: Android's answer, then a real Home press from another app.
         val homeNow = Parse.component(tv.run(Commands.RESOLVE_HOME))
-        if (homeNow == ours || homeNow?.substringBefore('/') == ourPkg) {
+        val resolvesToUs = homeNow == ours || homeNow?.substringBefore('/') == ourPkg
+        val pressOpens = if (resolvesToUs) homeKeyOpens() else null
+        if (resolvesToUs && (pressOpens == null || pressOpens == ourPkg)) {
             log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.DONE, before = homeBefore))
-            tv.run(Commands.KEY_HOME)
             return HandoverOutcome.Done(stock)
         }
-        log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.FAILED, before = homeBefore, detail = "home is $homeNow"))
+        val landed = if (resolvesToUs) pressOpens else homeNow
+        log.append(ActionRecord(clock(), Op.SET_HOME, ours, Phase.FAILED, before = homeBefore, detail = "home is $landed"))
         val result = rollback(stock, sdk)
-        return if (homeNow?.substringBefore('/') == Launchers.SETUPWRAITH) {
-            HandoverOutcome.SetupWraithTookHome(rolledBack = result is HandoverOutcome.RolledBack)
-        } else result
+        return when {
+            landed?.substringBefore('/') == Launchers.SETUPWRAITH ->
+                HandoverOutcome.SetupWraithTookHome(rolledBack = result is HandoverOutcome.RolledBack)
+            // Two home screens at the same priority (another launcher the owner installed): Android would ask
+            // which to use every time Home is pressed, so say that instead of "didn't switch".
+            landed?.substringBefore('/') == "android" && result is HandoverOutcome.RolledBack ->
+                HandoverOutcome.NeedsChoice(Parse.componentsIn(tv.run(Commands.QUERY_HOME)))
+            else -> result
+        }
+    }
+
+    /** Null: go on. Otherwise the outcome that stops the handover before Home changes. */
+    private suspend fun prepareSetupApp(): HandoverOutcome? {
+        val claimants = Parse.componentsIn(tv.run(Commands.QUERY_HOME))
+        if (Launchers.SETUPWRAITH !in claimants) return null
+        val check = SetupWraithGuard.check(tv, onEthernet)
+        if (check != WraithCheck.Ok) return HandoverOutcome.SetupAppBlocked(check)
+        val pkg = Launchers.SETUPWRAITH
+        if (!Parse.lines(tv.run(Commands.mirror(listOf(pkg)))).contains("ok")) {
+            return HandoverOutcome.SetupAppBlocked(WraithCheck.Unknown("couldn't save the undo list on the TV"))
+        }
+        log.append(ActionRecord(clock(), Op.DISABLE, pkg, Phase.INTENT))
+        tv.run(Commands.disable(pkg))
+        val off = pkg in Parse.packages(tv.run(Commands.LIST_DISABLED))
+        log.append(ActionRecord(clock(), Op.DISABLE, pkg, if (off) Phase.DONE else Phase.FAILED))
+        if (!off) return HandoverOutcome.SetupAppBlocked(WraithCheck.Unknown("it didn't stay off"))
+        wraithOffByUs = true
+        settle(2_000)
+        return null
+    }
+
+    /**
+     * What the Home key really opens, the way a person would test it: leave to TV Settings, press Home, read
+     * which app is on screen. Null when the TV won't say, so the caller trusts Android's own answer.
+     */
+    private suspend fun homeKeyOpens(): String? {
+        tv.run(Commands.OPEN_SETTINGS)
+        settle(1_500)
+        tv.run(Commands.KEY_HOME)
+        settle(2_500)
+        return Parse.focusedPackage(tv.run(Commands.FOCUSED_APP))
     }
 
     private suspend fun setOurs(sdk: Int) {
@@ -193,6 +252,16 @@ class LauncherHandover(
         val component = Parse.component(tv.run(Commands.resolveHomeOf(stock)))
         if (stock !in Parse.packages(tv.run(Commands.LIST_DISABLED))) {
             log.append(ActionRecord(clock(), Op.ENABLE, stock, Phase.DONE, detail = "rollback"))
+        }
+        if (wraithOffByUs) {
+            // This run turned the setup app off; put it back too, so the TV is exactly as it was.
+            val wraith = Launchers.SETUPWRAITH
+            tv.run(Commands.enable(wraith))
+            if (wraith !in Parse.packages(tv.run(Commands.LIST_DISABLED))) {
+                log.append(ActionRecord(clock(), Op.ENABLE, wraith, Phase.DONE, detail = "rollback"))
+                tv.run(Commands.unmirror(wraith))
+                wraithOffByUs = false
+            }
         }
         if (component != null) {
             if (sdk >= 29) tv.run(Commands.addHomeRole(stock))

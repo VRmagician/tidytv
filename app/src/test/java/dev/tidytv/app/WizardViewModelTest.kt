@@ -497,4 +497,139 @@ class WizardViewModelTest {
         vm.openHomeScreen(); advanceUntilIdle()
         assertTrue("the hub offers the look when that home screen is on", (vm.ui.value.home as HomeState.Offer).styledIsHome)
     }
+
+    @Test fun allAppsCanUninstallForTheTvAndRestoreBringsThemBack() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv = demo.tv
+        tv.installed += "com.stremio.one"; tv.userApps += "com.stremio.one"
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        vm.openAllApps(); advanceUntilIdle()
+        val all = vm.ui.value.review.all!!
+        assertEquals("every app TidyTV can name, each once", (tv.installed - tv.disabled).filter(dev.tidytv.core.lists.PackageName::isValid).size, all.rows.size)
+        assertTrue(!all.loading)
+        assertEquals(151, all.facts["com.google.android.apps.tv.launcherx"]!!.ramMb)
+        val tiers = all.rows.groupBy { it.tier }
+        assertTrue(tiers.keys.containsAll(listOf(dev.tidytv.core.lists.Tier.RECOMMENDED, dev.tidytv.core.lists.Tier.LOCKED, dev.tidytv.core.lists.Tier.YOURS)))
+
+        val picked = vm.ui.value.review.selected
+        assertTrue(picked.isNotEmpty())
+        vm.toggleApp("com.stremio.one")
+        vm.setUninstall(true)
+        vm.startTidy(); advanceUntilIdle()
+        assertEquals("apps you installed are confirmed first", listOf("com.stremio.one"), vm.ui.value.review.confirmPermanent)
+        assertEquals(Step.REVIEW, vm.ui.value.wizard.step)
+        vm.confirmPermanent(); advanceUntilIdle()
+        assertTrue(picked.all { it !in tv.installed })
+        assertTrue("com.stremio.one" !in tv.installed && "com.stremio.one" !in tv.removedForUser)
+        assertEquals(picked.size + 1, vm.ui.value.tidy.disabledCount)
+
+        vm.skipHome(); advanceUntilIdle()
+        vm.restoreEverything(); advanceUntilIdle()
+        val back = vm.ui.value.done.restore as RestoreUi.Finished
+        assertTrue(back.message, back.ok)
+        assertTrue("preinstalled apps are back", picked.all { it in tv.installed })
+        assertTrue(back.message, back.message.contains("Google Play"))
+    }
+
+    @Test fun freeUpSpaceClearsEveryCache() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.openSpace(); advanceUntilIdle()
+        val space = vm.ui.value.space
+        assertEquals(Step.SPACE, vm.ui.value.wizard.step)
+        assertEquals(269, space.storage!!.cacheMb)
+        assertEquals("com.google.android.apps.tv.launcherx" to 167, space.topCache.first())
+        vm.clearCaches(); advanceUntilIdle()
+        assertEquals(1, demo.tv.cachesTrimmed)
+        assertEquals("Freed 269 MB on your TV.", vm.ui.value.space.message!!.message)
+        assertEquals(0, vm.ui.value.space.storage!!.cacheMb)
+        assertTrue(vm.back()); advanceTimeBy(100)
+        assertEquals(Step.HUB, vm.ui.value.wizard.step)
+    }
+
+    // ---------- The Home button really goes to the new home screen (the owner's TCL G06) ----------
+
+    private fun TestScope.tidyThenOfferHome(vm: WizardViewModel) {
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm)
+        vm.startTidy(); advanceUntilIdle()
+        assertEquals(Step.HOME_SCREEN, vm.ui.value.wizard.step)
+    }
+
+    @Test fun useSimpleMakesTheHomeButtonOpenTheNewHomeScreenInOneStep() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv = demo.tv
+        val vm = vm(demo)
+        tidyThenOfferHome(vm)
+        vm.installHome(); advanceUntilIdle()
+        assertEquals(HomeState.Installed(dev.tidytv.core.lists.HomeApp.SIMPLE), vm.ui.value.home)
+        // What the owner does next: leave to Settings and press Home on the remote.
+        tv.run(dev.tidytv.core.ops.Commands.OPEN_SETTINGS)
+        vm.homeContinue(); advanceUntilIdle()
+        vm.toHub(); advanceTimeBy(100)
+        vm.openRemote(); advanceUntilIdle()
+        vm.press(dev.tidytv.core.ops.RemoteKey.HOME); advanceUntilIdle()
+        assertEquals("the remote's Home key opens the new home screen, not Google TV", dev.tidytv.core.lists.HomeApp.SIMPLE.pkg, tv.focused)
+        assertTrue(dev.tidytv.core.lists.Launchers.SETUPWRAITH in tv.disabled && dev.tidytv.core.lists.Launchers.LAUNCHERX in tv.disabled)
+    }
+
+    @Test fun whenTheSetupAppOwnsTheWifiTheOwnerIsToldAndCanSayTheTvIsOnACable() = runTest(dispatcher) {
+        val demo = DemoBackend().apply { tv.wifiOwner = "com.google.android.tungsten.setupwraith:10130" }
+        val vm = vm(demo)
+        tidyThenOfferHome(vm)
+        vm.installHome(); advanceUntilIdle()
+        val problem = vm.ui.value.home as HomeState.Problem
+        assertEquals(HomeAction.TURN_OFF_SETUP_APP, problem.action)
+        assertTrue(problem.message, problem.message.contains("Wi-Fi") && problem.message.contains("old home screen stays"))
+        assertTrue("nothing was turned off", demo.tv.disabled.none { it.contains("launcherx") || it.contains("setupwraith") })
+
+        vm.homeAction(HomeAction.TURN_OFF_SETUP_APP, onEthernet = true); advanceUntilIdle()
+        assertEquals(HomeState.Installed(dev.tidytv.core.lists.HomeApp.SIMPLE), vm.ui.value.home)
+    }
+
+    @Test fun doubleTappingUseSimpleRunsTheHandoverOnce() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val vm = vm(demo)
+        tidyThenOfferHome(vm)
+        vm.installHome(); vm.installHome(); vm.installHome(); advanceUntilIdle()
+        assertEquals(1, demo.tv.commands.count { it == dev.tidytv.core.ops.Commands.INSTALL_TMP })
+    }
+
+    @Test fun anotherHomeScreenAppGetsAnHonestMessageAndNothingChanges() = runTest(dispatcher) {
+        val demo = DemoBackend().apply { tv.installProjectivy() }
+        val vm = vm(demo)
+        tidyThenOfferHome(vm)
+        vm.installHome(); advanceUntilIdle()
+        val problem = vm.ui.value.home as HomeState.Problem
+        assertTrue(problem.message, problem.message.contains("another home screen app"))
+        assertTrue(demo.tv.disabled.none { it.contains("launcherx") || it.contains("setupwraith") })
+    }
+
+    // ---------- Free up space tells the truth ----------
+
+    @Test fun freeUpSpaceShowsLiveProgressAndZeroCachesAfterwardsEvenWhenAndroidStillReportsTheOldNumber() = runTest(dispatcher) {
+        val demo = DemoBackend().apply { tv.trimMbPerPoll = 100 }
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.openSpace(); advanceUntilIdle()
+        val before = vm.ui.value.space.storage!!
+        assertEquals(269, before.cacheMb)
+        assertTrue(vm.ui.value.space.estimated)
+        vm.clearCaches()
+        advanceTimeBy(2_000)
+        assertTrue("running, with progress from live free space", vm.ui.value.space.clearing && vm.ui.value.space.progressMb in 1..269)
+        assertEquals(before.freeMb!! + vm.ui.value.space.progressMb, vm.ui.value.space.storage!!.freeMb)
+        advanceUntilIdle()
+        val after = vm.ui.value.space
+        assertEquals("Freed 269 MB on your TV.", after.message!!.message)
+        assertTrue(!after.clearing && !after.estimated)
+        assertEquals("the screen shows zero, though Android's diskstats still says 269", 0, after.storage!!.cacheMb)
+        assertTrue(after.topCache.isEmpty())
+        assertEquals(before.freeMb!! + 269, after.storage.freeMb)
+    }
 }

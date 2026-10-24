@@ -62,6 +62,8 @@ class AppActions(
     val feedback: (FeedbackRequest) -> Unit = {},
     val shareCard: () -> Unit = {},
     val openUrl: (String) -> Unit = {},
+    /** Open the rating card now (the person asked; not counted as an automatic ask). */
+    val rate: () -> Unit = {},
 )
 
 val LocalAppActions = staticCompositionLocalOf { AppActions() }

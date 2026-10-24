@@ -128,7 +128,8 @@ class LauncherHandoverTest {
         assertEquals(launcherx, tv.home())
     }
 
-    @Test fun setupWraithTakingHomeRollsBack() = runTest {
+    /** The fallback: the setup app only claims Home after the stock launcher is off, so it can't be handled up front. */
+    @Test fun setupWraithTakingHomeLateRollsBack() = runTest {
         val tv = FakeTv.googleTv(sdk = 34).apply { wraithBeatsPreference = false }
         // Model the Google TV 14 quirk: once launcherx is off, the setup app grabs Home.
         val h = handover(tv)
@@ -137,7 +138,8 @@ class LauncherHandoverTest {
             override suspend fun run(command: String): String {
                 if (command.startsWith("pm disable-user --user 0 ${Launchers.LAUNCHERX}")) tv.wraithBeatsPreference = true
                 if (command.startsWith("pm enable ${Launchers.LAUNCHERX}")) tv.wraithBeatsPreference = false
-                return tv.run(command)
+                val out = tv.run(command)
+                return if (command == Commands.QUERY_HOME) out.lines().filterNot { it.contains(Launchers.SETUPWRAITH) }.joinToString("\n") else out
             }
         }
         val out = LauncherHandover(shell, MemoryActionLog(), sleep = {}).run(apk, emptyList(), sdk = 34)
@@ -186,12 +188,13 @@ class LauncherHandoverTest {
         assertFalse(Launchers.LAUNCHERX in tv.disabled)
     }
 
-    @Test fun rollbackThatFailsGivesRescueCommands() = runTest {
+    @Test fun lateRollbackThatFailsGivesRescueCommands() = runTest {
         val tv = FakeTv.googleTv()
         val shell = object : TvShell by tv {
             override suspend fun run(command: String): String {
                 if (command.startsWith("pm disable-user --user 0 ${Launchers.LAUNCHERX}")) tv.wraithBeatsPreference = true
-                return tv.run(command)
+                val out = tv.run(command)
+                return if (command == Commands.QUERY_HOME) out.lines().filterNot { it.contains(Launchers.SETUPWRAITH) }.joinToString("\n") else out
             }
         }
         tv.enableDoesNotStick += Launchers.LAUNCHERX

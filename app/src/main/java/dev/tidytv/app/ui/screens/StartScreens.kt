@@ -61,7 +61,7 @@ fun WelcomeScreen(
             androidx.compose.material3.Text("Your TVs", style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = Tidy.Ink)
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
                 savedTvs.take(3).forEach { tv ->
-                    dev.tidytv.app.ui.TvCard(tv.title, tv.model, onClick = { onSavedTv(tv) })
+                    dev.tidytv.app.ui.TvCard(tv.title, savedSubtitle(tv), onClick = { onSavedTv(tv) })
                 }
             }
             var pick by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
@@ -159,4 +159,18 @@ fun GetReadyScreen(kind: TvKind?, mode: Mode, onReady: () -> Unit) {
             }
         }
     }
+}
+
+/** "TCL 55C735 · 192.168.1.2 · used 2 days ago": enough to tell two TVs of one model apart. */
+internal fun savedSubtitle(tv: dev.tidytv.app.data.KnownTv, now: Long = System.currentTimeMillis()): String {
+    val mins = ((now - tv.lastSeen) / 60_000).coerceAtLeast(0)
+    val ago = when {
+        tv.lastSeen <= 1_000_000L -> null
+        mins < 2 -> "used just now"
+        mins < 60 -> "used $mins min ago"
+        mins < 60 * 24 -> "used ${mins / 60} h ago"
+        mins < 60 * 24 * 60 -> "used ${mins / (60 * 24)} days ago"
+        else -> "used a while ago"
+    }
+    return listOfNotNull(tv.model.takeIf { it.isNotBlank() && it != tv.title }, tv.host.takeIf { it.isNotBlank() }, ago).joinToString("  ·  ")
 }

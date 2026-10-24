@@ -27,6 +27,27 @@ object Commands {
     const val SETUP_COMPLETE = "settings get secure user_setup_complete"
     const val READ_MIRROR = "if [ -e $MIRROR_FILE ]; then cat $MIRROR_FILE; fi; echo END"
     const val CLEAR_MIRROR = "rm -f $MIRROR_FILE; echo cleared"
+    /** The on-TV undo list for apps removed for the user (REMOVE), next to the one for disables. */
+    const val REMOVED_FILE = "$MIRROR_DIR/removed.txt"
+    const val READ_REMOVED = "if [ -e $REMOVED_FILE ]; then cat $REMOVED_FILE; fi; echo END"
+    const val CLEAR_REMOVED = "rm -f $REMOVED_FILE; echo cleared"
+    /** Apps the owner installed (not preinstalled). */
+    const val LIST_USER_APPS = "pm list packages -3"
+    /** Asks Android to free app caches until this much space is free, i.e. all of them. Safe: caches rebuild. */
+    const val TRIM_CACHES = "pm trim-caches 999G; echo trimmed"
+    /** The background clear leaves this file when it's finished; the phone polls it and the free space. */
+    const val TRIM_DONE_FILE = "$MIRROR_DIR/trim.done"
+    /**
+     * Starts the cache clear in the background, so the phone can show live progress instead of waiting on one
+     * long command. It survives a dropped connection, and prints "started" at once.
+     */
+    const val TRIM_CACHES_BACKGROUND =
+        "mkdir -p $MIRROR_DIR && rm -f $TRIM_DONE_FILE && (nohup sh -c 'pm trim-caches 999G >/dev/null 2>&1; echo done > $TRIM_DONE_FILE' >/dev/null 2>&1 &); echo started"
+    const val TRIM_STATUS = "if [ -e $TRIM_DONE_FILE ]; then echo done; else echo running; fi"
+    const val DISKSTATS = "dumpsys diskstats"
+    const val MEMINFO_PROCS = "dumpsys meminfo"
+    const val BOOT_RECEIVERS = "cmd package query-receivers --brief -a android.intent.action.BOOT_COMPLETED"
+    const val DF_DATA = "df /data"
     const val INSTALL_TMP = "pm install -r $APK_TMP"
     const val REMOVE_TMP = "rm -f $APK_TMP"
 
@@ -38,6 +59,9 @@ object Commands {
     fun disable(pkg: String) = "pm disable-user --user 0 ${PackageName.require(pkg)}"
     fun enable(pkg: String) = "pm enable ${PackageName.require(pkg)}"
     fun uninstall(pkg: String) = "pm uninstall ${PackageName.require(pkg)}"
+    /** Uninstall for the TV's user only; a preinstalled APK stays and [installExisting] brings it back. */
+    fun removeForUser(pkg: String) = "pm uninstall -k --user 0 ${PackageName.require(pkg)}"
+    fun installExisting(pkg: String) = "cmd package install-existing ${PackageName.require(pkg)}"
 
     /** One round trip for many packages: prints "@pkg" then its pkgFlags line (or nothing). */
     fun flags(pkgs: Collection<String>): String {
@@ -45,10 +69,25 @@ object Commands {
         return "for p in ${pkgs.joinToString(" ")}; do echo \"@${'$'}p\"; dumpsys package ${'$'}p | grep -m1 pkgFlags; done"
     }
 
+    /** Adds each package to an on-TV undo list unless it is already there (a retry used to list one twice). */
+    private fun appendOnce(file: String, pkgs: Collection<String>): String =
+        "mkdir -p $MIRROR_DIR && for p in ${pkgs.joinToString(" ")}; do grep -qxF \$p $file 2>/dev/null || printf '%s\\n' \$p >> $file; done && echo ok"
+
     /** Appends to the on-TV undo list and prints "ok" only if the write worked. */
     fun mirror(pkgs: Collection<String>): String {
         pkgs.forEach { PackageName.require(it) }
-        return "mkdir -p $MIRROR_DIR && printf '%s\\n' ${pkgs.joinToString(" ")} >> $MIRROR_FILE && echo ok"
+        return appendOnce(MIRROR_FILE, pkgs)
+    }
+
+    /** Appends to the on-TV list of removed apps and prints "ok" only if the write worked. */
+    fun mirrorRemoved(pkgs: Collection<String>): String {
+        pkgs.forEach { PackageName.require(it) }
+        return appendOnce(REMOVED_FILE, pkgs)
+    }
+
+    fun unmirrorRemoved(pkg: String): String {
+        val p = PackageName.require(pkg)
+        return "if [ -e $REMOVED_FILE ]; then grep -vxF $p $REMOVED_FILE > $REMOVED_FILE.tmp; mv $REMOVED_FILE.tmp $REMOVED_FILE; fi; echo ok"
     }
 
     /** Drops one package from the on-TV undo list (it was turned back on by itself); prints "ok". */
@@ -124,6 +163,10 @@ object Commands {
     }
 
     const val KEY_HOME = "input keyevent KEYCODE_HOME"
+    /** Which app is on screen right now ("mFocusedApp=ActivityRecord{... u0 pkg/.Activity t12}"). */
+    const val FOCUSED_APP = "dumpsys activity activities | grep mFocusedApp | head -1"
+    /** Opens TV Settings: an app that is not a home screen, to press Home from. */
+    const val OPEN_SETTINGS = "am start -a android.settings.SETTINGS"
 
     /** Restarts the TV; the connection drops at once. */
     const val REBOOT = "reboot"

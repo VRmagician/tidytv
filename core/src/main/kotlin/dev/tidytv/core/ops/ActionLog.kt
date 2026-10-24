@@ -5,7 +5,15 @@ import kotlinx.serialization.json.Json
 import java.io.File
 import java.io.FileOutputStream
 
-enum class Op { DISABLE, ENABLE, INSTALL, UNINSTALL, SET_HOME, SETTING }
+/**
+ * REMOVE is "uninstall for the TV's user" (`pm uninstall -k --user 0`): a preinstalled app's APK stays
+ * on the system partition and REINSTALL (`cmd package install-existing`) brings it back. For an app
+ * the owner installed, REMOVE is a normal uninstall and can't be undone (detail [OWNER_APP]).
+ */
+enum class Op { DISABLE, ENABLE, INSTALL, UNINSTALL, SET_HOME, SETTING, REMOVE, REINSTALL }
+
+/** [ActionRecord.detail] of a REMOVE on an app the owner installed: gone for good, not restorable. */
+const val OWNER_APP = "owner app"
 
 /** INTENT is written before a change, DONE or FAILED after. An INTENT with no result means "maybe done". */
 enum class Phase { INTENT, DONE, FAILED }
@@ -80,6 +88,40 @@ fun List<ActionRecord>.disabledByUs(): Set<String> {
         }
     }
     return state.filterValues { it }.keys
+}
+
+/**
+ * Preinstalled apps TidyTV removed for the TV's user and hasn't brought back. Like [disabledByUs], an
+ * INTENT counts: the uninstall may have reached the TV, and install-existing on an app that is still
+ * there is harmless. Apps the owner installed are left out: they can't come back ([ownerAppsRemoved]).
+ */
+fun List<ActionRecord>.removedByUs(): Set<String> {
+    val state = linkedMapOf<String, Boolean>()
+    val confirmed = mutableMapOf<String, Boolean>()
+    for (r in this) when {
+        r.op == Op.REMOVE && r.detail == OWNER_APP -> state.remove(r.target)
+        r.op == Op.REMOVE && r.phase == Phase.INTENT -> state[r.target] = true
+        r.op == Op.REMOVE && r.phase == Phase.DONE -> { state[r.target] = true; confirmed[r.target] = true }
+        r.op == Op.REMOVE && r.phase == Phase.FAILED -> state[r.target] = confirmed[r.target] ?: false
+        r.op == Op.REINSTALL && r.phase == Phase.DONE -> { state[r.target] = false; confirmed[r.target] = false }
+    }
+    return state.filterValues { it }.keys
+}
+
+/** Everything TidyTV took off the TV and can still put back: turned off or removed for the user. */
+fun List<ActionRecord>.offByUs(): Set<String> = disabledByUs() + removedByUs()
+
+/** Apps the owner installed that TidyTV uninstalled at their request: gone for good. */
+fun List<ActionRecord>.ownerAppsRemoved(): Set<String> =
+    filter { it.op == Op.REMOVE && it.detail == OWNER_APP && it.phase == Phase.DONE }.map { it.target }.toSet()
+
+/** REMOVE intents with no result yet. */
+fun List<ActionRecord>.pendingRemoves(): Set<String> {
+    val pending = linkedSetOf<String>()
+    for (r in this) if (r.op == Op.REMOVE) {
+        if (r.phase == Phase.INTENT) pending += r.target else pending -= r.target
+    }
+    return pending
 }
 
 /** DISABLE intents with no result yet: the command may or may not have reached the TV. */

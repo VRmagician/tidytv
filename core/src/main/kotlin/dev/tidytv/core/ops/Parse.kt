@@ -76,6 +76,10 @@ object Parse {
         return result
     }
 
+    /** The package on screen, from [Commands.FOCUSED_APP] output; null when it can't be read. */
+    fun focusedPackage(out: String): String? =
+        Regex("""mFocusedApp=\S*\{[^}]*\bu\d+\s+([A-Za-z_][A-Za-z0-9_]*(?:\.[A-Za-z0-9_]+)+)/""").find(out)?.groupValues?.get(1)
+
     fun memAvailableKb(out: String): Long? =
         lines(out).firstOrNull { it.startsWith("MemAvailable:") }
             ?.split(Regex("\\s+"))?.getOrNull(1)?.toLongOrNull()
@@ -86,12 +90,48 @@ object Parse {
             Regex("([A-Za-z_][A-Za-z0-9_]*(?:\\.[A-Za-z0-9_]+)+)/").findAll(out).map { it.groupValues[1] }.toList()
         }.filter { PackageName.isValid(it) }.toSet()
 
+    /**
+     * The "Total PSS by process" block of `dumpsys meminfo`: package -> MB in use now. A package's
+     * extra processes ("pkg:service") are added to it.
+     */
+    fun pssMbByPackage(out: String): Map<String, Int> {
+        val block = out.substringAfter("Total PSS by process", "").substringBefore("Total PSS by OOM")
+        val kb = linkedMapOf<String, Long>()
+        for (m in PSS_LINE.findAll(block)) {
+            val pkg = m.groupValues[2].substringBefore(':')
+            if (!PackageName.isValid(pkg)) continue
+            kb[pkg] = (kb[pkg] ?: 0) + m.groupValues[1].replace(",", "").toLong()
+        }
+        return kb.mapValues { (it.value / 1024).toInt() }
+    }
+
+    /** Space on the TV and per app, from `dumpsys diskstats`. */
+    data class DiskStats(val freeKb: Long?, val totalKb: Long?, val apps: Map<String, AppBytes>)
+    data class AppBytes(val app: Long, val data: Long, val cache: Long)
+
+    fun diskstats(out: String): DiskStats {
+        val free = DATA_FREE.find(out)
+        fun array(name: String): List<String> =
+            Regex("$name: \\[(.*?)]").find(out)?.groupValues?.get(1)?.split(',')?.map { it.trim().trim('"') }.orEmpty()
+        val names = array("Package Names")
+        val app = array("App Sizes").map { it.toLongOrNull() ?: 0 }
+        val data = array("App Data Sizes").map { it.toLongOrNull() ?: 0 }
+        val cache = array("Cache Sizes").map { it.toLongOrNull() ?: 0 }
+        val apps = names.indices.filter { PackageName.isValid(names[it]) }.associate { i ->
+            names[i] to AppBytes(app.getOrElse(i) { 0 }, data.getOrElse(i) { 0 }, cache.getOrElse(i) { 0 })
+        }
+        return DiskStats(free?.groupValues?.get(1)?.toLongOrNull(), free?.groupValues?.get(2)?.toLongOrNull(), apps)
+    }
+
     fun mirror(out: String): Set<String>? {
         val ls = lines(out)
         if (ls.lastOrNull() != "END") return null
         return ls.dropLast(1).filter { PackageName.isValid(it) }.toSet()
     }
 }
+
+private val PSS_LINE = Regex("""^\s*([\d,]+)K: (\S+) \(pid \d+""", RegexOption.MULTILINE)
+private val DATA_FREE = Regex("""Data-Free: (\d+)K / (\d+)K total""")
 
 class UnexpectedOutput(val command: String, val output: String) :
     RuntimeException("Unexpected answer to \"$command\": ${output.take(200)}")

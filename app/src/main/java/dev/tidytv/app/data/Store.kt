@@ -27,6 +27,8 @@ class Store(private val root: File) {
     val logsDir = File(root, "logs")
     /** The update check's cache: when it last asked GitHub, what it found, what was dismissed. */
     val updateFile = File(root, "update.json")
+    /** The rating prompt: asks used, when, and whether the person already rated. */
+    val ratingFile = File(root, "rating.json")
 
     /** Serial numbers become folder names, so only safe characters survive. */
     private fun tvDir(serial: String) = File(root, "tvs/" + serial.replace(Regex("[^A-Za-z0-9._-]"), "_").take(64).ifEmpty { "unknown" })
@@ -52,6 +54,16 @@ class Store(private val root: File) {
     fun latestBackup(serial: String): Backup? =
         tvDir(serial).listFiles { f -> f.name.startsWith("backup-") && f.name.endsWith(".json") }
             ?.maxByOrNull { it.name }?.let { runCatching { Backup.fromJson(it.readText()) }.getOrNull() }
+
+    /** Apps the owner pinned to this TV's remote bar, in order; null until they change it. */
+    fun pinnedApps(serial: String): List<String>? =
+        File(tvDir(serial), "pinned.txt").takeIf { it.exists() }?.readLines()?.map { it.trim() }?.filter { it.isNotEmpty() }
+
+    fun savePinned(serial: String, pkgs: List<String>) {
+        val f = File(tvDir(serial), "pinned.txt")
+        f.parentFile?.mkdirs()
+        f.writeText(pkgs.joinToString("\n"))
+    }
 
     fun remember(tv: KnownTv) {
         val f = File(tvDir(tv.serial), "tv.json")

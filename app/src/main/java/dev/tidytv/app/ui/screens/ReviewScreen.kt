@@ -41,6 +41,8 @@ import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.Campaign
 import androidx.compose.material.icons.rounded.Cast
 import androidx.compose.material.icons.rounded.CheckCircle
+import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.material3.Icon
 import androidx.compose.material.icons.rounded.Info
 import androidx.compose.material.icons.rounded.Lock
 import androidx.compose.material.icons.rounded.Mic
@@ -103,6 +105,8 @@ fun ReviewScreen(
     onRetryBackup: () -> Unit,
     onDone: () -> Unit,
     onShowMore: () -> Unit = {},
+    onAllApps: () -> Unit = {},
+    onUninstall: (Boolean) -> Unit = {},
 ) {
     val n = s.selected.size
     ScreenFrame(bottom = {
@@ -142,6 +146,7 @@ fun ReviewScreen(
         }
         if (s.extra.isNotEmpty()) MoreAppsCard(s.extra, s.selected, onToggleApp)
         KeptCard(s.kept)
+        AllAppsCard(onAllApps)
     }
 }
 
@@ -255,6 +260,21 @@ fun AppChipLayout(pkg: String, label: String, picked: Boolean, onClick: () -> Un
 
 @Composable
 private fun AppChip(c: Candidate, picked: Boolean, onClick: () -> Unit) = AppChipLayout(c.pkg, c.label, picked, onClick)
+
+@Composable
+private fun AllAppsCard(onClick: () -> Unit) {
+    Outline(Modifier.clip(RoundedCornerShape(22.dp)).clickable(role = Role.Button, onClick = onClick)) {
+        Row(verticalAlignment = Alignment.CenterVertically) {
+            IconBadge(Icons.Rounded.Apps, Tidy.Blue)
+            Spacer(Modifier.width(12.dp))
+            Column(Modifier.weight(1f)) {
+                Text("All apps on this TV", style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+                Text("See every app with what it costs your TV, and turn off or uninstall any of them.", style = MaterialTheme.typography.bodyMedium, color = Tidy.Muted)
+            }
+            Icon(Icons.Rounded.ChevronRight, null, tint = Tidy.Muted)
+        }
+    }
+}
 
 @Composable
 private fun KeptCard(kept: List<String>) {

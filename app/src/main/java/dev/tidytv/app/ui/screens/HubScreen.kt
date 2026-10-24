@@ -33,7 +33,9 @@ import androidx.compose.material.icons.automirrored.rounded.ArrowBack
 import androidx.compose.material.icons.rounded.CleaningServices
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Restore
+import androidx.compose.material.icons.rounded.Shield
 import androidx.compose.material.icons.rounded.SettingsRemote
+import androidx.compose.material.icons.rounded.Storage
 import androidx.compose.material.icons.rounded.TaskAlt
 import androidx.compose.material.icons.rounded.Upload
 import androidx.compose.material3.Icon
@@ -62,6 +64,8 @@ fun HubScreen(
     onRestore: () -> Unit,
     onBack: () -> Unit,
     onCheck: () -> Unit = {},
+    onSpace: () -> Unit = {},
+    onAds: () -> Unit = {},
 ) {
     val items = buildList {
         add(HubItem(Icons.Rounded.CleaningServices, "Tidy up", Tidy.Blue, Color.White, if (appsOff > 0) "$appsOff off" else null, onTidy))
@@ -69,6 +73,8 @@ fun HubScreen(
         add(HubItem(Icons.Rounded.Upload, "Send files", Tidy.Orange, Color.White, onClick = onFiles))
         if (!fireTv) add(HubItem(Icons.Rounded.Home, "Home screen", Tidy.Green, Color.White, onClick = onHomeScreen))
         add(HubItem(Icons.Rounded.TaskAlt, "Check my TV", Tidy.Yellow, Tidy.Ink, onClick = onCheck))
+        add(HubItem(Icons.Rounded.Storage, "Free up space", Tidy.Green, Color.White, onClick = onSpace))
+        add(HubItem(Icons.Rounded.Shield, "Block ads", Tidy.Purple, Color.White, onClick = onAds))
         add(HubItem(Icons.Rounded.Restore, "Restore", Tidy.Grey, Tidy.Ink, onClick = onRestore))
     }
     ScreenFrame(top = { Row(Modifier.fillMaxWidth()) { TextLink("Change TV", onBack, icon = Icons.AutoMirrored.Rounded.ArrowBack) } }) {
@@ -84,6 +90,10 @@ fun HubScreen(
                     }
                 }
             }
+        }
+        val actions = dev.tidytv.app.ui.LocalAppActions.current
+        Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.Center) {
+            TextLink("Rate TidyTV", { actions.rate() }, color = Tidy.Muted, small = true)
         }
     }
 }

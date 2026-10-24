@@ -5,7 +5,8 @@ import dev.tidytv.core.lists.Launchers
 
 sealed interface RestoreOutcome {
     /** Everything TidyTV changed is back. */
-    data class Done(val enabled: List<String>, val homeRestored: Boolean) : RestoreOutcome
+    /** [gone]: apps the owner installed and asked TidyTV to uninstall; only Google Play brings them back. */
+    data class Done(val enabled: List<String>, val homeRestored: Boolean, val gone: List<String> = emptyList()) : RestoreOutcome
     /** Some packages stayed off; TidyTV's home screen was kept so the TV still has one. Run again. */
     data class Partial(val enabled: List<String>, val stillOff: List<String>) : RestoreOutcome
     data class Disconnected(val enabled: List<String>) : RestoreOutcome
@@ -50,6 +51,7 @@ class Restorer(
                     onEnabled(pkg)
                 }
             }
+            stillOff += reinstall(records, onEnabled = { enabled += it; onEnabled(it) })
             if (stillOff.isNotEmpty()) return RestoreOutcome.Partial(enabled, stillOff)
 
             for ((key, before) in records.changedSettings()) {
@@ -61,7 +63,8 @@ class Restorer(
 
             val homeRestored = restoreHome(records)
             tv.run(Commands.CLEAR_MIRROR)
-            return RestoreOutcome.Done(enabled, homeRestored)
+            tv.run(Commands.CLEAR_REMOVED)
+            return RestoreOutcome.Done(enabled, homeRestored, gone = records.ownerAppsRemoved().toList())
         } catch (e: TvConnectionLost) {
             return RestoreOutcome.Disconnected(enabled)
         }
@@ -76,10 +79,14 @@ class Restorer(
     suspend fun enableOnly(pkgs: Set<String>, onEnabled: (String) -> Unit = {}): RestoreOutcome {
         val enabled = mutableListOf<String>()
         try {
+            val records = log.records()
+            val stillMissing = reinstall(records, only = pkgs.filterNot { Launchers.isHomeApp(it) }.toSet(), onEnabled = { enabled += it; onEnabled(it) })
             val mirror = Parse.mirror(tv.run(Commands.READ_MIRROR)) ?: emptySet()
-            val ours = log.records().disabledByUs() + mirror
-            val targets = pkgs.filter { it in ours && !Launchers.isHomeApp(it) }
-            if (targets.isEmpty()) return RestoreOutcome.Done(enabled, homeRestored = false)
+            val ours = records.disabledByUs() + mirror
+            val targets = pkgs.filter { it in ours && !Launchers.isHomeApp(it) && it !in enabled }
+            if (targets.isEmpty()) {
+                return if (stillMissing.isEmpty()) RestoreOutcome.Done(enabled, homeRestored = false) else RestoreOutcome.Partial(enabled, stillMissing)
+            }
             val disabledNow = Parse.packages(tv.run(Commands.LIST_DISABLED))
             for (pkg in targets) {
                 if (pkg !in disabledNow) {
@@ -103,10 +110,44 @@ class Restorer(
                     onEnabled(pkg)
                 }
             }
+            stillOff += stillMissing
             return if (stillOff.isEmpty()) RestoreOutcome.Done(enabled, homeRestored = false) else RestoreOutcome.Partial(enabled, stillOff)
         } catch (e: TvConnectionLost) {
             return RestoreOutcome.Disconnected(enabled)
         }
+    }
+
+    /**
+     * Brings back preinstalled apps TidyTV removed for the user (phone log plus the TV's own list) with
+     * `cmd package install-existing`, then checks each is installed again. Returns the ones that aren't.
+     */
+    private suspend fun reinstall(records: List<ActionRecord>, only: Set<String>? = null, onEnabled: (String) -> Unit): List<String> {
+        val mirror = Parse.mirror(tv.run(Commands.READ_REMOVED)) ?: emptySet()
+        val targets = (records.removedByUs() + mirror - records.ownerAppsRemoved())
+            .filter { only == null || it in only }
+        if (targets.isEmpty()) return emptyList()
+        val before = Parse.packages(tv.run(Commands.LIST_PACKAGES))
+        for (pkg in targets) {
+            if (pkg in before) {
+                log.append(ActionRecord(clock(), Op.REINSTALL, pkg, Phase.DONE, detail = "was there"))
+                continue
+            }
+            log.append(ActionRecord(clock(), Op.REINSTALL, pkg, Phase.INTENT))
+            tv.run(Commands.installExisting(pkg))
+        }
+        val after = Parse.packages(tv.run(Commands.LIST_PACKAGES))
+        val missing = mutableListOf<String>()
+        for (pkg in targets.filter { it !in before }) {
+            if (pkg in after) {
+                log.append(ActionRecord(clock(), Op.REINSTALL, pkg, Phase.DONE))
+                if (only != null) tv.run(Commands.unmirrorRemoved(pkg))
+                onEnabled(pkg)
+            } else {
+                log.append(ActionRecord(clock(), Op.REINSTALL, pkg, Phase.FAILED, detail = "still missing"))
+                missing += pkg
+            }
+        }
+        return missing
     }
 
     private suspend fun restoreHome(records: List<ActionRecord>): Boolean {
