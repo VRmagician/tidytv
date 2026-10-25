@@ -27,6 +27,11 @@ class Store(private val root: File) {
     val logsDir = File(root, "logs")
     /** The update check's cache: when it last asked GitHub, what it found, what was dismissed. */
     val updateFile = File(root, "update.json")
+    /** Set after the first successful connect: later "Connect a TV" taps skip the get-ready steps. */
+    val onboardedFile = File(root, "onboarded")
+    fun onboarded() = onboardedFile.exists()
+    fun markOnboarded() { runCatching { onboardedFile.parentFile?.mkdirs(); onboardedFile.writeText("1") } }
+
     /** The rating prompt: asks used, when, and whether the person already rated. */
     val ratingFile = File(root, "rating.json")
 

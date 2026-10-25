@@ -1,5 +1,13 @@
 package dev.tidytv.app.ui.screens
 
+import androidx.compose.ui.graphics.Color
+import androidx.compose.ui.semantics.contentDescription
+import androidx.compose.ui.semantics.semantics
+import androidx.compose.material3.Icon
+import androidx.compose.material.icons.rounded.ChevronRight
+import androidx.compose.foundation.layout.width
+import androidx.compose.foundation.layout.Spacer
+import androidx.compose.foundation.layout.size
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Box
 import androidx.compose.foundation.layout.Column
@@ -48,7 +56,21 @@ fun WelcomeScreen(
     savedTvs: List<dev.tidytv.app.data.KnownTv> = emptyList(),
     onSavedTv: (dev.tidytv.app.data.KnownTv) -> Unit = {},
     onRescue: (dev.tidytv.app.data.KnownTv) -> Unit = {},
+    online: Set<String> = emptySet(),
+    onConnect: () -> Unit = { onChoose(TvKind.ANDROID_TV) },
 ) {
+    var otherKinds by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    @Composable fun ConnectBlock() {
+    BigButton(if (savedTvs.isNotEmpty()) "Connect another TV" else "Connect your TV", onConnect, color = Tidy.Blue,
+        leading = { Icon(Icons.Rounded.Tv, null, tint = Color.White) })
+    TextLink("Fire TV, Samsung, LG or not sure?", { otherKinds = true }, color = Tidy.Muted, small = true)
+    if (otherKinds) dev.tidytv.app.ui.InfoSheet("Which kind of TV?", { otherKinds = false }) {
+        ChoiceButton("Android TV / Google TV", Icons.Rounded.Tv, Tidy.Blue) { otherKinds = false; onChoose(TvKind.ANDROID_TV) }
+        ChoiceButton("Amazon Fire TV", Icons.Rounded.SettingsInputHdmi, Tidy.Orange, badge = "Clean-up only") { otherKinds = false; onChoose(TvKind.FIRE_TV) }
+        ChoiceButton("Samsung or LG", Icons.Rounded.DesktopWindows, Tidy.Purple) { otherKinds = false; onChoose(TvKind.SAMSUNG_LG) }
+        ChoiceButton("Not sure", Icons.AutoMirrored.Rounded.HelpOutline, Tidy.Grey, textColor = Tidy.Ink) { otherKinds = false; onChoose(TvKind.NOT_SURE) }
+    }
+    }
     ScreenFrame(top = {
         val actions = dev.tidytv.app.ui.LocalAppActions.current
         androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
@@ -60,10 +82,21 @@ fun WelcomeScreen(
         if (savedTvs.isNotEmpty()) {
             androidx.compose.material3.Text("Your TVs", style = androidx.compose.material3.MaterialTheme.typography.titleMedium, color = Tidy.Ink)
             Column(verticalArrangement = Arrangement.spacedBy(10.dp)) {
-                savedTvs.take(3).forEach { tv ->
-                    dev.tidytv.app.ui.TvCard(tv.title, savedSubtitle(tv), onClick = { onSavedTv(tv) })
+                savedTvs.take(5).forEach { tv ->
+                    dev.tidytv.app.ui.TvCard(tv.title, savedSubtitle(tv), onClick = { onSavedTv(tv) }, trailing = {
+                        val up = tv.host in online
+                        androidx.compose.foundation.layout.Row(verticalAlignment = Alignment.CenterVertically) {
+                            androidx.compose.foundation.layout.Box(
+                                Modifier.size(10.dp).background(if (up) Tidy.Green else Tidy.Muted.copy(alpha = 0.4f), androidx.compose.foundation.shape.CircleShape)
+                                    .semantics { contentDescription = if (up) "On the network" else "Not found on the network" },
+                            )
+                            Spacer(Modifier.width(8.dp))
+                            androidx.compose.material3.Icon(Icons.Rounded.ChevronRight, null, Modifier.size(28.dp), tint = Tidy.Muted)
+                        }
+                    })
                 }
             }
+            ConnectBlock()
             var pick by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
             TextLink("TV stuck after a change?", { if (savedTvs.size == 1) onRescue(savedTvs[0]) else pick = true }, color = Tidy.Muted)
             if (pick) androidx.compose.material3.AlertDialog(
@@ -80,17 +113,11 @@ fun WelcomeScreen(
                 dismissButton = { androidx.compose.material3.TextButton({ pick = false }) { androidx.compose.material3.Text("Cancel") } },
             )
             HeroMascot(height = 96.dp)
-            Bubble("Connect another TV")
         } else {
             HeroMascot(height = 120.dp)
-            Bubble("Hi! What TV do you have?")
+            Bubble("Hi! Let's tidy your TV.")
         }
-        Column(verticalArrangement = Arrangement.spacedBy(12.dp)) {
-            ChoiceButton("Android TV / Google TV", Icons.Rounded.Tv, Tidy.Blue) { onChoose(TvKind.ANDROID_TV) }
-            ChoiceButton("Amazon Fire TV", Icons.Rounded.SettingsInputHdmi, Tidy.Orange, badge = "Clean-up only") { onChoose(TvKind.FIRE_TV) }
-            ChoiceButton("Samsung or LG", Icons.Rounded.DesktopWindows, Tidy.Purple) { onChoose(TvKind.SAMSUNG_LG) }
-            ChoiceButton("Not sure", Icons.AutoMirrored.Rounded.HelpOutline, Tidy.Grey, textColor = Tidy.Ink) { onChoose(TvKind.NOT_SURE) }
-        }
+        if (savedTvs.isEmpty()) ConnectBlock()
         ChipRow(center = true) {
             InfoChip(Icons.Rounded.Favorite, "Free")
             InfoChip(Icons.Rounded.Shield, "Never deletes")

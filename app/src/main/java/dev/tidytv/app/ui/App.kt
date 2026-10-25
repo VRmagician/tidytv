@@ -19,6 +19,7 @@ import dev.tidytv.app.ui.screens.ConnectScreen
 import dev.tidytv.app.ui.screens.DoneScreen
 import dev.tidytv.app.ui.screens.AllAppsScreen
 import dev.tidytv.app.ui.screens.AdBlockScreen
+import dev.tidytv.app.ui.screens.AppsScreen
 import dev.tidytv.app.ui.screens.SpaceScreen
 import dev.tidytv.app.ui.screens.HubScreen
 import dev.tidytv.app.ui.screens.CheckScreen
@@ -135,12 +136,12 @@ fun Screen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit
 @Composable
 private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs: () -> Unit) {
     when (step) {
-        Step.WELCOME -> WelcomeScreen({ vm?.choose(it) }, { vm?.restoreTapped() }, s.update, { vm?.dismissUpdate() }, s.savedTvs, { vm?.connectSaved(it) }, { vm?.startRescue(it) })
+        Step.WELCOME -> WelcomeScreen({ vm?.choose(it) }, { vm?.restoreTapped() }, s.update, { vm?.dismissUpdate() }, s.savedTvs, { vm?.connectSaved(it) }, { vm?.startRescue(it) }, s.online, { vm?.connectNew() })
         Step.CHECK -> CheckScreen(s.check, s.tv?.title, s.labels, { vm?.retidy() }, { vm?.rebootTest() }, { vm?.recheck() }, { vm?.toHub() }, { vm?.turnOnRemoteHelper(it) })
         Step.RESCUE -> RescueScreen(s.rescue, { vm?.stopRescue() }, { s.rescue.tv?.let { vm?.startRescue(it) } }, { vm?.stopRescue() })
         Step.HUB -> HubScreen(
             s.tv, s.done.records.offByUs().count { !dev.tidytv.core.lists.Launchers.isHomeApp(it) }, s.wizard.kind == dev.tidytv.core.flow.TvKind.FIRE_TV,
-            { vm?.openTidy() }, { vm?.openRemote() }, { vm?.openFiles() }, { vm?.openHomeScreen() }, { vm?.openRestore() }, { vm?.back() }, { vm?.openCheck() }, { vm?.openSpace() }, { vm?.openAds() },
+            { vm?.openTidy() }, { vm?.openRemote() }, { vm?.openFiles() }, { vm?.openHomeScreen() }, { vm?.openRestore() }, { vm?.back() }, { vm?.openCheck() }, { vm?.openSpace() }, { vm?.openAds() }, { vm?.openApps() },
         )
         Step.REMOTE -> RemoteScreen(s.remote, s.tv?.title, { vm?.press(it) }, { vm?.type(it) }, { vm?.launchApp(it) }, { vm?.dismissRemoteMessage() }, { vm?.toHub() }, { vm?.togglePin(it) }, { p, d -> vm?.movePin(p, d) })
         Step.SEND_FILES -> SendFilesScreen(s.files, s.tv?.title, { vm?.sendFiles(it) }, { vm?.cancelFile(it) }, { vm?.retryFile(it) }, { vm?.toHub() })
@@ -154,6 +155,7 @@ private fun StepScreen(step: Step, s: UiState, vm: WizardViewModel?, onShareLogs
             s.review, { vm?.toggleApp(it) }, { g, on -> vm?.toggleGroup(g, on) }, { vm?.startTidy() },
             { vm?.retryBackup() }, { vm?.toDone() }, { vm?.showMoreApps() }, { vm?.openAllApps() }, { vm?.setUninstall(it) },
         )
+        Step.APPS -> AppsScreen(s.apps, s.labels, s.tv?.title, { vm?.openApp(it) }, { vm?.closeApp() }, { vm?.changeApp(it, false) }, { vm?.changeApp(it, true) }, { vm?.toHub() })
         Step.ADS -> AdBlockScreen(s.ads, s.tv?.title, { p, ok -> vm?.blockAds(p, ok) }, { vm?.unblockAds() }, { vm?.cancelReplaceDns() }, { vm?.toHub() })
         Step.SPACE -> SpaceScreen(s.space, s.tv?.title, s.labels, { vm?.clearCaches() }, { vm?.toHub() })
         Step.TIDYING -> TidyingScreen(s.tidy, { vm?.toDone(); vm?.restoreEverything() }, { vm?.toDone() }, onShareLogs)

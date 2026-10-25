@@ -149,10 +149,18 @@ object Commands {
 
     fun grantLocation(pkg: String) = "pm grant ${PackageName.require(pkg)} android.permission.ACCESS_FINE_LOCATION 2>/dev/null; echo granted"
 
-    /** config.json for the cleanyourtv home screen: the dock apps in order, everything else default. */
+    /**
+     * The home screen's own editing features, off by default upstream: hold OK on an app for Move / Remove / App info
+     * (`tile_menu`), an App library to add apps back (`app_library`), and a settings page to reorder apps and pick a
+     * wallpaper (`launcher_settings_button`). Without them people can't change the apps on their home screen.
+     */
+    val EDITABLE_HOME = listOf("tile_menu", "app_library", "launcher_settings_button")
+
+    /** config.json for the cleanyourtv home screen: the dock apps in order, and the editing features switched on. */
     fun dockConfig(dockApps: List<String>): String {
         dockApps.forEach { PackageName.require(it) }
-        return "{\"dock_apps\": [" + dockApps.joinToString(", ") { "\"$it\"" } + "]}\n"
+        val flags = EDITABLE_HOME.joinToString(", ") { "\"$it\": true" }
+        return "{\"dock_apps\": [" + dockApps.joinToString(", ") { "\"$it\"" } + "], $flags}\n"
     }
 
     fun startLauncher(component: String, dockApps: List<String>, stamp: Long): String {

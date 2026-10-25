@@ -1,5 +1,8 @@
 package dev.tidytv.app.ui.screens
 
+import androidx.compose.runtime.setValue
+import androidx.compose.runtime.getValue
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -135,7 +138,11 @@ fun ReviewScreen(
             if (!s.exact) Row(verticalAlignment = Alignment.CenterVertically) {
                 InfoChip(Icons.Rounded.Info, "Similar model", color = Tidy.Yellow, textColor = Tidy.Ink)
                 MoreInfo("Similar model", color = Tidy.Ink) {
-                    Body("This list is for a similar model, not tested on yours. The safe parts are switched on; look through the rest.", color = Tidy.Ink)
+                    Body(
+                        "This list is for ${s.listTitle ?: "a similar model"}, not tested on ${s.yourTv?.let { "your $it" } ?: "yours"}. The safe parts are switched on; look through the rest.",
+                        color = Tidy.Ink,
+                    )
+                    Body("Touch and hold any app to see its package ID.", color = Tidy.Muted)
                 }
             }
         }
@@ -235,31 +242,27 @@ private fun GroupCard(group: Group, apps: List<Candidate>, selected: Set<String>
     }
 }
 
-/** An app to pick: its real icon and its name on two lines. Long-press shows a name too long to fit. */
-@OptIn(ExperimentalMaterial3Api::class)
+/** An app to pick: its real icon and its name on two lines. Long-press shows its package ID and what we know about it. */
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 @Composable
-fun AppChipLayout(pkg: String, label: String, picked: Boolean, onClick: () -> Unit) {
-    TooltipBox(
-        positionProvider = TooltipDefaults.rememberTooltipPositionProvider(TooltipAnchorPosition.Above),
-        tooltip = { PlainTooltip { Text(label) } },
-        state = rememberTooltipState(),
+fun AppChipLayout(pkg: String, label: String, picked: Boolean, note: String = "", onClick: () -> Unit) {
+    var details by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    if (details) dev.tidytv.app.ui.AppDetailsSheet(label, pkg, note) { details = false }
+    Column(
+        Modifier.width(80.dp).clip(RoundedCornerShape(14.dp))
+            .combinedClickable(role = Role.Checkbox, onLongClickLabel = "Show package ID", onLongClick = { details = true }, onClick = onClick)
+            .semantics { stateDescription = if (picked) "will be turned off" else "stays on" }
+            .padding(vertical = 6.dp, horizontal = 2.dp),
+        horizontalAlignment = Alignment.CenterHorizontally,
     ) {
-        Column(
-            Modifier.width(80.dp).clip(RoundedCornerShape(14.dp))
-                .clickable(role = Role.Checkbox, onClick = onClick)
-                .semantics { stateDescription = if (picked) "will be turned off" else "stays on" }
-                .padding(vertical = 6.dp, horizontal = 2.dp),
-            horizontalAlignment = Alignment.CenterHorizontally,
-        ) {
-            Box(Modifier.alpha(if (picked) 1f else 0.4f)) { AppIcon(pkg, label, size = 46.dp) }
-            Text(label, style = MaterialTheme.typography.labelMedium, color = if (picked) Tidy.Ink else Tidy.Muted, textAlign = TextAlign.Center,
-                maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
-        }
+        Box(Modifier.alpha(if (picked) 1f else 0.4f)) { AppIcon(pkg, label, size = 46.dp) }
+        Text(label, style = MaterialTheme.typography.labelMedium, color = if (picked) Tidy.Ink else Tidy.Muted, textAlign = TextAlign.Center,
+            maxLines = 2, overflow = TextOverflow.Ellipsis, modifier = Modifier.padding(top = 4.dp))
     }
 }
 
 @Composable
-private fun AppChip(c: Candidate, picked: Boolean, onClick: () -> Unit) = AppChipLayout(c.pkg, c.label, picked, onClick)
+private fun AppChip(c: Candidate, picked: Boolean, onClick: () -> Unit) = AppChipLayout(c.pkg, c.label, picked, c.note, onClick)
 
 @Composable
 private fun AllAppsCard(onClick: () -> Unit) {

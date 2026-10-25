@@ -1,5 +1,6 @@
 package dev.tidytv.app.ui.screens
 
+import androidx.compose.foundation.combinedClickable
 import androidx.compose.foundation.clickable
 import androidx.compose.foundation.layout.Arrangement
 import androidx.compose.foundation.layout.Column
@@ -184,11 +185,14 @@ private fun MethodChoice(uninstall: Boolean, onUninstall: (Boolean) -> Unit) {
 }
 
 @Composable
+@OptIn(androidx.compose.foundation.ExperimentalFoundationApi::class)
 private fun AppRowItem(row: AppRow, labels: Map<String, String>, facts: AppFacts?, picked: Boolean, onToggle: (String) -> Unit) {
     val name = labels[row.pkg] ?: row.label
+    var details by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    if (details) dev.tidytv.app.ui.AppDetailsSheet(name, row.pkg, row.note) { details = false }
     Row(
         Modifier.fillMaxWidth().clip(RoundedCornerShape(14.dp))
-            .then(if (row.locked) Modifier else Modifier.clickable { onToggle(row.pkg) })
+            .combinedClickable(onLongClickLabel = "Show package ID", onLongClick = { details = true }, onClick = { if (!row.locked) onToggle(row.pkg) })
             .heightIn(min = 56.dp).padding(vertical = 4.dp),
         verticalAlignment = Alignment.CenterVertically,
     ) {
@@ -207,6 +211,7 @@ private fun AppRowItem(row: AppRow, labels: Map<String, String>, facts: AppFacts
                     maxLines = 2, overflow = TextOverflow.Ellipsis,
                 )
             }
+            Text(row.pkg, style = MaterialTheme.typography.labelSmall, color = Tidy.Muted, maxLines = 1, overflow = TextOverflow.Ellipsis)
             if (!row.locked) Badges(row, facts)
         }
         Spacer(Modifier.width(8.dp))

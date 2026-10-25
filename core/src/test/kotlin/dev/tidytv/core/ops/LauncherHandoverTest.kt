@@ -219,7 +219,7 @@ class LauncherHandoverTest {
         assertEquals(HandoverOutcome.Done(Launchers.LAUNCHERX), out)
         assertEquals(HomeApp.STYLED.component, tv.home())
         val config = tv.pushed["/sdcard/Android/data/com.gathin.tvhome/files/config.json"]!!.decodeToString()
-        assertEquals("{\"dock_apps\": [\"com.netflix.ninja\", \"com.google.android.youtube.tv\"]}\n", config)
+        assertEquals("{\"dock_apps\": [\"com.netflix.ninja\", \"com.google.android.youtube.tv\"], \"tile_menu\": true, \"app_library\": true, \"launcher_settings_button\": true}\n", config)
         assertTrue(tv.files.keys.any { it.endsWith("com.gathin.tvhome/files/theme_revision") })
         assertTrue(tv.commands.any { it.startsWith("am start -W -n com.gathin.tvhome/.MainActivity") && !it.contains("--es") })
         assertTrue(tv.commands.any { it.startsWith("pm grant com.gathin.tvhome") })

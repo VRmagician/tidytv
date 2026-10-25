@@ -223,6 +223,93 @@ class WizardViewModelTest {
         assertEquals("Nothing to put back: every app is already on and your old home screen is set.", (vm.ui.value.done.restore as RestoreUi.Finished).message)
     }
 
+    @Test fun appsTileTurnsOneAppOffAndRestoreBringsItBack() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv: FakeTv = demo.tv
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.openApps(); advanceUntilIdle()
+        assertEquals(Step.APPS, vm.ui.value.wizard.step)
+        val rows = vm.ui.value.apps.rows
+        assertTrue("apps listed", rows.size > 5)
+        val target = rows.first { !it.locked && it.tier != dev.tidytv.core.lists.Tier.YOURS && !it.keptByList }.pkg
+        vm.changeApp(target, uninstall = false); advanceUntilIdle()
+        assertTrue("$target is off", target in tv.disabled)
+        assertTrue(vm.ui.value.apps.message!!.ok)
+        assertTrue(File(dir, "tvs").walk().any { it.name.startsWith("backup-") })
+        assertTrue("it left the list", vm.ui.value.apps.rows.none { it.pkg == target })
+        vm.toHub(); advanceUntilIdle()
+        vm.openRestore(); advanceUntilIdle()
+        vm.restoreEverything(); advanceUntilIdle()
+        assertTrue(target !in tv.disabled)
+    }
+
+    @Test fun appsTileUninstallsForTheTvAndRefusesLockedApps() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv: FakeTv = demo.tv
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.openApps(); advanceUntilIdle()
+        val rows = vm.ui.value.apps.rows
+        val locked = rows.first { it.locked }.pkg
+        vm.changeApp(locked, uninstall = true); advanceUntilIdle()
+        assertTrue("a locked app is never touched", locked in tv.installed && locked !in tv.disabled)
+        val target = rows.first { !it.locked && it.tier != dev.tidytv.core.lists.Tier.YOURS && !it.keptByList }.pkg
+        vm.changeApp(target, uninstall = true); advanceUntilIdle()
+        assertTrue("$target is uninstalled for the TV's user", target !in tv.installed)
+    }
+
+    @Test fun connectNewSkipsGetReadyOnceTheTvHasBeenConnectedBefore() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val first = vm(demo)
+        first.connectNew(); advanceUntilIdle()
+        assertEquals("first time: the get-ready steps", Step.GET_READY, first.ui.value.wizard.step)
+        first.ready(); advanceTimeBy(4_000)
+        first.connect(ConnectEvent.Pick(DemoBackend.DEMO)); advanceUntilIdle()
+        assertEquals(Step.HUB, first.ui.value.wizard.step)
+        val again = vm(demo)
+        again.connectNew(); advanceTimeBy(100)
+        assertEquals("later: straight to the scan", Step.CONNECT, again.ui.value.wizard.step)
+    }
+
+    @Test fun blockAdsTurnsOnAndOffFromTheHubWithoutHanging() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv: FakeTv = demo.tv
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.openAds(); advanceUntilIdle()
+        assertEquals(Step.ADS, vm.ui.value.wizard.step)
+        assertTrue(!vm.ui.value.ads.loading)
+        vm.blockAds(dev.tidytv.core.ops.AdBlockProvider.ADS); advanceUntilIdle()
+        assertTrue(!vm.ui.value.ads.busy)
+        assertEquals("dns.adguard-dns.com", tv.settings["global/private_dns_specifier"])
+        assertEquals(dev.tidytv.core.ops.AdBlockProvider.ADS, vm.ui.value.ads.dns?.provider)
+        vm.unblockAds(); advanceUntilIdle()
+        assertTrue(!vm.ui.value.ads.busy)
+        assertEquals(null, vm.ui.value.ads.dns?.provider)
+    }
+
+    @Test fun checkMyTvCanTurnTheAssistantBackOn() = runTest(dispatcher) {
+        val demo = DemoBackend()
+        val tv: FakeTv = demo.tv
+        val vm = vm(demo)
+        vm.choose(TvKind.ANDROID_TV)
+        connectToDemo(vm, tidy = false)
+        vm.openApps(); advanceUntilIdle()
+        vm.changeApp("com.google.android.katniss", uninstall = false); advanceUntilIdle()
+        vm.toHub(); advanceUntilIdle()
+        vm.openCheck(); advanceUntilIdle()
+        val off = vm.ui.value.check.report?.remoteOff
+        if (off != null && off.isNotEmpty()) {
+            vm.turnOnRemoteHelper(off.first()); advanceUntilIdle()
+            assertTrue(!vm.ui.value.check.running)
+            assertTrue(off.first() !in tv.disabled)
+        }
+    }
+
     @Test fun oneAppCanBeTurnedBackOnByItself() = runTest(dispatcher) {
         val demo = DemoBackend()
         val tv = demo.tv

@@ -166,3 +166,18 @@ fun ChoiceCard(
         }
     }
 }
+
+
+/** What an app is, for the person deciding: its name, the package ID to look up (tap to copy) and what we know about it. */
+@Composable
+fun AppDetailsSheet(label: String, pkg: String, note: String, onDismiss: () -> Unit) {
+    val clipboard = androidx.compose.ui.platform.LocalClipboardManager.current
+    var copied by androidx.compose.runtime.saveable.rememberSaveable { androidx.compose.runtime.mutableStateOf(false) }
+    InfoSheet(label, onDismiss) {
+        Text("Package ID", style = MaterialTheme.typography.labelMedium, color = Tidy.Muted)
+        Text(pkg, style = MaterialTheme.typography.titleMedium, color = Tidy.Ink)
+        TextLink(if (copied) "Copied" else "Copy package ID", { clipboard.setText(androidx.compose.ui.text.AnnotatedString(pkg)); copied = true })
+        if (note.isNotBlank()) Body(note, color = Tidy.Ink)
+        Body("Search the package ID online to see what the app does before you turn it off.", color = Tidy.Muted)
+    }
+}

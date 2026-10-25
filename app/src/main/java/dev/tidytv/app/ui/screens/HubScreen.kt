@@ -30,6 +30,7 @@ import androidx.compose.foundation.layout.fillMaxHeight
 import androidx.compose.foundation.layout.height
 import androidx.compose.material.icons.Icons
 import androidx.compose.material.icons.automirrored.rounded.ArrowBack
+import androidx.compose.material.icons.rounded.Apps
 import androidx.compose.material.icons.rounded.CleaningServices
 import androidx.compose.material.icons.rounded.Home
 import androidx.compose.material.icons.rounded.Restore
@@ -66,12 +67,14 @@ fun HubScreen(
     onCheck: () -> Unit = {},
     onSpace: () -> Unit = {},
     onAds: () -> Unit = {},
+    onApps: () -> Unit = {},
 ) {
     val items = buildList {
         add(HubItem(Icons.Rounded.CleaningServices, "Tidy up", Tidy.Blue, Color.White, if (appsOff > 0) "$appsOff off" else null, onTidy))
         add(HubItem(Icons.Rounded.SettingsRemote, "Remote", Tidy.Purple, Color.White, onClick = onRemote))
         add(HubItem(Icons.Rounded.Upload, "Send files", Tidy.Orange, Color.White, onClick = onFiles))
         if (!fireTv) add(HubItem(Icons.Rounded.Home, "Home screen", Tidy.Green, Color.White, onClick = onHomeScreen))
+        add(HubItem(Icons.Rounded.Apps, "Apps", Tidy.Blue, Color.White, onClick = onApps))
         add(HubItem(Icons.Rounded.TaskAlt, "Check my TV", Tidy.Yellow, Tidy.Ink, onClick = onCheck))
         add(HubItem(Icons.Rounded.Storage, "Free up space", Tidy.Green, Color.White, onClick = onSpace))
         add(HubItem(Icons.Rounded.Shield, "Block ads", Tidy.Purple, Color.White, onClick = onAds))

@@ -51,7 +51,11 @@ class LauncherLookTest {
     @Test fun noDockOnTheTvMeansNoSampleDockEither() {
         val out = Json.parseToJsonElement(LauncherLook.merged(glass, emptyList())).jsonObject
         assertFalse("the theme's sample apps never become the owner's dock", out.containsKey("dock_apps"))
-        assertEquals("""{"dock_apps":["com.a.b"]}""", LauncherLook.merged("not json", listOf("com.a.b")).trim())
+        assertEquals("""{"dock_apps":["com.a.b"],"tile_menu":true,"app_library":true,"launcher_settings_button":true}""", LauncherLook.merged("not json", listOf("com.a.b")).trim())
+        // A theme that sets one of them itself keeps its value.
+        val off = Json.parseToJsonElement(LauncherLook.merged("""{"tile_menu": false}""", emptyList())).jsonObject
+        assertEquals("false", off["tile_menu"]!!.jsonPrimitive.content)
+        assertEquals("true", off["app_library"]!!.jsonPrimitive.content)
     }
 
     @Test fun fileNamesCantEscapeTheFolder() {

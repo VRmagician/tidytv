@@ -48,6 +48,8 @@ import dev.tidytv.core.ops.TvShell
 import dev.tidytv.core.ops.TvSnapshot
 import dev.tidytv.core.ops.WraithCheck
 import kotlinx.coroutines.Job
+import kotlinx.coroutines.async
+import kotlinx.coroutines.awaitAll
 import kotlinx.coroutines.delay
 import kotlinx.coroutines.flow.MutableStateFlow
 import kotlinx.coroutines.flow.StateFlow
@@ -90,6 +92,8 @@ data class ReviewState(
     val uninstall: Boolean = false,
     /** Apps the owner installed that are picked: uninstalling them is permanent, so it's confirmed first. */
     val confirmPermanent: List<String> = emptyList(),
+    /** This TV's own model name, to compare with [listTitle] when the list is for a similar model. */
+    val yourTv: String? = null,
 ) {
     /** Few apps from this TV's own list: say so and offer the others instead of looking finished. */
     val fewFound get() = !noList && candidates.size < FEW && extra.isEmpty() && moreAvailable.isNotEmpty()
@@ -114,6 +118,18 @@ data class SpaceState(
     val progressMb: Int = 0,
     /** The per-app cache numbers are Android's last daily count, not live; false after a clear sets them to zero. */
     val estimated: Boolean = true,
+    val message: RestoreUi.Finished? = null,
+)
+
+/** The Apps tile: every app on the TV, with one-tap turn off or uninstall on a single app. */
+data class AppsState(
+    val loading: Boolean = true,
+    val rows: List<dev.tidytv.core.lists.AppRow> = emptyList(),
+    val facts: Map<String, dev.tidytv.core.ops.AppFacts> = emptyMap(),
+    /** The app whose sheet is open. */
+    val open: String? = null,
+    /** The app being changed right now. */
+    val busy: String? = null,
     val message: RestoreUi.Finished? = null,
 )
 
@@ -273,11 +289,14 @@ data class UiState(
     val update: dev.tidytv.app.data.UpdateInfo? = null,
     /** TVs this phone has connected to, newest first, for one-tap reconnect on Welcome. */
     val savedTvs: List<dev.tidytv.app.data.KnownTv> = emptyList(),
+    /** Saved TVs that answered a quick check on the network just now, by address. */
+    val online: Set<String> = emptySet(),
     val remote: RemoteState = RemoteState(),
     val files: FilesState = FilesState(),
     val check: CheckState = CheckState(),
     val space: SpaceState = SpaceState(),
     val ads: AdsState = AdsState(),
+    val apps: AppsState = AppsState(),
     val rescue: RescueState = RescueState(),
     /** The real app icons read from the TV, as PNG files on the phone, by package. */
     val icons: Map<String, String> = emptyMap(),
@@ -312,6 +331,7 @@ class WizardViewModel(
 
     init {
         _ui.update { it.copy(savedTvs = runCatching { store.knownTvs() }.getOrDefault(emptyList()).sortedByDescending { t -> t.lastSeen }) }
+        probeSaved()
         updates?.let { u ->
             viewModelScope.launch(kotlinx.coroutines.Dispatchers.IO) {
                 u.check()?.let { info -> _ui.update { it.copy(update = info) } }
@@ -362,12 +382,33 @@ class WizardViewModel(
             Step.CHECK -> recheck()
             Step.SPACE -> enterSpace()
             Step.ADS -> enterAds()
+            Step.APPS -> loadApps()
             Step.RESCUE -> Unit
             else -> Unit
         }
     }
 
     fun choose(kind: dev.tidytv.core.flow.TvKind) = wizard(WizardEvent.Choose(kind))
+
+    /**
+     * "Connect a TV": an Android TV, straight to the scan once TidyTV has connected before. First time, the
+     * get-ready steps show once. Fire TV, Samsung and LG are chosen from "Another kind of TV".
+     */
+    fun connectNew() {
+        choose(dev.tidytv.core.flow.TvKind.ANDROID_TV)
+        if (store.onboarded()) ready()
+    }
+
+    /** A quick, quiet check of which saved TVs answer on the network now, for the green dots on the first screen. */
+    fun probeSaved() {
+        val tvs = _ui.value.savedTvs.take(5)
+        if (tvs.isEmpty()) return
+        viewModelScope.launch {
+            val b = runCatching { real() }.getOrNull() ?: return@launch
+            val up = tvs.map { tv -> async { if (runCatching { b.portOpen(tv.host) }.getOrDefault(false)) tv.host else null } }.awaitAll().filterNotNull().toSet()
+            _ui.update { it.copy(online = up) }
+        }
+    }
     fun restoreTapped() = wizard(WizardEvent.RestoreTapped)
     fun ready() = wizard(WizardEvent.Ready)
     fun startOver() = wizard(WizardEvent.StartOver)
@@ -380,6 +421,7 @@ class WizardViewModel(
     fun openCheck() = wizard(WizardEvent.OpenCheck)
     fun openSpace() = wizard(WizardEvent.OpenSpace)
     fun openAds() = wizard(WizardEvent.OpenAds)
+    fun openApps() = wizard(WizardEvent.OpenApps)
 
     private var pendingSaved: FoundTv? = null
 
@@ -476,6 +518,7 @@ class WizardViewModel(
             serial = snap.info.serial, sdk = snap.info.sdk, release = snap.info.release,
         )
         store.remember(KnownTv(summary.serial, summary.title, summary.model, tv.host, System.currentTimeMillis()))
+        store.markOnboarded()
         trace.line("tv ${snap.info.displayName} sdk ${snap.info.sdk} home ${snap.home}")
         _ui.update { it.copy(tv = summary) }
         val fire = snap.info.manufacturer.equals("Amazon", true) || snap.info.brand.equals("Amazon", true)
@@ -497,7 +540,8 @@ class WizardViewModel(
         shell = null
         snapshot = null
         remote?.close(); remote = null; remoteShell = null
-        _ui.update { UiState(wizard = it.wizard, update = it.update, savedTvs = it.savedTvs) }
+        _ui.update { UiState(wizard = it.wizard, update = it.update, savedTvs = it.savedTvs, online = it.online) }
+        probeSaved()
     }
 
     /**
@@ -640,7 +684,7 @@ class WizardViewModel(
         if (_ui.value.check.running) return
         _ui.update { it.copy(check = it.check.copy(running = true)) }
         viewModelScope.launch {
-            val outcome = withShell { s -> tvLock.withLock { Restorer(s, lg).enableOnly(setOf(pkg)) } }
+            val outcome = withShell { s -> Restorer(s, lg).enableOnly(setOf(pkg)) }
             trace.line("turn on remote helper $pkg: $outcome")
             _ui.update { it.copy(check = it.check.copy(running = false)) }
             runCheck()
@@ -888,7 +932,7 @@ class WizardViewModel(
             fetchIcons(candidates.map { c -> c.pkg })
             _ui.update {
                 it.copy(labels = it.labels + candidates.associate { c -> c.pkg to c.label }, review = ReviewState(
-                    backup = BackupStatus.Saved, listTitle = match.list.title, exact = match.exact,
+                    backup = BackupStatus.Saved, listTitle = match.list.title, yourTv = it.tv?.model?.takeIf { m -> m.isNotBlank() }, exact = match.exact,
                     candidates = candidates, selected = candidates.filter { c -> c.selected }.map { c -> c.pkg }.toSet(), kept = kept,
                     moreAvailable = more,
                 ))
@@ -1003,6 +1047,60 @@ class WizardViewModel(
 
     fun setUninstall(on: Boolean) = _ui.update { it.copy(review = it.review.copy(uninstall = on)) }
 
+    // ---------- Apps tile ----------
+
+    private fun loadApps(message: RestoreUi.Finished? = null) {
+        val snap = snapshot ?: return
+        _ui.update { it.copy(apps = AppsState(message = message)) }
+        viewModelScope.launch {
+            val fresh = withShell { s -> TvReader.snapshot(s) } ?: snap
+            snapshot = fresh
+            val facts = withShell { s -> dev.tidytv.core.ops.TvFacts.read(s) }
+            val yours = facts?.apps?.filterValues { f -> f.yours }?.keys.orEmpty()
+            val rows = dev.tidytv.core.lists.AllApps.build(list, lists().lists, fresh.installed, fresh.disabled, yours, fresh.liveProtected)
+            _ui.update {
+                val names = rows.associate { r -> r.pkg to r.label } + it.labels
+                it.copy(labels = names, apps = AppsState(false, rows, facts?.apps.orEmpty(), message = message))
+            }
+            fetchIcons(rows.filterNot { r -> r.locked }.map { r -> r.pkg })
+        }
+    }
+
+    fun openApp(pkg: String) = _ui.update { it.copy(apps = it.apps.copy(open = pkg, message = null)) }
+    fun closeApp() = _ui.update { it.copy(apps = it.apps.copy(open = null)) }
+
+    /**
+     * Turns one app off, or uninstalls it for the TV's user, right away: a fresh backup first, the same
+     * checks as the clean-up, and a log entry so Restore and Check my TV know about it.
+     */
+    fun changeApp(pkg: String, uninstall: Boolean) {
+        val snap = snapshot ?: return
+        val lg = log ?: return
+        val row = _ui.value.apps.rows.firstOrNull { it.pkg == pkg } ?: return
+        if (row.locked || _ui.value.apps.busy != null) return
+        val remove = uninstall || row.tier == dev.tidytv.core.lists.Tier.YOURS
+        val allowKept = if (row.keptByList) setOf(pkg) else emptySet()
+        _ui.update { it.copy(apps = it.apps.copy(open = null, busy = pkg, message = null)) }
+        viewModelScope.launch {
+            val outcome = withShell { s ->
+                store.saveBackup(TvReader.backup(s, snap, System.currentTimeMillis()))
+                Debloater(s, lg, sleep = { _ -> delay(backend?.saveWaitMs ?: 0) })
+                    .run(listOf(pkg), snap.liveProtected, list?.keep.orEmpty() - allowKept, remove = if (remove) setOf(pkg) else emptySet())
+            }
+            trace.line("app $pkg uninstall=$remove: $outcome")
+            val name = _ui.value.labels[pkg] ?: row.label
+            val ok = (outcome as? dev.tidytv.core.ops.DebloatOutcome.Finished)?.results?.firstOrNull()?.isOff == true
+            val msg = when {
+                outcome == null -> RestoreUi.Finished("The TV stopped answering. Check it's on and on the same network, then try again.", ok = false)
+                ok && remove && row.tier == dev.tidytv.core.lists.Tier.YOURS -> RestoreUi.Finished("$name is uninstalled.", ok = true)
+                ok && remove -> RestoreUi.Finished("$name is uninstalled for this TV. Restore brings it back.", ok = true)
+                ok -> RestoreUi.Finished("$name is off. Turn it back on from Restore or the clean-up summary.", ok = true)
+                else -> RestoreUi.Finished("$name wouldn't turn off, so it was left as it was.", ok = false)
+            }
+            loadApps(msg)
+        }
+    }
+
     // ---------- Block ads ----------
 
     private fun enterAds() {
@@ -1040,7 +1138,7 @@ class WizardViewModel(
         val lg = log ?: return
         _ui.update { it.copy(ads = it.ads.copy(busy = true, confirmReplace = null, message = null)) }
         viewModelScope.launch {
-            val r = withShell { s -> tvLock.withLock { block(dev.tidytv.core.ops.PrivateDns(s, lg)) } }
+            val r = withShell { s -> block(dev.tidytv.core.ops.PrivateDns(s, lg)) }
             trace.line("ads: $r")
             val (state, wanted) = r ?: (null to null)
             val msg = when {

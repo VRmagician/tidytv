@@ -81,6 +81,8 @@ class LauncherLook(private val tv: TvShell, private val clock: () -> Long = Syst
             val out = theme.toMutableMap()
             if (dock.isNotEmpty()) out["dock_apps"] = JsonArray(dock.map { JsonPrimitive(it) })
             else out.remove("dock_apps")
+            // Editing stays on unless the theme itself says otherwise.
+            for (k in Commands.EDITABLE_HOME) out.putIfAbsent(k, JsonPrimitive(true))
             return JsonObject(out).toString() + "\n"
         }
     }

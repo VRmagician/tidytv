@@ -101,6 +101,8 @@ class ScreenshotTest {
     @Test fun space() = shoot("13_space", Step.SPACE, UiState(tv = summary, labels = allLabels, space = SpaceState(false, spaceStorage, topCache)))
     @Test fun spaceDone() = shoot("13b_space_done", Step.SPACE, UiState(tv = summary, labels = allLabels,
         space = SpaceState(false, dev.tidytv.core.ops.StorageFacts(7200, 10000, 90), emptyList(), message = RestoreUi.Finished("Freed 1,412 MB on your TV.", true))))
+    @Test fun apps() = shoot("15_apps", Step.APPS, UiState(tv = summary, labels = allLabels, apps = AppsState(false, allRows.take(8), emptyMap())))
+    @Test fun appsLoading() = shoot("15b_apps_loading", Step.APPS, UiState(tv = summary, apps = AppsState()))
     @Test fun adsOff() = shoot("14_ads_off", Step.ADS, UiState(tv = summary, ads = AdsState(loading = false, dns = dev.tidytv.core.ops.DnsState(null, null))))
     @Test fun adsOn() = shoot("14b_ads_on", Step.ADS, UiState(tv = summary, ads = AdsState(loading = false,
         dns = dev.tidytv.core.ops.DnsState("hostname", "dns.adguard-dns.com"), message = RestoreUi.Finished("Ad blocking is on. Open an app to see the difference.", ok = true))))
