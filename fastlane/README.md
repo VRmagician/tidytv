@@ -69,7 +69,7 @@ Promote the internal build to production (CONFIRM=1)
 [bundle exec] fastlane android release_testing
 ```
 
-Release an already-uploaded version code to closed testing (alpha) or open testing (beta). track:alpha|beta version_code:N CONFIRM=1
+Copy the production build to closed testing (alpha) or open testing (beta). track:alpha|beta CONFIRM=1
 
 ### android verify
 

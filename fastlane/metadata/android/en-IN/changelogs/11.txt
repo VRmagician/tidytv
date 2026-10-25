@@ -1,0 +1,6 @@
+What's new in 0.9.0
+• Fixes Block ads and the remote helper turn-on, which could hang.
+• Tap any app on your TV to turn it off or uninstall it, with a backup first.
+• The Apple-style home screen lets you move, remove and add apps from the TV remote.
+• Touch and hold an app to see its package ID.
+• A simpler first screen: saved TVs show if they are on, and Connect sits right under them.
