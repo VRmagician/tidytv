@@ -209,4 +209,5 @@ object Commands {
         "com.tcl.partnercustomizer",
         "com.xiaomi.mitv.upgrade",
         "com.google.android.apps.mediashell"
+    )
 }
