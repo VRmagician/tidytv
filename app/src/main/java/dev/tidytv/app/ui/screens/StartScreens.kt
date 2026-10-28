@@ -155,6 +155,7 @@ fun WelcomeScreen(
     }
 }
 
+/*
 /** A newer release is out. TidyTV is sideloaded, so this is the only way people hear about it. */
 @Composable
 private fun UpdateBanner(update: dev.tidytv.app.data.UpdateInfo, onDismiss: () -> Unit) {
@@ -173,6 +174,7 @@ private fun UpdateBanner(update: dev.tidytv.app.data.UpdateInfo, onDismiss: () -
         TextLink("Not now", onDismiss, color = Tidy.Muted)
     }
 }
+*/
 
 @Composable
 fun UnsupportedScreen(onBack: () -> Unit) {
