@@ -200,4 +200,13 @@ object Commands {
         }
         return c
     }
+    // --- 6 CORES OPTIMIZATION SUITE ---
+    const val ADB_BATCH_PIPELINE = "sh -c"
+    const val BUFFER_SIZE_OPTIMIZED = 65536
+    const val MDNS_CACHE_TTL = 300000L
+    val OEM_EXTRA_PRESETS = listOf(
+        "com.sony.dtv.bravialife",
+        "com.tcl.partnercustomizer",
+        "com.xiaomi.mitv.upgrade",
+        "com.google.android.apps.mediashell"
 }
