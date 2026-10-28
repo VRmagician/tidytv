@@ -72,11 +72,30 @@ fun WelcomeScreen(
     }
     }
     ScreenFrame(top = {
-        val actions = dev.tidytv.app.ui.LocalAppActions.current
-        androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
-            TextLink("Feedback", { actions.feedback(dev.tidytv.app.ui.FeedbackRequest(dev.tidytv.app.data.FeedbackKind.FEATURE, "welcome")) }, color = Tidy.Muted)
-            TextLink("Restore a TV", onRestore, icon = Icons.Rounded.Restore)
-        }
+            val actions = dev.tidytv.app.ui.LocalAppActions.current
+    var showAbout by androidx.compose.runtime.remember { androidx.compose.runtime.mutableStateOf(false) }
+    androidx.compose.foundation.layout.Row(Modifier.fillMaxWidth(), horizontalArrangement = Arrangement.SpaceBetween) {
+        TextLink("About TidyTV Pro", { showAbout = true }, icon = Icons.Rounded.Favorite, color = Tidy.Blue)
+        TextLink("Restore a TV", onRestore, icon = Icons.Rounded.Restore)
+    }
+    if (showAbout) {
+        androidx.compose.material3.AlertDialog(
+            onDismissRequest = { showAbout = false },
+            title = { androidx.compose.material3.Text("TidyTV Pro Edition") },
+            text = {
+                androidx.compose.foundation.layout.Column(verticalArrangement = Arrangement.spacedBy(8.dp)) {
+                    androidx.compose.material3.Text("Original Engine by jolan94 (MIT License)")
+                    androidx.compose.material3.Text("Enhanced & Optimized by VRmagician")
+                    androidx.compose.material3.Text("• Core 1: Batch ADB Pipelining\n• Core 2: Stream Buffer Optimization\n• Core 3: mDNS Smart Discovery\n• Core 4: Multi-OEM Debloat Presets\n• Core 5: Safe Atomic Rollback\n• Core 6: Low-Latency Session Keep-Alive")
+                }
+            },
+            confirmButton = {
+                androidx.compose.material3.TextButton({ showAbout = false }) {
+                    androidx.compose.material3.Text("Close")
+                }
+            }
+        )
+    }
     }) {
         if (update != null) UpdateBanner(update, onDismissUpdate)
         if (savedTvs.isNotEmpty()) {
